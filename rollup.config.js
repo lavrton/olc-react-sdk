@@ -25,7 +25,7 @@ const PLUGINS = [
 export default [
   {
     input: 'src/main.tsx',
-    external: ['react', 'prop-types'],
+    external: ['react', 'react-dom' ,'prop-types', 'polotno'],
     output: [
       { file: pkg.main, format: 'cjs' },
       { file: pkg.module, format: 'es' },
@@ -35,7 +35,7 @@ export default [
   // UMD build with inline PropTypes
   {
     input: 'src/main.tsx',
-    external: ['react'],
+    external: ['react', 'react-dom' ,'prop-types', 'polotno'],
     output: [
       {
         name: 'OLCReact',
@@ -51,7 +51,7 @@ export default [
   // Minified UMD Build without PropTypes
   {
     input: 'src/main.tsx',
-    external: ['react'],
+    external: ['react', 'react-dom' ,'prop-types', 'polotno'],
     output: [
       {
         name: 'OLCReact',
