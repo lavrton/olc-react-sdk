@@ -40,6 +40,8 @@ const TemplateBuilder: React.FC<Props> = (props) => {
   );
 
   return (
+    <>
+      {/* <div>{data}</div> */}
     <PolotnoContainer style={containerStyle}>
       <SidePanel store={store} />
       <WorkspaceWrap>
@@ -48,7 +50,11 @@ const TemplateBuilder: React.FC<Props> = (props) => {
         <ZoomButtons store={store} />
       </WorkspaceWrap>
     </PolotnoContainer>
+    </>
+   
   );
 };
 
 export default TemplateBuilder;
+
+
