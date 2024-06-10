@@ -1,0 +1,129 @@
+.confirmCancelTemplateLeaveModal {
+  .MuiPaper-root {
+    width: 100% !important;
+    max-width: 407px !important;
+    height: 100% !important;
+    max-height: 258px !important;
+    margin: 0 auto !important;
+    border-radius: 11px;
+    background: #fff8ee;
+  }
+
+  .confirmTemplateLeaveModalTitle {
+    color: #ed5c2f;
+    text-align: center;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .confirmTemplateLeaveModalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 16px 0px 16px !important;
+
+    .trashIconWrapper {
+      text-align: center;
+
+      p {
+        color: #ed5c2f;
+        text-align: center;
+        font-family: Inter;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-top: 12px;
+      }
+    }
+
+    .confirmTemplateLeaveText {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      p {
+        color: #000;
+        text-align: center;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+
+        &:last-child {
+          color: #000;
+          text-align: center;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16px;
+          /* 114.286% */
+          letter-spacing: 0.28px;
+          margin: 0;
+        }
+      }
+    }
+
+    .MuiInputBase-root {
+      border-radius: 7px;
+      border: 0.5px solid #303030;
+      background: #fff;
+      width: 100%;
+      padding: 10px 22px;
+
+      &:focus,
+      &:focus-visible {
+        outline: none !important;
+      }
+
+      &::after,
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+
+  .actionBtns {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 13px;
+    gap: 11px;
+
+    button {
+      border-radius: 3px !important;
+      text-transform: capitalize;
+
+      &:first-child {
+        border: 0.5px solid rgba(48, 48, 48, 0.5);
+        background: #fff;
+        color: #000;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        min-width: 100px !important;
+        min-height: 40px !important;
+      }
+
+      &:last-child {
+        color: #fff;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        background: #ed5c2f;
+        max-width: 146px !important;
+        min-height: 40px !important;
+      }
+    }
+  }
+}

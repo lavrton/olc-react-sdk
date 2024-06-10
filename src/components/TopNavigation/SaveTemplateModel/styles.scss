@@ -1,0 +1,134 @@
+.confirmTemplateSaveModal {
+  .MuiPaper-root {
+    width: 100% !important;
+    max-width: 433px !important;
+    height: 100% !important;
+    max-height: 290px !important;
+    margin: 0 auto !important;
+    border-radius: 11px;
+    background: #fff8ee;
+  }
+
+  .confirmTemplateSaveModalTitle {
+    color: #ed5c2f;
+    text-align: center;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .confirmTemplateSaveModalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px 16px 0px;
+
+    .trashIconWrapper {
+      text-align: center;
+
+      p {
+        color: #ed5c2f;
+        text-align: center;
+        font-family: Inter;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-top: 10px;
+      }
+    }
+
+    .confirmTemplateSaveText {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      p {
+        color: #000;
+        text-align: center;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+
+        &:last-child {
+          color: #000;
+          text-align: center;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16px;
+          /* 114.286% */
+          letter-spacing: 0.28px;
+          margin: 0;
+        }
+      }
+    }
+
+    .MuiInputBase-root {
+      border-radius: 7px;
+      border: 0.5px solid #303030;
+      background: #fff;
+      width: 100%;
+      padding: 10px 22px;
+
+      &:focus,
+      &:focus-visible {
+        outline: none !important;
+      }
+
+      &::after,
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+
+  .actionBtns {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 20px;
+
+    button {
+      border-radius: 5px;
+      text-transform: capitalize;
+      width: 100%;
+      max-width: 107px;
+      height: 100%;
+      min-height: 41px;
+
+      &:first-child {
+        border: 0.5px solid rgba(48, 48, 48, 0.5);
+        background: #fff;
+        color: #000;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+
+      &:last-child {
+        color: #fff;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        background: #ed5c2f;
+        margin: 0;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+}

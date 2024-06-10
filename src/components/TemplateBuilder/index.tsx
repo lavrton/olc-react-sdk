@@ -43,6 +43,10 @@ const TemplateBuilder: React.FC<Props> = (props) => {
     <>
       {/* <div>{data}</div> */}
     <PolotnoContainer style={containerStyle}>
+      <TopNavigation showViewProofButton={true}
+        showBackButton={false}
+        store={store}
+        isStoreUpdated={isStoreUpdated} />
       <SidePanel store={store} />
       <WorkspaceWrap>
         <Toolbar store={store} />

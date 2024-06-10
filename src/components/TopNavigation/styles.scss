@@ -1,0 +1,105 @@
+@import '../../styles/colors';
+
+.top-navigation-container {
+  position: fixed;
+  width: 100%;
+  padding: 40px 20px 23px 20px;
+  height: 63px;
+  background: $white;
+  margin: 0;
+  top: 96.5px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+
+  & button {
+    max-width: 120px !important;
+    text-transform: capitalize;
+    color: $black;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  & button.active {
+    border: 0.5px solid $primaryColor;
+    background: $primaryColor;
+    color: $white;
+    text-transform: capitalize;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    & p {
+      color: $white;
+    }
+  }
+
+  & .MuiGrid-item {
+    padding-top: 0 !important;
+  }
+
+  & .left {
+    justify-content: flex-start !important;
+  }
+
+  & .middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & p {
+      text-align: center;
+      margin-bottom: 0px;
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+  & .right {
+    gap: 10px !important;
+
+    & button {
+      border-radius: 3px !important;
+      text-transform: capitalize;
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      &:first-child{
+        color: $black;
+        background-color: $white;
+        border: 0.5px solid $black !important;
+        width: 100%;
+        max-width: fit-content !important;
+
+        &.loading {
+          max-width: 123.65px !important;
+        }
+      } 
+
+
+      
+      &:nth-child(2){
+        color: $primaryColor;
+        background-color: $white;
+        border: 0.5px solid $primaryColor !important;
+      }
+      
+      &:last-child{
+        color: $white;
+        background-color: $primaryColor;
+      }
+    }
+  }
+}

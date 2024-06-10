@@ -1,0 +1,92 @@
+.editTemplateNameModal {
+  .MuiPaper-root {
+    width: 100% !important;
+    max-width: 623px !important;
+    height: 100% !important;
+    max-height: 230px !important;
+    margin: 0 auto !important;
+    border-radius: 11px;
+    background: #fff8ee;
+  }
+
+  .editTemplateNameModalTitle {
+    color: #ed5c2f;
+    text-align: center;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 16px 16px 0px !important;
+  }
+
+  .editTemplateNameModalContent {
+    padding: 0px 30px !important;
+
+    p {
+      color: #303030;
+      font-family: Inter;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin: 10px 0px 10px 0px;
+    }
+
+    .MuiInputBase-root {
+      border-radius: 7px;
+      border: 0.5px solid #303030;
+      background: #fff;
+      width: 100%;
+      padding: 9.8px 22px;
+
+      &:focus,
+      &:focus-visible {
+        outline: none !important;
+      }
+
+      &::after,
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+
+  .actionBtns {
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+    gap: 20px;
+
+    button {
+      border-radius: 5px;
+      text-transform: capitalize;
+      width: 100%;
+      max-width: 107px;
+      height: 100%;
+      min-height: 41px;
+
+      &:first-child {
+        border: 0.5px solid rgba(48, 48, 48, 0.5);
+        background: #fff;
+        color: #000;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+
+      &:last-child {
+        color: #fff;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        background: #ed5c2f;
+        margin: 0;
+      }
+    }
+  }
+}
