@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import type { StoreType } from 'polotno/model/store';
 import {SidePanel as PolotnoSidePanel, DEFAULT_SECTIONS} from 'polotno/side-panel';
-import CustomSection from './customTemplateSection';
+import customTemplateSection from './templates/customTemplateSection';
+import customFieldSection from './customFields/customFieldSection';
+
 
 interface Props {
   store: StoreType;
@@ -17,7 +19,7 @@ const SidePanel: React.FC<Props> = (props) => {
   
   return (
     <SidePanelWrap>
-      <PolotnoSidePanel store={props.store} sections={[CustomSection, ...sections]} defaultSection="text" />
+      <PolotnoSidePanel store={props.store} sections={[customTemplateSection, ...sections, customFieldSection]} defaultSection="text" />
     </SidePanelWrap>
   );
 };

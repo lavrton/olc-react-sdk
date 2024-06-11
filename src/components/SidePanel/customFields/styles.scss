@@ -1,0 +1,44 @@
+.dynamic-icon{
+    width:20px;
+    height: 20px;
+}
+.dynamic-content{
+    & .dynamic-content__top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 8px auto;
+        & .title{
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19.36px;
+            color: #ED5C2F;
+            font-family: Inter;
+        }
+        & .icon{
+            width: 12px;
+            height: 12px;
+            cursor: pointer;
+        }
+        & .plus-icon{
+            // margin-right: 6px;
+        }
+    }
+
+    & .divider{
+        margin-top: 10px;
+        color: #44424145;
+    }
+
+    & .contact-element{
+        width: 100%;
+        border-radius: 3px;
+        border: 0.5px solid #303030;
+        text-align: center;
+        height: 35px;
+        line-height: 35px;
+        margin: 5px auto;
+    }
+    
+}

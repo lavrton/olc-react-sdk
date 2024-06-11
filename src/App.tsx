@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
 import {TemplateBuilder} from './index';
 
-// images
-import Delete from './assets/images/modal-icons/del';
-
 // components
 import Button from './components/GenericUIBlocks/Button';
 import Typography from './components/GenericUIBlocks/Typography';

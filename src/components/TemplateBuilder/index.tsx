@@ -33,7 +33,6 @@ const TemplateBuilder: React.FC<Props> = (props) => {
     showCredit: false,
   });
 
-
   const containerStyle = merge(
     {
       width: '100vw',

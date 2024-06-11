@@ -1,0 +1,152 @@
+.polotno-panel-container {
+  overflow-y: scroll;
+
+  & .custom-template-section {
+    display: "flex";
+    flex-wrap: "wrap";
+    overflow-y: "scroll";
+
+    & .title {
+      & span {
+        font-size: 16px;
+        font-weight: 600;
+        color: #ed5c2f;
+      }
+    }
+    @mixin designCommonStyles {
+      width: 320px;
+      height: 224px;
+      border-radius: 3px;
+      border: 0.5px solid #303030;
+      margin: 10px auto;
+      cursor: pointer;
+    }
+    & .default-design {
+      @include designCommonStyles;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      & p {
+        color: #303030;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 14.52px;
+        margin-top: 5px;
+      }
+    }
+    & .design-template {
+      @include designCommonStyles;
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.dummy-image {
+  padding: 85px;
+  object-fit: fill !important;
+}
+
+.MuiTabs-indicator {
+  background-color: #ed5c2f !important;
+}
+
+.templateTabsWrapper {
+  .templateTabs {
+    .MuiTabScrollButton-root {
+      width: 15px;
+      opacity: 1 !important;
+      &:hover {
+        svg {
+          color: #ed5c2f !important;
+        }
+      }
+      .Mui-disabled {
+        opacity: 1 !important;
+      }
+    }
+  }
+}
+
+.noTemplateText {
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    color: #303030;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
+
+.searchWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  position: relative;
+
+  .searchInput {
+    border-radius: 3px;
+    border: 0.5px solid rgba(68, 66, 65, 0.5);
+    background: #fff;
+    width: 100%;
+    max-width: 520px;
+    padding: 5px 20px;
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: 40px;
+    width: 514px;
+    // position: relative;
+    &::after,
+    &::before {
+      display: none;
+    }
+
+    .searchIcon {
+      position: relative;
+      color: #ed5c2f;
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: 1px;
+        height: 90%;
+        background-color: #000;
+        left: -5px;
+        opacity: 0.5;
+      }
+    }
+
+  }
+  
+  .searchApplied {
+    background: #fff8ee;
+    input {
+      padding-right: 28px;
+    }
+  }
+
+  .clearSerach {
+      position: absolute;
+      top: 10px;
+      right: 55px;
+      font-size: 18px;
+      opacity: 0.6;
+      cursor: pointer;
+    }
+}
