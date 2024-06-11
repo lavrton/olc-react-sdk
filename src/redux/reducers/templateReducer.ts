@@ -16,7 +16,7 @@ import {
   };
   
 
-  const templateReducer = (state = initialState, action: any): TemplateState => {
+const templateReducer = (state = initialState, action: any): TemplateState => {
     switch (action.type) {
       case FETCH_TEMPLATES_REQUEST:
         return {
@@ -28,7 +28,7 @@ import {
         return {
           ...state,
           loading: false,
-          templates: action.payload.data,
+          templates: action.payload,
         };
       default:
         return state;
