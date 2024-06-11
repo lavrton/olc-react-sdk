@@ -1,0 +1,35 @@
+.basic-progress{
+    position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 4px solid #ed5c2f;
+    border-right: 3px solid transparent;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: circularAnimation 2s linear infinite;
+  
+
+  @keyframes circularAnimation {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+}
+
+.hide-loader {
+  &::after {
+    display: none !important; /* Hide the pseudo-element */
+  }
+}
+}
