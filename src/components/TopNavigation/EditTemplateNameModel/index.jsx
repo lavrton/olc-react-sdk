@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-import { Input } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import Button from '@mui/material/Button';
+import {styled} from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import {Input} from '@mui/material';
+import {useDispatch, useSelector} from 'react-redux';
 // Styles
-import "./styles.scss";
+import './styles.scss';
 // images
-import Close from "../../../../assets/images/modal/modal-cross.jsx";
+import Close from '../../../../assets/images/modal/modal-cross.jsx';
 
-import { searchAndAdvanceChange } from "../../../../redux/actions/template-builder";
-import { failure } from "../../../../redux/actions/snackbar-actions";
-import { MESSAGES } from "../../../../utils/message";
+import {searchAndAdvanceChange} from '../../../../redux/actions/template-builder';
+import {failure} from '../../../../redux/actions/snackbar-actions';
+import {MESSAGES} from '../../../../utils/message';
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
+const BootstrapDialog = styled(Dialog)(({theme}) => ({
+  '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
   },
-  "& .MuiDialogActions-root": {
+  '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
   },
 }));
@@ -38,16 +38,21 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
  * @returns {JSX.Element} The duplicate template modal component.
  *
  */
-const EditTemplateNameModel = ({ open, handleClose }) => {
-  const [title, setTitle] = useState("");
+const EditTemplateNameModel = ({open, handleClose}) => {
+  const [title, setTitle] = useState('');
+
   const dispatch = useDispatch();
-  const templateTitle = useSelector((state) => state.templateReducer.title);
+
+  const templateTitle =
+    useSelector((state) => state.templateReducer.title) || '';
+
   useEffect(() => {
     setTitle(templateTitle);
   }, []);
+  
   // Handle the duplication of the template
   const handleEditName = async () => {
-    let errorText = "";
+    let errorText = '';
     if (!title) {
       errorText = MESSAGES.TEMPLATE.NAME_REQUIRED;
     } else if (title.length > 50) {
@@ -57,12 +62,9 @@ const EditTemplateNameModel = ({ open, handleClose }) => {
       dispatch(failure(errorText));
       return;
     }
-    dispatch(searchAndAdvanceChange("title", title.trim()));
-    handleCloseDialog();
+    dispatch(searchAndAdvanceChange('title', title.trim()));
+    handleClose(false)
   };
-
-  // Close the modal
-  const handleCloseDialog = () => handleClose(false);
 
   return (
     <BootstrapDialog
@@ -73,7 +75,7 @@ const EditTemplateNameModel = ({ open, handleClose }) => {
     >
       <DialogTitle
         className="editTemplateNameModalTitle"
-        sx={{ m: 0, p: 2 }}
+        sx={{m: 0, p: 2}}
         id="customized-dialog-title"
       >
         Edit Template Name
@@ -82,10 +84,10 @@ const EditTemplateNameModel = ({ open, handleClose }) => {
         aria-label="close"
         onClick={handleCloseDialog}
         sx={{
-          position: "absolute",
+          position: 'absolute',
           right: 5,
           top: 5,
-          padding: "0",
+          padding: '0',
           color: (theme) => theme.palette.grey[500],
         }}
       >
@@ -110,16 +112,6 @@ const EditTemplateNameModel = ({ open, handleClose }) => {
       </DialogActions>
     </BootstrapDialog>
   );
-};
-
-// Prop types
-EditTemplateNameModel.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-};
-
-EditTemplateNameModel.defaultProps = {
-  open: false,
 };
 
 export default EditTemplateNameModel;

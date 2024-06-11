@@ -9,6 +9,7 @@ import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import SidePanel from '../SidePanel';
 import { fetchTemplates } from '../../redux/actions/templateActions';
 import { AppDispatch } from '../../redux/store';
+import TopNavigation from '../TopNavigation';
 
 interface Props {
   apiKey: string;
@@ -41,12 +42,8 @@ const TemplateBuilder: React.FC<Props> = (props) => {
 
   return (
     <>
-      {/* <div>{data}</div> */}
     <PolotnoContainer style={containerStyle}>
-      <TopNavigation showViewProofButton={true}
-        showBackButton={false}
-        store={store}
-        isStoreUpdated={isStoreUpdated} />
+      <TopNavigation />
       <SidePanel store={store} />
       <WorkspaceWrap>
         <Toolbar store={store} />

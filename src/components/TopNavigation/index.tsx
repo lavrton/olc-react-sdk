@@ -18,12 +18,20 @@ import {useNavigate, useParams} from 'react-router-dom';
 // Components
 // import EditTemplateNameModel from './EditTemplateNameModel';
 // import SaveTemplateModel from './SaveTemplateModel';
-// import ConfirmNavigateDialog from './ConfirmNavigateDialog/ConfirmNavigateDialog';
+import ConfirmNavigateDialog from './ConfirmNavigateDialog';
 
 // Utils
 import {multiPageTemplates} from '../../utils/template-builder';
 import fonts from '../../utils/fonts.json';
 import {getItem, setItem} from '../../utils/local-storage';
+import Typography from "../GenericUIBlocks/Typography";
+import Button from "../GenericUIBlocks/Button";
+import CircularProgress from "../GenericUIBlocks/CircularProgress";
+
+
+
+
+
 // import {MESSAGES} from '../../../utils/message';
 
 // MUI Components
@@ -35,6 +43,8 @@ import {getItem, setItem} from '../../utils/local-storage';
 //   span,
 //   CircularProgress,
 // } from '@mui/material';
+
+
 
 // Icons
 // import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
@@ -57,7 +67,7 @@ const SAVE_button_TEXT = 'Save';
 
 const TopNavigation = ({
   id,
-  showBackbutton,
+  showBackButton = true,
   store,
   isStoreUpdated,
   showViewProofbutton,
@@ -65,7 +75,7 @@ const TopNavigation = ({
   // TODO: Take Template ID from props instead of route
   // const { id } = useParams();
 
-  const [showNavigateDialog, setShowNavigateDialog] = useState(false);
+  const [showNavigateDialog, setShowNavigateDialog] = useState(true);
   const [isShowModel, setIsShowModel] = useState({
     open: false,
     model: '',
@@ -338,24 +348,21 @@ const TopNavigation = ({
   return (
     <div
       className="top-navigation-container"
-      sx={{
-        top: '96.5px',
-      }}
     >
-      {/* {showNavigateDialog && (
+      {showNavigateDialog && (
         <ConfirmNavigateDialog
           open={showNavigateDialog}
           handleClose={() => setShowNavigateDialog(false)}
           handleNavigateAction={handleNavigation}
         />
-      )} */}
-      {/* {isShowModel.open && isShowModel.model === 'edit' && (
+      )}
+      {/* {isShowModel.open && isShowModel.model === "edit" && (
         <EditTemplateNameModel
           open={isShowModel.open}
           handleClose={() => handleChangeModel()}
         />
       )} */}
-      {/* {isShowModel.open && isShowModel.model === 'save' && (
+      {/* {isShowModel.open && isShowModel.model === "save" && (
         <SaveTemplateModel
           loading={isShowModel.loading}
           open={isShowModel.open}
@@ -365,62 +372,53 @@ const TopNavigation = ({
       )} */}
       <div container spacing={2}>
         <div item lg={4} md={4} sm={2} xs={4}>
-          {showBackbutton && (
+          {showBackButton && (
             <div className="actionsBtnWrapper left">
-              <button
+              <Button
                 className="templateCreateBtn active"
                 onClick={handleBackPress}
               >
                 {/* <ArrowBackRoundedIcon /> */}
-                <span>Templates</span>
-              </button>
+                <Typography>Templates</Typography>
+              </Button>
             </div>
           )}
         </div>
         <div item lg={4} md={2} sm={2} xs={4}>
           <div className="middle">
-            <span>{title} </span>
-            <button onClick={() => handleChangeModel('edit')}>
-              {/* <img src={EditIcon} /> */}
-            </button>
+            <Typography>{title} </Typography>
+            {/* <IconButton onClick={() => handleChangeModel("edit")}>
+              <img src={EditIcon} />
+            </IconButton> */}
           </div>
         </div>
         <div item lg={4} md={6} sm={8} xs={4}>
           <div className="actionsBtnWrapper right">
-            <button
-              onClick={handleViewProofWithLamda}
-              className={downloadingProof ? 'loading' : ''}
-            >
-              {/* {downloadingProof ? (
+            <Button onClick={handleViewProofWithLamda} className={downloadingProof ? "loading" : ''}>
+              {downloadingProof ? (
                 <CircularProgress
                   sx={{
-                    color: '#ed5c2f',
-                    width: '25px !important',
-                    height: '25px !important',
+                    color: "#ed5c2f",
+                    width: "25px !important",
+                    height: "25px !important",
                   }}
                 />
               ) : (
-                'Download Proof'
-              )} */}
-              Download Proof
-            </button>
-            <button onClick={handleBackPress}> Cancel</button>
-            <button
+                "Download Proof"
+              )}
+            </Button>
+            <Button onClick={handleBackPress}> Cancel</Button>
+            <Button
               className="templateCreateBtn active"
-              onClick={() => handleChangeModel('save')}
+              onClick={() => handleChangeModel("save")}
             >
-              <span>{SAVE_button_TEXT}</span>
-            </button>
+              <Typography>{'Save'}</Typography>
+            </Button>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-TopNavigation.defaultProps = {
-  showBackbutton: true,
-  showViewProofbutton: false,
 };
 
 export default TopNavigation;
