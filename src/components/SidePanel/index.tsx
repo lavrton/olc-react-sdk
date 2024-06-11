@@ -6,7 +6,6 @@ import type { StoreType } from 'polotno/model/store';
 import {SidePanel as PolotnoSidePanel, DEFAULT_SECTIONS} from 'polotno/side-panel';
 import CustomSection from './customTemplateSection';
 
-
 interface Props {
   store: StoreType;
 }

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { PolotnoContainer, WorkspaceWrap } from 'polotno';
 import { createStore } from 'polotno/model/store';
 import merge from 'deepmerge';
@@ -8,29 +7,23 @@ import { Toolbar } from 'polotno/toolbar/toolbar';
 import { Workspace } from 'polotno/canvas/workspace';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import SidePanel from '../SidePanel';
-import { toJS } from 'mobx'; // Import toJS from MobX
-import { setData } from '../../redux/actions/appActions'; // Correct import
-import { AppState } from '../../redux/reducers';
-import { AppDispatch } from '../../redux/store'; // Import AppDispatch
-
-
-interface TemplateBuilderUI {
-  sidePanel: object | null;
-}
+import { fetchTemplates } from '../../redux/actions/templateActions';
+import { AppDispatch } from '../../redux/store';
 
 interface Props {
   apiKey: string;
   secret: string;
-  ui?: TemplateBuilderUI;
+  ui?: {
+    sidePanel: object | null;
+  };
   containerStyle?: React.CSSProperties;
 }
 
 const TemplateBuilder: React.FC<Props> = (props) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const data = useSelector((state: AppState) => state.dummy.data);
+  const dispatch: AppDispatch = useDispatch(); 
 
   useEffect(() => {
-    dispatch(setData('Redux Thunk is working!'));
+    dispatch(fetchTemplates());
   }, [dispatch]);
 
   const store = createStore({
@@ -38,13 +31,15 @@ const TemplateBuilder: React.FC<Props> = (props) => {
     showCredit: false,
   });
 
-  const containerStyle = merge({
-    width: '100vw', height: '100vh',
-  }, props.containerStyle || {});
+  const containerStyle = merge(
+    {
+      width: '100vw',
+      height: '100vh',
+    },
+    props.containerStyle || {}
+  );
 
   return (
-    <>
-      {/* <div>{data}</div> */}
     <PolotnoContainer style={containerStyle}>
       <SidePanel store={store} />
       <WorkspaceWrap>
@@ -53,20 +48,7 @@ const TemplateBuilder: React.FC<Props> = (props) => {
         <ZoomButtons store={store} />
       </WorkspaceWrap>
     </PolotnoContainer>
-    </>
-   
   );
 };
 
-TemplateBuilder.propTypes = {
-  apiKey: PropTypes.string.isRequired,
-  secret: PropTypes.string.isRequired,
-/*ui: PropTypes.shape({
-    //sidePanel: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  }),*/
-  containerStyle: PropTypes.object,
-};
-
 export default TemplateBuilder;
-
-
