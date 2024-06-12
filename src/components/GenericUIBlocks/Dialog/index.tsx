@@ -6,8 +6,6 @@ import './styles.scss'
 // components
 import Button from '../Button';
 
-// images
-import Delete from '../../../assets/modal-icons/del'
 import Typography from '../Typography';
 
 const buttonStyles = {
@@ -33,16 +31,18 @@ const subHeadingStyle = {
 
 const Dialog = (props: any) => {
   const {
-    customStyles,
-    open,
-    handleClose,
-    title,
-    subHeading,
-    desscription,
-    onSubmit,
-    onCancel,
-    cancelText,
-    submitText,
+    icon,
+    customStyles={},
+    open={},
+    handleClose={},
+    title="",
+    subHeading="",
+    description="",
+    onSubmit={},
+    onCancel={},
+    cancelText="",
+    submitText="",
+    children={}
   } = props;
   return (
     <div
@@ -57,19 +57,24 @@ const Dialog = (props: any) => {
           </span>
         </div>
         <div className="modal-body">
-          <Delete />
+          {icon}
           <Typography variant="p" style={heading}>
             {title}
           </Typography>
-          <Typography variant="p" style={subHeadingStyle}>
-            {subHeading}
-          </Typography>
-          <Typography
-            variant="p"
-            style={{...subHeadingStyle, fontWeight: '400'}}
-          >
-            {desscription}
-          </Typography>
+          {subHeading && (
+            <Typography variant="p" style={subHeadingStyle}>
+              {subHeading}
+            </Typography>
+          )}
+          {description && (
+            <Typography
+              variant="p"
+              style={{...subHeadingStyle, fontWeight: '400'}}
+            >
+              {description}
+            </Typography>
+          )}
+          {children}
         </div>
         <div className="modal-footer">
           <Button
