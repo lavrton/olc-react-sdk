@@ -7,7 +7,7 @@ import './styles.scss'
 import Button from '../Button';
 
 // images
-import Delete from '../../../assets/modal-icons/delete.svg'
+import Delete from '../../../assets/modal-icons/del'
 import Typography from '../Typography';
 
 const buttonStyles = {
@@ -24,21 +24,31 @@ const heading = {
   fontWeight: "700"
 };
 
-const subHeading = {
+const subHeadingStyle = {
   fontSize: '16px',
   color: 'black',
   fontWeight: "700",
   textAlign: 'center'
 };
 
-const Dialog = ({open={}, handleClose={}, customStyles={}}: any) => {
+const Dialog = (props: any) => {
+  const {
+    customStyles,
+    open,
+    handleClose,
+    title,
+    subHeading,
+    desscription,
+    onSubmit,
+    onCancel,
+    cancelText,
+    submitText,
+  } = props;
   return (
     <div
       id="myModal"
       className="modal"
-      style={{
-        display: open && 'flex',
-      }}
+      style={{display: open ? 'flex' : 'none'}}
     >
       <div className="modal-content" style={customStyles}>
         <div className="modal-header">
@@ -47,29 +57,29 @@ const Dialog = ({open={}, handleClose={}, customStyles={}}: any) => {
           </span>
         </div>
         <div className="modal-body">
-          <img src={Delete} alt="delete" />
+          <Delete />
           <Typography variant="p" style={heading}>
-            Delete Template
+            {title}
           </Typography>
-          <Typography variant="p" style={{...subHeading, fontWeight: '700'}}>
-            Are you sure you want to delete this Template?
+          <Typography variant="p" style={subHeadingStyle}>
+            {subHeading}
           </Typography>
-          <Typography variant="p" style={{...subHeading, fontWeight: '400'}}>
-            This template will be deleted from your Templates list but will
-            still be included in associated orders.
+          <Typography
+            variant="p"
+            style={{...subHeadingStyle, fontWeight: '400'}}
+          >
+            {desscription}
           </Typography>
         </div>
         <div className="modal-footer">
           <Button
+            onClick={onCancel}
             style={{...buttonStyles, color: 'black', backgroundColor: 'white'}}
           >
-            No
+            {cancelText}
           </Button>
-          <Button
-            style={{...buttonStyles, border: 'none'}}
-            onClick={handleClose}
-          >
-            Yes
+          <Button style={{...buttonStyles, border: 'none'}} onClick={onCancel}>
+            {submitText}
           </Button>
         </div>
       </div>
