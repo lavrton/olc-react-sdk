@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {TemplateBuilder} from './index';
+import {useSnackbar} from 'react-simple-snackbar';
 
 // images
 import Delete from './assets/images/modal-icons/del';
@@ -46,17 +47,35 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
+  
+  const options = {
+    position: 'bottom-center',
+    style: {
+      backgroundColor: 'midnightblue',
+      border: '2px solid lightgreen',
+      color: 'lightblue',
+      fontFamily: 'Menlo, monospace',
+      fontSize: '20px',
+      textAlign: 'center',
+    },
+    closeStyle: {
+      color: 'lightcoral',
+      fontSize: '16px',
+    },
+  };
+
+  const [openSnackbar, closeSnackbar] = useSnackbar(options);
 
   return (
     <>
-      <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
+      {/* <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" /> */}
       <Button onClick={handleOpen} style={buttonStyles}>
         Button
       </Button>
       <Typography className="tool" variant="p" style={typoStyles}>
         Typography
       </Typography>
-      <Tooltip anchorSelect=".tool" place="bottom">
+      <Tooltip anchorSelect=".tool" place="top">
         Hello world!
       </Tooltip>
       <CircularProgress style={progressStyles} />
@@ -98,6 +117,16 @@ function App() {
           </GridItem>
         </GridContainer>
       </Dialog>
+      <div>
+        <button
+          onClick={() => openSnackbar('This is the content of the Snackbar.')}
+        >
+          Click me to open the Snackbar!
+        </button>
+        <button onClick={closeSnackbar}>
+          Click me to close the Snackbar programmatically.
+        </button>
+      </div>
     </>
   );
 }

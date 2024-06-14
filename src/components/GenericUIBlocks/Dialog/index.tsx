@@ -5,7 +5,6 @@ import './styles.scss'
 
 // components
 import Button from '../Button';
-
 import Typography from '../Typography';
 
 const buttonStyles = {
@@ -14,6 +13,7 @@ const buttonStyles = {
   maxWidth: '100px',
   minHeight: '40px',
   border: '0.5px solid rgba(48, 48, 48, 0.5)',
+  fontSize: "14px"
 };
 
 const heading = {
@@ -44,6 +44,7 @@ const Dialog = (props: any) => {
     submitText="",
     children=[]
   } = props;
+  const contentAdjust = submitText.length > 6 ? "fit-content" : "100px"
   return (
     <div
       id="myModal"
@@ -83,7 +84,10 @@ const Dialog = (props: any) => {
           >
             {cancelText}
           </Button>
-          <Button style={{...buttonStyles, border: 'none'}} onClick={onSubmit}>
+          <Button
+            style={{...buttonStyles, border: 'none', maxWidth: contentAdjust}}
+            onClick={onSubmit}
+          >
             {submitText}
           </Button>
         </div>

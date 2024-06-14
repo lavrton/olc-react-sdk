@@ -58,6 +58,9 @@ import CircularProgress from "../GenericUIBlocks/CircularProgress";
 import './styles.scss';
 import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 import Dialog from '../GenericUIBlocks/Dialog';
+import BackArrow from '../../assets/images/templates/back-arrow';
+import { Tooltip } from 'react-tooltip';
+import ModalCross from '../../assets/images/modal-icons/modal-cross';
 
 const SAVE_button_TEXT = 'Save';
 
@@ -77,12 +80,18 @@ const buttonStyles = {
   backgroundColor: '#fff',
   color: '#000',
   border: '0.5px solid #303030',
+  fontSize: '15px'
 };
 
 const saveDialogStyles={
   maxWidth: "433px",
   minHeight: "290px"
 }
+
+const cancelDialogStyles = {
+  maxWidth: '450px',
+  minHeight: '260px',
+};
 
 const progressStyles = {
   width: '20px',
@@ -151,11 +160,11 @@ const TopNavigation = ({
   };
 
   const handleBackPress = () => {
-    if (isStoreUpdated) {
+    // if (isStoreUpdated) {
       setShowNavigateDialog(!showNavigateDialog);
-    } else {
-      handleNavigation();
-    }
+    // } else {
+    //   handleNavigation();
+    // }
   };
 
   const handleNavigation = async () => {
@@ -371,13 +380,26 @@ const TopNavigation = ({
 
   return (
     <div className="top-navigation-container">
-      {/* {showNavigateDialog && (
-        <ConfirmNavigateDialog
-          open={showNavigateDialog}
+      {showNavigateDialog && (
+        // <ConfirmNavigateDialog
+        //   open={showNavigateDialog}
+        //   handleClose={() => setShowNavigateDialog(false)}
+        //   handleNavigateAction={handleNavigation}
+        // />
+        <Dialog
+        icon={<ModalCross/>}
+          customStyles={cancelDialogStyles}
+          open={open}
           handleClose={() => setShowNavigateDialog(false)}
-          handleNavigateAction={handleNavigation}
+          title="Confirm Cancel Template"
+          subHeading="Are you sure you want to cancel this Template?"
+          description="You will lose your changes after canceling."
+          onSubmit={handleNavigation}
+          onCancel={() => setShowNavigateDialog(false)}
+          cancelText="Go Back"
+          submitText="Cancel Template"
         />
-      )} */}
+      )}
       {/* {isShowModel.open && isShowModel.model === "edit" && (
         <EditTemplateNameModel
           open={isShowModel.open}
@@ -415,13 +437,19 @@ const TopNavigation = ({
                   border: 'none',
                   backgroundColor: '#ed5c2f',
                   color: '#fff',
+                  maxWidth: 'fit-content',
                 }}
-                className="templateCreateBtn active"
+                className="active"
                 onClick={handleBackPress}
               >
-                {/* <ArrowBackRoundedIcon /> */}
-                Templates
+                <div className="templateCreateBtn">
+                  <BackArrow />
+                  Templates
+                </div>
               </Button>
+              <Tooltip anchorSelect=".active" place="top">
+                Hello world!
+              </Tooltip>
             </div>
           )}
         </GridItem>
@@ -445,7 +473,7 @@ const TopNavigation = ({
                 'Download Proof'
               )}
             </Button>
-            <Button style={buttonStyles} onClick={handleBackPress}>
+            <Button style={buttonStyles} onClick={()=>handleBackPress()}>
               Cancel
             </Button>
             <Button
@@ -455,7 +483,6 @@ const TopNavigation = ({
                 backgroundColor: '#ed5c2f',
                 color: '#fff',
               }}
-              className="templateCreateBtn active"
               onClick={() => handleChangeModel('save')}
             >
               Save
