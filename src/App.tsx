@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {TemplateBuilder} from './index';
 import {useSnackbar} from 'react-simple-snackbar';
 
+
 // images
 import Delete from './assets/images/modal-icons/del';
 
@@ -12,8 +13,9 @@ import CircularProgress from './components/GenericUIBlocks/CircularProgress';
 import Dialog from './components/GenericUIBlocks/Dialog';
 import {GridContainer, GridItem} from './components/GenericUIBlocks/Grid';
 import Input from './components/GenericUIBlocks/Input';
-import {Tooltip} from 'react-tooltip';
-import 'react-tooltip/dist/react-tooltip.css';
+import Snackbar from './components/GenericUIBlocks/Snackbar';
+import GeneralSelect from './components/GenericUIBlocks/GeneralSelect';
+import GeneralTootip from './components/GenericUIBlocks/GeneralTooltip';
 
 const buttonStyles = {
   fontSize: '30px',
@@ -35,10 +37,29 @@ const progressStyles = {
   height: '50px',
 };
 
+const options = {
+  position: 'top-right',
+  style: {
+    backgroundColor: '#EF7820',
+    width: '400px',
+    color: 'white',
+    fontFamily: 'Inter',
+    fontSize: '16px',
+    textAlign: 'center',
+  },
+  closeStyle: {
+    color: 'white',
+    fontSize: '16px',
+  },
+};
+
+
 function App() {
   const [open, setOpen] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [openSnackbar] = useSnackbar(options);
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -47,24 +68,6 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-  
-  const options = {
-    position: 'bottom-center',
-    style: {
-      backgroundColor: 'midnightblue',
-      border: '2px solid lightgreen',
-      color: 'lightblue',
-      fontFamily: 'Menlo, monospace',
-      fontSize: '20px',
-      textAlign: 'center',
-    },
-    closeStyle: {
-      color: 'lightcoral',
-      fontSize: '16px',
-    },
-  };
-
-  const [openSnackbar, closeSnackbar] = useSnackbar(options);
 
   return (
     <>
@@ -75,9 +78,9 @@ function App() {
       <Typography className="tool" variant="p" style={typoStyles}>
         Typography
       </Typography>
-      <Tooltip anchorSelect=".tool" place="top">
-        Hello world!
-      </Tooltip>
+      {/* tooltip starts */}
+      <GeneralTootip anchorSelect=".tool" place="top" title="Hello world!" />
+      {/* tooltip ends*/}
       <CircularProgress style={progressStyles} />
       <Dialog
         icon={<Delete />}
@@ -117,16 +120,14 @@ function App() {
           </GridItem>
         </GridContainer>
       </Dialog>
-      <div>
-        <button
-          onClick={() => openSnackbar('This is the content of the Snackbar.')}
-        >
-          Click me to open the Snackbar!
-        </button>
-        <button onClick={closeSnackbar}>
-          Click me to close the Snackbar programmatically.
-        </button>
-      </div>
+      <button onClick={() => openSnackbar(<Snackbar />, 1000)}>
+        Click me to open the Snackbar!
+      </button>
+      <GridContainer>
+        <GridItem xl={6} lg={3} md={12}>
+          <GeneralSelect />
+        </GridItem>
+      </GridContainer>
     </>
   );
 }
