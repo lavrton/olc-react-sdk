@@ -4,7 +4,7 @@ import Dialog from '../../GenericUIBlocks/Dialog';
 
 
 // images
-import CloseIcon from "../../../assets/modal-icons/modal-cross";
+import CloseIcon from "../../../assets/images/modal-icons/modal-cross";
 import cancelIcon from "../../../assets/modal-icons/cancelIcon.png";
 // import BackIcon from "../../../assets/images/templates/back-dialog-icon.svg";
 

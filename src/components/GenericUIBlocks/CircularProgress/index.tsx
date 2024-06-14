@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 // styles
 import './styles.scss'
 
-const CircularProgress = () => {
+const CircularProgress = (props: any) => {
+  const { style={} } = props;
    const [loader, setloader] = useState(true);
 
    useEffect(() => {
@@ -13,7 +14,9 @@ const CircularProgress = () => {
 
    }, [])
    
-  return <div className={`${true ? 'basic-progress' : 'hide-loader'}`}></div>;
+  return <div className={`${true ? 'basic-progress' : 'hide-loader'}`}>
+    <div className='loader' style={style}/>
+  </div>;
 }
 
 export default CircularProgress

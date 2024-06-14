@@ -42,7 +42,7 @@ const Dialog = (props: any) => {
     onCancel={},
     cancelText="",
     submitText="",
-    children={}
+    children=[]
   } = props;
   return (
     <div
@@ -83,7 +83,7 @@ const Dialog = (props: any) => {
           >
             {cancelText}
           </Button>
-          <Button style={{...buttonStyles, border: 'none'}} onClick={onCancel}>
+          <Button style={{...buttonStyles, border: 'none'}} onClick={onSubmit}>
             {submitText}
           </Button>
         </div>

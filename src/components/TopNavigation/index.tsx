@@ -20,6 +20,10 @@ import {useNavigate, useParams} from 'react-router-dom';
 // import SaveTemplateModel from './SaveTemplateModel';
 import ConfirmNavigateDialog from './ConfirmNavigateDialog';
 
+// icons
+import Save from '../../assets/images/modal-icons/save';
+
+
 // Utils
 import {multiPageTemplates} from '../../utils/template-builder';
 import fonts from '../../utils/fonts.json';
@@ -52,6 +56,8 @@ import CircularProgress from "../GenericUIBlocks/CircularProgress";
 
 // Styles
 import './styles.scss';
+import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
+import Dialog from '../GenericUIBlocks/Dialog';
 
 const SAVE_button_TEXT = 'Save';
 
@@ -64,6 +70,24 @@ const SAVE_button_TEXT = 'Save';
  * @param {boolean} props.isStoreUpdated - Indicates whether the store has been updated.
  * @returns {JSX.Element} The top navigation bar component.
  */
+
+const buttonStyles = {
+  maxWidth: '100px',
+  minHeight: '40px',
+  backgroundColor: '#fff',
+  color: '#000',
+  border: '0.5px solid #303030',
+};
+
+const saveDialogStyles={
+  maxWidth: "433px",
+  minHeight: "290px"
+}
+
+const progressStyles = {
+  width: '20px',
+  height: '20px',
+};
 
 const TopNavigation = ({
   id,
@@ -206,7 +230,7 @@ const TopNavigation = ({
   };
 
   function extractFontFamilies(jsonData) {
-    const fontFamilies = [];
+    const fontFamilies: any = [];
 
     // Iterate through each object in the JSON data
     jsonData.forEach((obj) => {
@@ -346,77 +370,99 @@ const TopNavigation = ({
   };
 
   return (
-    <div
-      className="top-navigation-container"
-    >
-      {showNavigateDialog && (
+    <div className="top-navigation-container">
+      {/* {showNavigateDialog && (
         <ConfirmNavigateDialog
           open={showNavigateDialog}
           handleClose={() => setShowNavigateDialog(false)}
           handleNavigateAction={handleNavigation}
         />
-      )}
+      )} */}
       {/* {isShowModel.open && isShowModel.model === "edit" && (
         <EditTemplateNameModel
           open={isShowModel.open}
           handleClose={() => handleChangeModel()}
         />
       )} */}
-      {/* {isShowModel.open && isShowModel.model === "save" && (
-        <SaveTemplateModel
-          loading={isShowModel.loading}
+      {isShowModel.open && isShowModel.model === 'save' && (
+        // <SaveTemplateModel
+        //   loading={isShowModel.loading}
+        //   open={isShowModel.open}
+        //   handleClose={() => handleChangeModel()}
+        //   handleSave={handleSave}
+        // />
+        <Dialog
+          icon={<Save />}
           open={isShowModel.open}
           handleClose={() => handleChangeModel()}
-          handleSave={handleSave}
+          title="Confirm Save Template"
+          subHeading="Are you sure you want to save this template?"
+          description="The updates provided will be used right away for any orders referencing this template."
+          cancelText="Cancel"
+          submitText="Submit"
+          customStyles={saveDialogStyles}
+          onSubmit={() => {}}
+          onCancel={() => handleChangeModel()}
         />
-      )} */}
-      <div container spacing={2}>
-        <div item lg={4} md={4} sm={2} xs={4}>
+      )}
+      <GridContainer>
+        <GridItem lg={4} md={4} sm={2} xs={12}>
           {showBackButton && (
             <div className="actionsBtnWrapper left">
               <Button
+                style={{
+                  ...buttonStyles,
+                  border: 'none',
+                  backgroundColor: '#ed5c2f',
+                  color: '#fff',
+                }}
                 className="templateCreateBtn active"
                 onClick={handleBackPress}
               >
                 {/* <ArrowBackRoundedIcon /> */}
-                <Typography>Templates</Typography>
+                Templates
               </Button>
             </div>
           )}
-        </div>
-        <div item lg={4} md={2} sm={2} xs={4}>
+        </GridItem>
+        <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
             <Typography>{title} </Typography>
             {/* <IconButton onClick={() => handleChangeModel("edit")}>
               <img src={EditIcon} />
             </IconButton> */}
           </div>
-        </div>
-        <div item lg={4} md={6} sm={8} xs={4}>
+        </GridItem>
+        <GridItem lg={4} md={6} sm={8} xs={12}>
           <div className="actionsBtnWrapper right">
-            <Button onClick={handleViewProofWithLamda} className={downloadingProof ? "loading" : ''}>
+            <Button
+              style={{...buttonStyles, maxWidth: 'auto', minWidth: '100px'}}
+              onClick={handleViewProofWithLamda}
+            >
               {downloadingProof ? (
-                <CircularProgress
-                  sx={{
-                    color: "#ed5c2f",
-                    width: "25px !important",
-                    height: "25px !important",
-                  }}
-                />
+                <CircularProgress style={progressStyles} />
               ) : (
-                "Download Proof"
+                'Download Proof'
               )}
             </Button>
-            <Button onClick={handleBackPress}> Cancel</Button>
+            <Button style={buttonStyles} onClick={handleBackPress}>
+              Cancel
+            </Button>
             <Button
+              style={{
+                ...buttonStyles,
+                border: 'none',
+                backgroundColor: '#ed5c2f',
+                color: '#fff',
+              }}
               className="templateCreateBtn active"
-              onClick={() => handleChangeModel("save")}
+              onClick={() => handleChangeModel('save')}
             >
-              <Typography>{'Save'}</Typography>
+              Save
             </Button>
           </div>
-        </div>
-      </div>
+        </GridItem>
+      </GridContainer>
     </div>
   );
 };

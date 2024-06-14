@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {TemplateBuilder} from './index';
 
 // images
-import Delete from './assets/modal-icons/del'
+import Delete from './assets/images/modal-icons/del';
 
 // components
 import Button from './components/GenericUIBlocks/Button';
@@ -11,7 +11,8 @@ import CircularProgress from './components/GenericUIBlocks/CircularProgress';
 import Dialog from './components/GenericUIBlocks/Dialog';
 import {GridContainer, GridItem} from './components/GenericUIBlocks/Grid';
 import Input from './components/GenericUIBlocks/Input';
-
+import {Tooltip} from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 const buttonStyles = {
   fontSize: '30px',
@@ -20,11 +21,17 @@ const buttonStyles = {
 const typoStyles = {
   fontSize: '30px',
   color: 'orange',
+  maxWidth: "fit-content"
 };
 
 const dialogStyles = {
   maxWidth: '450px',
   minHeight: '600px',
+};
+
+const progressStyles = {
+  width: '50px',
+  height: '50px',
 };
 
 function App() {
@@ -42,16 +49,19 @@ function App() {
 
   return (
     <>
-      {/* <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" /> */}
+      <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
       <Button onClick={handleOpen} style={buttonStyles}>
         Button
       </Button>
-      <Typography variant="p" style={typoStyles}>
+      <Typography className="tool" variant="p" style={typoStyles}>
         Typography
       </Typography>
-      <CircularProgress />
+      <Tooltip anchorSelect=".tool" place="bottom">
+        Hello world!
+      </Tooltip>
+      <CircularProgress style={progressStyles} />
       <Dialog
-        icon={<Delete/>}
+        icon={<Delete />}
         customStyles={dialogStyles}
         open={open}
         handleClose={handleClose}

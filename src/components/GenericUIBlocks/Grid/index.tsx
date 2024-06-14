@@ -24,7 +24,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 -8px;
-  gap: 10px;
+  width: 100%;
 `;
 
 const Col = styled.div<GridItemProps>`

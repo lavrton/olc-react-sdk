@@ -27,9 +27,9 @@
     animation-duration: 0.4s;
     border-radius: 11px;
     .modal-header {
+      position: relative;
       height: 100%;
-      min-height: 50px;
-      padding: 2px 16px;
+      min-height: 20px;
       color: black;
       /* The Close Button */
       .close {
@@ -37,6 +37,9 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
+        position: absolute;
+        right: 10px;
+        top: 0;
       }
 
       .close:hover,

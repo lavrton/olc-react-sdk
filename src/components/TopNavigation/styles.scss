@@ -3,11 +3,12 @@
 .top-navigation-container {
   position: fixed;
   width: 100%;
-  padding: 40px 20px 23px 20px;
-  height: 63px;
+  padding: 23px 20px;
+  height: 100%;
+  max-height: 70px;
   background: $white;
   margin: 0;
-  top: 96.5px;
+  top: 0;
   z-index: 999;
   display: flex;
   justify-content: center;
@@ -101,5 +102,12 @@
         background-color: $primaryColor;
       }
     }
+  }
+
+  .actionsBtnWrapper{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
