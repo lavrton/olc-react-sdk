@@ -6,7 +6,7 @@ import { useEffect , useState} from 'react';
 // import FaShapes from '@meronex/icons/fa/FaShapes';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
-import { fetchTemplates } from '../../redux/actions/templateActions';
+import { fetchTemplates, getAllTemplates } from '../../redux/actions/templateActions';
 import { AppDispatch, RootState } from '../../redux/store';
 import DesignIcon from '../../assets/images/templates/template-default-design.svg'
 import dummyTemplateIcon from "../../assets/images/templates/dummy-template.svg";
@@ -28,7 +28,8 @@ const section: SideSection = {
 
  
     useEffect(() => {
-      dispatch(fetchTemplates());
+      // dispatch(fetchTemplates());
+      dispatch(getAllTemplates());
     }, [dispatch]);
     
     const handleLoadTemplateModel = (record: any) => {

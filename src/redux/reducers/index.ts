@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import templateReducer, { TemplateState } from './templateReducer';
+import { templateReducer } from './templateReducer';
 
 const rootReducer = combineReducers({
   templates: templateReducer,
 
 });
 
-export type RootState = ReturnType<typeof rootReducer>; 
+export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

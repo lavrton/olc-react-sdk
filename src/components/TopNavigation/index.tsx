@@ -429,29 +429,6 @@ const TopNavigation = ({
       )}
       <GridContainer>
         <GridItem lg={4} md={4} sm={2} xs={12}>
-          {showBackButton && (
-            <div className="actionsBtnWrapper left">
-              <Button
-                style={{
-                  ...buttonStyles,
-                  border: 'none',
-                  backgroundColor: '#ed5c2f',
-                  color: '#fff',
-                  maxWidth: 'fit-content',
-                }}
-                className="active"
-                onClick={handleBackPress}
-              >
-                <div className="templateCreateBtn">
-                  <BackArrow />
-                  Templates
-                </div>
-              </Button>
-              <Tooltip anchorSelect=".active" place="top">
-                Hello world!
-              </Tooltip>
-            </div>
-          )}
         </GridItem>
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">

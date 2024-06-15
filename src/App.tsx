@@ -71,16 +71,15 @@ function App() {
 
   return (
     <>
-      {/* <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" /> */}
+      <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
+      {/* <>
       <Button onClick={handleOpen} style={buttonStyles}>
         Button
       </Button>
       <Typography className="tool" variant="p" style={typoStyles}>
         Typography
       </Typography>
-      {/* tooltip starts */}
       <GeneralTootip anchorSelect=".tool" place="top" title="Hello world!" />
-      {/* tooltip ends*/}
       <CircularProgress style={progressStyles} />
       <Dialog
         icon={<Delete />}
@@ -128,6 +127,7 @@ function App() {
           <GeneralSelect />
         </GridItem>
       </GridContainer>
+      </> */}
     </>
   );
 }

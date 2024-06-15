@@ -10,11 +10,9 @@ import { addAreaToProfessionalLetters } from './templateRestrictedArea/professio
 import { addRestrictedAreaToTriFold } from './templateRestrictedArea/triFold';
 
 
-// import {
-//   getViewProof,
-//   getViewProofForAdminOrder,
-//   getViewProofForOrder,
-// } from '../redux/actions/template-builder';
+import {
+  getViewProof
+} from '../redux/actions/templateActions';
 
 
 // import { success, failure } from '../redux/actions/snackbar-actions';
@@ -169,29 +167,6 @@ export const envelopeTypes = [
 export const createViewProof = (title, id) => async (dispatch) => {
   const response = await getViewProof(id);
   const binaryData = atob(response.data.data.base64Pdf);
-
-  if (response.status === 200) {
-    // Create a Uint8Array from the binary data
-    const uint8Array = new Uint8Array(binaryData.length);
-    for (let i = 0; i < binaryData.length; i++) {
-      uint8Array[i] = binaryData.charCodeAt(i);
-    }
-
-    // Create a Blob from the Uint8Array
-    const blob = new Blob([uint8Array], { type: 'application/pdf' });
-
-    // Create an Object URL for the Blob
-    const url = URL.createObjectURL(blob);
-    downloadPDF(title, url);
-    dispatch(success('Download Proof generated successfully'));
-  } else {
-    dispatch(failure(response.data.message));
-  }
-};
-
-export const createViewProofForOrder = (title, payload, component = 'order') => async (dispatch) => {
-  const response = component === 'admin-order' ? await getViewProofForAdminOrder(payload) : await getViewProofForOrder(payload);
-  const binaryData = atob(response.data.data.base64);
 
   if (response.status === 200) {
     // Create a Uint8Array from the binary data

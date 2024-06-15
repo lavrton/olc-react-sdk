@@ -1,0 +1,375 @@
+@mixin errorField() {
+    font-size: 14px;
+    font-weight: 400;
+    color: #ff0000;
+    line-height: 16.94px;
+  }
+  
+  .createTemplateMainBox {
+    position: relative;
+    height: 100%;
+  
+    .createTemplateHeader {
+      padding-bottom: 15px;
+      margin-left: 40px;
+  
+      p {
+        color: #ed5c2f;
+        font-family: Inter;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 20px;
+      }
+  
+      .templateInputWrapper {
+        p {
+          color: #000;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          margin-bottom: 16px;
+        }
+  
+        input {
+          width: 100%;
+          max-width: 565px;
+          padding: 18px 24px;
+          border: 0.5px solid #000000;
+          border-radius: 5px;
+          color: #000;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          margin-bottom: 10px;
+  
+          &::placeholder {
+            opacity: 0.5;
+          }
+  
+          &:focus {
+            // border-color: #ED5C2F;
+            outline: none;
+          }
+  
+          &.error {
+            border: 1.5px solid #ff0000;
+          }
+        }
+  
+        & .error-field {
+          @include errorField;
+          margin-bottom: 5px !important;
+        }
+      }
+    }
+  
+    .footerBtns {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      border-top: 0.5px solid rgba(0, 0, 0, 0.3);
+      background: #fff;
+  
+      .createTemplateBtns {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+        padding: 14px 95px 14px 35px;
+  
+        button {
+          width: 100%;
+          max-width: 100px;
+          height: 100%;
+          min-height: 40px;
+          text-transform: capitalize;
+          border-radius: 3px;
+  
+          &:first-child {
+            color: #000;
+            text-align: center;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            border: 0.5px solid rgba(0, 0, 0, 0.5);
+            background: #fff;
+          }
+  
+          &:last-child {
+            color: #fff;
+            text-align: center;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            border: 0.5px solid #ed5c2f;
+            background: #ed5c2f;
+          }
+        }
+      }
+    }
+  
+    .productTypeWrapper {
+      padding: 20px 0px;
+      margin-left: 40px;
+  
+      .productHeading {
+        p {
+          &:first-child {
+            color: #000;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+          }
+  
+          &:last-child {
+            color: #ed5c2f;
+            font-family: Inter;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 18px;
+            text-decoration-line: underline;
+          }
+        }
+      }
+  
+      .productsWrapper {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 25px;
+  
+        .productCard {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          border-radius: 6.299px;
+          border: 0.45px solid rgba(0, 0, 0, 0.5);
+          background: #fff;
+          width: 100%;
+          max-width: 185px;
+          height: 100%;
+          min-height: 135px;
+          cursor: pointer;
+          transition: 0.1s ease-in all;
+          gap: 17px;
+  
+          &.active,
+          &:hover {
+            background: #fff8ee;
+            border-color: #ed5c2f;
+          }
+  
+          p {
+            color: #ed5c2f;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0;
+          }
+  
+          &:last-child {
+            img {
+              margin-bottom: 5px !important;
+            }
+          }
+  
+          &.error {
+            border: 0.45px solid rgba(255, 0, 0, 1);
+          }
+        }
+      }
+  
+      & .error-field {
+        margin-top: 10px;
+        @include errorField;
+      }
+    }
+  
+    .postCardSizeWrapper {
+      padding: 20px 0px;
+      margin: 0px 0px 80px 40px;
+  
+      .postCardHeading {
+        p {
+          color: #000;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+        }
+      }
+  
+      .postCardWrapper {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 25px;
+  
+        .postCard {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+          flex-direction: column;
+          border-radius: 6.299px;
+          border: 0.45px solid rgba(0, 0, 0, 0.5);
+          background: #fff;
+          cursor: pointer;
+  
+          svg {
+            &:nth-child(2) {
+              margin-bottom: 20px;
+            }
+  
+            &:last-child {
+              margin-bottom: 20px;
+            }
+          }
+  
+          &.active,
+          &:hover {
+            background: #fff8ee;
+            border-color: #ed5c2f;
+  
+            svg {
+              &:nth-child(2) {
+                margin-bottom: 20px;
+              }
+  
+              &:last-child {
+                margin-bottom: 20px;
+              }
+  
+              path {
+                fill: #fecf67;
+  
+                &:hover {
+                  fill: #fecf67;
+                }
+              }
+            }
+          }
+  
+          p {
+            color: #ed5c2f;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0;
+          }
+        }
+  
+        .postCard-small {
+          width: 100%;
+          max-width: 150px;
+          height: 100%;
+          min-height: 148px;
+        }
+  
+        .postCard-mid {
+          width: 100%;
+          max-width: 196px;
+          height: 100%;
+          min-height: 182px;
+        }
+  
+        .postCard-large {
+          width: 100%;
+          max-width: 248px;
+          height: 100%;
+          min-height: 226px;
+        }
+      }
+  
+      & .error-field {
+        margin-top: 10px;
+        @include errorField;
+      }
+    }
+  
+    .tempTypeRadioWrapper {
+      padding: 20px 0px 30px 0px;
+      border-left: none;
+      border-right: none;
+      margin-left: 40px;
+  
+      .tempTypeRadioHeading {
+        p {
+          color: #000;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+        }
+      }
+  
+      .tempTypeRadioBox {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 25px;
+  
+        .tempRadio {
+          input {
+            &:checked {
+              accent-color: #ed5c2f;
+            }
+  
+            &:focus {
+              outline: none !important;
+            }
+  
+            cursor: pointer;
+          }
+  
+          label {
+            cursor: pointer;
+            color: #000;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+          }
+        }
+      }
+  
+      & .error-field {
+        @include errorField;
+        margin-left: 5px;
+      }
+    }
+  }
+  
+  .mb-5 {
+    margin-bottom: 6rem !important;
+  }
+  
+  .error {
+    border: 1.5px solid #ff0000;
+  }
+  

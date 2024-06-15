@@ -7,7 +7,7 @@ import { Toolbar } from 'polotno/toolbar/toolbar';
 import { Workspace } from 'polotno/canvas/workspace';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import SidePanel from '../SidePanel';
-import { fetchTemplates } from '../../redux/actions/templateActions';
+import { fetchTemplates, getAllTemplates } from '../../redux/actions/templateActions';
 import { AppDispatch } from '../../redux/store';
 import TopNavigation from '../TopNavigation';
 
@@ -22,15 +22,17 @@ interface Props {
 
 const TemplateBuilder: React.FC<Props> = (props) => {
   const dispatch: AppDispatch = useDispatch(); 
-
+  
   useEffect(() => {
-    dispatch(fetchTemplates());
+    // dispatch(fetchTemplates());
+    dispatch(getAllTemplates());
   }, [dispatch]);
 
   const store = createStore({
     key: props.secret,
     showCredit: false,
   });
+
 
   const containerStyle = merge(
     {

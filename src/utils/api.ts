@@ -1,6 +1,6 @@
 import fetchWrapper from './fetchWrapper';
 
-export const get = async (endpoint: string, params?: Record<string, string>) => {
+export const get = async (endpoint: string, params?: any) => {
   return await fetchWrapper(endpoint, {
     method: 'GET',
     params,
