@@ -16,6 +16,11 @@ import Dialog from '../../GenericUIBlocks/Dialog';
 
 type SideSection = typeof TemplatesSection;
 
+const designDialogStyles = {
+  maxWidth: "100%",
+  minHeight: "400px"
+}
+
 const customTemplateSection: SideSection = {
   name: 'Templates',
   Tab: observer((props: { store: StoreType; active: boolean; onClick: () => void }) => (
@@ -258,30 +263,33 @@ const customTemplateSection: SideSection = {
 
     return (
       <div className="custom-template-section">
-        {isShowDialog.open && isShowDialog.model === "design-own" && (
+        {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
             title="Confirm"
-            heading="Are you sure you want to discard these changes?"
-            paragraph= "You will lose your changes. Please save your changes or click ok to proceed."
+            subHeading="Are you sure you want to discard these changes?"
+            description="You will lose your changes. Please save your changes or click ok to proceed."
             open={isShowDialog.open}
-            handleClose={() => handleDialogChange("")}
+            handleClose={() => handleDialogChange('')}
             handleOk={handleClearStore}
+            customStyles={designDialogStyles}
           />
         )}
-        {isShowDialog.open && isShowDialog.model === "load-template" && (
+        {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
             title="Confirm"
-            heading= "Are you sure you want to change current template with this one?"
-            paragraph="You will lose your changes. Please save your changes or click ok to proceed."
+            subHeading="Are you sure you want to change current template with this one?"
+            description="You will lose your changes. Please save your changes or click ok to proceed."
             open={isShowDialog.open}
-            handleClose={() => handleDialogChange("")}
+            handleClose={() => handleDialogChange('')}
             handleOk={() => handleLoadTemplate(selectedRecord.id)}
           />
         )}
         <div
           className="templateTabsWrapper"
-          style={{  maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
-          backgroundColor: '#fff' }}
+          style={{
+            maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
+            backgroundColor: '#fff',
+          }}
         >
           {/* <Box sx={{ mt: 1 }}>
             <GenericAutocomplete
@@ -343,38 +351,38 @@ const customTemplateSection: SideSection = {
             )}
           </Box> */}
           {/* {currentTemplateType?.id === "1" ? ( */}
-            <>
-              <div
-                className="default-design"
-                onClick={() => handleDialogChange("design-own")}
-              >
+          <>
+            <div
+              className="default-design"
+              onClick={() => handleDialogChange('design-own')}
+            >
               <img src={DesignIcon} alt="design" />
               <Typography>Design Your Own</Typography>
-              </div>
-              {templates.rows.length ? (
-                templates.rows.map((template : any, i:number) => (
-                  <div
-                    className="design-template"
-                    key={i}
-                    onClick={() => handleLoadTemplateModel(template)}
-                  >
-                    <img
-                      src={template.thumbnailUrl}
-                      alt={template.title}
-                      onError={({ currentTarget }) => {
-                        currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = dummyTemplateIcon;
-                        currentTarget.classList.add("dummy-image");
-                      }}
-                    />
-                  </div>
-                ))
-              ) : (
-                <div className="noTemplateText">
-                  <Typography>No My Templates to show</Typography>
+            </div>
+            {templates.rows.length ? (
+              templates.rows.map((template: any, i: number) => (
+                <div
+                  className="design-template"
+                  key={i}
+                  onClick={() => handleLoadTemplateModel(template)}
+                >
+                  <img
+                    src={template.thumbnailUrl}
+                    alt={template.title}
+                    onError={({currentTarget}) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = dummyTemplateIcon;
+                      currentTarget.classList.add('dummy-image');
+                    }}
+                  />
                 </div>
-              )}
-            </>
+              ))
+            ) : (
+              <div className="noTemplateText">
+                <Typography>No My Templates to show</Typography>
+              </div>
+            )}
+          </>
           {/* ) : currentTemplateType?.id === "2" ? (
             <>
               {teamTemplates.length ? (
