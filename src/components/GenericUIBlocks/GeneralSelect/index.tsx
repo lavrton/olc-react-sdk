@@ -1,51 +1,50 @@
-import React from 'react'
+import React from 'react';
 
 // react select
 import Select from 'react-select';
 
-const options = [
-  {value: 'chocolate', label: 'Chocolate'},
-  {value: 'strawberry', label: 'Strawberry'},
-  {value: 'vanilla', label: 'Vanilla'},
-];
+// components
+import Typography from '../Typography';
 
-const dot = (color = 'transparent') => ({
-  alignItems: 'center',
-  display: 'flex',
+// styles
+import './styles.scss';
 
-  ':before': {
-    backgroundColor: color,
-    borderRadius: 10,
-    content: '" "',
-    display: 'block',
-    marginRight: 8,
-    height: 10,
-    width: 10,
-  },
-});
 
 const colourStyles = {
-  control: (styles: any) => ({...styles, backgroundColor: 'white'}),
-  option: (styles: any, {isDisabled, isFocused, isSelected}) => {
-    return {
-      ...styles,
-      backgroundColor: isDisabled ? undefined : 'black',
-      color: isDisabled ? 'grey' : '#fff',
-      cursor: isDisabled ? 'not-allowed' : 'default',
-
-      ':active': {
-        ...styles[':active'],
-        backgroundColor: !isDisabled ? 'red' : 'orange',
-      },
-    };
-  },
-  input: (styles: any) => ({...styles, ...dot()}),
-  placeholder: (styles: any) => ({...styles, ...dot('#ccc')}),
-  singleValue: (styles: any) => ({...styles, ...dot("purple")}),
+  dropdownIndicator: (styles: any, {isFocused, menuIsOpen}: any) => ({
+    ...styles,
+    color: isFocused && !menuIsOpen ? '#ed5c2f !important' : 'grey',
+    transform: !isFocused && !menuIsOpen && 'rotate(180deg)',
+  }),
 };
 
-const GeneralSelect = () => {
-  return <Select options={options} styles={colourStyles} />;
-}
+const errorStyles = {
+  color: '#FF0000',
+};
 
-export default GeneralSelect
+
+const GeneralSelect = (props:any) => {
+  const {options, placeholder, error, label} = props;
+
+  return (
+    <div className="select-layout">
+      <label>{label && label}</label>
+      <Select
+        options={options}
+        styles={colourStyles}
+        className="generic-select-container"
+        classNamePrefix="generic-select"
+        placeholder={placeholder}
+        blurInputOnSelect
+      />
+      {error && (
+        <Typography variant="p" style={errorStyles}>
+          <sup>*</sup>
+          {error}
+        </Typography>
+      )}
+    </div>
+  );
+};
+
+export default GeneralSelect;

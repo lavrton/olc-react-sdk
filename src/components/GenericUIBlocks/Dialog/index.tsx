@@ -58,7 +58,7 @@ const Dialog = (props: any) => {
           </span>
         </div>
         <div className="modal-body">
-          {icon}
+          <div className='modal-icon'>{icon}</div>
           <Typography variant="p" style={heading}>
             {title}
           </Typography>

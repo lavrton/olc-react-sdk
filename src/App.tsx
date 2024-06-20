@@ -69,6 +69,12 @@ function App() {
     setOpen(false);
   };
 
+  const selectOptions = [
+    {value: 'chocolate', label: 'Chocolate'},
+    {value: 'strawberry', label: 'Strawberry'},
+    {value: 'vanilla', label: 'Vanilla'},
+  ];
+
   return (
     <>
       <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
@@ -95,7 +101,7 @@ function App() {
         onCancel={() => {}}
       >
         <GridContainer>
-          <GridItem lg={12}>
+          <GridItem lg={12} md={12} sm={12} xs={12}>
             <Input
               label="First Name"
               variant="input"
@@ -106,7 +112,7 @@ function App() {
               error="Please enter valid name"
             />
           </GridItem>
-          <GridItem lg={12}>
+          <GridItem lg={12} md={12} sm={12} xs={12}>
             <Input
               label="Last Name"
               variant="input"
@@ -117,14 +123,27 @@ function App() {
               error="Please enter valid name"
             />
           </GridItem>
+          <GridItem lg={12} md={12} sm={12} xs={12}>
+            <GeneralSelect
+              options={selectOptions}
+              placeholder="Select a tag"
+              error="select atleast one tag"
+              label="Select a tag"
+            />
+          </GridItem>
         </GridContainer>
       </Dialog>
       <button onClick={() => openSnackbar(<Snackbar />, 1000)}>
         Click me to open the Snackbar!
       </button>
       <GridContainer>
-        <GridItem xl={6} lg={3} md={12}>
-          <GeneralSelect />
+        <GridItem xl={12} lg={12} md={12}>
+          <GeneralSelect
+            options={selectOptions}
+            placeholder="Select a tag"
+            error="select atleast one tag"
+            label="Select a tag"
+          />
         </GridItem>
       </GridContainer>
       </> */}
