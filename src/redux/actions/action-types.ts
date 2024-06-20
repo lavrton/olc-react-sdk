@@ -1,3 +1,8 @@
+// Snakbar Actions
+export const SET_SUCCESS_SNACKBAR = 'SET_SUCCESS_SNACKBAR';
+export const SET_ERROR_SNACKBAR = 'SET_ERROR_SNACKBAR';
+export const CLEAR_SNACKBAR = 'CLEAR_SNACKBAR';
+
 //Template Builder Actions
 export const SET_DYNAMIC_FIELD_VALUE: string = 'SET_DYNAMIC_FIELD_VALUE';
 export const SET_DYNAMIC_FIELDS: string = 'SET_DYNAMIC_FIELDS';

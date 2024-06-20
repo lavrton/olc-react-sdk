@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import {TemplateBuilder} from './index';
-import {useSnackbar} from 'react-simple-snackbar';
-
 
 // images
 import Delete from './assets/images/modal-icons/del';
@@ -38,28 +36,11 @@ const progressStyles = {
   height: '50px',
 };
 
-const options = {
-  position: 'top-right',
-  style: {
-    backgroundColor: '#EF7820',
-    width: '400px',
-    color: 'white',
-    fontFamily: 'Inter',
-    fontSize: '16px',
-    textAlign: 'center',
-  },
-  closeStyle: {
-    color: 'white',
-    fontSize: '16px',
-  },
-};
-
 
 function App() {
   const [open, setOpen] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [openSnackbar] = useSnackbar(options);
 
 
   const handleOpen = () => {
@@ -79,7 +60,9 @@ function App() {
   return (
     <>
       {/* <CreateTemplate/> */}
+     
       <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
+      <Snackbar />
       {/* <>
       <Button onClick={handleOpen} style={buttonStyles}>
         Button
