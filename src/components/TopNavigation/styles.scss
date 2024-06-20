@@ -1,7 +1,7 @@
 @import '../../styles/colors';
 
 .top-navigation-container {
-  position: fixed;
+  position: absolute;
   width: 100%;
   padding: 23px 20px;
   height: 100%;
@@ -9,7 +9,7 @@
   background: $white;
   margin: 0;
   top: 0;
-  z-index: 999;
+  // z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -60,7 +60,6 @@ function App() {
   return (
     <>
       {/* <CreateTemplate/> */}
-     
       <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
       <Snackbar />
       {/* <>
