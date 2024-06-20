@@ -210,10 +210,10 @@ const doublicateTemplate = async (id: string, data: object): Promise<unknown> =>
  */
 const getAllProducts = () => async (dispatch: AppDispatch): Promise<void> => {
   try {
-    const response = await get('/products/types');
+    const response = await get('products/types');
     dispatch({
       type: GET_PRODUCTS,
-      payload: { products: response.data.data },
+      payload: { products: response.data },
     });
   } catch (error: any) {
     console.error(error);

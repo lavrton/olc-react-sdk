@@ -44,7 +44,7 @@ const EditTemplateNameModel = ({open, handleClose}) => {
   const dispatch = useDispatch();
 
   const templateTitle =
-    useSelector((state) => state.templateReducer.title) || '';
+    useSelector((state) => state.templates.title) || '';
 
   useEffect(() => {
     setTitle(templateTitle);

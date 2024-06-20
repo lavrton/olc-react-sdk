@@ -11,8 +11,8 @@ import {
     searchAndAdvanceChange,
     selectPostCard,
     selectProduct,
-} from "../../../redux/actions/template-builder";
-import { CLEAR_TEMPLATE } from "../../../redux/actions/action-types.js";
+} from "../../redux/actions/templateActions";
+import { CLEAR_TEMPLATE } from "../../redux/actions/action-types";
 
 //utils
 import { PRODUCT_LEARN_URL, sortOrderForTemplates } from "../../utils/constants";
@@ -30,16 +30,16 @@ import Button from "../GenericUIBlocks/Button";
 import "./styles.scss";
 
 // Images
-import Postcard from "../../../assets/images/templates/postcard.svg";
-import PersonalLetter from "../../../assets/images/templates/personal-letter.svg";
-import ProfessionalLetter from "../../../assets/images/templates/professional-letter.svg";
-import RealPennedLetter from "../../../assets/images/templates/real-penned-letters.svg";
-import TriFoldSelfMailers from "../../../assets/images/templates/tri-fold-self-mailers.svg";
-import BiFoldSelfMailers from "../../../assets/images/templates/bi-fold-self-mailers.svg";
+import Postcard from "../../assets/images/templates/postcard.svg";
+import PersonalLetter from "../../assets/images/templates/personal-letter.svg";
+import ProfessionalLetter from "../../assets/images/templates/professional-letter.svg";
+import RealPennedLetter from "../../assets/images/templates/real-penned-letters.svg";
+import TriFoldSelfMailers from "../../assets/images/templates/tri-fold-self-mailers.svg";
+import BiFoldSelfMailers from "../../assets/images/templates/bi-fold-self-mailers.svg";
 
-import SizeImage from "../../../assets/images/templates/size-image.jsx";
-import SizeImageMid from "../../../assets/images/templates/size-image-mid.jsx";
-import SizeImageLarge from "../../../assets/images/templates/size-image-lg.jsx";
+import SizeImage from "../../assets/images/templates/size-image";
+import SizeImageMid from "../../assets/images/templates/size-image-mid";
+import SizeImageLarge from "../../assets/images/templates/size-image-lg";
 
 
 // import MultiSelect from "../../General/MultiSelect/index.jsx";
@@ -47,17 +47,17 @@ import SizeImageLarge from "../../../assets/images/templates/size-image-lg.jsx";
 const CreateTemplate = () => {
     const [isError, setIsError] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [envelopeType, setEnvelopeType] = useState([]);
-    const title = useSelector((state) => state.templateReducer.title);
-    const product = useSelector((state) => state.templateReducer.product);
-    const products = useSelector((state) => state.templateReducer.products);
+    const title = useSelector((state) => state.templates.title);
+    const product = useSelector((state) => state.templates.product);
+    const products = useSelector((state) => state.templates.products);
     const templateType = useSelector(
-        (state) => state.templateReducer.templateType
-    );
+        (state) => state.templates.templateType
+    ); 
 
-    const sortedProducts = products.sort((a, b) => {
+    const sortedProducts = products?.sort((a, b) => {
         const indexA = sortOrderForTemplates.indexOf(a.productType);
         const indexB = sortOrderForTemplates.indexOf(b.productType);
         return indexA - indexB;
@@ -110,7 +110,7 @@ const CreateTemplate = () => {
     };
 
     useEffect(() => {
-        if (products.length) {
+        if (products?.length) {
             dispatch(selectProduct(products[0]));
         }
     }, [products]);
@@ -164,11 +164,11 @@ const CreateTemplate = () => {
                         <div className="productTypeWrapper">
                             <div className="productHeading">
                                 <Typography>Product Type*</Typography>
-                                <NavLink to={PRODUCT_LEARN_URL}
-                                    target="_blank"><Typography>Learn More</Typography></NavLink>
+                                {/* <NavLink to={PRODUCT_LEARN_URL}
+                                    target="_blank"><Typography>Learn More</Typography></NavLink> */}
                             </div>
                             <div className="productsWrapper">
-                                {sortedProducts.filter((prod) => prod.windowed !== false).map((prod, index) => {
+                                {sortedProducts && sortedProducts?.filter((prod) => prod.windowed !== false).map((prod, index) => {
                                     return (
                                         <div
                                             className={`productCard ${prod.productType === (product && product.productType)

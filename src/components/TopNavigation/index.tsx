@@ -116,19 +116,19 @@ const TopNavigation = ({
   });
   const [downloadingProof, setDownloaingProof] = useState(false);
 
-  // const title = useSelector((state) => state.templateReducer.title);
-  // const product = useSelector((state) => state.templateReducer.product);
+  // const title = useSelector((state) => state.templates.title);
+  // const product = useSelector((state) => state.templates.product);
   // const dynamicFields = useSelector(
-  //   (state) => state.templateReducer.dynamicFields
+  //   (state) => state.templates.dynamicFields
   // );
   // const defaultFields = useSelector(
-  //   (state) => state.templateReducer.defaultDynamicFields
+  //   (state) => state.templates.defaultDynamicFields
   // );
   // const templateType = useSelector(
-  //   (state) => state.templateReducer.templateType
+  //   (state) => state.templates.templateType
   // );
   // const envelopeType = useSelector(
-  //   (state) => state.templateReducer.envelopeType
+  //   (state) => state.templates.envelopeType
   // );
 
 

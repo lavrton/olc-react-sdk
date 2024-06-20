@@ -16,6 +16,7 @@ import Input from './components/GenericUIBlocks/Input';
 import Snackbar from './components/GenericUIBlocks/Snackbar';
 import GeneralSelect from './components/GenericUIBlocks/GeneralSelect';
 import GeneralTootip from './components/GenericUIBlocks/GeneralTooltip';
+import CreateTemplate from './components/CreateTemplate';
 
 const buttonStyles = {
   fontSize: '30px',
@@ -77,6 +78,7 @@ function App() {
 
   return (
     <>
+      {/* <CreateTemplate/> */}
       <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
       {/* <>
       <Button onClick={handleOpen} style={buttonStyles}>
