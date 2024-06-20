@@ -42,8 +42,8 @@ export const getFileAsBlob = async (url: string, returnType: string = 'json'): P
       responseType: 'blob',
     });
     return returnType === 'json'
-      ? blobToJSON(response.data)
-      : blobToString(response.data);
+      ? blobToJSON(blob)
+      : blobToString(blob);
   } catch (error) {
     throw error; // Optionally rethrow the error for further handling
   }
@@ -53,7 +53,6 @@ const blobToJSON = (jsonBlob: Blob): Promise<any> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    // Define a callback function for when the FileReader finishes reading
     reader.onload = function () {
       try {
         // Parse the result as JSON
@@ -62,28 +61,22 @@ const blobToJSON = (jsonBlob: Blob): Promise<any> => {
         // Resolve the promise with the parsed JSON data
         resolve(parsedData);
       } catch (error) {
-        // Reject the promise with the error
         reject(error);
       }
     };
 
-    // Define a callback function for when there is an error reading the Blob
     reader.onerror = function (error) {
-      // Reject the promise with the error
       reject(error);
     };
 
-    // Start reading the Blob as text
     reader.readAsText(jsonBlob);
   });
 };
 
 export const blobToString = (blob: Blob): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const blobObject = new Blob([blob], { type: 'text/plain' });
     const reader = new FileReader();
 
-    // Define a callback function for when the reading is complete
     reader.onloadend = function () {
       // The result property contains the data as a string
       const blobString = reader.result as string;
@@ -92,14 +85,11 @@ export const blobToString = (blob: Blob): Promise<string> => {
       resolve(blobString);
     };
 
-    // Define a callback function for when an error occurs
     reader.onerror = function (error) {
-      // Reject the Promise with the error
       reject(error);
     };
 
-    // Start reading the content of the Blob as text
-    reader.readAsText(blobObject);
+    reader.readAsText(blob);
   });
 };
 

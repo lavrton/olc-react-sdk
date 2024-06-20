@@ -40,12 +40,9 @@ const customFieldSection: SideSection = {
   Panel: observer(({store}) => {
     const [isShowDialog, setIsShowDialog] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
-
-    // Getting custom fields from Redux state
-    const customFields = useSelector((state: RootState) => state.customFields.customFields);
+    const customFields = useSelector((state: RootState) => state.customFields.customFields) as Record<string, any>;
     const defaultDynamicFields = useSelector((state: RootState) => state.customFields.defaultDynamicFields);
     const product = useSelector((state: RootState) => state.templates.product);
-  
     const currentTemplateType = product?.productType;
 
     const handleShowDialog = () => {
@@ -132,24 +129,21 @@ const customFieldSection: SideSection = {
           </div>
           <Button onClick={handleShowDialog}></Button>
         </div>
-        {Object.values(customFields)?.map(({key, value}, i) => (
-          <div style={{display: 'flex', alignItems: 'center'}} key={i}>
+        {customFields.data?.map(({ key, value }: { key: string; value: string }, i: number) => (
+          <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
             <span
               className="contact-element"
               onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
             >
               {value}
             </span>
-            {/* <Tooltip title="Copy"> */}
-            <Button onClick={() => copyToClipboard(key)}>
-              {/* <img src={ContentCopyIcon} /> */}
+            <Button
+              style={iconButtonStyles}
+              onClick={() => copyToClipboard(key)}>
+              <ContentCopyIcon className="copy" />
             </Button>
-            {/* </Tooltip> */}
           </div>
         ))}
-        {/* {isShowDialog && <FormDialog open={isShowDialog} handleClose={handleShowDialog} />}
-        {isShowDialog && <CustomFieldNameModel open={isShowDialog} handleClose={handleShowDialog} />} */}
-       
       </div>
     );
   }) as SideSection['Panel'],

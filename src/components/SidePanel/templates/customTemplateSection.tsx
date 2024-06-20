@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect , useState} from 'react';
 import { observer } from 'mobx-react-lite';
 import { SectionTab, } from 'polotno/side-panel';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect , useState} from 'react';
-// import FaShapes from '@meronex/icons/fa/FaShapes';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
 import {
@@ -26,7 +24,8 @@ import { drawRestrictedAreaOnPage } from "../../../utils/template-builder";
 import GeneralSelect from '../../GenericUIBlocks/GeneralSelect'
 import Input from '../../GenericUIBlocks/Input'
 import ModalCross from '../../../assets/images/modal-icons/modal-cross';
-
+import { MESSAGES } from '../../../utils/message';
+import { TEMPLATE_LOADING } from '../../../redux/actions/action-types'
 
 type SideSection = typeof TemplatesSection;
 
@@ -83,12 +82,12 @@ const customTemplateSection: SideSection = {
     const [searchApplied, setSearchApplied] = useState(false);
     const [search, setSearch] = useState("");
 
-    const templates = useSelector((state: RootState) => state.templates.templates);
-    const template = useSelector((state: RootState) => state.templates.template);
-    // const product = useSelector((state: RootState) => state.templates.product);
+    const templates = useSelector((state: RootState) => state.templates.templates) as Record<string, any>;
+    const template = useSelector((state: RootState) => state.templates.template) as Record<string, any> ;
+    const templatesPagination = useSelector(
+      (state: any) => state.templates.templatesPagination
+    );
     const product = useSelector((state: any) => state.templates.product);
-    console.log('🚀 ~ Panel:observer ~ product:', product)
-
     const envelopeType = useSelector(
       (state: RootState) => state.templates.envelopeType
     );
@@ -102,12 +101,10 @@ const customTemplateSection: SideSection = {
     });
   
     useEffect(() => {
-      // dispatch(fetchTemplates());
       dispatch(getAllTemplates());
       
     }, []);
-    
-    console.log("temp=====", templates);
+
     const handleLoadTemplateModel = (record: any) => {
       setSelectedRecord(record);
       handleDialogChange("load-template");
@@ -126,8 +123,8 @@ const customTemplateSection: SideSection = {
         productId: product?.id,
       };
       search.length ? (payload.search = search) : undefined;
-      currentTemplateType?.id === "3" ?  payload.categoryIds = selectedCategory?.id.split() : undefined;
-     
+      currentTemplateType?.id === "3" ? payload.categoryIds = selectedCategory?.id.split(',') : undefined;
+
       const templates = await getAllTemplatesByTab(payload);
       if (templates.status === 200) {
         if (currentTemplateType?.id === "1") {
@@ -142,10 +139,10 @@ const customTemplateSection: SideSection = {
 
 
     const getAllCategories = async () => {
-      const categories = await dispatch(getAllTemplateCategories);
-      if (categories.status === 200) {
+      const categories: Record<string, any> = await dispatch(getAllTemplateCategories);
+      if (categories?.status === 200) {
         setTemplateCategories(
-          categories.data.data
+          categories?.data?.data
             .filter((item: any) => item.totalTemplates > 0)
             .map((item : any) => ({
               ...item,
@@ -177,9 +174,9 @@ const customTemplateSection: SideSection = {
         getAllTemplates(
           page,
           10,
-          null,
-          null,
-          null,
+          null as unknown as string,
+          null as unknown as string,
+          null as unknown as string,
           "json",
           product ? product.id : null,
           initialCall,
@@ -197,8 +194,9 @@ const customTemplateSection: SideSection = {
       setIsShowDialog((prev) => ({ open: !prev.open, model: model }));
     };
 
+    
     const processPage = async (index : any, page: any) => {
-      return new Promise((resolve, reject) => {
+      return new Promise<void>((resolve, reject) => {
         let pageNumber = page.children.find(
           (el: any) => el.custom?.name === "page-number"
         );
@@ -206,7 +204,7 @@ const customTemplateSection: SideSection = {
 
         if (pageNumber) {
           pageNumber.set({ text });
-          resolve(); // Resolve the promise if the update is successful
+          resolve();
         } else {
           page.addElement({
             type: "text",
@@ -220,7 +218,7 @@ const customTemplateSection: SideSection = {
             selectable: false,
             alwaysOnTop: true,
           });
-          resolve(); // Resolve the promise after adding the element
+          resolve(); 
         }
       });
     };
@@ -235,11 +233,11 @@ const customTemplateSection: SideSection = {
 
     const handleClearStore = () => {
       store.clear();
-      let size = "";
+      let size: string | string[]  = "";
       let isPostCards = false;
       let _product = product;
-      if (template) {
-        size = template.product.paperSize;
+      if (template?.product) {
+        size = template?.product?.paperSize;
         isPostCards = template.product.productType === "Postcards" || false;
         _product = template.product;
       } else if (product) {
@@ -250,16 +248,13 @@ const customTemplateSection: SideSection = {
         unit: "in",
         dpi: DPI,
       });
-      size = size.split("x");
+      size = (size as string)?.split("x");
       store.setSize(+size[1] * DPI, +size[0] * DPI);
       store.addPage();
 
       if (multiPageLetters.includes(_product.productType)) {
         store.addPage();
         store.selectPage(store.pages[0].id);
-        // if(_product.productType===multiPageLetters[0]){
-        //     checkPageNumbers();
-        // }
       }
       drawRestrictedAreaOnPage(store, product, envelopeType);
       handleDialogChange("");
@@ -311,23 +306,18 @@ const customTemplateSection: SideSection = {
         div.addEventListener("scroll", handleScroll);
       }
       return () => {
-        div.removeEventListener("scroll", handleScroll);
+        div?.removeEventListener("scroll", handleScroll);
       };
     }, [templates]);
-
-    const removeSearchInput = ()=>{
-      setSearchApplied(false)
-      setSearch("")
-    }
 
     return (
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
-            icon={<ModalCross />}
-            title="Confirm"
-            subHeading="Are you sure you want to discard these changes?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
+            icon={<ModalCross/>}
+            title={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.TITLE}
+            subHeading={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.HEADING}
+            description={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.PARAGRAPH}
             open={isShowDialog.open}
             handleClose={() => handleDialogChange('')}
             onCancel={() => handleDialogChange('')}
@@ -336,17 +326,18 @@ const customTemplateSection: SideSection = {
             cancelText="Cancel"
             submitText="OK"
           />
+          
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
             icon={<ModalCross />}
-            title="Confirm"
-            subHeading="Are you sure you want to change current template with this one?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
+            title={MESSAGES.TEMPLATE.SELECT_TEMPLATE.TITLE}
+            subHeading={MESSAGES.TEMPLATE.SELECT_TEMPLATE.HEADING}
+            description={MESSAGES.TEMPLATE.SELECT_TEMPLATE.PARAGRAPH}
             open={isShowDialog.open}
             handleClose={() => handleDialogChange('')}
             onCancel={() => handleDialogChange('')}
-            onSubmit={() => handleLoadTemplate(selectedRecord.id)}
+            onSubmit={() => handleLoadTemplate(selectedRecord?.id)}
             customStyles={designDialogStyles}
             cancelText="Cancel"
             submitText="OK"
@@ -358,84 +349,91 @@ const customTemplateSection: SideSection = {
             maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
             backgroundColor: '#fff',
           }}
-        >
-          <div style={{marginTop: '8px'}}>
+        >          
+          <div style={{ marginTop: '8px' }}>
             <GeneralSelect
               placeholder="Template Types"
-              options={templateTypes}
-              setSelectedValue={setCurrentTemplateType}
-              selectedValue={currentTemplateType}
+              options={templateTypes as any}
+              setSelectedValue={setCurrentTemplateType  as any}
+              selectedValue={currentTemplateType as any}
+              // @ts-ignore
               search={() => {}}
               updateErrors={() => {}}
               disableClearable={true}
               templateBuilder={true}
             />
           </div>
-          {currentTemplateType?.id === '3' && (
-            <div style={{marginTop: '8px'}}>
+          {currentTemplateType?.id === "3" && (
+            <div style={{ marginTop: 8 }}>
               <GeneralSelect
                 placeholder="Select Category"
-                options={templateCategories}
-                setSelectedValue={setSelectedCategory}
-                selectedValue={selectedCategory}
-                search={() => {}}
+                options={templateCategories  as any}
+                setSelectedValue={setSelectedCategory  as any}
+                selectedValue={selectedCategory as any}
+                // @ts-ignore
+                search={(() => {}) as any} 
                 updateErrors={() => {}}
                 disableClearable={false}
                 templateBuilder={true}
               />
             </div>
           )}
-          <div
-            className="searchWrapper"
-            style={{marginTop: '16px', marginBottom: '16px'}}
-          >
+          <div className="searchWrapper"  style={{ marginTop: '16px', marginBottom: '16px' }}>
             <Input
               type="text"
               value={search}
               name="search"
+              // @ts-ignore
               onKeyDown={searchKeyDown}
               onChange={(e: any) => setSearch(e.target.value.trimStart())}
               placeholder="Search by template name"
               inputIcon={true}
-              onClick={() => setSearchApplied(true)}
-              searchApplied={searchApplied}
-              removeSearchInput={removeSearchInput}
+              onClick={handleSearch}
             />
+            {/* {searchApplied && (
+              <HighlightOffIcon
+                onClick={() => {
+                  setSearch(null);
+                  setSearchApplied(false);
+                }}
+                className="clearSerach"
+              />
+            )} */}
           </div>
-          {currentTemplateType?.id === '1' ? (
-            <>
-              <div
-                className="default-design"
-                onClick={() => handleDialogChange('design-own')}
-              >
-                <img src={DesignIcon} alt="design" />
-                <Typography>Design Your Own</Typography>
-              </div>
-              {templates.rows.length ? (
-                templates.rows.map((template: any, i: number) => (
-                  <div
-                    className="design-template"
-                    key={i}
-                    onClick={() => handleLoadTemplateModel(template)}
-                  >
-                    <img
-                      src={template.thumbnailUrl}
-                      alt={template.title}
-                      onError={({currentTarget}) => {
-                        currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = dummyTemplateIcon;
-                        currentTarget.classList.add('dummy-image');
-                      }}
-                    />
-                  </div>
-                ))
-              ) : (
-                <div className="noTemplateText">
-                  <Typography>No My Templates to show</Typography>
+          {currentTemplateType?.id === "1" ? (
+          <>
+            <div
+              className="default-design"
+              onClick={() => handleDialogChange('design-own')}
+            >
+              <img src={DesignIcon} alt="design" />
+              <Typography>Design Your Own</Typography>
+            </div>
+            {templates.rows.length ? (
+              templates.rows.map((template: any, i: number) => (
+                <div
+                  className="design-template"
+                  key={i}
+                  onClick={() => handleLoadTemplateModel(template)}
+                >
+                  <img
+                    src={template.thumbnailUrl}
+                    alt={template.title}
+                    onError={({currentTarget}) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = dummyTemplateIcon;
+                      currentTarget.classList.add('dummy-image');
+                    }}
+                  />
                 </div>
-              )}
-            </>
-          ) : currentTemplateType?.id === '2' ? (
+              ))
+            ) : (
+              <div className="noTemplateText">
+                <Typography>No My Templates to show</Typography>
+              </div>
+            )}
+          </>
+           ) : currentTemplateType?.id === "2" ? (
             <>
               {teamTemplates.length ? (
                 teamTemplates?.map((template, i) => (
@@ -485,9 +483,9 @@ const customTemplateSection: SideSection = {
                 <div className="noTemplateText">
                   <Typography>No OLC Templates to show</Typography>
                 </div>
-              )}
-            </>
-          ) : null}
+              )} 
+              </> 
+          ) : null} 
         </div>
       </div>
     );
@@ -495,3 +493,4 @@ const customTemplateSection: SideSection = {
 };
 
 export default customTemplateSection;
+

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 // Libraries/Packages
 import { Routes, Route } from "react-router-dom";
 import { createStore, StoreType } from 'polotno/model/store';
