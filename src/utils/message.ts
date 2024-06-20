@@ -189,11 +189,15 @@ export const MESSAGES = {
       HEADING: "Are you sure you want to save this template?",
       PARAGRAPH:
         "The updates provided will be used right away for any orders referencing this template.",
+      CANCEL_BUTTON: "Cancel",
+      SUBMIT_BUTTON: "Save"
     },
     CANCEL: {
       TITLE: "Confirm Cancel Template",
       HEADING: "Are you sure you want to cancel this Template?",
       PARAGRAPH: "You will lose your changes after canceling.",
+      BACK_BUTTON: "Go Back",
+      CANCEL_BUTTON: "Cancel",
     },
     DESIGN_YOUR_OWN: {
       TITLE: "Confirm",
@@ -210,6 +214,8 @@ export const MESSAGES = {
       SUBMIT_BUTTON: "OK",
       CANCEL_BUTTON: "Cancel",
     },
+    CANCEL_BUTTON: "Cancel",
+    SUBMIT_BUTTON: "Save"
   },
   ORDERS: {
     SEARCH_PLACE_HOLDER: "Search by order ID",

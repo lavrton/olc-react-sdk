@@ -6,8 +6,19 @@
   width: 100%;
   gap: 8px;
 
+  label {
+    color: #000;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: px;
+  }
+
   .generic-select-container {
     width: 100%;
+    cursor: pointer;
     .generic-select__control {
       height: 100%;
       min-height: 55px;
@@ -18,7 +29,7 @@
       &:hover {
         border: 0.5px solid #303030;
       }
-      &::placeholder{
+      &::placeholder {
         opacity: 0.5;
       }
       &.generic-select__control--is-focused {
@@ -49,9 +60,14 @@
           &:last-child {
             border: none;
           }
-          &.generic-select__option--is-focused,
-          &.generic-select__option--is-selected {
+          &.generic-select__option--is-focused {
             background-color: #fff8ee;
+          }
+          &.generic-select__option--is-selected {
+            background-color: transparent;
+            &:hover {
+              background-color: #fff8ee;
+            }
           }
         }
       }

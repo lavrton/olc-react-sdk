@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 //hooks
-import {NavLink, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 //actions
 import {
@@ -12,16 +12,16 @@ import {
   selectPostCard,
   selectProduct,
 } from '../../redux/actions/templateActions';
-import {CLEAR_TEMPLATE} from '../../redux/actions/action-types';
+import { CLEAR_TEMPLATE } from '../../redux/actions/action-types';
 
 //utils
-import {PRODUCT_LEARN_URL, sortOrderForTemplates} from '../../utils/constants';
-import {removeItem} from '../../utils/local-storage';
-import {MESSAGES} from '../../utils/message';
-import {envelopeTypes} from '../../utils/template-builder';
+import { PRODUCT_LEARN_URL, sortOrderForTemplates } from '../../utils/constants';
+import { removeItem } from '../../utils/local-storage';
+import { MESSAGES } from '../../utils/message';
+import { envelopeTypes } from '../../utils/template-builder';
 
 // Mui Components
-import {GridContainer, GridItem} from '../GenericUIBlocks/Grid';
+import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 import Typography from '../GenericUIBlocks/Typography';
 import Button from '../GenericUIBlocks/Button';
 
@@ -41,6 +41,8 @@ import SizeImageMid from '../../assets/images/templates/size-image-mid';
 import SizeImageLarge from '../../assets/images/templates/size-image-lg';
 import Input from '../GenericUIBlocks/Input';
 import Divider from '../GenericUIBlocks/Divider';
+import { AppDispatch, RootState } from '@/redux/store';
+import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 
 // import MultiSelect from "../../General/MultiSelect/index.jsx";
 
@@ -75,16 +77,25 @@ const footerButtonStyles = {
   color: '#000000',
 };
 
+const Images = {
+  Postcards: Postcard,
+  'Professional Letters': ProfessionalLetter,
+  'Personal Letters': PersonalLetter,
+  'Real Penned Letter': RealPennedLetter,
+  'Tri-Fold Self-Mailers': TriFoldSelfMailers,
+  'Bi-Fold Self-Mailers': BiFoldSelfMailers,
+};
+
 const CreateTemplate = () => {
   const [isError, setIsError] = useState(false);
-  const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [envelopeType, setEnvelopeType] = useState([]);
-  const title = useSelector((state) => state.templates.title);
-  const product = useSelector((state) => state.templates.product);
-  const products = useSelector((state) => state.templates.products);
-  const templateType = useSelector((state) => state.templates.templateType);
+  const title = useSelector((state: RootState) => state.templates.title);
+  const product = useSelector((state: RootState) => state.templates.product);
+  const products = useSelector((state: RootState) => state.templates.products);
+  const templateType = useSelector((state: RootState) => state.templates.templateType);
 
   const sortedProducts = products?.sort((a, b) => {
     const indexA = sortOrderForTemplates.indexOf(a.productType);
@@ -96,7 +107,7 @@ const CreateTemplate = () => {
     dispatch(getAllProducts());
     dispatch(clearTemplateFields());
     removeItem('formData');
-    dispatch({type: CLEAR_TEMPLATE});
+    dispatch({ type: CLEAR_TEMPLATE });
   }, []);
 
   const handleNext = () => {
@@ -111,15 +122,15 @@ const CreateTemplate = () => {
         !product.selectedSize) ||
       (product &&
         product.productType === 'Professional Letters' &&
-        !envelopeType.length)
+        ![envelopeType].length)
     ) {
       setIsError(true);
     } else {
       let envelope = '';
       if (product.productType === 'Professional Letters') {
         envelope = envelopeTypes.find(
-          (envelope) => envelope.title === envelopeType[0]
-        ).type;
+          (envelope) => envelope.label === envelopeType.label
+        )?.type;
       }
       dispatch(searchAndAdvanceChange('title', trimedTitle));
       dispatch(searchAndAdvanceChange('envelopeType', envelope));
@@ -127,15 +138,6 @@ const CreateTemplate = () => {
         templateType === 'json' ? '/template-builder' : '/template-html'
       );
     }
-  };
-
-  const Images = {
-    Postcards: Postcard,
-    'Professional Letters': ProfessionalLetter,
-    'Personal Letters': PersonalLetter,
-    'Real Penned Letter': RealPennedLetter,
-    'Tri-Fold Self-Mailers': TriFoldSelfMailers,
-    'Bi-Fold Self-Mailers': BiFoldSelfMailers,
   };
 
   useEffect(() => {
@@ -146,7 +148,7 @@ const CreateTemplate = () => {
 
   useEffect(() => {
     if (product && product?.productType === 'Professional Letters') {
-      if (envelopeType[0] === 'Non-Windowed Envelope') {
+      if (envelopeType.label === 'Non-Windowed Envelope') {
         dispatch(
           selectProduct(sortedProducts.find((item) => item.windowed === false))
         );
@@ -174,6 +176,7 @@ const CreateTemplate = () => {
                     dispatch(searchAndAdvanceChange('title', e.target.value));
                   }}
                   placeholder="Template Name"
+                  inputIcon={false}
                 />
                 {!title.trim() && isError && (
                   <Typography className="error-field">
@@ -197,8 +200,9 @@ const CreateTemplate = () => {
                 <Typography style={templateTextStyles}>
                   Product Type*
                 </Typography>
-                {/* <NavLink to={PRODUCT_LEARN_URL}
-                                    target="_blank"><Typography>Learn More</Typography></NavLink> */}
+                <NavLink to={PRODUCT_LEARN_URL} target="_blank">
+                  <Typography>Learn More</Typography>
+                </NavLink>
               </div>
               <div className="productsWrapper">
                 {sortedProducts &&
@@ -228,33 +232,27 @@ const CreateTemplate = () => {
                 </Typography>
               )}
             </div>
-            {/* <Divider /> */}
           </GridItem>
         </GridContainer>
         <Divider />
         {product && product.productType === 'Professional Letters' && (
-          <GridContainer container my={2} className="mb-5">
-            <GridContainer item lg={6} md={6} sm={6} xs={12}>
+          <GridContainer>
+            <GridItem lg={6} md={6} sm={6} xs={12}>
               <div className="createTemplateHeader">
                 <div className="templateInputWrapper">
-                  <Typography>Envelope Type*</Typography>
-                  {/* <MultiSelect
-                                        className={isError && !envelopeType.length ? "error" : ""}
-                                        options={envelopeTypes}
-                                        selectedValue={envelopeType}
-                                        setSelectedValue={setEnvelopeType}
-                                        productType={false}
-                                        multiple={false}
-                                        placeHolderText="Envelope Type"
-                                    />
-                                    {isError && !envelopeType.length && (
-                                        <Typography mt={1} className="error-field">
-                                            *{MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
-                                        </Typography>
-                                    )} */}
+                  {/* <Typography>Envelope Type*</Typography> */}
+                  <GeneralSelect
+                    className={isError && ![envelopeType].length ? 'error' : ''}
+                    selectedValue={envelopeType}
+                    setSelectedValue={setEnvelopeType}
+                    options={envelopeTypes}
+                    placeholder="Envelope Type"
+                    error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
+                    label="Envelope Type*"
+                  />
                 </div>
               </div>
-            </GridContainer>
+            </GridItem>
           </GridContainer>
         )}
         {product && product?.productType === 'Postcards' && (

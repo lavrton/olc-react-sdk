@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, CSSProperties } from 'react';
 
 // styles
-import './styles.scss'
+import './styles.scss';
 
-const CircularProgress = (props: any) => {
-  const { style={} } = props;
-   const [loader, setloader] = useState(true);
-
-   useEffect(() => {
-     setTimeout(() => {
-        setloader(false)
-     }, 3000);
-
-   }, [])
-   
-  return <div className={`${true ? 'basic-progress' : 'hide-loader'}`}>
-    <div className='loader' style={style}/>
-  </div>;
+interface CircularProgressProps {
+  style?: CSSProperties;
 }
 
-export default CircularProgress
+const CircularProgress: React.FC<CircularProgressProps> = ({ style = {} }) => {
+  return (
+    <div className={'basic-progress'}>
+      <div className="loader" style={style} />
+    </div>
+  );
+}
+
+export default CircularProgress;

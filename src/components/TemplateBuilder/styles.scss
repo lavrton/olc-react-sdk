@@ -1,0 +1,49 @@
+.polotno-container {
+  .polotno-side-panel {
+    & .polotno-side-tabs-container {
+      & .polotno-side-tabs-inner {
+        & .polotno-side-panel-tab {
+          &.active,
+          &:hover {
+            background-color: #fff7ea;
+            opacity: 0.8;
+            color: #ed5c2f;
+            svg {
+              color: #ed5c2f;
+            }
+          }
+        }
+      }
+    }
+    & .polotno-panel-container {
+      & > div > p {
+        display: none;
+      }
+      .bp5-tabs {
+        .bp5-tab-list {
+          .bp5-tab-indicator-wrapper {
+            .bp5-tab-indicator {
+              background-color: #ed5c2f;
+            }
+          }
+          .bp5-tab[aria-selected='true'] {
+            color: #ed5c2f;
+            &:focus {
+              outline: none;
+            }
+          }
+          .bp5-tab[aria-selected='false'] {
+            color: #000000;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.bp5-popover-transition-container {
+  z-index: 2200 !important;
+}

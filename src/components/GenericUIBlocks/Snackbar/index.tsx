@@ -2,13 +2,18 @@ import React, { useEffect } from 'react';
 
 //Hooks
 import { useSnackbar } from 'react-simple-snackbar';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from '../../../redux/store';
+
+// Actions
+import { closeSnackbar } from '../../../redux/actions/snackbarActions';
 
 // components
 import Typography from '../Typography';
 
 // styles
 import './styles.scss'
+
 
 const options = {
   position: 'top-right',
@@ -26,28 +31,30 @@ const options = {
   },
 };
 
-const Snackbar = () => {
+const Snackbar:React.FC = () => {
   const [openSnackbar] = useSnackbar(options);
 
-  const open = useSelector((state) => state.snackbarReducers.snackbar.open);
+  const open = useSelector((state: RootState) => state.snackbarReducers.snackbar.open);
 
   const heading = useSelector(
-    (state) => state.snackbarReducers.snackbar.heading
+    (state: RootState) => state.snackbarReducers.snackbar.heading
   );
   const message = useSelector(
-    (state) => state.snackbarReducers.snackbar.message
+    (state: RootState) => state.snackbarReducers.snackbar.message
   );
 
-  const Element =   
-  <div className="snackbar">
-    <Typography>{heading || ''}</Typography>
-    <Typography>{message || ''}</Typography>
-  </div>
+  const dispatch: AppDispatch = useDispatch();
+
+  const Element =
+    <div className="snackbar">
+      <Typography>{heading || ''}</Typography>
+      <Typography>{message || ''}</Typography>
+    </div>
 
   useEffect(() => {
-    openSnackbar(Element, [10000])
     if (open) {
-      openSnackbar(Element, [10000])
+      openSnackbar(Element, [5000])
+      dispatch(closeSnackbar())
     }
   }, [open]);
 

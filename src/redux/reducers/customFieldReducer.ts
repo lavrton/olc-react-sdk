@@ -3,6 +3,8 @@ import {
   SET_CUSTOM_FIELDS,
 } from '../actions/customFieldAction';
 
+
+// TODO: Review this
 export interface CustomFieldState {
   customFields: any[];
   defaultDynamicFields: any[];

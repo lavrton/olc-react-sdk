@@ -7,7 +7,25 @@ export const multiPageLetters: string[] = [
     "Postcards",
     "Tri-Fold Self-Mailers",
     "Bi-Fold Self-Mailers",
-  ];
+];
+  
+export const templateTypes = [
+  {
+    id: "1",
+    name: "My Templates",
+    label: "My Templates",
+  },
+  {
+    id: "2",
+    name: "Team Templates",
+    label: "Team Templates",
+  },
+  {
+    id: "3",
+    name: "OLC Templates",
+    label: "OLC Templates",
+  },
+];
 
 export const sortOrderForTemplates: string[] = [
   "Postcards",

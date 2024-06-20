@@ -1,5 +1,5 @@
 //Actions
-import { SET_SUCCESS_SNACKBAR, SET_ERROR_SNACKBAR, CLEAR_SNACKBAR } from "./actions/action-types"
+import { SET_SUCCESS_SNACKBAR, SET_ERROR_SNACKBAR, CLEAR_SNACKBAR } from "../actions/action-types"
 
 // Define the initial state type
 interface SnackbarState {

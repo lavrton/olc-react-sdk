@@ -19,7 +19,7 @@ export const fetchCustomFields = () => {
 
     try {
       const response = await get('custom-fields');
-      dispatch(fetchCustomFieldsSuccess(response.data));
+      dispatch(fetchCustomFieldsSuccess(response?.data));
     } catch (error: any) {
       console.error('Failed to fetch custom fields:', error);
     }

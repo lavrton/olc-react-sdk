@@ -1,33 +1,98 @@
-.basic-progress{
-    position: relative;
-  .loader{
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.basic-progress {
+  .loader {
+    width: 50px;
+    aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid #ed5c2f;
-    border-right: 3px solid transparent;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: circularAnimation 2s linear infinite;
-  
-
-  @keyframes circularAnimation {
+    animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
+  }
+  @keyframes l20-1 {
     0% {
-      transform: translate(-50%, -50%) rotate(0deg);
+      clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+    }
+    12.5% {
+      clip-path: polygon(
+        50% 50%,
+        0 0,
+        50% 0%,
+        100% 0%,
+        100% 0%,
+        100% 0%,
+        100% 0%
+      );
+    }
+    25% {
+      clip-path: polygon(
+        50% 50%,
+        0 0,
+        50% 0%,
+        100% 0%,
+        100% 100%,
+        100% 100%,
+        100% 100%
+      );
+    }
+    50% {
+      clip-path: polygon(
+        50% 50%,
+        0 0,
+        50% 0%,
+        100% 0%,
+        100% 100%,
+        50% 100%,
+        0% 100%
+      );
+    }
+    62.5% {
+      clip-path: polygon(
+        50% 50%,
+        100% 0,
+        100% 0%,
+        100% 0%,
+        100% 100%,
+        50% 100%,
+        0% 100%
+      );
+    }
+    75% {
+      clip-path: polygon(
+        50% 50%,
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        50% 100%,
+        0% 100%
+      );
     }
     100% {
-      transform: translate(-50%, -50%) rotate(360deg);
+      clip-path: polygon(
+        50% 50%,
+        50% 100%,
+        50% 100%,
+        50% 100%,
+        50% 100%,
+        50% 100%,
+        0% 100%
+      );
     }
   }
-}
-
-.hide-loader {
-  .loader {
-    display: none !important; /* Hide the pseudo-element */
+  @keyframes l20-2 {
+    0% {
+      transform: scaleY(1) rotate(0deg);
+    }
+    49.99% {
+      transform: scaleY(1) rotate(135deg);
+    }
+    50% {
+      transform: scaleY(-1) rotate(0deg);
+    }
+    100% {
+      transform: scaleY(-1) rotate(-135deg);
+    }
   }
-}
+  .hide-loader {
+    .loader {
+      display: none !important; /* Hide the pseudo-element */
+    }
+  }
 }

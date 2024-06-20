@@ -52,20 +52,19 @@ const getAllTemplates =
           type: TEMPLATE_PAGINATION_CHANGE,
           payload: { data: { page, pageSize, loading: true } },
         });
-        const { data } = await get('templates', {
+        const { data = {} } = await get('templates', {
           page,
           pageSize,
           search,
           productTypes,
           creator,
           templateType,
-          //TODO: Fix This Later
           // productId,
           isShared,
-        });
+        }) as any;
         dispatch({
           type: GET_ALL_TEMPLATES,
-          payload: { data: data, refresh },
+          payload: { data, refresh },
         });
         dispatch({
           type: TEMPLATE_PAGINATION_CHANGE,
@@ -86,7 +85,7 @@ const getOneTemplate =
   (id: number, type = 'edit') =>
     async (dispatch: AppDispatch): Promise<void> => {
       try {
-        const { data } = await get(`templates/${id}`);
+        const { data } = await get(`templates/${id}`) as any;
         dispatch({ type: GET_ONE_TEMPLATE, payload: { data: data.data, type } });
         dispatch({ type: TEMPLATE_LOADING, payload: true });
       } catch (error: any) {
@@ -213,7 +212,7 @@ const getAllProducts = () => async (dispatch: AppDispatch): Promise<void> => {
     const response = await get('products/types');
     dispatch({
       type: GET_PRODUCTS,
-      payload: { products: response.data },
+      payload: { products: response?.data?.data },
     });
   } catch (error: any) {
     console.error(error);
@@ -232,8 +231,8 @@ const getAllProducts = () => async (dispatch: AppDispatch): Promise<void> => {
 const getAllCustomFields = () => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const response = await get('custom-fields');
-    if (response.status === 200) {
-      const data = response.data.data.reduce((acc: any, curr: any) => {
+    if (response?.status === 200) {
+      const data = response?.data?.data.reduce((acc: any, curr: any) => {
         acc[curr.key.replace(/{{|}}/g, '')] = curr;
         return acc;
       }, {});
@@ -257,8 +256,8 @@ const getAllCustomFields = () => async (dispatch: AppDispatch): Promise<void> =>
 const getProductDetails = (payload: object) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const response = await post('/products/template/details', payload);
-    if (response.status === 200) {
-      dispatch({ type: SET_PRODUCT_DETAILS, payload: response.data.data });
+    if (response?.status === 200) {
+      dispatch({ type: SET_PRODUCT_DETAILS, payload: response?.data?.data });
     }
   } catch (error: any) {
     return error.response;
@@ -313,9 +312,9 @@ const uploadFile = async (file: File): Promise<string> => {
     formData.append('image', file);
     const response = await post('templates/uploadFile', formData);
 
-    return response.data.data.filePath;
+    return response?.data?.data?.filePath;
   } catch (error: any) {
-    return error.response;
+    return error?.response;
   }
 };
 
@@ -340,18 +339,6 @@ const fetchTemplatesSuccess = (templates: any[]) => ({
   payload: templates,
 });
 
-const fetchTemplates = () => {
-  return async (dispatch: AppDispatch) => {
-    dispatch(fetchTemplatesRequest());
-    try {
-      const response = await get('templates');
-      dispatch(fetchTemplatesSuccess(response.data));
-    } catch (error: any) {
-      console.error('Failed to fetch templates:', error);
-      return error;
-    }
-  };
-};
 
 
 /**
@@ -454,6 +441,38 @@ const clearDynaicFields = () => (dispatch: AppDispatch) => {
  */
 const clearFilter = () => (dispatch: AppDispatch) => dispatch({ type: CLEAR_FIELDS });
 
+/**
+ * Retrieves all template categories from the server using an HTTP GET request.
+ *
+ * @returns {Promise<any>} - A promise that resolves with the response from the server.
+ * @throws {object} - The error response if there is an error.
+ */
+const getAllTemplateCategories = async (): Promise<any> => {
+  try {
+    const response = await get('templates/categories');
+    return response;
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
+
+/**
+ * Retrieves templates by tab using the provided payload.
+ *
+ * @param {object} payload - The payload containing the necessary data to filter templates by tab.
+ * @returns {Promise<any>} - A promise that resolves with the response data from the server.
+ * @throws {object} - The error response if there is an error.
+ */
+const getAllTemplatesByTab = async (payload: object): Promise<any> => {
+  try {
+    const response  = await post('templates/by-tab', payload);
+    return response;
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
 export {
   dynmicInputChange,
   setDynamicFields,
@@ -479,6 +498,7 @@ export {
   uploadFile,
   getProductDetails,
   downloadProof,
-  fetchTemplates
+  getAllTemplateCategories,
+  getAllTemplatesByTab
 };
 

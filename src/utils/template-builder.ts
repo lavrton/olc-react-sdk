@@ -1,32 +1,57 @@
 /* eslint-disable no-useless-catch */
-// import axios from 'axios';
 
+// Actions
+import {
+  getViewProof
+} from '../redux/actions/templateActions';
+import { success, failure } from '../redux/actions/snackbarActions';
+
+// Utils
 import { multiPageLetters, Barcode } from './constants';
 
-// Restricted Area
+// Restricted Area Files
 import { addRestrictedAreaToBiFold } from './templateRestrictedArea/biFold';
 import { addRestrictedAreaToPostCard } from './templateRestrictedArea/postCard';
 import { addAreaToProfessionalLetters } from './templateRestrictedArea/professional';
 import { addRestrictedAreaToTriFold } from './templateRestrictedArea/triFold';
 
 
-import {
-  getViewProof
-} from '../redux/actions/templateActions';
+export const addressPrinting = {
+  'Postcards-': true,
+  'Tri-Fold Self-Mailers-': true,
+  'Bi-Fold Self-Mailers-': true,
+  'Professional Letters-#10 Double-Window': true,
+};
 
+export const multiPageTemplates = [
+  'Postcards',
+  'Tri-Fold Self-Mailers',
+  'Bi-Fold Self-Mailers',
+];
 
-// import { success, failure } from '../redux/actions/snackbar-actions';
+export const envelopeTypes = [
+  { id: 1, label: 'Windowed Envelope', type: '#10 Double-Window' },
+  { id: 2, label: 'Non-Windowed Envelope', type: '#10 Grey' },
+];
 
+export const toggleFigure = (store, key, value) => {
+  store.getElementById(key).set({ visible: value });
+};
 
+export const isValidHtmlContent = (html) => {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return doc.body.childElementCount !== 0;
+};
 
 export const getFileAsBlob = async (url, returnType = 'json') => {
   try {
-    const response = await axios.get(url, {
-      responseType: 'blob',
-    });
+  
+    const response = await fetch(url);
+    const blob = await response.blob();
+    
     return returnType === 'json'
-      ? blobToJSON(response.data)
-      : blobToString(response.data);
+      ? blobToJSON(blob)
+      : blobToString(blob);
   } catch (error) {
     throw error; // Optionally rethrow the error for further handling
   }
@@ -36,62 +61,40 @@ const blobToJSON = (jsonBlob) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    // Define a callback function for when the FileReader finishes reading
     reader.onload = function () {
       try {
-        // Parse the result as JSON
         const parsedData = JSON.parse(reader.result);
-
-        // Resolve the promise with the parsed JSON data
         resolve(parsedData);
       } catch (error) {
-        // Reject the promise with the error
         reject(error);
       }
     };
 
-    // Define a callback function for when there is an error reading the Blob
     reader.onerror = function (error) {
-      // Reject the promise with the error
       reject(error);
     };
 
-    // Start reading the Blob as text
     reader.readAsText(jsonBlob);
   });
 };
 
 export const blobToString = (blob) => {
   return new Promise((resolve, reject) => {
-    const blobObject = new Blob([blob], { type: 'text/plain' });
     const reader = new FileReader();
 
-    // Define a callback function for when the reading is complete
     reader.onloadend = function () {
-      // The result property contains the data as a string
       const blobString = reader.result;
-
-      // Resolve the Promise with the blobString
       resolve(blobString);
     };
 
-    // Define a callback function for when an error occurs
     reader.onerror = function (error) {
-      // Reject the Promise with the error
       reject(error);
     };
 
-    // Start reading the content of the Blob as text
-    reader.readAsText(blobObject);
+    reader.readAsText(blob);
   });
 };
 
-export const addressPrinting = {
-  'Postcards-': true,
-  'Tri-Fold Self-Mailers-': true,
-  'Bi-Fold Self-Mailers-': true,
-  'Professional Letters-#10 Double-Window': true,
-};
 
 export const exportPdfViewProofWithDummyData = async (store, title, fields) => {
   const json = store.toJSON();
@@ -105,15 +108,6 @@ export const exportPdfViewProofWithDummyData = async (store, title, fields) => {
   await store.waitLoading();
   await store.saveAsPDF({ fileName: title + '.pdf', pixelRatio: 2 });
   store.loadJSON(json);
-};
-
-export const toggleFigure = (store, key, value) => {
-  store.getElementById(key).set({ visible: value });
-};
-
-export const isValidHtmlContent = (html) => {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  return doc.body.childElementCount !== 0;
 };
 
 export const extractVariablesFromHtml = (html) => {
@@ -154,16 +148,6 @@ export const htmlWithDummyData = (html, fields) => {
   return htmlString;
 };
 
-export const multiPageTemplates = [
-  'Postcards',
-  'Tri-Fold Self-Mailers',
-  'Bi-Fold Self-Mailers',
-];
-export const envelopeTypes = [
-  { id: 1, title: 'Windowed Envelope', type: '#10 Double-Window' },
-  { id: 2, title: 'Non-Windowed Envelope', type: '#10 Grey' },
-];
-
 export const createViewProof = (title, id) => async (dispatch) => {
   const response = await getViewProof(id);
   const binaryData = atob(response.data.data.base64Pdf);
@@ -202,7 +186,6 @@ export const downloadPDF = (title, url) => {
   document.body.removeChild(link);
 };
 
-
 export const drawRestrictedAreaOnPage = (store, product, envelopeType) => {
   if (addressPrinting[`${product.productType}-${envelopeType}`]) {
     if (product.productType === 'Professional Letters') {
@@ -220,4 +203,22 @@ export const drawRestrictedAreaOnPage = (store, product, envelopeType) => {
       addRestrictedAreaToBiFold(store, [3.2835, 2.375], Barcode);
     }
   }
+};
+
+export const extractFontFamilies = (jsonData) => {
+  const fontFamilies: any = [];
+
+  // Iterate through each object in the JSON data
+  jsonData.forEach((obj) => {
+    if (obj.children) {
+      // Iterate through each child object
+      obj.children.forEach((child) => {
+        if (child.type === 'text' && child.fontFamily) {
+          // Extract font family from text objects
+          fontFamilies.push(child.fontFamily);
+        }
+      });
+    }
+  });
+  return fontFamilies;
 };
