@@ -3,21 +3,16 @@ import { observer } from 'mobx-react-lite';
 import { SectionTab, } from 'polotno/side-panel';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect , useState} from 'react';
-// import FaShapes from '@meronex/icons/fa/FaShapes';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
 import { AppDispatch, RootState } from '../../../redux/store';
-import DesignIcon from '../../../assets/images/templates/template-default-design.svg'
-import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.svg";
 import { fetchCustomFields } from '../../../redux/actions/customFieldAction';
-import Typography from '../../GenericUIBlocks/Typography';
 import Button from '../../GenericUIBlocks/Button';
 import { copyToClipboard } from '../../../utils/helper';
 import './styles.scss'
 import GeneralTootip from '../../GenericUIBlocks/GeneralTooltip';
 import InfoIcon from '../../../assets/images/templates/info-icon';
 import ContentCopyIcon from '../../..//assets/images/templates/content-copy-icon';
-import Dialog from '../../GenericUIBlocks/Dialog';
 import DynamicField from '../../../assets/images/templates/dynamic-field';
 import { success } from '../../../redux/actions/snackbarActions';
 
@@ -40,12 +35,9 @@ const customFieldSection: SideSection = {
   Panel: observer(({store}) => {
     const [isShowDialog, setIsShowDialog] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
-
-    // Getting custom fields from Redux state
-    const customFields = useSelector((state: RootState) => state.customFields.customFields);
+    const customFields = useSelector((state: RootState) => state.customFields.customFields) as Record<string, any>;
     const defaultDynamicFields = useSelector((state: RootState) => state.customFields.defaultDynamicFields);
     const product = useSelector((state: RootState) => state.templates.product);
-  
     const currentTemplateType = product?.productType;
 
     const handleShowDialog = () => {
@@ -102,7 +94,7 @@ const customFieldSection: SideSection = {
             />
           </div>
         </div>
-        {defaultDynamicFields.map(({key, value}, i) => (
+        {defaultDynamicFields.map(({ key, value }: { key: string; value: string }, i: number) => (
           <div style={{display: 'flex', alignItems: 'center'}} key={i}>
             <span
               className="contact-element"
@@ -132,24 +124,21 @@ const customFieldSection: SideSection = {
           </div>
           <Button onClick={handleShowDialog}></Button>
         </div>
-        {Object.values(customFields)?.map(({key, value}, i) => (
-          <div style={{display: 'flex', alignItems: 'center'}} key={i}>
+        {customFields.data?.map(({ key, value }: { key: string; value: string }, i: number) => (
+          <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
             <span
               className="contact-element"
               onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
             >
               {value}
             </span>
-            {/* <Tooltip title="Copy"> */}
-            <Button onClick={() => copyToClipboard(key)}>
-              {/* <img src={ContentCopyIcon} /> */}
+            <Button
+              style={iconButtonStyles}
+              onClick={() => copyToClipboard(key)}>
+              <ContentCopyIcon className="copy" />
             </Button>
-            {/* </Tooltip> */}
           </div>
         ))}
-        {/* {isShowDialog && <FormDialog open={isShowDialog} handleClose={handleShowDialog} />}
-        {isShowDialog && <CustomFieldNameModel open={isShowDialog} handleClose={handleShowDialog} />} */}
-       
       </div>
     );
   }) as SideSection['Panel'],

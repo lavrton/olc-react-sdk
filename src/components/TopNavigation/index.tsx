@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // Hooks
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AppDispatch, RootState } from '@/redux/store';
+import { AppDispatch, RootState } from '../../redux/store';
 
 // Actions
 import {
@@ -26,6 +26,7 @@ import EditTemplateNameModel from './EditTemplateNameModel';
 import { downloadPDF, extractFontFamilies, multiPageTemplates } from '../../utils/template-builder';
 import { getItem, setItem } from '../../utils/local-storage';
 import { MESSAGES } from '../../utils/message';
+// @ts-ignore
 import fonts from '../../utils/fonts.json';
 
 // UI Components
@@ -36,6 +37,7 @@ import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 
 
 // Icons
+// @ts-ignore
 import EditIcon from '../../assets/images/templates/edit-pencil-icon.svg';
 
 // Styles
@@ -95,7 +97,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
   const navigate = useNavigate();
 
   const title = useSelector((state: RootState) => state.templates.title);
-  const product = useSelector((state: RootState) => state.templates.product);
+  const product = useSelector((state: RootState) => state.templates.product) as Record<string, any>;
 
   const dynamicFields = useSelector(
     (state: RootState) => state.templates.dynamicFields
@@ -202,11 +204,11 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         const fontFamilies = extractFontFamilies(jsonData?.pages);
 
         // extract custom fonts and remove google fonts from that array
-        const customFonts = fontFamilies.filter(item => !fonts.includes(item));
+        const customFonts = fontFamilies.filter((item: any) => !fonts.includes(item));
 
-        const availableBase64inJson = jsonData?.fonts?.map(font => font?.fontFamily);
+        const availableBase64inJson = jsonData?.fonts?.map((font: any) => font?.fontFamily);
 
-        const unAvailableFonts = customFonts.filter(item => !availableBase64inJson?.includes(item));
+        const unAvailableFonts = customFonts.filter((item: any) => !availableBase64inJson?.includes(item));
 
         if (unAvailableFonts?.length) {
           dispatch(failure(`Please upload ${unAvailableFonts[0]} font in My Fonts section.`));
@@ -256,7 +258,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     try {
       const response: any = await createTemplate({
         title: title,
-        productId: product.id,
+        productId: product?.id,
         fields: selectedFields,
         thumbnailPath: data.thumbnailPath,
         templatePath: data.templatePath,
@@ -280,6 +282,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
   };
 
   const handleUpdateTemplate = async (data: any, selectedFields: any) => {
+    // @ts-ignore
     const response: any = await updateTemplate(id, {
       title: title,
       fields: selectedFields,

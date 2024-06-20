@@ -28,11 +28,17 @@ import Button from '../GenericUIBlocks/Button';
 import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 
 // Images
+//@ts-ignore
 import Postcard from '../../assets/images/templates/postcard.svg';
+//@ts-ignore
 import PersonalLetter from '../../assets/images/templates/personal-letter.svg';
+//@ts-ignore
 import ProfessionalLetter from '../../assets/images/templates/professional-letter.svg';
+//@ts-ignore
 import RealPennedLetter from '../../assets/images/templates/real-penned-letters.svg';
+//@ts-ignore
 import TriFoldSelfMailers from '../../assets/images/templates/tri-fold-self-mailers.svg';
+//@ts-ignore
 import BiFoldSelfMailers from '../../assets/images/templates/bi-fold-self-mailers.svg';
 
 import SizeImage from '../../assets/images/templates/size-image';
@@ -89,7 +95,7 @@ const CreateTemplate: React.FC = () => {
   const [envelopeType, setEnvelopeType] = useState<[]>([]);
 
   const title = useSelector((state: RootState) => state.templates.title);
-  const product = useSelector((state: RootState) => state.templates.product);
+  const product = useSelector((state: RootState) => state.templates.product) as Record<string, any>;
   const products = useSelector((state: RootState) => state.templates.products);
   const templateType = useSelector((state: RootState) => state.templates.templateType);
 
@@ -118,10 +124,12 @@ const CreateTemplate: React.FC = () => {
     ) {
       setIsError(true);
     } else {
-      let envelope = '';
+      let envelope: string | string[]  = "";
       if (product.productType === 'Professional Letters') {
+        //@ts-ignore
         envelope = envelopeTypes.find(
-          (envelope) => envelope.label === envelopeType.label
+        //@ts-ignore
+          (envelope) => envelope?.label === envelopeType.label
         )?.type;
       }
       dispatch(searchAndAdvanceChange('title', trimedTitle));
@@ -150,6 +158,7 @@ const CreateTemplate: React.FC = () => {
       if (Object.keys(envelopeType).length) {
         setIsError(false);
       }
+      //@ts-ignore
       if (envelopeType?.label === 'Non-Windowed Envelope') {
         dispatch(
           selectProduct(sortedProducts.find((item) => item.windowed === false))
@@ -244,8 +253,11 @@ const CreateTemplate: React.FC = () => {
                   {/* <Typography>Envelope Type*</Typography> */}
                   <GeneralSelect
                     className={isError && ![envelopeType].length ? 'error' : ''}
+                    //@ts-ignore
                     selectedValue={envelopeType}
+                      //@ts-ignore
                     setSelectedValue={setEnvelopeType}
+                      //@ts-ignore
                     options={envelopeTypes}
                     placeholder="Envelope Type"
                     error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
@@ -266,8 +278,8 @@ const CreateTemplate: React.FC = () => {
                 </div>
                 <div className="postCardWrapper">
                   {product?.size
-                    .sort((a, b) => a.id.localeCompare(b.id))
-                    .map((type, index) => {
+                    .sort((a: any, b: any) => a.id.localeCompare(b.id))
+                    .map((type :any, index: any) => {
                       const size = type.size.split('x');
                       return (
                         <div

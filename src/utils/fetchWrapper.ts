@@ -37,7 +37,8 @@ const fetchWrapper = async (endpoint: string, options: RequestOptions) => {
   if (options.body) {
     if (options.body instanceof FormData) {
       fetchOptions.body = options.body;
-      delete fetchOptions.headers['Content-Type'];
+      // @ts-ignore
+      delete fetchOptions?.headers['Content-Type'];
     } else {
       fetchOptions.headers = getHeaders(options.headers);
     }

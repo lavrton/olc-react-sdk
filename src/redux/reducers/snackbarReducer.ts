@@ -1,3 +1,4 @@
+import { Payload } from './../../components/SidePanel/templates/customTemplateSection';
 //Actions
 import { SET_SUCCESS_SNACKBAR, SET_ERROR_SNACKBAR, CLEAR_SNACKBAR } from "../actions/action-types"
 
@@ -19,8 +20,12 @@ const initialState: SnackbarState = {
         message: '',
     },
 };
+export type ActionPayload = {
+    type: string; 
+    payload: any;
+}
 
-const snackbarReducers = (state: SnackbarState = initialState, { type, payload }) => {
+const snackbarReducers = (state: SnackbarState = initialState, { type, payload } : ActionPayload)  => {
     switch (type) {
         case SET_SUCCESS_SNACKBAR:
             return { ...state, snackbar: { ...state.snackbar, ...payload, open: true, status: 'success' } };

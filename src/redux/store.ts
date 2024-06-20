@@ -5,7 +5,7 @@ import rootReducer from './reducers';
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware : any) =>
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,

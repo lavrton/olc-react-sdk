@@ -12,8 +12,8 @@ import merge from 'deepmerge';
 // Hooks
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { RootState } from '@/redux/reducers';
-import { AppDispatch } from '@/redux/store';
+import { RootState } from '../../redux/reducers';
+import { AppDispatch } from '../../redux/store';
 import { StoreType } from 'polotno/model/store';
 
 // Actions
@@ -29,7 +29,9 @@ import { TEMPLATE_LOADING } from '../../redux/actions/action-types';
 import { drawRestrictedAreaOnPage, getFileAsBlob } from '../../utils/template-builder';
 import { addElementsforRealPennedLetters } from '../../utils/templateRestrictedArea/realPenned';
 import { DPI, multiPageLetters } from '../../utils/constants';
+// @ts-ignore
 import fonts from "../../utils/fonts.json";
+// @ts-ignore
 import LexiRegularFont from "../../assets/Fonts/Lexi-Regular.ttf";
 
 // Components
@@ -54,7 +56,6 @@ setUploadFunc(uploadFile)
 // styles
 import './styles.scss'
 
-
 interface TemplateBuilderProps {
   store: StoreType,
   styles?: React.CSSProperties;
@@ -69,8 +70,8 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
   const navigate = useNavigate();
 
 
-  const template = useSelector((state: RootState) => state.templates.template);
-  const product = useSelector((state: RootState) => state.templates.product);
+  const template = useSelector((state: RootState) => state.templates.template)as Record <string, any>;
+  const product = useSelector((state: RootState) => state.templates.product) as Record <string, any>;
   const envelopeType = useSelector(
     (state: RootState) => state.templates.envelopeType
   );
@@ -114,6 +115,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
     // remove this component from the history stack
 
     if (id) {
+      // @ts-ignore
       dispatch(getOneTemplate(id));
       dispatch(getAllCustomFields());
     } else if (store.pages.length === 0) {
@@ -181,6 +183,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
         store.addPage();
         store.selectPage(store.pages[0].id);
       }
+      //@ts-ignore
       drawRestrictedAreaOnPage(store, product, envelopeType);
 
       if (currentTemplateType === "Real Penned Letter") {
@@ -208,10 +211,10 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
       const reader = new FileReader();
       // Load Lexi Regular Base64 into JSON
       reader.onloadend = () => {
-        store.addFont({
+        store.addFont ({
           fontFamily: "lexi Regular",
           url: reader.result,
-        });
+        } as any) ;
       };
       reader.readAsDataURL(blob);
     } catch (error) {
@@ -227,6 +230,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
       if (workspaceElement) {
         workspaceElement.classList.add("show-loader");
       }
+      // @ts-ignore
       const paperDimensions = template?.product?.paperSize.split('x');
       store.setUnit({
         unit: "in",
