@@ -78,7 +78,7 @@ const footerButtonStyles = {
 const CreateTemplate = () => {
   const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [envelopeType, setEnvelopeType] = useState([]);
   const title = useSelector((state) => state.templates.title);

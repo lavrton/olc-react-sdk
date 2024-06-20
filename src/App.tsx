@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
-import {TemplateBuilder} from './index';
+import React, { useState } from 'react';
+import { TemplateBuilder } from './index';
+
+// Libraries/Packages
+import { Routes, Route } from "react-router-dom";
 
 // components
 import Button from './components/GenericUIBlocks/Button';
 import Typography from './components/GenericUIBlocks/Typography';
 import CircularProgress from './components/GenericUIBlocks/CircularProgress';
 import Dialog from './components/GenericUIBlocks/Dialog';
-import {GridContainer, GridItem} from './components/GenericUIBlocks/Grid';
+import { GridContainer, GridItem } from './components/GenericUIBlocks/Grid';
 import Input from './components/GenericUIBlocks/Input';
 import Snackbar from './components/GenericUIBlocks/Snackbar';
 import GeneralSelect from './components/GenericUIBlocks/GeneralSelect';
@@ -49,15 +52,19 @@ function App() {
   };
 
   const selectOptions = [
-    {value: 'chocolate', label: 'Chocolate'},
-    {value: 'strawberry', label: 'Strawberry'},
-    {value: 'vanilla', label: 'Vanilla'},
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
   ];
 
   return (
     <>
-      {/* <CreateTemplate/> */}
-      <TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />
+      <Routes>
+        <Route path="/" element={<CreateTemplate />} />
+        <Route path="/template-builder" element={<TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />} />
+      </Routes>
+
+      {/* SNACKBAR FOR NOTIFICATIONS */}
       <Snackbar />
       {/* <>
       <Button onClick={handleOpen} style={buttonStyles}>
