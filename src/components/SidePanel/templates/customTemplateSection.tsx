@@ -1,7 +1,8 @@
-import React, { useEffect , useState}  from 'react';
+import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { SectionTab, } from 'polotno/side-panel';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect , useState} from 'react';
 // import FaShapes from '@meronex/icons/fa/FaShapes';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
@@ -84,12 +85,9 @@ const customTemplateSection: SideSection = {
 
     const templates = useSelector((state: RootState) => state.templates.templates);
     const template = useSelector((state: RootState) => state.templates.template);
-    const templatesPagination = useSelector(
-      (state: any) => state.templateReducer.templatesPagination
-    );
     // const product = useSelector((state: RootState) => state.templates.product);
     const product = useSelector((state: any) => state.templates.product);
-    // console.log('🚀 ~ Panel:observer ~ product:', product)
+    console.log('🚀 ~ Panel:observer ~ product:', product)
 
     const envelopeType = useSelector(
       (state: RootState) => state.templates.envelopeType
@@ -104,12 +102,13 @@ const customTemplateSection: SideSection = {
     });
   
     useEffect(() => {
+      // dispatch(fetchTemplates());
       dispatch(getAllTemplates());
+      
     }, []);
     
-    // console.log("selectedRecord==================", selectedRecord);
+    console.log("temp=====", templates);
     const handleLoadTemplateModel = (record: any) => {
-      // console.log("coming here to load template", record);
       setSelectedRecord(record);
       handleDialogChange("load-template");
     }
@@ -282,8 +281,7 @@ const customTemplateSection: SideSection = {
     }, [search]);
 
     useEffect(() => {
-      //////////////////////////
-      // handleLoadAllTemplate(true, true);
+      handleLoadAllTemplate(true, true);
       getAllCategories();
       return () => {
         dispatch(clearAllTemplates());
@@ -317,7 +315,7 @@ const customTemplateSection: SideSection = {
       };
     }, [templates]);
 
-    console.log("================checking current template ID", selectedRecord?.id )
+
     return (
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
@@ -526,7 +524,7 @@ const customTemplateSection: SideSection = {
             handleOk={() => handleLoadTemplate(selectedRecord.id)}
           />
         )}
-      </>
+      </div>
     );
    }) as SideSection['Panel'],
 };
