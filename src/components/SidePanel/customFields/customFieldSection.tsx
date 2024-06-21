@@ -6,7 +6,6 @@ import { useEffect , useState} from 'react';
 // import FaShapes from '@meronex/icons/fa/FaShapes';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
-import { fetchTemplates } from '../../../redux/actions/templateAction';
 import { AppDispatch, RootState } from '../../../redux/store';
 import DesignIcon from '../../../assets/images/templates/template-default-design.svg'
 import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.svg";
@@ -62,9 +61,9 @@ const customFieldSection: SideSection = {
       event.preventDefault();
 
       // if (currentTemplateType === "Real Penned Letter") {
-      copyToClipboard(value);
-      // dispatch(success(`${value} Copied`))
-      return;
+      //   copyToClipboard(value);
+      //   dispatch(success(`${value} Copied`))
+      //   return;
       // }
 
       let x, y;
@@ -151,7 +150,7 @@ const customFieldSection: SideSection = {
         ))}
         {/* {isShowDialog && <FormDialog open={isShowDialog} handleClose={handleShowDialog} />}
         {isShowDialog && <CustomFieldNameModel open={isShowDialog} handleClose={handleShowDialog} />} */}
-        {/* {true && <Dialog open={isShowDialog} handleClose={handleShowDialog} />} */}
+       
       </div>
     );
   }) as SideSection['Panel'],

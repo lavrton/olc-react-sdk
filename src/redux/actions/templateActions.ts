@@ -453,6 +453,38 @@ const clearDynaicFields = () => (dispatch: AppDispatch) => {
  */
 const clearFilter = () => (dispatch: AppDispatch) => dispatch({ type: CLEAR_FIELDS });
 
+/**
+ * Retrieves all template categories from the server using an HTTP GET request.
+ *
+ * @returns {Promise<any>} - A promise that resolves with the response from the server.
+ * @throws {object} - The error response if there is an error.
+ */
+const getAllTemplateCategories = async (): Promise<any> => {
+  try {
+    const { data } = await get('templates/categories');
+    return data;
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
+
+/**
+ * Retrieves templates by tab using the provided payload.
+ *
+ * @param {object} payload - The payload containing the necessary data to filter templates by tab.
+ * @returns {Promise<any>} - A promise that resolves with the response data from the server.
+ * @throws {object} - The error response if there is an error.
+ */
+const getAllTemplatesByTab = async (payload: object): Promise<any> => {
+  try {
+    const { data } = await post('templates/by-tab', payload);
+    return data;
+  } catch (error: any) {
+    return error.response;
+  }
+};
+
 export {
   dynmicInputChange,
   setDynamicFields,
@@ -478,6 +510,8 @@ export {
   uploadFile,
   getProductDetails,
   downloadProof,
-  fetchTemplates
+  fetchTemplates,
+  getAllTemplateCategories,
+  getAllTemplatesByTab
 };
 
