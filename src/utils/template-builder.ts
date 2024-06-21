@@ -221,3 +221,21 @@ export const drawRestrictedAreaOnPage = (store, product, envelopeType) => {
     }
   }
 };
+
+export const extractFontFamilies = (jsonData) => {
+  const fontFamilies: any = [];
+
+  // Iterate through each object in the JSON data
+  jsonData.forEach((obj) => {
+    if (obj.children) {
+      // Iterate through each child object
+      obj.children.forEach((child) => {
+        if (child.type === 'text' && child.fontFamily) {
+          // Extract font family from text objects
+          fontFamilies.push(child.fontFamily);
+        }
+      });
+    }
+  });
+  return fontFamilies;
+};

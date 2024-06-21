@@ -128,7 +128,6 @@ const TemplateBuilder = (props: Props) => {
     const off = store.on("change", handleChange);
 
     return () => {
-      dispatch(clearFilter());
       store.history.clear();
       store.clear();
       off();
@@ -251,7 +250,6 @@ const TemplateBuilder = (props: Props) => {
         {switchTabCount > 0 && (
           <div sx={{ display: { xs: "none", sm: "block" } }}>
             <TopNavigation
-              showViewProofButton={true}
               store={store}
               isStoreUpdated={isStoreUpdated}
             />

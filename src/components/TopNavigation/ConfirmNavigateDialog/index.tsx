@@ -1,23 +1,16 @@
 import React from "react";
 
+// Utils
+import { MESSAGES } from "../../../utils/message";
+
+// Components
 import Dialog from '../../GenericUIBlocks/Dialog';
 
-
 // images
-import CloseIcon from "../../../assets/images/modal-icons/modal-cross";
-import cancelIcon from "../../../assets/modal-icons/cancelIcon.png";
-// import BackIcon from "../../../assets/images/templates/back-dialog-icon.svg";
+import ModalCross from '../../../assets/images/modal-icons/modal-cross';
 
 // Styles
 import "./styles.scss";
-
-// import { MESSAGES } from "../../../utils/message";
-
-
-const dialogStyles = {
-  maxWidth: "450px",
-  minHeight: "300px",
-}
 
 
 /**
@@ -29,23 +22,36 @@ const dialogStyles = {
  * @returns {JSX.Element} The duplicate template modal component.
  *
  */
-const ConfirmNavigateDialog = ({ open, handleClose, handleNavigateAction }) => {
+
+const cancelDialogStyles = {
+  maxWidth: '450px',
+  minHeight: '260px',
+};
+
+// Define the props type
+interface ConfirmNavigateDialogProps {
+  open: boolean;
+  handleClose: () => void;
+  handleNavigateAction: () => void;
+}
+
+
+const ConfirmNavigateDialog: React.FC<ConfirmNavigateDialogProps> = ({ open, handleClose, handleNavigateAction }) => {
 
   return (
-    <>
-      <Dialog
-        customStyles={dialogStyles}
-        open={open}
-        handleClose={handleClose}
-        title="Confirm Cancel Template"
-        subHeading="Are you sure you want to cancel this Template?"
-        desscription="You will lose your changes after canceling."
-        onSubmit={() => handleNavigateAction()}
-        onCancel={handleClose}
-        cancelText="Go Back"
-        submitText="Cancel Template"
-      />
-    </>
+    <Dialog
+      icon={<ModalCross />}
+      customStyles={cancelDialogStyles}
+      open={open}
+      handleClose={handleClose}
+      title={MESSAGES.TEMPLATE.CANCEL.TITLE}
+      subHeading={MESSAGES.TEMPLATE.CANCEL.HEADING}
+      description={MESSAGES.TEMPLATE.CANCEL.PARAGRAPH}
+      onSubmit={handleNavigateAction}
+      onCancel={handleClose}
+      cancelText={MESSAGES.TEMPLATE.CANCEL.BACK_BUTTON}
+      submitText={MESSAGES.TEMPLATE.CANCEL.CANCEL_BUTTON}
+    />
   );
 };
 

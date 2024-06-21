@@ -1,11 +1,12 @@
 import React from 'react'
 
-// styles
-import './styles.scss'
-
 // components
 import Button from '../Button';
 import Typography from '../Typography';
+import CircularProgress from '../CircularProgress';
+
+// styles
+import './styles.scss'
 
 const buttonStyles = {
   color: 'white',
@@ -29,12 +30,19 @@ const subHeadingStyle = {
   textAlign: 'center'
 };
 
+
+const progressStyles = {
+  width: '20px',
+  height: '20px',
+};
+
 const Dialog = (props: any) => {
   const {
     icon,
     customStyles={},
     open={},
-    handleClose={},
+    handleClose=()=>{},
+    loading=false,
     title="",
     subHeading="",
     description="",
@@ -88,7 +96,11 @@ const Dialog = (props: any) => {
             style={{...buttonStyles, border: 'none', maxWidth: contentAdjust}}
             onClick={onSubmit}
           >
-            {submitText}
+            {loading ? (
+                <CircularProgress style={progressStyles} />
+              ) : (
+                submitText
+              )}
           </Button>
         </div>
       </div>
