@@ -122,6 +122,7 @@ const TemplateBuilder = (props: Props) => {
       createInitialPage();
     }
 
+
     const handleChange = () => {
       if (!isStoreUpdated) {
         setIsStoreUpdated(true);
@@ -132,7 +133,7 @@ const TemplateBuilder = (props: Props) => {
 
     return () => {
       store.history.clear();
-      store.clear();
+      store.clear(); 
       off();
     };
   }, []);
@@ -170,6 +171,7 @@ const TemplateBuilder = (props: Props) => {
 
   const createInitialPage = async () => {
     if (product) {
+
       store.addPage();
       const paperSize = product.selectedSize.split("x");
       store.setUnit({

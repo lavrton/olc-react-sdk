@@ -19,6 +19,7 @@ import InfoIcon from '../../../assets/images/templates/info-icon';
 import ContentCopyIcon from '../../..//assets/images/templates/content-copy-icon';
 import Dialog from '../../GenericUIBlocks/Dialog';
 import DynamicField from '../../../assets/images/templates/dynamic-field';
+import { success } from '../../../redux/actions/snackbarActions';
 
 type SideSection = typeof TemplatesSection;
 
@@ -31,7 +32,6 @@ const customFieldSection: SideSection = {
   Tab: observer(
     (props: {store: StoreType; active: boolean; onClick: () => void}) => (
       <SectionTab name="Fields" {...props}>
-        {/* <img src={DynamicField} className='dynamic-icon' /> */}
         <DynamicField />
       </SectionTab>
     )
@@ -42,12 +42,11 @@ const customFieldSection: SideSection = {
     const dispatch = useDispatch<AppDispatch>();
 
     // Getting custom fields from Redux state
-    const customFields = useSelector(
-      (state: RootState) => state.customFields.customFields
-    );
-    const defaultDynamicFields = useSelector(
-      (state: RootState) => state.customFields.defaultDynamicFields
-    );
+    const customFields = useSelector((state: RootState) => state.customFields.customFields);
+    const defaultDynamicFields = useSelector((state: RootState) => state.customFields.defaultDynamicFields);
+    const product = useSelector((state: RootState) => state.templates.product);
+  
+    const currentTemplateType = product?.productType;
 
     const handleShowDialog = () => {
       setIsShowDialog((prev) => !prev);
@@ -60,11 +59,11 @@ const customFieldSection: SideSection = {
     const handleAddElementOnScreen = (event: any, value: any, type: any) => {
       event.preventDefault();
 
-      // if (currentTemplateType === "Real Penned Letter") {
-      //   copyToClipboard(value);
-      //   dispatch(success(`${value} Copied`))
-      //   return;
-      // }
+      if (currentTemplateType === "Real Penned Letter") {
+        copyToClipboard(value);
+        dispatch(success(`${value} Copied`))
+        return;
+      }
 
       let x, y;
 

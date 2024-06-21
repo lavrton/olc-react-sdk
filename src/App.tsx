@@ -13,7 +13,7 @@ import CreateTemplate from './components/CreateTemplate';
 // Initialize Plotno Store
 const initializeStore = () => {
   return createStore({
-    key: 'ysCpKe5xuksqn5IdNqHJ',
+    key:"ysCpKe5xuksqn5IdNqHJ",
     // you can hide back-link on a paid license
     // but it will be good if you can keep it for Polotno project support
     showCredit: false,
@@ -33,6 +33,7 @@ function App() {
     }
   }, [currentPath]);
 
+  
   return (
     <>
       <Routes>
