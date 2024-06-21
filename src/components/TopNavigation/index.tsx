@@ -103,7 +103,7 @@ const TopNavigation = ({
   showBackButton = true,
   store,
   isStoreUpdated,
-  showViewProofbutton,
+  showViewProofButton,
 }) => {
   // TODO: Take Template ID from props instead of route
   // const { id } = useParams();

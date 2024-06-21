@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TemplateBuilder } from './index';
 
 // Libraries/Packages
 import { Routes, Route } from "react-router-dom";
+import { createStore } from 'polotno/model/store';
 
 // components
 import Button from './components/GenericUIBlocks/Button';
@@ -16,57 +17,87 @@ import GeneralSelect from './components/GenericUIBlocks/GeneralSelect';
 import GeneralTootip from './components/GenericUIBlocks/GeneralTooltip';
 import CreateTemplate from './components/CreateTemplate';
 
-const buttonStyles = {
-  fontSize: '30px',
-};
+// const buttonStyles = {
+//   fontSize: '30px',
+// };
 
-const typoStyles = {
-  fontSize: '30px',
-  color: 'orange',
-  maxWidth: "fit-content"
-};
+// const typoStyles = {
+//   fontSize: '30px',
+//   color: 'orange',
+//   maxWidth: "fit-content"
+// };
 
-const dialogStyles = {
-  maxWidth: '450px',
-  minHeight: '600px',
-};
+// const dialogStyles = {
+//   maxWidth: '450px',
+//   minHeight: '600px',
+// };
 
-const progressStyles = {
-  width: '50px',
-  height: '50px',
+// const progressStyles = {
+//   width: '50px',
+//   height: '50px',
+// };
+
+// Initialize Plotno Store
+const initializeStore = () => {
+  return createStore({
+    key: import.meta.env.VITE_APP_PLOTNO_API_KEY,
+    // you can hide back-link on a paid license
+    // but it will be good if you can keep it for Polotno project support
+    showCredit: false,
+  });
 };
 
 
 function App() {
-  const [open, setOpen] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [store, setStore] = useState(initializeStore);
+
+  // const [open, setOpen] = useState(false);
+  // const [firstName, setFirstName] = useState('');
+  // const [lastName, setLastName] = useState('');
 
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
-  const selectOptions = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
+  // const selectOptions = [
+  //   { value: 'chocolate', label: 'Chocolate' },
+  //   { value: 'strawberry', label: 'Strawberry' },
+  //   { value: 'vanilla', label: 'Vanilla' },
+  // ];
+
+  const currentPath = window?.location?.pathname;
+
+  useEffect(() => {
+    if (currentPath === '/create-template') {
+      const newStore = initializeStore();
+      setStore(newStore);
+    }
+  }, [currentPath]);
 
   return (
     <>
       <Routes>
         <Route path="/" element={<CreateTemplate />} />
-        <Route path="/template-builder" element={<TemplateBuilder apiKey="aqsqwlksjddk" secret="ysCpKe5xuksqn5IdNqHJ" />} />
+        <Route path="/template-builder" element={<TemplateBuilder store={store} />} />
       </Routes>
 
       {/* SNACKBAR FOR NOTIFICATIONS */}
       <Snackbar />
-      {/* <>
+
+
+
+
+
+
+
+
+      {/* <> DUMMY COMPONENTS 
+      TODO: Remove Later
       <Button onClick={handleOpen} style={buttonStyles}>
         Button
       </Button>

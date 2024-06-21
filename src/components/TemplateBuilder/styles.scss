@@ -1,0 +1,35 @@
+.polotno-container{
+    .polotno-side-panel {
+        & .polotno-side-tabs-container{
+            & .polotno-side-tabs-inner{
+                & .polotno-side-panel-tab{
+                    &.active,&:hover{
+                        background-color: #fff7ea;
+                        opacity: 0.8;
+                        color: #ED5C2F;
+                       
+                    }
+                }
+            }
+        }
+         & .polotno-panel-container{
+            & > div> p {
+                display: none;
+            }
+         }
+    }
+   
+    .bp5-navbar{
+        & .bp5-align-right{
+            & .bp5-popover-target{
+                & button{
+                }
+            }
+            
+        }
+     }
+}
+
+.bp5-popover-transition-container{
+    z-index: 2200 !important;
+}
