@@ -66,11 +66,7 @@ const customTemplateSection: SideSection = {
   name: 'Templates',
   Tab: observer((props: { store: StoreType; active: boolean; onClick: () => void }) => (
     <SectionTab name="Templates" {...props}>
-<<<<<<< HEAD
       <CustomTemplate/>
-=======
-      {/* <FaShapes style={{ marginRight: 8 }} /> */}
->>>>>>> b316750 (working on showing selected template)
     </SectionTab>
   )) as SideSection['Tab'],
   Panel: observer(({ store }) => {
