@@ -1,23 +1,47 @@
 /* eslint-disable no-useless-catch */
-// import axios from 'axios';
 
+// Actions
+import {
+  getViewProof
+} from '../redux/actions/templateActions';
+import { success, failure } from '../redux/actions/snackbarActions';
+
+// Utils
 import { multiPageLetters, Barcode } from './constants';
 
-// Restricted Area
+// Restricted Area Files
 import { addRestrictedAreaToBiFold } from './templateRestrictedArea/biFold';
 import { addRestrictedAreaToPostCard } from './templateRestrictedArea/postCard';
 import { addAreaToProfessionalLetters } from './templateRestrictedArea/professional';
 import { addRestrictedAreaToTriFold } from './templateRestrictedArea/triFold';
 
 
-import {
-  getViewProof
-} from '../redux/actions/templateActions';
+export const addressPrinting = {
+  'Postcards-': true,
+  'Tri-Fold Self-Mailers-': true,
+  'Bi-Fold Self-Mailers-': true,
+  'Professional Letters-#10 Double-Window': true,
+};
 
+export const multiPageTemplates = [
+  'Postcards',
+  'Tri-Fold Self-Mailers',
+  'Bi-Fold Self-Mailers',
+];
 
-// import { success, failure } from '../redux/actions/snackbar-actions';
+export const envelopeTypes = [
+  { id: 1, label: 'Windowed Envelope', type: '#10 Double-Window' },
+  { id: 2, label: 'Non-Windowed Envelope', type: '#10 Grey' },
+];
 
+export const toggleFigure = (store, key, value) => {
+  store.getElementById(key).set({ visible: value });
+};
 
+export const isValidHtmlContent = (html) => {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return doc.body.childElementCount !== 0;
+};
 
 export const getFileAsBlob = async (url, returnType = 'json') => {
   try {
@@ -86,13 +110,6 @@ export const blobToString = (blob) => {
   });
 };
 
-export const addressPrinting = {
-  'Postcards-': true,
-  'Tri-Fold Self-Mailers-': true,
-  'Bi-Fold Self-Mailers-': true,
-  'Professional Letters-#10 Double-Window': true,
-};
-
 export const exportPdfViewProofWithDummyData = async (store, title, fields) => {
   const json = store.toJSON();
   let jsonString = JSON.stringify(json);
@@ -105,15 +122,6 @@ export const exportPdfViewProofWithDummyData = async (store, title, fields) => {
   await store.waitLoading();
   await store.saveAsPDF({ fileName: title + '.pdf', pixelRatio: 2 });
   store.loadJSON(json);
-};
-
-export const toggleFigure = (store, key, value) => {
-  store.getElementById(key).set({ visible: value });
-};
-
-export const isValidHtmlContent = (html) => {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  return doc.body.childElementCount !== 0;
 };
 
 export const extractVariablesFromHtml = (html) => {
@@ -154,16 +162,6 @@ export const htmlWithDummyData = (html, fields) => {
   return htmlString;
 };
 
-export const multiPageTemplates = [
-  'Postcards',
-  'Tri-Fold Self-Mailers',
-  'Bi-Fold Self-Mailers',
-];
-export const envelopeTypes = [
-  { id: 1, title: 'Windowed Envelope', type: '#10 Double-Window' },
-  { id: 2, title: 'Non-Windowed Envelope', type: '#10 Grey' },
-];
-
 export const createViewProof = (title, id) => async (dispatch) => {
   const response = await getViewProof(id);
   const binaryData = atob(response.data.data.base64Pdf);
@@ -201,7 +199,6 @@ export const downloadPDF = (title, url) => {
   // Remove the link from the document
   document.body.removeChild(link);
 };
-
 
 export const drawRestrictedAreaOnPage = (store, product, envelopeType) => {
   if (addressPrinting[`${product.productType}-${envelopeType}`]) {

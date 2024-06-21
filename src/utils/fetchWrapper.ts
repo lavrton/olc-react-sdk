@@ -2,17 +2,17 @@ const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6In
 const API_BASE_URL = 'https://stageapi.openletterconnect.com/api/v1';
 
 const getHeaders = (additionalHeaders: Record<string, string> = {}) => ({
-    'Authorization': `Bearer ${API_KEY}`,
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    ...additionalHeaders,
+  'Authorization': `Bearer ${API_KEY}`,
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  ...additionalHeaders,
 });
-  
+
 export interface RequestOptions {
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   headers?: Record<string, string>;
-  body?: any; 
-  params?: Record<string, string>; 
+  body?: any;
+  params?: Record<string, string>;
 }
 
 
@@ -26,7 +26,7 @@ const fetchWrapper = async (endpoint: string, options: RequestOptions) => {
 
   const fetchOptions: RequestInit = {
     method: options.method,
-    headers: getHeaders(options.headers), 
+    headers: getHeaders(options.headers),
   };
 
   if (options.method !== 'GET' && options.body) {
@@ -45,7 +45,9 @@ const fetchWrapper = async (endpoint: string, options: RequestOptions) => {
       return null;
     }
 
-    return response.json();
+    const data = await response.json();
+    return { status: response.status, data };
+
   } catch (error) {
     console.error('Fetch error:', error);
     throw error;

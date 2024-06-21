@@ -148,7 +148,6 @@ const TopNavigation = ({
       const response: any = await downloadProof({
         json: jsonWithDummyData,
       });
-
       if (response.status === 200) {
         const binaryData = atob(response.data.data.base64);
         // Create a Uint8Array from the binary data
@@ -196,84 +195,103 @@ const TopNavigation = ({
   };
 
   const handleSave = async () => {
-    try {
-      const formData = new FormData();
-      const allFields = [...defaultFields, ...Object.values(dynamicFields)];
-      let selectedFields = [];
-      if (templateType === 'json') {
-        const blob = await store.toBlob();
-        const jsonData = store.toJSON();
-  
-        // get all fonts family from json
-        const fontFamilies = extractFontFamilies(jsonData?.pages);
-  
-        // extract custom fonts and remove google fonts from that array
-        const customFonts = fontFamilies.filter((item) => !fonts.includes(item));
-  
-        const availableBase64inJson = jsonData?.fonts?.map(
-          (font) => font?.fontFamily
-        );
-  
-        const unAvailableFonts = customFonts.filter(
-          (item) => !availableBase64inJson?.includes(item)
-        );
-  
-        if (unAvailableFonts?.length) {
-          dispatch(
-            failure(
-              `Please upload ${unAvailableFonts[0]} font in My Fonts section.`
-            )
-          );
-          return;
-        }
-  
-        if (multiPageTemplates.includes(product.productType)) {
-          const backJsonData = { ...jsonData, pages: [jsonData.pages[1]] };
-          await store.loadJSON(backJsonData);
-          await store.waitLoading();
-          const backBlob = await store.toBlob();
-          formData.append('backThumbnail', backBlob, 'backLogo.png');
-          store.loadJSON(jsonData);
-        }
-        const jsonString = JSON.stringify(jsonData);
-        const blobData = new Blob([jsonString], { type: 'application/json' });
-        formData.append('json', blobData, 'template.json');
-        formData.append('thumbnail', blob, 'logo.png');
-        selectedFields = allFields.filter((field) =>
-          jsonString.includes(field.key)
-        );
-      }
-      setIsShowModel((prev) => ({ ...prev, loading: true }));
-      console.log("formData",formData)
-      const response = await uploadTemplate(formData);
-  
-      if (response?.status === 200) {
-        if (!id) {
-          setTimeout(
-            () => handleCreateTemplate(response?.data?.data, selectedFields),
-            1000
-          );
-        } else {
-          setTimeout(
-            () => handleUpdateTemplate(response?.data?.data, selectedFields),
-            1000
-          );
-        }
-      } else if (
-        response?.status === 418 &&
-        response?.data?.message ==
-        'You have reached your Templates limit, updgrade you Plan to add more'
-      ) {
-        handleChangeModel('', 'false');
-      } else {
-        // dispatch(failure(response?.data?.message || MESSAGES.GENERAL_ERROR));
-        handleChangeModel('', 'false');
-      }
-    } catch (error) {
-      console.log("ERROR", error);
-      return error;
-    }
+    const formData = new FormData();
+    const allFields = [...defaultFields, ...Object.values(dynamicFields)];
+    let selectedFields = [];
+    if (templateType === 'json') {
+      const blob = await store.toBlob();
+      const jsonData = store.toJSON();
 
+      // get all fonts family from json
+      const fontFamilies = extractFontFamilies(jsonData?.pages);
+
+      // extract custom fonts and remove google fonts from that array
+      const customFonts = fontFamilies.filter(item => !fonts.includes(item));
+
+      const availableBase64inJson = jsonData?.fonts?.map(font => font?.fontFamily);
+
+      const unAvailableFonts = customFonts.filter(item => !availableBase64inJson?.includes(item));
+
+      if (unAvailableFonts?.length) {
+        dispatch(failure(`Please upload ${unAvailableFonts[0]} font in My Fonts section.`));
+        return
+      }
+
+      if (multiPageTemplates.includes(product.productType)) {
+        const backJsonData = { ...jsonData, pages: [jsonData.pages[1]] }
+        await store.loadJSON(backJsonData);
+        await store.waitLoading();
+        const backBlob = await store.toBlob();
+        formData.append('backThumbnail', backBlob, 'backLogo.png');
+        store.loadJSON(jsonData);
+      }
+      const jsonString = JSON.stringify(jsonData);
+      const blobData = new Blob([jsonString], { type: 'application/json' });
+      formData.append('json', blobData, 'template.json');
+      formData.append('thumbnail', blob, 'logo.png');
+      selectedFields = allFields.filter(field => jsonString.includes(field.key));
+    } else {
+      if (!validateAndDispatch(html, 'Please pass valid HTML content')) {
+        return;
+      }
+
+      if (product.productType === 'Postcards' && !validateAndDispatch(backHtml, 'Please pass valid HTML content for back side')) {
+        return;
+      }
+      const extractFields = extractVariablesFromHtml(html);
+      let extractFieldsBack = [];
+      const htmlBlob = new Blob([html], { type: 'text/html' });
+      formData.append('html', htmlBlob, 'template.html');
+      if (product.productType === 'Postcards') {
+        extractFieldsBack = extractVariablesFromHtml(backHtml);
+        const backHtmlBlob = new Blob([backHtml], { type: 'text/html' });
+        formData.append('backHtml', backHtmlBlob, 'template.html');
+      }
+      selectedFields = [...extractFields, ...extractFieldsBack].reduce((acc, current) => {
+        var existingItem = acc.find(item => item.key === current.key);
+
+        if (!existingItem) {
+          acc.push({
+            key: current.key,
+            value: current.value,
+            defaultValue: current.defaultValue
+          });
+        }
+
+        return acc;
+      }, []);
+      selectedFields = selectedFields.map((item) => {
+        const found = defaultFieldsHashMap[item.key] || dynamicFields[item.value];
+        if (found) {
+          return {
+            ...item,
+            value: found.value,
+            defaultValue: found.defaultValue
+          }
+        }
+        return item;
+      })
+    }
+    setIsShowModel((prev) => ({ ...prev, loading: true }));
+
+    const response = await uploadTemplate(formData);
+    if (response?.status === 200) {
+      if (!id) {
+        setTimeout(() => handleCreateTemplate(response?.data?.data, selectedFields), 1000);
+      } else {
+        setTimeout(() => handleUpdateTemplate(response?.data?.data, selectedFields), 1000)
+      }
+    } else if (response?.status === 418 && response?.data?.message == "You have reached your Templates limit, updgrade you Plan to add more") {
+      handleChangeModel('', 'false');
+    } else {
+      dispatch(
+        failure(
+          response?.data?.message ||
+          MESSAGES.GENERAL_ERROR
+        )
+      );
+      handleChangeModel('', 'false');
+    }
   };
 
   const handleCreateTemplate = async (data, selectedFields) => {

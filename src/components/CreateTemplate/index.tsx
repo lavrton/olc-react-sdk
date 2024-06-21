@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 //hooks
-import {NavLink, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 //actions
 import {
@@ -12,16 +12,16 @@ import {
   selectPostCard,
   selectProduct,
 } from '../../redux/actions/templateActions';
-import {CLEAR_TEMPLATE} from '../../redux/actions/action-types';
+import { CLEAR_TEMPLATE } from '../../redux/actions/action-types';
 
 //utils
-import {PRODUCT_LEARN_URL, sortOrderForTemplates} from '../../utils/constants';
-import {removeItem} from '../../utils/local-storage';
-import {MESSAGES} from '../../utils/message';
-import {envelopeTypes} from '../../utils/template-builder';
+import { PRODUCT_LEARN_URL, sortOrderForTemplates } from '../../utils/constants';
+import { removeItem } from '../../utils/local-storage';
+import { MESSAGES } from '../../utils/message';
+import { envelopeTypes } from '../../utils/template-builder';
 
 // Mui Components
-import {GridContainer, GridItem} from '../GenericUIBlocks/Grid';
+import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 import Typography from '../GenericUIBlocks/Typography';
 import Button from '../GenericUIBlocks/Button';
 
@@ -41,6 +41,8 @@ import SizeImageMid from '../../assets/images/templates/size-image-mid';
 import SizeImageLarge from '../../assets/images/templates/size-image-lg';
 import Input from '../GenericUIBlocks/Input';
 import Divider from '../GenericUIBlocks/Divider';
+import { AppDispatch, RootState } from '@/redux/store';
+import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 
 // import MultiSelect from "../../General/MultiSelect/index.jsx";
 
@@ -75,16 +77,25 @@ const footerButtonStyles = {
   color: '#000000',
 };
 
+const Images = {
+  Postcards: Postcard,
+  'Professional Letters': ProfessionalLetter,
+  'Personal Letters': PersonalLetter,
+  'Real Penned Letter': RealPennedLetter,
+  'Tri-Fold Self-Mailers': TriFoldSelfMailers,
+  'Bi-Fold Self-Mailers': BiFoldSelfMailers,
+};
+
 const CreateTemplate = () => {
   const [isError, setIsError] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const [envelopeType, setEnvelopeType] = useState([]);
-  const title = useSelector((state) => state.templates.title);
-  const product = useSelector((state) => state.templates.product);
-  const products = useSelector((state) => state.templates.products);
-  const templateType = useSelector((state) => state.templates.templateType);
+  const title = useSelector((state: RootState) => state.templates.title);
+  const product = useSelector((state: RootState) => state.templates.product);
+  const products = useSelector((state: RootState) => state.templates.products);
+  const templateType = useSelector((state: RootState) => state.templates.templateType);
 
   const sortedProducts = products?.sort((a, b) => {
     const indexA = sortOrderForTemplates.indexOf(a.productType);
@@ -96,7 +107,7 @@ const CreateTemplate = () => {
     dispatch(getAllProducts());
     dispatch(clearTemplateFields());
     removeItem('formData');
-    dispatch({type: CLEAR_TEMPLATE});
+    dispatch({ type: CLEAR_TEMPLATE });
   }, []);
 
   const handleNext = () => {
@@ -127,15 +138,6 @@ const CreateTemplate = () => {
         templateType === 'json' ? '/template-builder' : '/template-html'
       );
     }
-  };
-
-  const Images = {
-    Postcards: Postcard,
-    'Professional Letters': ProfessionalLetter,
-    'Personal Letters': PersonalLetter,
-    'Real Penned Letter': RealPennedLetter,
-    'Tri-Fold Self-Mailers': TriFoldSelfMailers,
-    'Bi-Fold Self-Mailers': BiFoldSelfMailers,
   };
 
   useEffect(() => {
@@ -197,8 +199,8 @@ const CreateTemplate = () => {
                 <Typography style={templateTextStyles}>
                   Product Type*
                 </Typography>
-                {/* <NavLink to={PRODUCT_LEARN_URL}
-                                    target="_blank"><Typography>Learn More</Typography></NavLink> */}
+                <NavLink to={PRODUCT_LEARN_URL}
+                  target="_blank"><Typography>Learn More</Typography></NavLink>
               </div>
               <div className="productsWrapper">
                 {sortedProducts &&
@@ -207,12 +209,11 @@ const CreateTemplate = () => {
                     .map((prod, index) => {
                       return (
                         <div
-                          className={`productCard ${
-                            prod.productType ===
+                          className={`productCard ${prod.productType ===
                             (product && product.productType)
-                              ? 'active'
-                              : ''
-                          } ${isError && !product ? 'error' : ''} `}
+                            ? 'active'
+                            : ''
+                            } ${isError && !product ? 'error' : ''} `}
                           key={index}
                           onClick={() => dispatch(selectProduct(prod))}
                         >
@@ -228,7 +229,6 @@ const CreateTemplate = () => {
                 </Typography>
               )}
             </div>
-            {/* <Divider /> */}
           </GridItem>
         </GridContainer>
         <Divider />
@@ -238,20 +238,14 @@ const CreateTemplate = () => {
               <div className="createTemplateHeader">
                 <div className="templateInputWrapper">
                   <Typography>Envelope Type*</Typography>
-                  {/* <MultiSelect
-                                        className={isError && !envelopeType.length ? "error" : ""}
-                                        options={envelopeTypes}
-                                        selectedValue={envelopeType}
-                                        setSelectedValue={setEnvelopeType}
-                                        productType={false}
-                                        multiple={false}
-                                        placeHolderText="Envelope Type"
-                                    />
-                                    {isError && !envelopeType.length && (
-                                        <Typography mt={1} className="error-field">
-                                            *{MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
-                                        </Typography>
-                                    )} */}
+                  <GeneralSelect
+                    className={isError && !envelopeType.length ? "error" : ""}
+                    selectedValue={envelopeType}
+                    setSelectedValue={setEnvelopeType}
+                    options={envelopeTypes}
+                    placeholder="Envelope Type"
+                    error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
+                    label="Select a tag" />
                 </div>
               </div>
             </GridContainer>
@@ -285,28 +279,24 @@ const CreateTemplate = () => {
                           }
                           className={
                             index === 0
-                              ? `postCard postCard-small ${
-                                  product.selectedSize === type.size
-                                    ? 'active'
-                                    : ''
-                                }`
+                              ? `postCard postCard-small ${product.selectedSize === type.size
+                                ? 'active'
+                                : ''
+                              }`
                               : index === 1
-                              ? `postCard postCard-mid ${
-                                  product.selectedSize === type.size
+                                ? `postCard postCard-mid ${product.selectedSize === type.size
+                                  ? 'active'
+                                  : ''
+                                }`
+                                : index === 2
+                                  ? `postCard postCard-large ${product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                }`
-                              : index === 2
-                              ? `postCard postCard-large ${
-                                  product.selectedSize === type.size
+                                  }`
+                                  : `postCard ${product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                }`
-                              : `postCard ${
-                                  product.selectedSize === type.size
-                                    ? 'active'
-                                    : ''
-                                }`
+                                  }`
                           }
                           key={index}
                         >

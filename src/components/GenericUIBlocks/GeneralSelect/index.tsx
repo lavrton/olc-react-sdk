@@ -24,13 +24,15 @@ const errorStyles = {
 
 
 const GeneralSelect = (props:any) => {
-  const {options, placeholder, error, label} = props;
+  const {options, placeholder, error, label, selectedValue, setSelectedValue} = props;
 
   return (
     <div className="select-layout">
       <label>{label && label}</label>
       <Select
+        value={selectedValue}
         options={options}
+        onChange={setSelectedValue}
         styles={colourStyles}
         className="generic-select-container"
         classNamePrefix="generic-select"

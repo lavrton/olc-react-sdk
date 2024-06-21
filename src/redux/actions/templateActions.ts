@@ -59,8 +59,7 @@ const getAllTemplates =
           productTypes,
           creator,
           templateType,
-          //TODO: Fix This Later
-          // productId,
+          productId,
           isShared,
         });
         dispatch({
@@ -213,7 +212,7 @@ const getAllProducts = () => async (dispatch: AppDispatch): Promise<void> => {
     const response = await get('products/types');
     dispatch({
       type: GET_PRODUCTS,
-      payload: { products: response.data },
+      payload: { products: response.data.data },
     });
   } catch (error: any) {
     console.error(error);

@@ -45,9 +45,8 @@ const Snackbar = () => {
   </div>
 
   useEffect(() => {
-    openSnackbar(Element, [10000])
     if (open) {
-      openSnackbar(Element, [10000])
+      openSnackbar(Element, [50000])
     }
   }, [open]);
 
