@@ -52,6 +52,9 @@ setUploadFunc(uploadFile)
  * @returns {JSX.Element} The rendered template builder interface.
  */
 
+// styles
+import './styles.scss'
+
 interface Props {
   store: object | any,
   styles?: React.CSSProperties;
@@ -245,8 +248,7 @@ const TemplateBuilder = (props: Props) => {
   const Tooltip = () => null;
 
   return (
-    <>
-      <GridContainer className="polotno-container">
+      <div className="polotno-container">
         {switchTabCount > 0 && (
           <div sx={{ display: { xs: "none", sm: "block" } }}>
             <TopNavigation
@@ -276,8 +278,7 @@ const TemplateBuilder = (props: Props) => {
             </PolotnoContainer>
           </div>
         )}
-      </GridContainer>
-    </>
+      </div>
   );
 };
 

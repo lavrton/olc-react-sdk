@@ -10,6 +10,7 @@ import { fetchTemplates } from '../../../redux/actions/templateAction';
 import { AppDispatch } from '../../../redux/store';
 import DesignIcon from '../../../assets/images/templates/template-default-design.svg'
 import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.svg";
+import CustomTemplate from '../../../assets/images/templates/custom-template';
 import Typography from '../../GenericUIBlocks/Typography';
 import './styles.scss';
 import Dialog from '../../GenericUIBlocks/Dialog';
@@ -25,8 +26,7 @@ const customTemplateSection: SideSection = {
   name: 'Templates',
   Tab: observer((props: { store: StoreType; active: boolean; onClick: () => void }) => (
     <SectionTab name="Templates" {...props}>
-      {/* <FaShapes style={{ marginRight: 8 }} /> */}
-      Custom
+      <CustomTemplate/>
     </SectionTab>
   )) as SideSection['Tab'],
   Panel: observer(({ store }) => {
@@ -262,36 +262,16 @@ const customTemplateSection: SideSection = {
 
 
     return (
-      <div className="custom-template-section">
-        {isShowDialog.open && isShowDialog.model === 'design-own' && (
-          <Dialog
-            title="Confirm"
-            subHeading="Are you sure you want to discard these changes?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
-            open={isShowDialog.open}
-            handleClose={() => handleDialogChange('')}
-            handleOk={handleClearStore}
-            customStyles={designDialogStyles}
-          />
-        )}
-        {isShowDialog.open && isShowDialog.model === 'load-template' && (
-          <Dialog
-            title="Confirm"
-            subHeading="Are you sure you want to change current template with this one?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
-            open={isShowDialog.open}
-            handleClose={() => handleDialogChange('')}
-            handleOk={() => handleLoadTemplate(selectedRecord.id)}
-          />
-        )}
-        <div
-          className="templateTabsWrapper"
-          style={{
-            maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
-            backgroundColor: '#fff',
-          }}
-        >
-          {/* <Box sx={{ mt: 1 }}>
+      <>
+        <div className="custom-template-section">
+          <div
+            className="templateTabsWrapper"
+            style={{
+              maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
+              backgroundColor: '#fff',
+            }}
+          >
+            {/* <Box sx={{ mt: 1 }}>
             <GenericAutocomplete
               placeholder="Template Types"
               options={templateTypes}
@@ -303,7 +283,7 @@ const customTemplateSection: SideSection = {
               templateBuilder={true}
             />
           </Box> */}
-          {/* {currentTemplateType?.id === "3" && (
+            {/* {currentTemplateType?.id === "3" && (
             <Box sx={{ mt: 1 }}>
               <GenericAutocomplete
                 placeholder="Select Category"
@@ -317,7 +297,7 @@ const customTemplateSection: SideSection = {
               />
             </Box>
           )} */}
-          {/* <Box className="searchWrapper" sx={{ mt: 2, mb: 2 }}>
+            {/* <Box className="searchWrapper" sx={{ mt: 2, mb: 2 }}>
             <Input
               className={`searchInput ${searchApplied ? "searchApplied" : ""}`}
               type="text"
@@ -350,40 +330,40 @@ const customTemplateSection: SideSection = {
               />
             )}
           </Box> */}
-          {/* {currentTemplateType?.id === "1" ? ( */}
-          <>
-            <div
-              className="default-design"
-              onClick={() => handleDialogChange('design-own')}
-            >
-              <img src={DesignIcon} alt="design" />
-              <Typography>Design Your Own</Typography>
-            </div>
-            {templates.rows.length ? (
-              templates.rows.map((template: any, i: number) => (
-                <div
-                  className="design-template"
-                  key={i}
-                  onClick={() => handleLoadTemplateModel(template)}
-                >
-                  <img
-                    src={template.thumbnailUrl}
-                    alt={template.title}
-                    onError={({currentTarget}) => {
-                      currentTarget.onerror = null; // prevents looping
-                      currentTarget.src = dummyTemplateIcon;
-                      currentTarget.classList.add('dummy-image');
-                    }}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="noTemplateText">
-                <Typography>No My Templates to show</Typography>
+            {/* {currentTemplateType?.id === "1" ? ( */}
+            <>
+              <div
+                className="default-design"
+                onClick={() => handleDialogChange('design-own')}
+              >
+                <img src={DesignIcon} alt="design" />
+                <Typography>Design Your Own</Typography>
               </div>
-            )}
-          </>
-          {/* ) : currentTemplateType?.id === "2" ? (
+              {templates.rows.length ? (
+                templates.rows.map((template: any, i: number) => (
+                  <div
+                    className="design-template"
+                    key={i}
+                    onClick={() => handleLoadTemplateModel(template)}
+                  >
+                    <img
+                      src={template.thumbnailUrl}
+                      alt={template.title}
+                      onError={({currentTarget}) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = dummyTemplateIcon;
+                        currentTarget.classList.add('dummy-image');
+                      }}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="noTemplateText">
+                  <Typography>No My Templates to show</Typography>
+                </div>
+              )}
+            </>
+            {/* ) : currentTemplateType?.id === "2" ? (
             <>
               {teamTemplates.length ? (
                 teamTemplates?.map((template, i) => (
@@ -436,8 +416,30 @@ const customTemplateSection: SideSection = {
               )} 
               </> 
           ) : null} */}
+          </div>
         </div>
-      </div>
+        {isShowDialog.open && isShowDialog.model === 'design-own' && (
+          <Dialog
+            title="Confirm"
+            subHeading="Are you sure you want to discard these changes?"
+            description="You will lose your changes. Please save your changes or click ok to proceed."
+            open={isShowDialog.open}
+            handleClose={() => handleDialogChange('')}
+            handleOk={handleClearStore}
+            customStyles={designDialogStyles}
+          />
+        )}
+        {isShowDialog.open && isShowDialog.model === 'load-template' && (
+          <Dialog
+            title="Confirm"
+            subHeading="Are you sure you want to change current template with this one?"
+            description="You will lose your changes. Please save your changes or click ok to proceed."
+            open={isShowDialog.open}
+            handleClose={() => handleDialogChange('')}
+            handleOk={() => handleLoadTemplate(selectedRecord.id)}
+          />
+        )}
+      </>
     );
    }) as SideSection['Panel'],
 };

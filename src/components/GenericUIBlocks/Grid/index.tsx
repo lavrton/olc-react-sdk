@@ -70,8 +70,8 @@ const Col = styled.div<GridItemProps>`
   }
 `;
 
-export const GridContainer = ({children}: any) => {
-  return <Container>{children}</Container>;
+export const GridContainer = ({children, style = {}}: any) => {
+  return <Container style={style}>{children}</Container>;
 };
 
 export const GridItem = ({xs, sm, md, lg, xl, children}: any) => {

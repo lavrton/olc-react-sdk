@@ -19,42 +19,52 @@ import GeneralTootip from '../../GenericUIBlocks/GeneralTooltip';
 import InfoIcon from '../../../assets/images/templates/info-icon';
 import ContentCopyIcon from '../../..//assets/images/templates/content-copy-icon';
 import Dialog from '../../GenericUIBlocks/Dialog';
+import DynamicField from '../../../assets/images/templates/dynamic-field';
 
 type SideSection = typeof TemplatesSection;
 
-const customFieldSection: SideSection = {
-  name: 'Fields',    
-  Tab: observer((props: { store: StoreType; active: boolean; onClick: () => void }) => (
-    <SectionTab name="Fields" {...props}>
-      {/* <img src={DynamicIcon} className='dynamic-icon' /> */}
-      Custom
-    </SectionTab>
-  )) as SideSection['Tab'],
+const iconButtonStyles= {
+  backgroundColor: 'transparent',
+}
 
-Panel: observer(({ store }) => {
-  const [isShowDialog, setIsShowDialog] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
+const customFieldSection: SideSection = {
+  name: 'Fields',
+  Tab: observer(
+    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
+      <SectionTab name="Fields" {...props}>
+        {/* <img src={DynamicField} className='dynamic-icon' /> */}
+        <DynamicField />
+      </SectionTab>
+    )
+  ) as SideSection['Tab'],
+
+  Panel: observer(({store}) => {
+    const [isShowDialog, setIsShowDialog] = useState(false);
+    const dispatch = useDispatch<AppDispatch>();
 
     // Getting custom fields from Redux state
-    const customFields = useSelector((state: RootState) => state.customFields.customFields);
-    const defaultDynamicFields = useSelector((state: RootState) => state.customFields.defaultDynamicFields);
+    const customFields = useSelector(
+      (state: RootState) => state.customFields.customFields
+    );
+    const defaultDynamicFields = useSelector(
+      (state: RootState) => state.customFields.defaultDynamicFields
+    );
 
     const handleShowDialog = () => {
-      setIsShowDialog(prev => !prev);
+      setIsShowDialog((prev) => !prev);
     };
-  
+
     useEffect(() => {
       dispatch(fetchCustomFields());
     }, [dispatch]);
 
-  
-    const handleAddElementOnScreen = (event:any, value :any, type:any) => {
+    const handleAddElementOnScreen = (event: any, value: any, type: any) => {
       event.preventDefault();
 
       // if (currentTemplateType === "Real Penned Letter") {
-        copyToClipboard(value);
-        // dispatch(success(`${value} Copied`))
-        return;
+      copyToClipboard(value);
+      // dispatch(success(`${value} Copied`))
+      return;
       // }
 
       let x, y;
@@ -79,77 +89,72 @@ Panel: observer(({ store }) => {
         width: value.length > 15 ? 10 * value.length : 150,
         contentEditable: false,
       });
-    }
-
+    };
 
     return (
-      <div className='dynamic-content'>
-        <div className='dynamic-content__top'>
+      <div className="dynamic-content">
+        <div className="dynamic-content__top">
           <div>
-            <span className='title'>Contact Fields</span>
-            {/* <Tooltip title="Merge fields allow you to personalize your mailer with contact information.">
-              <img src={InfoIcon} className='icon' />
-            </Tooltip> */}
-            <InfoIcon className='infoIcon' />
-            <GeneralTootip anchorSelect=".infoIcon" place="bottom" title="Merge fields allow you to personalize your mailer with contact information." />
+            <span className="title">Contact Fields</span>
+            <InfoIcon className="infoIcon" />
+            <GeneralTootip
+              anchorSelect=".infoIcon"
+              place="bottom"
+              title="Merge fields allow you to personalize your mailer with contact information."
+            />
           </div>
         </div>
-        {defaultDynamicFields.map(({ key, value }, i) => (
-          <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
+        {defaultDynamicFields.map(({key, value}, i) => (
+          <div style={{display: 'flex', alignItems: 'center'}} key={i}>
             <span
-              className='contact-element'
+              className="contact-element"
               onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
             >
               {value}
             </span>
-            {/* <Tooltip title="Copy">*/}
-            <Button onClick={() => copyToClipboard(key)}>
-              <ContentCopyIcon className='copy'/>
-              <GeneralTootip anchorSelect=".copy" place="bottom" title="Copy" />
-
-                {/* <img src={ContentCopyIcon} /> */}
+            <Button
+              style={iconButtonStyles}
+              onClick={() => copyToClipboard(key)}
+            >
+              <ContentCopyIcon className="copy" />
             </Button>
-            
-           {/* </Tooltip> */}
           </div>
         ))}
-        <hr className='divider' />
-        <div className='dynamic-content__top'>
+        <GeneralTootip anchorSelect=".copy" place="bottom" title="Copy" />
+        <hr className="divider" />
+        <div className="dynamic-content__top">
           <div>
-            <span className='title'>Custom Fields</span>
-            {/* <Tooltip title="You can add custom fields to your template.">
-              <img src={InfoIcon} className='icon' />
-            </Tooltip> */}
-            <InfoIcon className='infoIcon' />
-            <GeneralTootip anchorSelect=".infoIcon" place="bottom" title="You can add custom fields to your template." />
+            <span className="title">Custom Fields</span>
+            <InfoIcon className="custom" />
+            <GeneralTootip
+              anchorSelect=".custom"
+              place="bottom"
+              title="You can add custom fields to your template."
+            />
           </div>
-          <Button onClick={handleShowDialog}>
-            {/* <img src={PlusIcon} className='plus-icon' /> */}
-          </Button>
+          <Button onClick={handleShowDialog}></Button>
         </div>
-        {Object.values(customFields)?.map(({ key, value }, i) => (
-          <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
+        {Object.values(customFields)?.map(({key, value}, i) => (
+          <div style={{display: 'flex', alignItems: 'center'}} key={i}>
             <span
-              className='contact-element'
+              className="contact-element"
               onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
             >
               {value}
             </span>
             {/* <Tooltip title="Copy"> */}
-              <Button onClick={() => copyToClipboard(key)}>
-                {/* <img src={ContentCopyIcon} /> */}
-              </Button>
+            <Button onClick={() => copyToClipboard(key)}>
+              {/* <img src={ContentCopyIcon} /> */}
+            </Button>
             {/* </Tooltip> */}
           </div>
         ))}
         {/* {isShowDialog && <FormDialog open={isShowDialog} handleClose={handleShowDialog} />}
         {isShowDialog && <CustomFieldNameModel open={isShowDialog} handleClose={handleShowDialog} />} */}
         {/* {true && <Dialog open={isShowDialog} handleClose={handleShowDialog} />} */}
-        
       </div>
-    );    
+    );
   }) as SideSection['Panel'],
-
 };
 
 export default customFieldSection;

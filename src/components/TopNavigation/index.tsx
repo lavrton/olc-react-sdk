@@ -365,21 +365,18 @@ const TopNavigation = ({
           handleSave={handleSave}
         />
       )}
-      <GridContainer>
-        <GridItem lg={4} md={4} sm={2} xs={12}>
-        </GridItem>
+      <GridContainer style={{alignItems: 'center'}}>
+        <GridItem lg={4} md={4} sm={2} xs={12}></GridItem>
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
-            <Typography>{title} </Typography>
-            <div onClick={() => handleChangeModel("edit")}>
-              <img src={EditIcon} />
-            </div>
+            <Typography>{title}</Typography>
+            <img src={EditIcon} onClick={() => handleChangeModel('edit')} />
           </div>
         </GridItem>
         <GridItem lg={4} md={6} sm={8} xs={12}>
           <div className="actionsBtnWrapper right">
             <Button
-              style={{ ...buttonStyles, maxWidth: 'auto', minWidth: '100px' }}
+              style={{...buttonStyles, maxWidth: 'auto', minWidth: '100px'}}
               onClick={handleViewProofWithLamda}
             >
               {downloadingProof ? (
