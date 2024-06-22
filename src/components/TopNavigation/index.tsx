@@ -19,7 +19,7 @@ import { failure, success } from '../../redux/actions/snackbarActions';
 // Components
 import SaveTemplateModel from './SaveTemplateModel';
 import ConfirmNavigateDialog from './ConfirmNavigateDialog';
-// import EditTemplateNameModel from './EditTemplateNameModel';
+import EditTemplateNameModel from './EditTemplateNameModel';
 
 
 // Utils
@@ -351,12 +351,12 @@ const TopNavigation = ({
           handleNavigateAction={handleNavigation}
         />
       )}
-      {/* {isShowModel.open && isShowModel.model === "edit" && (
+      {isShowModel?.open && isShowModel?.model === 'edit' && (
         <EditTemplateNameModel
-          open={isShowModel.open}
+          open={isShowModel?.open}
           handleClose={() => handleChangeModel()}
         />
-      )} */}
+      )}
       {isShowModel.open && isShowModel.model === 'save' && (
         <SaveTemplateModel
           loading={isShowModel.loading}

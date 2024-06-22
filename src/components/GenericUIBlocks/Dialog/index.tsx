@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 // components
 import Button from '../Button';
@@ -6,30 +6,29 @@ import Typography from '../Typography';
 import CircularProgress from '../CircularProgress';
 
 // styles
-import './styles.scss'
+import './styles.scss';
 
 const buttonStyles = {
-  color: 'white',
+  color: '#ffffff',
   backgroundColor: '#ed5c2f',
   maxWidth: '100px',
   minHeight: '40px',
   border: '0.5px solid rgba(48, 48, 48, 0.5)',
-  fontSize: "14px"
+  fontSize: '14px',
 };
 
 const heading = {
   fontSize: '22px',
   color: '#ed5c2f',
-  fontWeight: "700"
+  fontWeight: '700',
 };
 
 const subHeadingStyle = {
   fontSize: '16px',
   color: 'black',
-  fontWeight: "700",
-  textAlign: 'center'
+  fontWeight: '700',
+  textAlign: 'center',
 };
-
 
 const progressStyles = {
   width: '20px',
@@ -38,21 +37,22 @@ const progressStyles = {
 
 const Dialog = (props: any) => {
   const {
-    icon,
-    customStyles={},
-    open={},
-    handleClose=()=>{},
-    loading=false,
-    title="",
-    subHeading="",
-    description="",
-    onSubmit={},
-    onCancel={},
-    cancelText="",
-    submitText="",
-    children=[]
+    icon = null,
+    customStyles = {},
+    open = {},
+    handleClose = () => {},
+    loading = false,
+    title = '',
+    subHeading = '',
+    description = '',
+    onSubmit = {},
+    onCancel = {},
+    cancelText = '',
+    submitText = '',
+    children = [],
   } = props;
-  const contentAdjust = submitText.length > 6 ? "fit-content" : "100px"
+
+  const contentAdjust = submitText.length > 6 ? 'fit-content' : '100px';
   return (
     <div
       id="myModal"
@@ -66,7 +66,7 @@ const Dialog = (props: any) => {
           </span>
         </div>
         <div className="modal-body">
-          <div className='modal-icon'>{icon}</div>
+          <div className="modal-icon">{icon}</div>
           <Typography variant="p" style={heading}>
             {title}
           </Typography>
@@ -96,11 +96,7 @@ const Dialog = (props: any) => {
             style={{...buttonStyles, border: 'none', maxWidth: contentAdjust}}
             onClick={onSubmit}
           >
-            {loading ? (
-                <CircularProgress style={progressStyles} />
-              ) : (
-                submitText
-              )}
+            {loading ? <CircularProgress style={progressStyles} /> : submitText}
           </Button>
         </div>
       </div>
@@ -108,4 +104,4 @@ const Dialog = (props: any) => {
   );
 };
 
-export default Dialog
+export default Dialog;
