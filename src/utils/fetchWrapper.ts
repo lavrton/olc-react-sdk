@@ -33,6 +33,16 @@ const fetchWrapper = async (endpoint: string, options: RequestOptions) => {
     fetchOptions.body = JSON.stringify(options.body);
   }
 
+  // Add body to fetchOptions if present
+  if (options.body) {
+    if (options.body instanceof FormData) {
+      fetchOptions.body = options.body;
+      delete fetchOptions.headers['Content-Type'];
+    } else {
+      fetchOptions.headers = getHeaders(options.headers);
+    }
+  }
+
   try {
     const response = await fetch(url.toString(), fetchOptions);
 
@@ -49,8 +59,7 @@ const fetchWrapper = async (endpoint: string, options: RequestOptions) => {
     return { status: response.status, data };
 
   } catch (error) {
-    console.error('Fetch error:', error);
-    throw error;
+    return error
   }
 };
 

@@ -196,88 +196,97 @@ const TopNavigation = ({
   };
 
   const handleSave = async () => {
-    const formData = new FormData();
-    const allFields = [...defaultFields, ...Object.values(dynamicFields)];
-    let selectedFields = [];
-    if (templateType === 'json') {
-      const blob = await store.toBlob();
-      const jsonData = store.toJSON();
+    try {
+      const formData = new FormData();
+      const allFields = [...defaultFields, ...Object.values(dynamicFields)];
+      let selectedFields = [];
+      if (templateType === 'json') {
+        const blob = await store.toBlob();
+        const jsonData = store.toJSON();
 
-      // get all fonts family from json
-      const fontFamilies = extractFontFamilies(jsonData?.pages);
+        // get all fonts family from json
+        const fontFamilies = extractFontFamilies(jsonData?.pages);
 
-      // extract custom fonts and remove google fonts from that array
-      const customFonts = fontFamilies.filter(item => !fonts.includes(item));
+        // extract custom fonts and remove google fonts from that array
+        const customFonts = fontFamilies.filter(item => !fonts.includes(item));
 
-      const availableBase64inJson = jsonData?.fonts?.map(font => font?.fontFamily);
+        const availableBase64inJson = jsonData?.fonts?.map(font => font?.fontFamily);
 
-      const unAvailableFonts = customFonts.filter(item => !availableBase64inJson?.includes(item));
+        const unAvailableFonts = customFonts.filter(item => !availableBase64inJson?.includes(item));
 
-      if (unAvailableFonts?.length) {
-        dispatch(failure(`Please upload ${unAvailableFonts[0]} font in My Fonts section.`));
-        return
+        if (unAvailableFonts?.length) {
+          dispatch(failure(`Please upload ${unAvailableFonts[0]} font in My Fonts section.`));
+          return
+        }
+
+        if (multiPageTemplates.includes(product.productType)) {
+          const backJsonData = { ...jsonData, pages: [jsonData.pages[1]] }
+          await store.loadJSON(backJsonData);
+          await store.waitLoading();
+          const backBlob = await store.toBlob();
+          formData.append('backThumbnail', backBlob, 'backLogo.png');
+          store.loadJSON(jsonData);
+        }
+        const jsonString = JSON.stringify(jsonData);
+        const blobData = new Blob([jsonString], { type: 'application/json' });
+        formData.append('json', blobData, 'template.json');
+        formData.append('thumbnail', blob, 'logo.png');
+        selectedFields = allFields.filter(field => jsonString.includes(field.key));
       }
+      setIsShowModel((prev) => ({ ...prev, loading: true }));
 
-      if (multiPageTemplates.includes(product.productType)) {
-        const backJsonData = { ...jsonData, pages: [jsonData.pages[1]] }
-        await store.loadJSON(backJsonData);
-        await store.waitLoading();
-        const backBlob = await store.toBlob();
-        formData.append('backThumbnail', backBlob, 'backLogo.png');
-        store.loadJSON(jsonData);
-      }
-      const jsonString = JSON.stringify(jsonData);
-      const blobData = new Blob([jsonString], { type: 'application/json' });
-      formData.append('json', blobData, 'template.json');
-      formData.append('thumbnail', blob, 'logo.png');
-      selectedFields = allFields.filter(field => jsonString.includes(field.key));
-    }
-    setIsShowModel((prev) => ({ ...prev, loading: true }));
-
-    const response:any = await uploadTemplate(formData);
-    if (response?.status === 200) {
-      if (!id) {
-        setTimeout(() => handleCreateTemplate(response?.data?.data, selectedFields), 1000);
+      const response: any = await uploadTemplate(formData);
+      if (response?.status === 200) {
+        if (!id) {
+          setTimeout(async () => await handleCreateTemplate(response?.data?.data, selectedFields), 1000);
+        } else {
+          setTimeout(async () => await handleUpdateTemplate(response?.data?.data, selectedFields), 1000)
+        }
+      } else if (response?.status === 418 && response?.data?.message == "You have reached your Templates limit, updgrade you Plan to add more") {
+        handleChangeModel('', 'false');
       } else {
-        setTimeout(() => handleUpdateTemplate(response?.data?.data, selectedFields), 1000)
+        dispatch(
+          failure(
+            response?.data?.message ||
+            MESSAGES.GENERAL_ERROR
+          )
+        );
+        handleChangeModel('', 'false');
       }
-    } else if (response?.status === 418 && response?.data?.message == "You have reached your Templates limit, updgrade you Plan to add more") {
-      handleChangeModel('', 'false');
-    } else {
-      dispatch(
-        failure(
-          response?.data?.message ||
-          MESSAGES.GENERAL_ERROR
-        )
-      );
-      handleChangeModel('', 'false');
+    } catch (error) {
+      return error;
     }
   };
 
   const handleCreateTemplate = async (data, selectedFields) => {
-    const response:any = await createTemplate({
-      title: title,
-      productId: product.id,
-      fields: selectedFields,
-      thumbnailPath: data.thumbnailPath,
-      templatePath: data.templatePath,
-      backTemplatePath: data.backTemplatePath || '',
-      backThumbnailPath: data.backThumbnailPath || '',
-      envelopeType,
-    });
-    if (response.status === 200) {
-      dispatch(success(response.data.message));
-      handleNavigation();
-    } else if (response.status == 418) {
-      // nothing to do
-    } else {
-      dispatch(failure(response.data.message));
+    try {
+      const response: any = await createTemplate({
+        title: title,
+        productId: product.id,
+        fields: selectedFields,
+        thumbnailPath: data.thumbnailPath,
+        templatePath: data.templatePath,
+        backTemplatePath: data.backTemplatePath || '',
+        backThumbnailPath: data.backThumbnailPath || '',
+        envelopeType,
+      });
+      if (response.status === 200) {
+        dispatch(success(response.data.message));
+        handleNavigation();
+      } else if (response.status == 418) {
+        // nothing to do
+      } else {
+        dispatch(failure(response?.data?.message || response?.message));
+      }
+    } catch (error) {
+      handleChangeModel('', 'false');
+    } finally {
+      setIsShowModel((prev) => ({ ...prev, loading: false }));
     }
-    handleChangeModel('', 'false');
   };
 
   const handleUpdateTemplate = async (data, selectedFields) => {
-    const response:any = await updateTemplate(id, {
+    const response: any = await updateTemplate(id, {
       title: title,
       fields: selectedFields,
       thumbnailPath: data.thumbnailPath,
@@ -325,20 +334,20 @@ const TopNavigation = ({
           handleSave={handleSave}
         />
       )}
-      <GridContainer style={{alignItems: 'center'}}>
+      <GridContainer style={{ alignItems: 'center' }}>
         <GridItem lg={4} md={4} sm={2} xs={12}></GridItem>
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
             <Typography>{title}</Typography>
             <div onClick={() => handleChangeModel('edit')}>
-              <img src={EditIcon} alt="edit"/>
+              <img src={EditIcon} alt="edit" />
             </div>
           </div>
         </GridItem>
         <GridItem lg={4} md={6} sm={8} xs={12}>
           <div className="actionsBtnWrapper right">
             <Button
-              style={{...buttonStyles, maxWidth: 'auto', minWidth: '100px'}}
+              style={{ ...buttonStyles, maxWidth: 'auto', minWidth: '100px' }}
               onClick={handleViewProofWithLamda}
             >
               {downloadingProof ? (
