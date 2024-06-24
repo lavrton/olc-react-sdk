@@ -59,7 +59,7 @@ const getAllTemplates =
           productTypes,
           creator,
           templateType,
-          productId,
+          // productId,
           isShared,
         });
         dispatch({
@@ -461,8 +461,8 @@ const clearFilter = () => (dispatch: AppDispatch) => dispatch({ type: CLEAR_FIEL
  */
 const getAllTemplateCategories = async (): Promise<any> => {
   try {
-    const { data } = await get('templates/categories');
-    return data;
+    const response = await get('templates/categories');
+    return response;
   } catch (error: any) {
     return error.response;
   }
@@ -478,8 +478,8 @@ const getAllTemplateCategories = async (): Promise<any> => {
  */
 const getAllTemplatesByTab = async (payload: object): Promise<any> => {
   try {
-    const { data } = await post('templates/by-tab', payload);
-    return data;
+    const response  = await post('templates/by-tab', payload);
+    return response;
   } catch (error: any) {
     return error.response;
   }

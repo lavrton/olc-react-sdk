@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-catch */
+import { get } from '../utils/api';
 
 // Actions
 import {
@@ -45,7 +46,8 @@ export const isValidHtmlContent = (html) => {
 
 export const getFileAsBlob = async (url, returnType = 'json') => {
   try {
-    const response = await axios.get(url, {
+    // const response = await get(`templates/${id}/view-proof`);
+    const response = await get(url, {
       responseType: 'blob',
     });
     return returnType === 'json'
