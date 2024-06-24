@@ -231,51 +231,10 @@ const TopNavigation = ({
       formData.append('json', blobData, 'template.json');
       formData.append('thumbnail', blob, 'logo.png');
       selectedFields = allFields.filter(field => jsonString.includes(field.key));
-    } else {
-      if (!validateAndDispatch(html, 'Please pass valid HTML content')) {
-        return;
-      }
-
-      if (product.productType === 'Postcards' && !validateAndDispatch(backHtml, 'Please pass valid HTML content for back side')) {
-        return;
-      }
-      const extractFields = extractVariablesFromHtml(html);
-      let extractFieldsBack = [];
-      const htmlBlob = new Blob([html], { type: 'text/html' });
-      formData.append('html', htmlBlob, 'template.html');
-      if (product.productType === 'Postcards') {
-        extractFieldsBack = extractVariablesFromHtml(backHtml);
-        const backHtmlBlob = new Blob([backHtml], { type: 'text/html' });
-        formData.append('backHtml', backHtmlBlob, 'template.html');
-      }
-      selectedFields = [...extractFields, ...extractFieldsBack].reduce((acc, current) => {
-        var existingItem = acc.find(item => item.key === current.key);
-
-        if (!existingItem) {
-          acc.push({
-            key: current.key,
-            value: current.value,
-            defaultValue: current.defaultValue
-          });
-        }
-
-        return acc;
-      }, []);
-      selectedFields = selectedFields.map((item) => {
-        const found = defaultFieldsHashMap[item.key] || dynamicFields[item.value];
-        if (found) {
-          return {
-            ...item,
-            value: found.value,
-            defaultValue: found.defaultValue
-          }
-        }
-        return item;
-      })
     }
     setIsShowModel((prev) => ({ ...prev, loading: true }));
 
-    const response = await uploadTemplate(formData);
+    const response:any = await uploadTemplate(formData);
     if (response?.status === 200) {
       if (!id) {
         setTimeout(() => handleCreateTemplate(response?.data?.data, selectedFields), 1000);
@@ -296,7 +255,7 @@ const TopNavigation = ({
   };
 
   const handleCreateTemplate = async (data, selectedFields) => {
-    const response = await createTemplate({
+    const response:any = await createTemplate({
       title: title,
       productId: product.id,
       fields: selectedFields,
@@ -307,18 +266,18 @@ const TopNavigation = ({
       envelopeType,
     });
     if (response.status === 200) {
-      // dispatch(success(response.data.message));
+      dispatch(success(response.data.message));
       handleNavigation();
     } else if (response.status == 418) {
       // nothing to do
     } else {
-      // dispatch(failure(response.data.message));
+      dispatch(failure(response.data.message));
     }
     handleChangeModel('', 'false');
   };
 
   const handleUpdateTemplate = async (data, selectedFields) => {
-    const response = await updateTemplate(id, {
+    const response:any = await updateTemplate(id, {
       title: title,
       fields: selectedFields,
       thumbnailPath: data.thumbnailPath,
@@ -327,10 +286,10 @@ const TopNavigation = ({
       backThumbnailPath: data.backThumbnailPath || '',
     });
     if (response.status === 200) {
-      // dispatch(success(response.data.message));
+      dispatch(success(response.data.message));
       handleNavigation();
     } else {
-      // dispatch(failure(response.data.message));
+      dispatch(failure(response.data.message));
     }
     handleChangeModel('', 'false');
   };

@@ -1,9 +1,11 @@
 import React from 'react';
+
+// Polotno Imports
 import { SidePanelWrap } from 'polotno';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import type { StoreType } from 'polotno/model/store';
 import {SidePanel as PolotnoSidePanel, DEFAULT_SECTIONS} from 'polotno/side-panel';
+
+// Custom Sections
 import customTemplateSection from './templates/customTemplateSection';
 import customFieldSection from './customFields/customFieldSection';
 

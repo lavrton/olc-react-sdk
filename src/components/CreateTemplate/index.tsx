@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 //hooks
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { AppDispatch, RootState } from '../../redux/store';
 //actions
 import {
   clearTemplateFields,
@@ -24,6 +24,7 @@ import { envelopeTypes } from '../../utils/template-builder';
 import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 import Typography from '../GenericUIBlocks/Typography';
 import Button from '../GenericUIBlocks/Button';
+import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 
 // styles
 import './styles.scss';
@@ -41,10 +42,7 @@ import SizeImageMid from '../../assets/images/templates/size-image-mid';
 import SizeImageLarge from '../../assets/images/templates/size-image-lg';
 import Input from '../GenericUIBlocks/Input';
 import Divider from '../GenericUIBlocks/Divider';
-import { AppDispatch, RootState } from '@/redux/store';
-import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 
-// import MultiSelect from "../../General/MultiSelect/index.jsx";
 
 const templateHeadingStyles = {
   color: `#ed5c2f`,

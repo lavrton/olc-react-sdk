@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TemplateBuilder } from './index';
+
 
 // Libraries/Packages
 import { Routes, Route } from "react-router-dom";
@@ -8,6 +8,7 @@ import { createStore, StoreType } from 'polotno/model/store';
 // components
 import Snackbar from './components/GenericUIBlocks/Snackbar';
 import CreateTemplate from './components/CreateTemplate';
+import { TemplateBuilder } from './index';
 
 
 // Initialize Plotno Store

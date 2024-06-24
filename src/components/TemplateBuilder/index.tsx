@@ -12,7 +12,6 @@ import merge from 'deepmerge';
 
 // Actions
 import {
-  clearFilter,
   getAllCustomFields,
   getOneTemplate,
   uploadFile,
@@ -34,9 +33,6 @@ import LexiRegularFont from "../../assets/Fonts/Lexi-Regular.ttf";
 import TopNavigation from '../TopNavigation';
 import SidePanel from '../SidePanel';
 
-// UI components
-import { GridContainer } from '../GenericUIBlocks/Grid';
-
 import './styles.scss';
 
 setUploadFunc(uploadFile)
@@ -54,6 +50,8 @@ setUploadFunc(uploadFile)
 
 // styles
 import './styles.scss'
+import { RootState } from '@/redux/reducers';
+import { AppDispatch } from '@/redux/store';
 
 interface Props {
   store: object | any,
@@ -66,14 +64,14 @@ const TemplateBuilder = (props: Props) => {
   const [switchTabCount, setSwitchTabCount] = useState(1);
 
   const { id } = useParams();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
 
-  const template = useSelector((state) => state.templates.template);
-  const product = useSelector((state) => state.templates.product);
+  const template = useSelector((state: RootState) => state.templates.template);
+  const product = useSelector((state: RootState) => state.templates.product);
   const envelopeType = useSelector(
-    (state) => state.templates.envelopeType
+    (state: RootState) => state.templates.envelopeType
   );
 
   const currentTemplateType = product?.productType;
@@ -250,37 +248,37 @@ const TemplateBuilder = (props: Props) => {
   const Tooltip = () => null;
 
   return (
-      <div className="polotno-container">
-        {switchTabCount > 0 && (
-          <div sx={{ display: { xs: "none", sm: "block" } }}>
-            <TopNavigation
-              store={store}
-              isStoreUpdated={isStoreUpdated}
-            />
+    <div className="polotno-container">
+      {switchTabCount > 0 && (
+        <div sx={{ display: { xs: "none", sm: "block" } }}>
+          <TopNavigation
+            store={store}
+            isStoreUpdated={isStoreUpdated}
+          />
 
-            <PolotnoContainer
-              style={containerStyle}
-            >
-              <SidePanel store={store} />
-              <WorkspaceWrap>
-                {currentTemplateType !== "Real Penned Letter" && (
-                  <Toolbar store={store} downloadButtonEnabled={false} />
-                )}
-                {currentTemplateType !== "Real Penned Letter" ? (
-                  <Workspace store={store} pageControlsEnabled={false} />
-                ) : (
-                  <Workspace
-                    store={store}
-                    pageControlsEnabled={false}
-                    components={{ Tooltip }}
-                  />
-                )}
-                <ZoomButtons store={store} />
-              </WorkspaceWrap>
-            </PolotnoContainer>
-          </div>
-        )}
-      </div>
+          <PolotnoContainer
+            style={containerStyle}
+          >
+            <SidePanel store={store} />
+            <WorkspaceWrap>
+              {currentTemplateType !== "Real Penned Letter" && (
+                <Toolbar store={store} downloadButtonEnabled={false} />
+              )}
+              {currentTemplateType !== "Real Penned Letter" ? (
+                <Workspace store={store} pageControlsEnabled={false} />
+              ) : (
+                <Workspace
+                  store={store}
+                  pageControlsEnabled={false}
+                  components={{ Tooltip }}
+                />
+              )}
+              <ZoomButtons store={store} />
+            </WorkspaceWrap>
+          </PolotnoContainer>
+        </div>
+      )}
+    </div>
   );
 };
 
