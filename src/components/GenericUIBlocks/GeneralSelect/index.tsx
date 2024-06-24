@@ -41,7 +41,7 @@ const GeneralSelect = (props:any) => {
       />
       {error && (
         <Typography variant="p" style={errorStyles}>
-          <sup>*</sup>
+          {/* <sup>*</sup> */}
           {error}
         </Typography>
       )}

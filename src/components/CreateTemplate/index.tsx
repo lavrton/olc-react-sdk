@@ -176,6 +176,7 @@ const CreateTemplate = () => {
                     dispatch(searchAndAdvanceChange('title', e.target.value));
                   }}
                   placeholder="Template Name"
+                  inputIcon={false}
                 />
                 {!title.trim() && isError && (
                   <Typography className="error-field">
@@ -199,8 +200,9 @@ const CreateTemplate = () => {
                 <Typography style={templateTextStyles}>
                   Product Type*
                 </Typography>
-                <NavLink to={PRODUCT_LEARN_URL}
-                  target="_blank"><Typography>Learn More</Typography></NavLink>
+                <NavLink to={PRODUCT_LEARN_URL} target="_blank">
+                  <Typography>Learn More</Typography>
+                </NavLink>
               </div>
               <div className="productsWrapper">
                 {sortedProducts &&
@@ -209,11 +211,12 @@ const CreateTemplate = () => {
                     .map((prod, index) => {
                       return (
                         <div
-                          className={`productCard ${prod.productType ===
+                          className={`productCard ${
+                            prod.productType ===
                             (product && product.productType)
-                            ? 'active'
-                            : ''
-                            } ${isError && !product ? 'error' : ''} `}
+                              ? 'active'
+                              : ''
+                          } ${isError && !product ? 'error' : ''} `}
                           key={index}
                           onClick={() => dispatch(selectProduct(prod))}
                         >
@@ -233,22 +236,23 @@ const CreateTemplate = () => {
         </GridContainer>
         <Divider />
         {product && product.productType === 'Professional Letters' && (
-          <GridContainer container my={2} className="mb-5">
-            <GridContainer item lg={6} md={6} sm={6} xs={12}>
+          <GridContainer>
+            <GridItem lg={6} md={6} sm={6} xs={12}>
               <div className="createTemplateHeader">
                 <div className="templateInputWrapper">
-                  <Typography>Envelope Type*</Typography>
+                  {/* <Typography>Envelope Type*</Typography> */}
                   <GeneralSelect
-                    className={isError && !envelopeType.length ? "error" : ""}
+                    className={isError && !envelopeType.length ? 'error' : ''}
                     selectedValue={envelopeType}
                     setSelectedValue={setEnvelopeType}
                     options={envelopeTypes}
                     placeholder="Envelope Type"
                     error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
-                    label="Select a tag" />
+                    label="Envelope Type*"
+                  />
                 </div>
               </div>
-            </GridContainer>
+            </GridItem>
           </GridContainer>
         )}
         {product && product?.productType === 'Postcards' && (
@@ -279,24 +283,28 @@ const CreateTemplate = () => {
                           }
                           className={
                             index === 0
-                              ? `postCard postCard-small ${product.selectedSize === type.size
-                                ? 'active'
-                                : ''
-                              }`
-                              : index === 1
-                                ? `postCard postCard-mid ${product.selectedSize === type.size
-                                  ? 'active'
-                                  : ''
+                              ? `postCard postCard-small ${
+                                  product.selectedSize === type.size
+                                    ? 'active'
+                                    : ''
                                 }`
-                                : index === 2
-                                  ? `postCard postCard-large ${product.selectedSize === type.size
+                              : index === 1
+                              ? `postCard postCard-mid ${
+                                  product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                  }`
-                                  : `postCard ${product.selectedSize === type.size
+                                }`
+                              : index === 2
+                              ? `postCard postCard-large ${
+                                  product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                  }`
+                                }`
+                              : `postCard ${
+                                  product.selectedSize === type.size
+                                    ? 'active'
+                                    : ''
+                                }`
                           }
                           key={index}
                         >

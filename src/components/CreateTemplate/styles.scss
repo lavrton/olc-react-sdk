@@ -82,6 +82,7 @@
     }
 
     .templateInputWrapper {
+      // padding: 20px 40px;
       p {
         color: #000;
         font-family: Inter;
@@ -92,33 +93,33 @@
         margin-bottom: 16px;
       }
 
-      input {
-        width: 100%;
-        max-width: 565px;
-        padding: 18px 24px;
-        border: 0.5px solid #000000;
-        border-radius: 5px;
-        color: #000;
-        font-family: Inter;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        margin-bottom: 10px;
+      // input {
+      //   width: 100%;
+      //   max-width: 565px;
+      //   padding: 18px 24px;
+      //   border: 0.5px solid #000000;
+      //   border-radius: 5px;
+      //   color: #000;
+      //   font-family: Inter;
+      //   font-size: 14px;
+      //   font-style: normal;
+      //   font-weight: 500;
+      //   line-height: normal;
+      //   margin-bottom: 10px;
 
-        &::placeholder {
-          opacity: 0.5;
-        }
+      //   &::placeholder {
+      //     opacity: 0.5;
+      //   }
 
-        &:focus {
-          // border-color: #ED5C2F;
-          outline: none;
-        }
+      //   &:focus {
+      //     // border-color: #ED5C2F;
+      //     outline: none;
+      //   }
 
-        &.error {
-          border: 1.5px solid #ff0000;
-        }
-      }
+      //   &.error {
+      //     border: 1.5px solid #ff0000;
+      //   }
+      // }
 
       & .error-field {
         @include errorField;
