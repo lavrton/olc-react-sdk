@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-catch */
-import { get } from '../utils/api';
 
 // Actions
 import {
@@ -46,13 +45,13 @@ export const isValidHtmlContent = (html) => {
 
 export const getFileAsBlob = async (url, returnType = 'json') => {
   try {
-    // const response = await get(`templates/${id}/view-proof`);
-    const response = await get(url, {
-      responseType: 'blob',
-    });
+  
+    const response = await fetch(url);
+    const blob = await response.blob();
+    
     return returnType === 'json'
-      ? blobToJSON(response.data)
-      : blobToString(response.data);
+      ? blobToJSON(blob)
+      : blobToString(blob);
   } catch (error) {
     throw error; // Optionally rethrow the error for further handling
   }
@@ -62,55 +61,40 @@ const blobToJSON = (jsonBlob) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    // Define a callback function for when the FileReader finishes reading
     reader.onload = function () {
       try {
-        // Parse the result as JSON
         const parsedData = JSON.parse(reader.result);
-
-        // Resolve the promise with the parsed JSON data
         resolve(parsedData);
       } catch (error) {
-        // Reject the promise with the error
         reject(error);
       }
     };
 
-    // Define a callback function for when there is an error reading the Blob
     reader.onerror = function (error) {
-      // Reject the promise with the error
       reject(error);
     };
 
-    // Start reading the Blob as text
     reader.readAsText(jsonBlob);
   });
 };
 
 export const blobToString = (blob) => {
   return new Promise((resolve, reject) => {
-    const blobObject = new Blob([blob], { type: 'text/plain' });
     const reader = new FileReader();
 
-    // Define a callback function for when the reading is complete
     reader.onloadend = function () {
-      // The result property contains the data as a string
       const blobString = reader.result;
-
-      // Resolve the Promise with the blobString
       resolve(blobString);
     };
 
-    // Define a callback function for when an error occurs
     reader.onerror = function (error) {
-      // Reject the Promise with the error
       reject(error);
     };
 
-    // Start reading the content of the Blob as text
-    reader.readAsText(blobObject);
+    reader.readAsText(blob);
   });
 };
+
 
 export const exportPdfViewProofWithDummyData = async (store, title, fields) => {
   const json = store.toJSON();

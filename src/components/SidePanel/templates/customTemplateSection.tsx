@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect , useState} from 'react';
 import { observer } from 'mobx-react-lite';
 import { SectionTab, } from 'polotno/side-panel';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect , useState} from 'react';
-// import FaShapes from '@meronex/icons/fa/FaShapes';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
 import {
@@ -26,7 +24,8 @@ import { drawRestrictedAreaOnPage } from "../../../utils/template-builder";
 import GeneralSelect from '../../GenericUIBlocks/GeneralSelect'
 import Input from '../../GenericUIBlocks/Input'
 import ModalCross from '../../../assets/images/modal-icons/modal-cross';
-
+import { MESSAGES } from '../../../utils/message';
+import { TEMPLATE_LOADING } from '../../../redux/actions/action-types'
 
 type SideSection = typeof TemplatesSection;
 
@@ -85,10 +84,10 @@ const customTemplateSection: SideSection = {
 
     const templates = useSelector((state: RootState) => state.templates.templates);
     const template = useSelector((state: RootState) => state.templates.template);
-    // const product = useSelector((state: RootState) => state.templates.product);
+    const templatesPagination = useSelector(
+      (state: any) => state.templates.templatesPagination
+    );
     const product = useSelector((state: any) => state.templates.product);
-    // console.log('🚀 ~ Panel:observer ~ product:', product)
-
     const envelopeType = useSelector(
       (state: RootState) => state.templates.envelopeType
     );
@@ -103,8 +102,9 @@ const customTemplateSection: SideSection = {
   
     useEffect(() => {
       dispatch(getAllTemplates());
+      
     }, []);
-    
+
     const handleLoadTemplateModel = (record: any) => {
       setSelectedRecord(record);
       handleDialogChange("load-template");
@@ -153,7 +153,6 @@ const customTemplateSection: SideSection = {
     };
 
     const handleSearch = () => {
-      console.log("coming here to search",search );
       if (search) {
         setSearchApplied(true);
         getTemplatesByTab();
@@ -255,9 +254,6 @@ const customTemplateSection: SideSection = {
       if (multiPageLetters.includes(_product.productType)) {
         store.addPage();
         store.selectPage(store.pages[0].id);
-        // if(_product.productType===multiPageLetters[0]){
-        //     checkPageNumbers();
-        // }
       }
       drawRestrictedAreaOnPage(store, product, envelopeType);
       handleDialogChange("");
@@ -319,9 +315,9 @@ const customTemplateSection: SideSection = {
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
             icon={<ModalCross/>}
-            title="Confirm"
-            subHeading="Are you sure you want to discard these changes?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
+            title={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.TITLE}
+            subHeading={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.HEADING}
+            description={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.PARAGRAPH}
             open={isShowDialog.open}
             handleClose={() => handleDialogChange('')}
             onCancel={() => handleDialogChange('')}
@@ -330,13 +326,14 @@ const customTemplateSection: SideSection = {
             cancelText="Cancel"
             submitText="OK"
           />
+          
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
-            icon={<ModalCross/>}
-            title="Confirm"
-            subHeading="Are you sure you want to change current template with this one?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
+            icon={<ModalCross />}
+            title={MESSAGES.TEMPLATE.SELECT_TEMPLATE.TITLE}
+            subHeading={MESSAGES.TEMPLATE.SELECT_TEMPLATE.HEADING}
+            description={MESSAGES.TEMPLATE.SELECT_TEMPLATE.PARAGRAPH}
             open={isShowDialog.open}
             handleClose={() => handleDialogChange('')}
             onCancel={() => handleDialogChange('')}
@@ -352,7 +349,7 @@ const customTemplateSection: SideSection = {
             maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
             backgroundColor: '#fff',
           }}
-        >
+        >          
           <div style={{ marginTop: '8px' }}>
             <GeneralSelect
               placeholder="Template Types"
@@ -391,7 +388,6 @@ const customTemplateSection: SideSection = {
               placeholder="Search by template name"
               inputIcon={true}
               onClick={handleSearch}
-
             />
             {/* {searchApplied && (
               <HighlightOffIcon
@@ -496,3 +492,4 @@ const customTemplateSection: SideSection = {
 };
 
 export default customTemplateSection;
+

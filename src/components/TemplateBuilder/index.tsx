@@ -173,7 +173,7 @@ const TemplateBuilder = (props: Props) => {
     if (product) {
 
       store.addPage();
-      const paperSize = product.selectedSize.split("x");
+      const paperSize = product?.selectedSize?.split("x");
       store.setUnit({
         unit: "in",
         dpi: DPI,
