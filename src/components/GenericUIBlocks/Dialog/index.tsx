@@ -112,7 +112,7 @@ const Dialog: React.FC<DialogProps> = ({
             style={{ ...buttonStyles, border: 'none', maxWidth: contentAdjust }}
             onClick={onSubmit}
           >
-            {true ? (
+            {loading ? (
               <CircularProgress style={progressStyles} />
             ) : (
               submitText
