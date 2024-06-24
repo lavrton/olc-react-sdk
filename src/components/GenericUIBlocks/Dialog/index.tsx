@@ -49,6 +49,7 @@ const subHeadingStyle: CSSProperties = {
 const progressStyles: CSSProperties = {
   width: '20px',
   height: '20px',
+  border: '2px solid #fff',
 };
 
 const Dialog: React.FC<DialogProps> = ({
@@ -111,7 +112,7 @@ const Dialog: React.FC<DialogProps> = ({
             style={{ ...buttonStyles, border: 'none', maxWidth: contentAdjust }}
             onClick={onSubmit}
           >
-            {loading ? (
+            {true ? (
               <CircularProgress style={progressStyles} />
             ) : (
               submitText

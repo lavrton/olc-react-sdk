@@ -64,6 +64,7 @@ const buttonStyles = {
 const progressStyles = {
   width: '20px',
   height: '20px',
+  border: '2px solid #ED5C2F',
 };
 
 const TopNavigation = ({
