@@ -23,9 +23,11 @@ interface InputProps {
   label?: string;
   error?: string;
   inputIcon?: boolean;
+  onClick?: () => void;
+  onKeyDown?: () => void;
 }
 
-const Input: FC<InputProps> = ({ variant = 'input', type, value, onChange, placeholder, label, error, inputIcon }) => {
+const Input: FC<InputProps> = ({ variant = 'input', type, value, onChange, placeholder, label, error, inputIcon, onClick, onKeyDown }) => {
   const InputVariant = variant || 'input';
 
   return (
@@ -38,8 +40,10 @@ const Input: FC<InputProps> = ({ variant = 'input', type, value, onChange, place
           onChange={onChange}
           placeholder={placeholder}
           className="basic-input"
+          onKeyDown={onKeyDown}
         />
-        {inputIcon && <Search fill="#ED5C2F" />}
+        {inputIcon && <div onClick={onClick}><Search fill="#ED5C2F"/></div>
+        }
       </div>
       {error && (
         <Typography variant="p" style={errorStyles}>

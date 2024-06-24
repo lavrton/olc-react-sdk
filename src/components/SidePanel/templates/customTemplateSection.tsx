@@ -87,7 +87,7 @@ const customTemplateSection: SideSection = {
     const template = useSelector((state: RootState) => state.templates.template);
     // const product = useSelector((state: RootState) => state.templates.product);
     const product = useSelector((state: any) => state.templates.product);
-    console.log('🚀 ~ Panel:observer ~ product:', product)
+    // console.log('🚀 ~ Panel:observer ~ product:', product)
 
     const envelopeType = useSelector(
       (state: RootState) => state.templates.envelopeType
@@ -102,12 +102,9 @@ const customTemplateSection: SideSection = {
     });
   
     useEffect(() => {
-      // dispatch(fetchTemplates());
       dispatch(getAllTemplates());
-      
     }, []);
     
-    console.log("temp=====", templates);
     const handleLoadTemplateModel = (record: any) => {
       setSelectedRecord(record);
       handleDialogChange("load-template");
@@ -156,6 +153,7 @@ const customTemplateSection: SideSection = {
     };
 
     const handleSearch = () => {
+      console.log("coming here to search",search );
       if (search) {
         setSearchApplied(true);
         getTemplatesByTab();
@@ -391,19 +389,9 @@ const customTemplateSection: SideSection = {
               onKeyDown={searchKeyDown}
               onChange={(e: any) => setSearch(e.target.value.trimStart())}
               placeholder="Search by template name"
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <button
-              //       aria-label="toggle password visibility"
-              //       edge="end"
-              //       className="searchIcon"
-              //       onChange={(e: any) => setSearch(e.target.value.trimStart())}
-              //       // onClick={handleSearch}
-              //     >
-              //       <img src={Search} alt="search" />
-              //     </button>
-              //   </InputAdornment>
-              // }
+              inputIcon={true}
+              onClick={handleSearch}
+
             />
             {/* {searchApplied && (
               <HighlightOffIcon
