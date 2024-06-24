@@ -315,12 +315,16 @@ const customTemplateSection: SideSection = {
       };
     }, [templates]);
 
+    const removeSearchInput = ()=>{
+      setSearchApplied(false)
+      setSearch("")
+    }
 
     return (
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
-            icon={<ModalCross/>}
+            icon={<ModalCross />}
             title="Confirm"
             subHeading="Are you sure you want to discard these changes?"
             description="You will lose your changes. Please save your changes or click ok to proceed."
@@ -335,7 +339,7 @@ const customTemplateSection: SideSection = {
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
-            icon={<ModalCross/>}
+            icon={<ModalCross />}
             title="Confirm"
             subHeading="Are you sure you want to change current template with this one?"
             description="You will lose your changes. Please save your changes or click ok to proceed."
@@ -355,7 +359,7 @@ const customTemplateSection: SideSection = {
             backgroundColor: '#fff',
           }}
         >
-          <div style={{ marginTop: '8px' }}>
+          <div style={{marginTop: '8px'}}>
             <GeneralSelect
               placeholder="Template Types"
               options={templateTypes}
@@ -367,8 +371,8 @@ const customTemplateSection: SideSection = {
               templateBuilder={true}
             />
           </div>
-          {currentTemplateType?.id === "3" && (
-            <div style={{ marginTop: '8px' }}>
+          {currentTemplateType?.id === '3' && (
+            <div style={{marginTop: '8px'}}>
               <GeneralSelect
                 placeholder="Select Category"
                 options={templateCategories}
@@ -381,74 +385,57 @@ const customTemplateSection: SideSection = {
               />
             </div>
           )}
-          <div className="searchWrapper"  style={{ marginTop: '16px', marginBottom: '16px' }}>
+          <div
+            className="searchWrapper"
+            style={{marginTop: '16px', marginBottom: '16px'}}
+          >
             <Input
-              className={`searchInput ${searchApplied ? "searchApplied" : ""}`}
               type="text"
-              autoComplete="off"
               value={search}
               name="search"
               onKeyDown={searchKeyDown}
               onChange={(e: any) => setSearch(e.target.value.trimStart())}
               placeholder="Search by template name"
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <button
-              //       aria-label="toggle password visibility"
-              //       edge="end"
-              //       className="searchIcon"
-              //       onChange={(e: any) => setSearch(e.target.value.trimStart())}
-              //       // onClick={handleSearch}
-              //     >
-              //       <img src={Search} alt="search" />
-              //     </button>
-              //   </InputAdornment>
-              // }
+              inputIcon={true}
+              onClick={() => setSearchApplied(true)}
+              searchApplied={searchApplied}
+              removeSearchInput={removeSearchInput}
             />
-            {/* {searchApplied && (
-              <HighlightOffIcon
-                onClick={() => {
-                  setSearch(null);
-                  setSearchApplied(false);
-                }}
-                className="clearSerach"
-              />
-            )} */}
           </div>
-          {currentTemplateType?.id === "1" ? (
-          <>
-            <div
-              className="default-design"
-              onClick={() => handleDialogChange('design-own')}
-            >
-              <img src={DesignIcon} alt="design" />
-              <Typography>Design Your Own</Typography>
-            </div>
-            {templates.rows.length ? (
-              templates.rows.map((template: any, i: number) => (
-                <div
-                  className="design-template"
-                  key={i}
-                  onClick={() => handleLoadTemplateModel(template)}
-                >
-                  <img
-                    src={template.thumbnailUrl}
-                    alt={template.title}
-                    onError={({currentTarget}) => {
-                      currentTarget.onerror = null; // prevents looping
-                      currentTarget.src = dummyTemplateIcon;
-                      currentTarget.classList.add('dummy-image');
-                    }}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="noTemplateText">
-                <Typography>No My Templates to show</Typography>
+          {currentTemplateType?.id === '1' ? (
+            <>
+              <div
+                className="default-design"
+                onClick={() => handleDialogChange('design-own')}
+              >
+                <img src={DesignIcon} alt="design" />
+                <Typography>Design Your Own</Typography>
               </div>
-            )}
-          </>
-           ) : currentTemplateType?.id === "2" ? (
+              {templates.rows.length ? (
+                templates.rows.map((template: any, i: number) => (
+                  <div
+                    className="design-template"
+                    key={i}
+                    onClick={() => handleLoadTemplateModel(template)}
+                  >
+                    <img
+                      src={template.thumbnailUrl}
+                      alt={template.title}
+                      onError={({currentTarget}) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = dummyTemplateIcon;
+                        currentTarget.classList.add('dummy-image');
+                      }}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="noTemplateText">
+                  <Typography>No My Templates to show</Typography>
+                </div>
+              )}
+            </>
+          ) : currentTemplateType?.id === '2' ? (
             <>
               {teamTemplates.length ? (
                 teamTemplates?.map((template, i) => (
@@ -460,10 +447,10 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
-                        currentTarget.classList.add("dummy-image");
+                        currentTarget.classList.add('dummy-image');
                       }}
                     />
                   </div>
@@ -474,7 +461,7 @@ const customTemplateSection: SideSection = {
                 </div>
               )}
             </>
-          ) : currentTemplateType?.id === "3" ? (
+          ) : currentTemplateType?.id === '3' ? (
             <>
               {olcTemplates.length ? (
                 olcTemplates?.map((template, i) => (
@@ -486,10 +473,10 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
-                        currentTarget.classList.add("dummy-image");
+                        currentTarget.classList.add('dummy-image');
                       }}
                     />
                   </div>
@@ -498,9 +485,9 @@ const customTemplateSection: SideSection = {
                 <div className="noTemplateText">
                   <Typography>No OLC Templates to show</Typography>
                 </div>
-              )} 
-              </> 
-          ) : null} 
+              )}
+            </>
+          ) : null}
         </div>
       </div>
     );

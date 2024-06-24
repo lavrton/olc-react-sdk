@@ -330,7 +330,9 @@ const TopNavigation = ({
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
             <Typography>{title}</Typography>
-            <img src={EditIcon} onClick={() => handleChangeModel('edit')} />
+            <div onClick={() => handleChangeModel('edit')}>
+              <img src={EditIcon} alt="edit"/>
+            </div>
           </div>
         </GridItem>
         <GridItem lg={4} md={6} sm={8} xs={12}>
