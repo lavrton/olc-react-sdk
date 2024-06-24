@@ -31,8 +31,8 @@ import ModalCross from '../../../assets/images/modal-icons/modal-cross';
 type SideSection = typeof TemplatesSection;
 
 const designDialogStyles = {
-  maxWidth: "100%",
-  minHeight: "400px"
+  maxWidth: "600px",
+  minHeight: "270px"
 }
 
 
@@ -332,7 +332,6 @@ const customTemplateSection: SideSection = {
             cancelText="Cancel"
             submitText="OK"
           />
-          
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
@@ -503,27 +502,6 @@ const customTemplateSection: SideSection = {
               </> 
           ) : null} 
         </div>
-        {isShowDialog.open && isShowDialog.model === 'design-own' && (
-          <Dialog
-            title="Confirm"
-            subHeading="Are you sure you want to discard these changes?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
-            open={isShowDialog.open}
-            handleClose={() => handleDialogChange('')}
-            handleOk={handleClearStore}
-            customStyles={designDialogStyles}
-          />
-        )}
-        {isShowDialog.open && isShowDialog.model === 'load-template' && (
-          <Dialog
-            title="Confirm"
-            subHeading="Are you sure you want to change current template with this one?"
-            description="You will lose your changes. Please save your changes or click ok to proceed."
-            open={isShowDialog.open}
-            handleClose={() => handleDialogChange('')}
-            handleOk={() => handleLoadTemplate(selectedRecord.id)}
-          />
-        )}
       </div>
     );
    }) as SideSection['Panel'],
