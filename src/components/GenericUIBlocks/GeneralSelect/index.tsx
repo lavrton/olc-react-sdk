@@ -52,7 +52,7 @@ const GeneralSelect: React.FC<GeneralSelectProps> = ({ options, placeholder, err
       />
       {error && (
         <Typography variant="p" style={errorStyles}>
-          {/* <sup>*</sup> */}
+          <sup>*</sup>
           {error}
         </Typography>
       )}

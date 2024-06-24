@@ -122,15 +122,15 @@ const CreateTemplate = () => {
         !product.selectedSize) ||
       (product &&
         product.productType === 'Professional Letters' &&
-        !envelopeType.length)
+        ![envelopeType].length)
     ) {
       setIsError(true);
     } else {
       let envelope = '';
       if (product.productType === 'Professional Letters') {
         envelope = envelopeTypes.find(
-          (envelope) => envelope.title === envelopeType[0]
-        ).type;
+          (envelope) => envelope.label === envelopeType.label
+        )?.type;
       }
       dispatch(searchAndAdvanceChange('title', trimedTitle));
       dispatch(searchAndAdvanceChange('envelopeType', envelope));
@@ -148,7 +148,7 @@ const CreateTemplate = () => {
 
   useEffect(() => {
     if (product && product?.productType === 'Professional Letters') {
-      if (envelopeType[0] === 'Non-Windowed Envelope') {
+      if (envelopeType.label === 'Non-Windowed Envelope') {
         dispatch(
           selectProduct(sortedProducts.find((item) => item.windowed === false))
         );
@@ -242,7 +242,7 @@ const CreateTemplate = () => {
                 <div className="templateInputWrapper">
                   {/* <Typography>Envelope Type*</Typography> */}
                   <GeneralSelect
-                    className={isError && !envelopeType.length ? 'error' : ''}
+                    className={isError && ![envelopeType].length ? 'error' : ''}
                     selectedValue={envelopeType}
                     setSelectedValue={setEnvelopeType}
                     options={envelopeTypes}
