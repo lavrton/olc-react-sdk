@@ -1,37 +1,23 @@
-import React, {useEffect, useState} from 'react';
-// import PropTypes from 'prop-types';
-// import Button from '@mui/material/Button';
-// import {styled} from '@mui/material/styles';
-// import Dialog from '@mui/material/Dialog';
-// import DialogTitle from '@mui/material/DialogTitle';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogActions from '@mui/material/DialogActions';
-// import IconButton from '@mui/material/IconButton';
-// import CloseIcon from '@mui/icons-material/Close';
-// import Typography from '@mui/material/Typography';
-// import {Input} from '@mui/material';
-import {useDispatch, useSelector} from 'react-redux';
-// Styles
-import './styles.scss';
-// images
-// import Close from '../../../../assets/images/modal/modal-cross.jsx';
+import React, { useEffect, useState } from 'react';
 
-// import {searchAndAdvanceChange} from '../../../../redux/actions/template-builder';
-// import {failure} from '../../../redux/actions/snackbar-actions';
-import {MESSAGES} from '../../../utils/message';
+// Hooks
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '../../../redux/store';
+
+// Actions
+import { searchAndAdvanceChange } from '../../../redux/actions/templateActions';
+import { failure } from '../../../redux/actions/snackbarActions';
+
+// Utils
+import { MESSAGES } from '../../../utils/message';
+
+// UI Components
 import Dialog from '../../../components/GenericUIBlocks/Dialog';
-import Save from '../../../assets/images/modal-icons/save';
 import Input from '../../../components/GenericUIBlocks/Input';
 
+// Styles
+import './styles.scss';
 
-// const BootstrapDialog = styled(Dialog)(({theme}) => ({
-//   '& .MuiDialogContent-root': {
-//     padding: theme.spacing(2),
-//   },
-//   '& .MuiDialogActions-root': {
-//     padding: theme.spacing(1),
-//   },
-// }));
 
 /**
  * EditTemplateNameModel Component
@@ -59,30 +45,30 @@ const EditTemplateNameModel: React.FC<EditTemplateNameModelProps> = ({
 }) => {
   const [title, setTitle] = useState('');
 
-  // const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const templateTitle =
-    useSelector((state) => state.templates.title) || '';
+    useSelector((state: RootState) => state.templates.title) || '';
 
   useEffect(() => {
     setTitle(templateTitle);
   }, []);
 
   // Handle the duplication of the template
-  // const handleEditName = async () => {
-  //   let errorText = '';
-  //   if (!title) {
-  //     errorText = MESSAGES.TEMPLATE.NAME_REQUIRED;
-  //   } else if (title.length > 50) {
-  //     errorText = MESSAGES.TEMPLATE.NAME_LESS_50;
-  //   }
-  //   if (errorText) {
-  //     dispatch(failure(errorText));
-  //     return;
-  //   }
-  //   dispatch(searchAndAdvanceChange('title', title.trim()));
-  //   handleClose(false)
-  // };
+  const handleEditName = async () => {
+    let errorText = '';
+    if (!title) {
+      errorText = MESSAGES.TEMPLATE.NAME_REQUIRED;
+    } else if (title.length > 50) {
+      errorText = MESSAGES.TEMPLATE.NAME_LESS_50;
+    }
+    if (errorText) {
+      dispatch(failure(errorText));
+      return;
+    }
+    dispatch(searchAndAdvanceChange('title', title.trim()));
+    handleClose();
+  };
 
   return (
     <Dialog
@@ -93,7 +79,7 @@ const EditTemplateNameModel: React.FC<EditTemplateNameModelProps> = ({
       cancelText={MESSAGES.TEMPLATE.SAVE.CANCEL_BUTTON}
       submitText="Save"
       customStyles={editDialogStyles}
-      onSubmit={()=>{}}
+      onSubmit={handleEditName}
       onCancel={handleClose}
     >
       <Input
@@ -102,7 +88,7 @@ const EditTemplateNameModel: React.FC<EditTemplateNameModelProps> = ({
         label="Template Name"
         placeholder="Edit Template Name"
         value={title}
-        onChange={(e:any) => setTitle(e.target.value)}
+        onChange={e => setTitle(e.target.value)}
       />
     </Dialog>
   );
