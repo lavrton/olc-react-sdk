@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
-// component
+// styles
+import './styles.scss';
 import Typography from '../Typography';
 
 // icon
@@ -13,9 +14,18 @@ const errorStyles = {
   color: '#FF0000',
 };
 
-const Input = (props: any) => {
-  const {variant, type, value, onChange, placeholder, label, error, inputIcon} =
-    props;
+interface InputProps {
+  variant?: keyof JSX.IntrinsicElements;
+  type: any;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>) => void;
+  placeholder?: string;
+  label?: string;
+  error?: string;
+  inputIcon?: boolean;
+}
+
+const Input: FC<InputProps> = ({ variant = 'input', type, value, onChange, placeholder, label, error, inputIcon }) => {
   const InputVariant = variant || 'input';
 
   return (

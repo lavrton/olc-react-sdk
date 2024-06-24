@@ -168,7 +168,7 @@ export const MESSAGES = {
     NAME_REQUIRED: "Template Name is required",
     TYPE_REQUIRED: "Template Type is required",
     PRODUCT_TYPE_REQUIRED: "Product Type is required",
-    ENVELOPE_TYPE_REQUIRED: "*Envelope Type is required",
+    ENVELOPE_TYPE_REQUIRED: "Envelope Type is required",
     POSTCARD_SIZE_REQUIRED: "Postcard Size is required",
     NAME_LESS_50: "Template Name should be less than or equal to 50 characters",
     LIMIT_MODAL: {

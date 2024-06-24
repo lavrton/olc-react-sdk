@@ -30,7 +30,7 @@ const section: SideSection = {
     useEffect(() => {
       // dispatch(fetchTemplates());
       dispatch(getAllTemplates());
-    }, [dispatch]);
+    }, []);
     
     const handleLoadTemplateModel = (record: any) => {
       setSelectedRecord(record);

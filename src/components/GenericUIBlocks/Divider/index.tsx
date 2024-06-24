@@ -3,9 +3,9 @@ import React from 'react'
 // styles
 import './styles.scss'
 
-const Divider = () => {
+const Divider: React.FC = () => {
   return (
-    <hr className='basic-divider'/>
+    <hr className='basic-divider' />
   )
 }
 

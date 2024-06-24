@@ -1,7 +1,7 @@
 import React from 'react';
 
 // react select
-import Select from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 
 // components
 import Typography from '../Typography';
@@ -9,12 +9,26 @@ import Typography from '../Typography';
 // styles
 import './styles.scss';
 
+interface Option {
+  id?: number | string;
+  value: string;
+  label: string;
+}
 
-const colourStyles = {
-  dropdownIndicator: (styles: any, {isFocused, menuIsOpen}: any) => ({
+interface GeneralSelectProps {
+  options: Option[];
+  placeholder?: string;
+  error?: string;
+  label?: string;
+  selectedValue: Option | null;
+  setSelectedValue: (option: Option | null) => void;
+}
+
+const colourStyles: StylesConfig<Option, false> = {
+  dropdownIndicator: (styles, { isFocused, selectProps }) => ({
     ...styles,
-    color: isFocused && !menuIsOpen ? '#ed5c2f !important' : 'grey',
-    transform: !isFocused && !menuIsOpen && 'rotate(180deg)',
+    color: isFocused && !selectProps.menuIsOpen ? '#ed5c2f' : 'grey',
+    transform: !isFocused && !selectProps.menuIsOpen ? 'rotate(180deg)' : undefined,
   }),
 };
 
@@ -22,10 +36,7 @@ const errorStyles = {
   color: '#FF0000',
 };
 
-
-const GeneralSelect = (props:any) => {
-  const {options, placeholder, error, label, selectedValue, setSelectedValue} = props;
-
+const GeneralSelect: React.FC<GeneralSelectProps> = ({ options, placeholder, error, label, selectedValue, setSelectedValue }) => {
   return (
     <div className="select-layout">
       <label>{label && label}</label>
