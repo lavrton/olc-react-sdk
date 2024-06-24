@@ -6,7 +6,6 @@ import { setUploadFunc } from 'polotno/config';
 import { Toolbar } from 'polotno/toolbar/toolbar';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import { Workspace } from 'polotno/canvas/workspace';
-import '@blueprintjs/core/lib/css/blueprint.css';
 import { setGoogleFonts } from 'polotno/config';
 import merge from 'deepmerge';
 
