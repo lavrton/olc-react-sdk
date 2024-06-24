@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { createStore, StoreType } from 'polotno/model/store';
 
 // components
-import Snackbar from './components/GenericUIBlocks/Snackbar';
+import GenericSnackbar from './components/GenericUIBlocks/GenericSnackbar';
 import CreateTemplate from './components/CreateTemplate';
 import { TemplateBuilder } from './index';
 
@@ -20,7 +20,6 @@ const initializeStore = () => {
     showCredit: false,
   });
 };
-
 
 function App() {
   const [store, setStore] = useState<StoreType>(initializeStore);
@@ -43,7 +42,7 @@ function App() {
       </Routes>
 
       {/* SNACKBAR FOR NOTIFICATIONS */}
-      <Snackbar />
+      <GenericSnackbar/>
     </>
   );
 }

@@ -1,0 +1,35 @@
+.toast-container {
+  width: 100%;
+  max-width: 400px;
+
+  .basic-toast {
+    background-color: #ef7820;
+    button {
+        opacity: 1;
+      svg {
+        height: 20px;
+        width: 20px;
+        fill: #ffffff;
+      }
+    }
+    .toast-body {
+      .toast-content {
+        height: 100%;
+        max-height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+        flex-direction: column;
+        p {
+          color: #ffffff;
+          margin: 0;
+          font-family: Inter;
+          &:first-child {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}

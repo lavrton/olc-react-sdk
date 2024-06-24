@@ -30,6 +30,7 @@
     "react-router-dom": "^6.18.0",
     "react-select": "^5.8.0",
     "react-simple-snackbar": "^1.1.11",
+    "react-toastify": "^10.0.5",
     "react-tooltip": "^5.26.4",
     "redux": "^5.0.1",
     "redux-thunk": "^2.4.2",
