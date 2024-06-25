@@ -21,6 +21,7 @@ interface GeneralSelectProps {
   error?: string;
   label?: string;
   selectedValue: Option | null;
+  isError: boolean;
   setSelectedValue: (option: Option | null) => void;
 }
 
@@ -36,7 +37,7 @@ const errorStyles = {
   color: '#FF0000',
 };
 
-const GeneralSelect: React.FC<GeneralSelectProps> = ({ options, placeholder, error, label, selectedValue, setSelectedValue }) => {
+const GeneralSelect: React.FC<GeneralSelectProps> = ({ options, placeholder, error, label, isError, selectedValue, setSelectedValue }) => {
   return (
     <div className="select-layout">
       <label>{label && label}</label>
@@ -50,7 +51,7 @@ const GeneralSelect: React.FC<GeneralSelectProps> = ({ options, placeholder, err
         placeholder={placeholder}
         blurInputOnSelect
       />
-      {error && (
+      {isError && (
         <Typography variant="p" style={errorStyles}>
           <sup>*</sup>
           {error}

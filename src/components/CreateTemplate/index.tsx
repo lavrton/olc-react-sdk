@@ -102,13 +102,6 @@ const CreateTemplate: React.FC = () => {
     return indexA - indexB;
   });
 
-  useEffect(() => {
-    dispatch(getAllProducts());
-    dispatch(clearTemplateFields());
-    removeItem('formData');
-    dispatch({ type: CLEAR_TEMPLATE });
-  }, []);
-
   const handleNext = () => {
     const trimedTitle = title.trim();
     if (
@@ -121,7 +114,7 @@ const CreateTemplate: React.FC = () => {
         !product?.selectedSize) ||
       (product &&
         product.productType === 'Professional Letters' &&
-        ![envelopeType].length)
+        !Object.keys(envelopeType).length)
     ) {
       setIsError(true);
     } else {
@@ -140,6 +133,13 @@ const CreateTemplate: React.FC = () => {
   };
 
   useEffect(() => {
+    dispatch(getAllProducts());
+    dispatch(clearTemplateFields());
+    removeItem('formData');
+    dispatch({ type: CLEAR_TEMPLATE });
+  }, []);
+
+  useEffect(() => {
     if (products?.length) {
       dispatch(selectProduct(products[0]));
     }
@@ -147,6 +147,9 @@ const CreateTemplate: React.FC = () => {
 
   useEffect(() => {
     if (product && product?.productType === 'Professional Letters') {
+      if (Object.keys(envelopeType).length) {
+        setIsError(false);
+      }
       if (envelopeType?.label === 'Non-Windowed Envelope') {
         dispatch(
           selectProduct(sortedProducts.find((item) => item.windowed === false))
@@ -246,6 +249,7 @@ const CreateTemplate: React.FC = () => {
                     options={envelopeTypes}
                     placeholder="Envelope Type"
                     error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
+                    isError={isError}
                     label="Envelope Type*"
                   />
                 </div>
