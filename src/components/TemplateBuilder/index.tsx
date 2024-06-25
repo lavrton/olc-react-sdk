@@ -9,6 +9,13 @@ import { Workspace } from 'polotno/canvas/workspace';
 import { setGoogleFonts } from 'polotno/config';
 import merge from 'deepmerge';
 
+// Hooks
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { RootState } from '@/redux/reducers';
+import { AppDispatch } from '@/redux/store';
+import { StoreType } from 'polotno/model/store';
+
 // Actions
 import {
   getAllCustomFields,
@@ -17,9 +24,6 @@ import {
 } from '../../redux/actions/templateActions';
 import { TEMPLATE_LOADING } from '../../redux/actions/action-types';
 
-// Hooks
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
 
 // Utils
 import { drawRestrictedAreaOnPage, getFileAsBlob } from '../../utils/template-builder';
@@ -49,16 +53,14 @@ setUploadFunc(uploadFile)
 
 // styles
 import './styles.scss'
-import { RootState } from '@/redux/reducers';
-import { AppDispatch } from '@/redux/store';
 
-interface Props {
-  store: object | any,
+
+interface TemplateBuilderProps {
+  store: StoreType,
   styles?: React.CSSProperties;
 }
 
-const TemplateBuilder = (props: Props) => {
-  const { store, styles } = props;
+const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
   const [isStoreUpdated, setIsStoreUpdated] = useState(false);
   const [switchTabCount, setSwitchTabCount] = useState(1);
 
@@ -74,7 +76,6 @@ const TemplateBuilder = (props: Props) => {
   );
 
   const currentTemplateType = product?.productType;
-
 
   const containerStyle = merge(
     {
@@ -142,7 +143,7 @@ const TemplateBuilder = (props: Props) => {
   }, [product]);
 
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
+    const handleBeforeUnload = (event: { returnValue: string; }) => {
       const message = "Are you sure you want to leave?";
       event.returnValue = message;
       return message;
@@ -170,7 +171,7 @@ const TemplateBuilder = (props: Props) => {
     if (product) {
 
       store.addPage();
-      const paperSize = product.selectedSize.split("x");
+      const paperSize = product?.selectedSize?.split("x");
       store.setUnit({
         unit: "in",
         dpi: DPI,
@@ -226,13 +227,13 @@ const TemplateBuilder = (props: Props) => {
       if (workspaceElement) {
         workspaceElement.classList.add("show-loader");
       }
-      const paperDimensions = template.product.paperSize.split('x');
+      const paperDimensions = template?.product?.paperSize.split('x');
       store.setUnit({
         unit: "in",
         dpi: 96,
       });
       store.setSize(+paperDimensions[1] * DPI, +paperDimensions[0] * DPI);
-      const jsonData = await getFileAsBlob(template.templateUrl);
+      const jsonData = await getFileAsBlob(template?.templateUrl);
       store.loadJSON(jsonData);
       await store.waitLoading();
       setIsStoreUpdated(false);
@@ -249,7 +250,7 @@ const TemplateBuilder = (props: Props) => {
   return (
     <div className="polotno-container">
       {switchTabCount > 0 && (
-        <div sx={{ display: { xs: "none", sm: "block" } }}>
+        <div>
           <TopNavigation
             store={store}
             isStoreUpdated={isStoreUpdated}

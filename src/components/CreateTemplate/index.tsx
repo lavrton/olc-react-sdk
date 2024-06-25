@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
+
 //actions
 import {
   clearTemplateFields,
@@ -20,14 +21,11 @@ import { removeItem } from '../../utils/local-storage';
 import { MESSAGES } from '../../utils/message';
 import { envelopeTypes } from '../../utils/template-builder';
 
-// Mui Components
+// UI Components
 import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 import Typography from '../GenericUIBlocks/Typography';
 import Button from '../GenericUIBlocks/Button';
 import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
-
-// styles
-import './styles.scss';
 
 // Images
 import Postcard from '../../assets/images/templates/postcard.svg';
@@ -43,8 +41,10 @@ import SizeImageLarge from '../../assets/images/templates/size-image-lg';
 import Input from '../GenericUIBlocks/Input';
 import Divider from '../GenericUIBlocks/Divider';
 
+// styles
+import './styles.scss';
 
-const templateHeadingStyles = {
+const templateHeadingStyles: React.CSSProperties = {
   color: `#ed5c2f`,
   fontFamily: `Inter`,
   fontSize: `24px`,
@@ -54,7 +54,7 @@ const templateHeadingStyles = {
   marginBottom: `20px`,
 };
 
-const templateTextStyles = {
+const templateTextStyles: React.CSSProperties = {
   color: `#000`,
   fontFamily: `Inter`,
   fontSize: `14px`,
@@ -64,7 +64,7 @@ const templateTextStyles = {
   marginBottom: `16px`,
 };
 
-const footerButtonStyles = {
+const footerButtonStyles: React.CSSProperties = {
   width: '100%',
   maxWidth: '100px',
   height: '100%',
@@ -75,7 +75,7 @@ const footerButtonStyles = {
   color: '#000000',
 };
 
-const Images = {
+const Images: Record<string, string> = {
   Postcards: Postcard,
   'Professional Letters': ProfessionalLetter,
   'Personal Letters': PersonalLetter,
@@ -84,16 +84,17 @@ const Images = {
   'Bi-Fold Self-Mailers': BiFoldSelfMailers,
 };
 
-const CreateTemplate = () => {
-  const [isError, setIsError] = useState(false);
-  const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
+const CreateTemplate: React.FC = () => {
+  const [isError, setIsError] = useState<boolean>(false);
+  const [envelopeType, setEnvelopeType] = useState<[]>([]);
 
-  const [envelopeType, setEnvelopeType] = useState([]);
   const title = useSelector((state: RootState) => state.templates.title);
   const product = useSelector((state: RootState) => state.templates.product);
   const products = useSelector((state: RootState) => state.templates.products);
   const templateType = useSelector((state: RootState) => state.templates.templateType);
+
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const sortedProducts = products?.sort((a, b) => {
     const indexA = sortOrderForTemplates.indexOf(a.productType);
@@ -112,12 +113,12 @@ const CreateTemplate = () => {
     const trimedTitle = title.trim();
     if (
       !trimedTitle ||
-      trimedTitle.length > 50 ||
+      trimedTitle?.length > 50 ||
       !templateType ||
       !product ||
       (product &&
         product.productType === 'Postcards' &&
-        !product.selectedSize) ||
+        !product?.selectedSize) ||
       (product &&
         product.productType === 'Professional Letters' &&
         ![envelopeType].length)
@@ -146,7 +147,7 @@ const CreateTemplate = () => {
 
   useEffect(() => {
     if (product && product?.productType === 'Professional Letters') {
-      if (envelopeType.label === 'Non-Windowed Envelope') {
+      if (envelopeType?.label === 'Non-Windowed Envelope') {
         dispatch(
           selectProduct(sortedProducts.find((item) => item.windowed === false))
         );
@@ -161,11 +162,11 @@ const CreateTemplate = () => {
           <GridItem lg={5} md={12} sm={12} xs={12}>
             <div className="createTemplateHeader">
               <Typography style={templateHeadingStyles}>
-                Create New Template
+                {MESSAGES.TEMPLATE.CREATE.TITLE}
               </Typography>
               <div className="templateInputWrapper">
                 <Typography style={templateTextStyles}>
-                  Template Name*
+                  {MESSAGES.TEMPLATE.CREATE.TEMPLATE_LABEL}
                 </Typography>
                 <Input
                   type="text"
@@ -196,10 +197,10 @@ const CreateTemplate = () => {
             <div className="productTypeWrapper">
               <div className="productHeading">
                 <Typography style={templateTextStyles}>
-                  Product Type*
+                  {MESSAGES.TEMPLATE.CREATE.PRODUCT_LABEL}
                 </Typography>
                 <NavLink to={PRODUCT_LEARN_URL} target="_blank">
-                  <Typography>Learn More</Typography>
+                  <Typography>  {MESSAGES.TEMPLATE.CREATE.LEARN_TEXT}</Typography>
                 </NavLink>
               </div>
               <div className="productsWrapper">
@@ -209,12 +210,11 @@ const CreateTemplate = () => {
                     .map((prod, index) => {
                       return (
                         <div
-                          className={`productCard ${
-                            prod.productType ===
+                          className={`productCard ${prod.productType ===
                             (product && product.productType)
-                              ? 'active'
-                              : ''
-                          } ${isError && !product ? 'error' : ''} `}
+                            ? 'active'
+                            : ''
+                            } ${isError && !product ? 'error' : ''} `}
                           key={index}
                           onClick={() => dispatch(selectProduct(prod))}
                         >
@@ -281,28 +281,24 @@ const CreateTemplate = () => {
                           }
                           className={
                             index === 0
-                              ? `postCard postCard-small ${
-                                  product.selectedSize === type.size
-                                    ? 'active'
-                                    : ''
-                                }`
+                              ? `postCard postCard-small ${product.selectedSize === type.size
+                                ? 'active'
+                                : ''
+                              }`
                               : index === 1
-                              ? `postCard postCard-mid ${
-                                  product.selectedSize === type.size
+                                ? `postCard postCard-mid ${product.selectedSize === type.size
+                                  ? 'active'
+                                  : ''
+                                }`
+                                : index === 2
+                                  ? `postCard postCard-large ${product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                }`
-                              : index === 2
-                              ? `postCard postCard-large ${
-                                  product.selectedSize === type.size
+                                  }`
+                                  : `postCard ${product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                }`
-                              : `postCard ${
-                                  product.selectedSize === type.size
-                                    ? 'active'
-                                    : ''
-                                }`
+                                  }`
                           }
                           key={index}
                         >
@@ -342,7 +338,7 @@ const CreateTemplate = () => {
             }}
             onClick={() => navigate(-1)}
           >
-            Cancel
+            {MESSAGES.TEMPLATE.CREATE.CANCEL_BUTTON}
           </Button>
           <Button
             style={{
@@ -352,7 +348,7 @@ const CreateTemplate = () => {
             }}
             onClick={handleNext}
           >
-            Next
+            {MESSAGES.TEMPLATE.CREATE.SUBMIT_BUTTON}
           </Button>
         </div>
       </div>

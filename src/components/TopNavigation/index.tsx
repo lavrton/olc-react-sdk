@@ -52,7 +52,7 @@ import './styles.scss';
  * @returns {JSX.Element} The top navigation bar component.
  */
 
-const buttonStyles = {
+const buttonStyles: React.CSSProperties = {
   maxWidth: '100px',
   minHeight: '40px',
   backgroundColor: '#fff',
@@ -61,26 +61,35 @@ const buttonStyles = {
   fontSize: '15px'
 };
 
-const progressStyles = {
+const progressStyles: React.CSSProperties = {
   width: '20px',
   height: '20px',
   border: '2px solid #ED5C2F',
 };
 
-const TopNavigation = ({
+interface TopNavigationProps {
+  store: any;
+  isStoreUpdated: boolean;
+}
+
+const TopNavigation: React.FC<TopNavigationProps> = ({
   store,
   isStoreUpdated,
 }) => {
 
-  const [showNavigateDialog, setShowNavigateDialog] = useState(false);
-  const [isShowModel, setIsShowModel] = useState({
+  const [showNavigateDialog, setShowNavigateDialog] = useState<boolean>(false);
+  const [isShowModel, setIsShowModel] = useState<{
+    open: boolean;
+    model: string;
+    loading: boolean;
+  }>({
     open: false,
     model: '',
     loading: false,
   });
-  const [downloadingProof, setDownloaingProof] = useState(false);
+  const [downloadingProof, setDownloaingProof] = useState<boolean>(false);
 
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -184,7 +193,7 @@ const TopNavigation = ({
     try {
       const formData = new FormData();
       const allFields = [...defaultFields, ...Object.values(dynamicFields)];
-      let selectedFields = [];
+      let selectedFields: typeof allFields = [];
       if (templateType === 'json') {
         const blob = await store.toBlob();
         const jsonData = store.toJSON();
@@ -243,7 +252,7 @@ const TopNavigation = ({
     }
   };
 
-  const handleCreateTemplate = async (data, selectedFields) => {
+  const handleCreateTemplate = async (data: any, selectedFields: any) => {
     try {
       const response: any = await createTemplate({
         title: title,
@@ -270,7 +279,7 @@ const TopNavigation = ({
     }
   };
 
-  const handleUpdateTemplate = async (data, selectedFields) => {
+  const handleUpdateTemplate = async (data: any, selectedFields: any) => {
     const response: any = await updateTemplate(id, {
       title: title,
       fields: selectedFields,
@@ -287,7 +296,9 @@ const TopNavigation = ({
     }
     handleChangeModel('', 'false');
   };
-  const handleChangeModel = (model = '', loading = null) => {
+
+
+  const handleChangeModel = (model: string = '', loading: string | null = null) => {
     setIsShowModel((prev) => ({
       ...prev,
       open: !prev.open,
@@ -338,7 +349,7 @@ const TopNavigation = ({
               {downloadingProof ? (
                 <CircularProgress style={progressStyles} />
               ) : (
-                'Download Proof'
+                MESSAGES.TEMPLATE.DOWNLOAD_PROOF_BUTTON
               )}
             </Button>
             <Button style={buttonStyles} onClick={() => handleBackPress()}>
