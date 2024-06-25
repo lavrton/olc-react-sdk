@@ -40,12 +40,9 @@ const customFieldSection: SideSection = {
   Panel: observer(({store}) => {
     const [isShowDialog, setIsShowDialog] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
-
-    // Getting custom fields from Redux state
-    const customFields = useSelector((state: RootState) => state.customFields.customFields);
+    const customFields = useSelector((state: RootState) => state.customFields.customFields) as Record<string, any>;
     const defaultDynamicFields = useSelector((state: RootState) => state.customFields.defaultDynamicFields);
     const product = useSelector((state: RootState) => state.templates.product);
-  
     const currentTemplateType = product?.productType;
 
     const handleShowDialog = () => {
@@ -132,7 +129,7 @@ const customFieldSection: SideSection = {
           </div>
           <Button onClick={handleShowDialog}></Button>
         </div>
-        {customFields?.data?.map(({ key, value }: { key: string; value: string }, i: number) => (
+        {customFields.data?.map(({ key, value }: { key: string; value: string }, i: number) => (
           <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
             <span
               className="contact-element"

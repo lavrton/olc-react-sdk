@@ -82,8 +82,8 @@ const customTemplateSection: SideSection = {
     const [searchApplied, setSearchApplied] = useState(false);
     const [search, setSearch] = useState("");
 
-    const templates = useSelector((state: RootState) => state.templates.templates);
-    const template = useSelector((state: RootState) => state.templates.template);
+    const templates = useSelector((state: RootState) => state.templates.templates) as Record<string, any>;
+    const template = useSelector((state: RootState) => state.templates.template) as Record<string, any> ;
     const templatesPagination = useSelector(
       (state: any) => state.templates.templatesPagination
     );
@@ -139,10 +139,10 @@ const customTemplateSection: SideSection = {
 
 
     const getAllCategories = async () => {
-      const categories = await dispatch(getAllTemplateCategories);
-      if (categories.status === 200) {
+      const categories: Record<string, any> = await dispatch(getAllTemplateCategories);
+      if (categories?.status === 200) {
         setTemplateCategories(
-          categories.data.data
+          categories?.data?.data
             .filter((item: any) => item.totalTemplates > 0)
             .map((item : any) => ({
               ...item,
@@ -174,9 +174,9 @@ const customTemplateSection: SideSection = {
         getAllTemplates(
           page,
           10,
-          null,
-          null,
-          null,
+          null as unknown as string,
+          null as unknown as string,
+          null as unknown as string,
           "json",
           product ? product.id : null,
           initialCall,
@@ -233,11 +233,11 @@ const customTemplateSection: SideSection = {
 
     const handleClearStore = () => {
       store.clear();
-      let size = "";
+      let size: string | string[]  = "";
       let isPostCards = false;
       let _product = product;
-      if (template && template.product) {
-        size = template.product.paperSize;
+      if (template?.product) {
+        size = template?.product?.paperSize;
         isPostCards = template.product.productType === "Postcards" || false;
         _product = template.product;
       } else if (product) {
@@ -248,7 +248,7 @@ const customTemplateSection: SideSection = {
         unit: "in",
         dpi: DPI,
       });
-      size = size.split("x");
+      size = (size as string)?.split("x");
       store.setSize(+size[1] * DPI, +size[0] * DPI);
       store.addPage();
 
@@ -306,7 +306,7 @@ const customTemplateSection: SideSection = {
         div.addEventListener("scroll", handleScroll);
       }
       return () => {
-        div.removeEventListener("scroll", handleScroll);
+        div?.removeEventListener("scroll", handleScroll);
       };
     }, [templates]);
 
@@ -337,7 +337,7 @@ const customTemplateSection: SideSection = {
             open={isShowDialog.open}
             handleClose={() => handleDialogChange('')}
             onCancel={() => handleDialogChange('')}
-            onSubmit={() => handleLoadTemplate(selectedRecord.id)}
+            onSubmit={() => handleLoadTemplate(selectedRecord?.id)}
             customStyles={designDialogStyles}
             cancelText="Cancel"
             submitText="OK"
@@ -353,9 +353,10 @@ const customTemplateSection: SideSection = {
           <div style={{ marginTop: '8px' }}>
             <GeneralSelect
               placeholder="Template Types"
-              options={templateTypes}
-              setSelectedValue={setCurrentTemplateType}
-              selectedValue={currentTemplateType}
+              options={templateTypes as any}
+              setSelectedValue={setCurrentTemplateType  as any}
+              selectedValue={currentTemplateType as any}
+              // @ts-ignore
               search={() => {}}
               updateErrors={() => {}}
               disableClearable={true}
@@ -363,13 +364,14 @@ const customTemplateSection: SideSection = {
             />
           </div>
           {currentTemplateType?.id === "3" && (
-            <div style={{ marginTop: '8px' }}>
+            <div style={{ marginTop: 8 }}>
               <GeneralSelect
                 placeholder="Select Category"
-                options={templateCategories}
-                setSelectedValue={setSelectedCategory}
-                selectedValue={selectedCategory}
-                search={() => {}}
+                options={templateCategories  as any}
+                setSelectedValue={setSelectedCategory  as any}
+                selectedValue={selectedCategory as any}
+                // @ts-ignore
+                search={(() => {}) as any} 
                 updateErrors={() => {}}
                 disableClearable={false}
                 templateBuilder={true}
@@ -383,6 +385,7 @@ const customTemplateSection: SideSection = {
               autoComplete="off"
               value={search}
               name="search"
+              // @ts-ignore
               onKeyDown={searchKeyDown}
               onChange={(e: any) => setSearch(e.target.value.trimStart())}
               placeholder="Search by template name"

@@ -225,7 +225,7 @@ const initialState: TemplateState = {
   templateLoading: null,
 };
 
-
+// @ts-ignore
 const templateReducer = (state = initialState, { type, payload }): TemplateState => {
   switch (type) {
     case SET_DYNAMIC_FIELD_VALUE:
