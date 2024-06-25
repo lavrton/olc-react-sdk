@@ -4,12 +4,17 @@ export const Barcode: string = 'https://api.openletterconnect.com/api/v1/downloa
 export const PRODUCT_LEARN_URL: string = "https://help.openletterconnect.com/getting-support/designing-your-mailers/wip-designing-mail-creatives/wip-mail-piece-design-specs";
 
 export const multiPageLetters: string[] = [
-    "Postcards",
-    "Tri-Fold Self-Mailers",
-    "Bi-Fold Self-Mailers",
+  "Postcards",
+  "Tri-Fold Self-Mailers",
+  "Bi-Fold Self-Mailers",
 ];
-  
-export const templateTypes = [
+
+interface TemplateTypes {
+  id: string;
+  label: string;
+}
+
+export const templateTypes: TemplateTypes[] = [
   {
     id: "1",
     label: "My Templates",

@@ -1,7 +1,90 @@
-export const addElementsforRealPennedLetters = (store) => {
-    const page = store.pages[0];
-  
-    page.addElement({
+// Define the type for the element being added
+interface Element {
+  id: string;
+  type: string;
+  name: string;
+  opacity: number;
+  visible: boolean;
+  selectable: boolean;
+  removable: boolean;
+  alwaysOnTop: boolean;
+  showInExport: boolean;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+  animations?: any[];
+  blurEnabled?: boolean;
+  blurRadius?: number;
+  brightnessEnabled?: boolean;
+  brightness?: number;
+  sepiaEnabled?: boolean;
+  grayscaleEnabled?: boolean;
+  shadowEnabled?: boolean;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+  shadowColor?: string;
+  shadowOpacity?: number;
+  draggable?: boolean;
+  resizable?: boolean;
+  contentEditable: boolean;
+  styleEditable: boolean;
+  subType?: string;
+  fill?: string;
+  dash?: any[];
+  strokeWidth?: number;
+  stroke?: string;
+  cornerRadius?: number;
+  text?: string;
+  placeholder?: string;
+  fontSize?: number;
+  fontFamily?: string;
+  fontStyle?: string;
+  fontWeight?: string;
+  textDecoration?: string;
+  align?: string;
+  verticalAlign?: string;
+  lineHeight?: number;
+  letterSpacing?: number;
+  backgroundEnabled?: boolean;
+  backgroundColor?: string;
+  backgroundOpacity?: number;
+  backgroundCornerRadius?: number;
+  backgroundPadding?: number;
+  src?: string;
+  cropX?: number;
+  cropY?: number;
+  cropWidth?: number;
+  cropHeight?: number;
+  flipX?: boolean;
+  flipY?: boolean;
+  clipSrc?: string;
+  borderSize?: number;
+  keepRatio?: boolean;
+}
+
+// Define the type for the page
+interface Page {
+  addElement: (element: Element) => void;
+}
+
+// Define the type for the store
+interface Store {
+  width: number;
+  height: number;
+  pages: Page[];
+  history: {
+    clear: () => void;
+  };
+}
+
+export const addElementsforRealPennedLetters = (store: Store): void => {
+  const page = store.pages[0];
+
+  const elements: Element[] = [
+    {
       id: "blocked",
       type: "figure",
       name: "",
@@ -39,9 +122,8 @@ export const addElementsforRealPennedLetters = (store) => {
       strokeWidth: 0,
       stroke: "#0c0c0c",
       cornerRadius: 0,
-    });
-  
-    page.addElement({
+    },
+    {
       id: 'header',
       type: 'text',
       name: '',
@@ -91,11 +173,8 @@ export const addElementsforRealPennedLetters = (store) => {
       backgroundOpacity: 1,
       backgroundCornerRadius: 0.5,
       backgroundPadding: 0.5,
-    });
-  
-  
-  
-    page.addElement({
+    },
+    {
       id: 'content',
       type: 'text',
       name: '',
@@ -145,10 +224,8 @@ export const addElementsforRealPennedLetters = (store) => {
       backgroundOpacity: 1,
       backgroundCornerRadius: 0.5,
       backgroundPadding: 0.5,
-    });
-  
-  
-    page.addElement({
+    },
+    {
       id: 'footer',
       type: 'text',
       name: '',
@@ -198,7 +275,9 @@ export const addElementsforRealPennedLetters = (store) => {
       backgroundOpacity: 1,
       backgroundCornerRadius: 0.5,
       backgroundPadding: 0.5,
-    });
-    
-    store.history.clear();
-  }
+    }
+  ]
+
+  elements.forEach(element => page.addElement(element));
+  store.history.clear();
+}

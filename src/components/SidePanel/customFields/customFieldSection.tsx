@@ -12,7 +12,7 @@ import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.s
 import { fetchCustomFields } from '../../../redux/actions/customFieldAction';
 import Typography from '../../GenericUIBlocks/Typography';
 import Button from '../../GenericUIBlocks/Button';
-import { copyToClipboard } from '../../../utils/clipboard';
+import { copyToClipboard } from '../../../utils/helper';
 import './styles.scss'
 import GeneralTootip from '../../GenericUIBlocks/GeneralTooltip';
 import InfoIcon from '../../../assets/images/templates/info-icon';

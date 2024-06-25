@@ -23,7 +23,7 @@ import EditTemplateNameModel from './EditTemplateNameModel';
 
 
 // Utils
-import { extractFontFamilies, multiPageTemplates } from '../../utils/template-builder';
+import { downloadPDF, extractFontFamilies, multiPageTemplates } from '../../utils/template-builder';
 import { getItem, setItem } from '../../utils/local-storage';
 import { MESSAGES } from '../../utils/message';
 import fonts from '../../utils/fonts.json';
@@ -178,21 +178,6 @@ const TopNavigation = ({
     } finally {
       setDownloaingProof(false);
     }
-  };
-
-  const downloadPDF = (title: string, url: string) => {
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = title + '.pdf';
-
-    // Append the link to the document
-    document.body.appendChild(link);
-
-    // Trigger a click on the link
-    link.click();
-
-    // Remove the link from the document
-    document.body.removeChild(link);
   };
 
   const handleSave = async () => {
