@@ -339,18 +339,6 @@ const fetchTemplatesSuccess = (templates: any[]) => ({
   payload: templates,
 });
 
-const fetchTemplates = () => {
-  return async (dispatch: AppDispatch) => {
-    dispatch(fetchTemplatesRequest());
-    try {
-      const response = await get('templates');
-      dispatch(fetchTemplatesSuccess(response.data));
-    } catch (error: any) {
-      console.error('Failed to fetch templates:', error);
-      return error;
-    }
-  };
-};
 
 
 /**
@@ -510,7 +498,6 @@ export {
   uploadFile,
   getProductDetails,
   downloadProof,
-  fetchTemplates,
   getAllTemplateCategories,
   getAllTemplatesByTab
 };

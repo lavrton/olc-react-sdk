@@ -123,8 +123,8 @@ const customTemplateSection: SideSection = {
         productId: product?.id,
       };
       search.length ? (payload.search = search) : undefined;
-      currentTemplateType?.id === "3" ?  payload.categoryIds = selectedCategory?.id.split() : undefined;
-     
+      currentTemplateType?.id === "3" ? payload.categoryIds = selectedCategory?.id.split(',') : undefined;
+
       const templates = await getAllTemplatesByTab(payload);
       if (templates.status === 200) {
         if (currentTemplateType?.id === "1") {
@@ -194,8 +194,9 @@ const customTemplateSection: SideSection = {
       setIsShowDialog((prev) => ({ open: !prev.open, model: model }));
     };
 
+    
     const processPage = async (index : any, page: any) => {
-      return new Promise((resolve, reject) => {
+      return new Promise<void>((resolve, reject) => {
         let pageNumber = page.children.find(
           (el: any) => el.custom?.name === "page-number"
         );
@@ -203,7 +204,7 @@ const customTemplateSection: SideSection = {
 
         if (pageNumber) {
           pageNumber.set({ text });
-          resolve(); // Resolve the promise if the update is successful
+          resolve();
         } else {
           page.addElement({
             type: "text",
@@ -217,7 +218,7 @@ const customTemplateSection: SideSection = {
             selectable: false,
             alwaysOnTop: true,
           });
-          resolve(); // Resolve the promise after adding the element
+          resolve(); 
         }
       });
     };
@@ -235,7 +236,7 @@ const customTemplateSection: SideSection = {
       let size = "";
       let isPostCards = false;
       let _product = product;
-      if (template) {
+      if (template && template.product) {
         size = template.product.paperSize;
         isPostCards = template.product.productType === "Postcards" || false;
         _product = template.product;
@@ -308,7 +309,6 @@ const customTemplateSection: SideSection = {
         div.removeEventListener("scroll", handleScroll);
       };
     }, [templates]);
-
 
     return (
       <div className="custom-template-section">
