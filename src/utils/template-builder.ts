@@ -37,10 +37,8 @@ export const envelopeTypes: EnvelopeType[] = [
 
 export const getFileAsBlob = async (url: string, returnType: string = 'json'): Promise<any> => {
   try {
-    // const response = await get(`templates/${id}/view-proof`);
-    const response = await get(url, {
-      responseType: 'blob',
-    });
+    const response = await fetch(url);
+    const blob = await response.blob();
     return returnType === 'json'
       ? blobToJSON(blob)
       : blobToString(blob);
