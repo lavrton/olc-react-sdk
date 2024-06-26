@@ -3,21 +3,16 @@ import { observer } from 'mobx-react-lite';
 import { SectionTab, } from 'polotno/side-panel';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect , useState} from 'react';
-// import FaShapes from '@meronex/icons/fa/FaShapes';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
 import { AppDispatch, RootState } from '../../../redux/store';
-import DesignIcon from '../../../assets/images/templates/template-default-design.svg'
-import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.svg";
 import { fetchCustomFields } from '../../../redux/actions/customFieldAction';
-import Typography from '../../GenericUIBlocks/Typography';
 import Button from '../../GenericUIBlocks/Button';
 import { copyToClipboard } from '../../../utils/helper';
 import './styles.scss'
 import GeneralTootip from '../../GenericUIBlocks/GeneralTooltip';
 import InfoIcon from '../../../assets/images/templates/info-icon';
 import ContentCopyIcon from '../../..//assets/images/templates/content-copy-icon';
-import Dialog from '../../GenericUIBlocks/Dialog';
 import DynamicField from '../../../assets/images/templates/dynamic-field';
 import { success } from '../../../redux/actions/snackbarActions';
 

@@ -14,7 +14,7 @@ interface TemplateTypes {
   label: string;
 }
 
-export const templateTypes: TemplateTypes[] = [
+export const templateTypes = [
   {
     id: "1",
     label: "My Templates",

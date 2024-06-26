@@ -12,10 +12,12 @@ import {
   getAllTemplatesByTab,
 } from '../../../../src/redux/actions/templateActions';
 import { AppDispatch, RootState } from '../../../redux/store';
+// @ts-ignore
 import DesignIcon from '../../../assets/images/templates/template-default-design.svg'
+// @ts-ignore
 import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.svg";
+// @ts-ignore
 import CustomTemplate from '../../../assets/images/templates/custom-template';
-import Search from "../../../assets/images/templates/contact-search.svg";
 import Typography from '../../GenericUIBlocks/Typography';
 import './styles.scss';
 import Dialog from '../../GenericUIBlocks/Dialog';
@@ -35,7 +37,7 @@ const designDialogStyles = {
 }
 
 
-type Payload = {
+export type Payload = {
   tab: string;
   page: number;
   pageSize: number;
@@ -44,12 +46,12 @@ type Payload = {
   categoryIds?: string[];
 };
 
-type TemplateType = {
+export type TemplateType = {
   id: string;
-  name: string;
+  label: string;
 };
 
-type TemplateCategory = {
+export type TemplateCategory = {
   id: string;
   title: string;
   totalTemplates: number;
@@ -158,6 +160,11 @@ const customTemplateSection: SideSection = {
         getTemplatesByTab();
       }
     };
+
+    const removeSearchInput = ()=>{
+      setSearchApplied(false)
+      setSearch("")
+    }
 
     const searchKeyDown = (event: any) => {
       if (event.key === "Enter") {
@@ -389,16 +396,10 @@ const customTemplateSection: SideSection = {
               placeholder="Search by template name"
               inputIcon={true}
               onClick={handleSearch}
+              searchApplied={searchApplied}
+              removeSearchInput={removeSearchInput}
             />
-            {/* {searchApplied && (
-              <HighlightOffIcon
-                onClick={() => {
-                  setSearch(null);
-                  setSearchApplied(false);
-                }}
-                className="clearSerach"
-              />
-            )} */}
+           
           </div>
           {currentTemplateType?.id === "1" ? (
           <>
