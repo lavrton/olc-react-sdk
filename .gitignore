@@ -10,6 +10,7 @@ yarn.lock
 node_modules
 dist
 dist-ssr
+.parcel-cache
 
 # Editor directories and files
 .vscode/*
