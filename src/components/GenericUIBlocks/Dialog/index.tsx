@@ -35,7 +35,7 @@ const buttonStyles: CSSProperties = {
 
 const heading: CSSProperties = {
   fontSize: '22px',
-  color: '#ed5c2f',
+  // color: '#ed5c2f',
   fontWeight: '700',
 };
 
@@ -67,7 +67,8 @@ const Dialog: React.FC<DialogProps> = ({
   submitText = "",
   children = [],
 }) => {
-  const contentAdjust = submitText.length > 6 ? "fit-content" : "100px";
+  const contentSubmit = submitText.length > 6 ? "fit-content" : "100px";
+  const contentCancel = cancelText.length > 6 ? "fit-content" : "100px";
 
   return (
     <div
@@ -104,12 +105,12 @@ const Dialog: React.FC<DialogProps> = ({
         <div className="modal-footer">
           <Button
             onClick={onCancel}
-            style={{ ...buttonStyles, color: 'black', backgroundColor: 'white' }}
+            style={{ ...buttonStyles, color: 'black', backgroundColor: 'white', maxWidth: contentCancel  }}
           >
             {cancelText}
           </Button>
           <Button
-            style={{ ...buttonStyles, border: 'none', maxWidth: contentAdjust }}
+            style={{ ...buttonStyles, border: 'none', maxWidth: contentSubmit }}
             onClick={onSubmit}
           >
             {loading ? (

@@ -1,4 +1,8 @@
 .polotno-container {
+  .builder-wrapper{
+@media (max-width: 600px) {
+  display: none;
+}
   .polotno-side-panel {
     & .polotno-side-tabs-container {
       & .polotno-side-tabs-inner {
@@ -41,6 +45,7 @@
         }
       }
     }
+  }
   }
 }
 

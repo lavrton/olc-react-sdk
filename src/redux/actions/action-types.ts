@@ -40,3 +40,7 @@ export const CLEAR_REDUX: string = 'CLEAR_REDUX';
 // TODO : Replace these with  current ones
 export const FETCH_TEMPLATES_REQUEST: string = 'FETCH_TEMPLATES_REQUEST';
 export const SET_TEMPLATES: string = 'SET_TEMPLATES';
+
+// src/store/themeActionTypes.ts
+export const SET_THEME = 'SET_THEME';
+export const RESET_THEME = 'RESET_THEME';

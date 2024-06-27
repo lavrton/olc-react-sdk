@@ -250,7 +250,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
   return (
     <div className="polotno-container">
       {switchTabCount > 0 && (
-        <div>
+        <div className='builder-wrapper'>
           <TopNavigation
             store={store}
             isStoreUpdated={isStoreUpdated}

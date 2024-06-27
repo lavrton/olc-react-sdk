@@ -45,7 +45,7 @@ import Divider from '../GenericUIBlocks/Divider';
 import './styles.scss';
 
 const templateHeadingStyles: React.CSSProperties = {
-  color: `#ed5c2f`,
+  // color: `#ed5c2f`,
   fontFamily: `Inter`,
   fontSize: `24px`,
   fontStyle: `normal`,
