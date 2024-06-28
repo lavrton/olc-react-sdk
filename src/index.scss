@@ -1,50 +1,81 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+:root{
+  // primary color
+--primaryColor: #ed5c2f;
+--svgColor: #FDB515;
+// background colors
+--bgLight: #fff7ea;
+--bgTransparent: rgba(0, 0, 0, 0.5);
+--bgLight300: #fff9f0;
+--bgGrey: #f7ffaf;
+--bgPrimary: #f28230;
+--bgPrimary800: #ef7820;
+--bgGrey500: #f9f9f9;
+--formLayoutBg: linear-gradient(
+  252deg,
+  #eec5b3 11.65%,
+  #ffceb3 26.15%,
+  #ffe4b4 42.72%,
+  #ffe4b3 61.64%,
+  #fbcbb4 80.93%,
+  #e2b9b3 100%
+);
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #ffffff;
+// dark shades
+--black: #000;
+--black100: rgba(0, 0, 0, 0.3);
+--black200: rgba(68, 66, 65, 0.3);
+--black300: rgba(0, 0, 0, 0.5);
+--black400: #303030;
+--black700: #000000bf;
+--dark800: #080808;
+--blue: #212b36;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// yellow shades
+--yellow: #fab331;
+--yellow100: #fecf67;
+--yellow300: #fff8ee;
+--yellow400: #fdecd3;
+--yellow500: #ffdec0;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+// light shades
+--white: #fff;
+--grey: #545454;
+--grey200: rgba(0, 0, 0, 0.076);
+--grey300: #aaa;
+--grey400: #2b2b2a;
+--grey500: #444241;
+--grey800: #222221;
+--light: rgba(255, 248, 238, 1);
+--light300: #f4f4f4;
+--grey: #696969;
+--greyCheckBox: #d1d5db;
 
-body {
-  padding: 0;
+// red shades
+--red: #ff0000;
+--red400: rgba(255, 0, 0, 1);
+
+// green shades
+--green500: #03a155;
+--success: #7ed321;
+--bgSuccess: #01bb62;
+
+// orange shade
+--iconColor: rgba(237, 92, 47, 1);
+// brown shades
+--brown300: rgba(255, 192, 184, 0.23);
+
+// Stripe Variables
+--stripeBlue: #0570de;
+--stripeText: #30313d;
+--stripeDanger: #df1b41;
+
+  body{
   margin: 70px 0 0;
-}
-
-#container {
-  width: 100vw;
-  height: 100vh;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-.bp5-navbar{
+  padding: 0;
+  
+  .bp5-navbar{
   z-index: auto !important;
+}
+  }
+
 }

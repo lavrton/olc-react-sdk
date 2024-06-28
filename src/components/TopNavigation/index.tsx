@@ -57,16 +57,16 @@ import './styles.scss';
 const buttonStyles: React.CSSProperties = {
   maxWidth: '100px',
   minHeight: '40px',
-  backgroundColor: '#fff',
-  color: '#000',
-  border: '0.5px solid #303030',
-  fontSize: '15px'
+  backgroundColor: 'var(--white)',
+  color: 'var(--black)',
+  border: '0.5px solid var(--black400)',
+  fontSize: '15px',
 };
 
 const progressStyles: React.CSSProperties = {
   width: '20px',
   height: '20px',
-  border: '2px solid #ED5C2F',
+  border: '2px solid var(--primaryColor)',
 };
 
 interface TopNavigationProps {
@@ -333,7 +333,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           handleSave={handleSave}
         />
       )}
-      <GridContainer style={{ alignItems: 'center' }}>
+      <GridContainer style={{alignItems: 'center'}}>
         <GridItem lg={4} md={4} sm={2} xs={12}></GridItem>
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
@@ -346,7 +346,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         <GridItem lg={4} md={6} sm={8} xs={12}>
           <div className="actionsBtnWrapper right">
             <Button
-              style={{ ...buttonStyles, maxWidth: 'auto', minWidth: '100px' }}
+              style={{...buttonStyles, maxWidth: 'auto', minWidth: '100px'}}
               onClick={handleViewProofWithLamda}
             >
               {downloadingProof ? (
@@ -362,8 +362,8 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
               style={{
                 ...buttonStyles,
                 border: 'none',
-                backgroundColor: '#ed5c2f',
-                color: '#fff',
+                backgroundColor: 'var(--primaryColor)',
+                color: 'var(--white)',
               }}
               onClick={() => handleChangeModel('save')}
             >

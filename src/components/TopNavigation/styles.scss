@@ -1,19 +1,17 @@
-@import '../../styles/colors';
-
 .top-navigation-container {
   position: absolute;
   width: 100%;
   padding: 23px 20px;
   height: 100%;
   max-height: 70px;
-  background: $white;
+  background: var(--white);
   margin: 0;
   top: 0;
   // z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 0.5px solid var(--black100);
 
   .middle {
     display: flex;
@@ -38,7 +36,7 @@
         padding: 5px;
         transition: 0.1s ease-in-out all;
         &:hover {
-          background-color: rgba(0, 0, 0, 0.076);
+          background-color: var(--grey200);
         }
     }
   }
@@ -46,7 +44,7 @@
   & button {
     max-width: 120px !important;
     text-transform: capitalize;
-    color: $black;
+    color: var(--black);
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -55,9 +53,9 @@
   }
 
   & button.active {
-    border: 0.5px solid $primaryColor;
-    background: $primaryColor;
-    color: $white;
+    border: 0.5px solid var(--primaryColor);
+    background: var(--primaryColor);
+    color: var(--white);
     text-transform: capitalize;
     font-family: Inter;
     font-size: 14px;
@@ -66,7 +64,7 @@
     line-height: normal;
 
     & p {
-      color: $white;
+      color: var(--white);
     }
   }
 
@@ -90,9 +88,9 @@
       font-weight: 500;
       line-height: normal;
       &:first-child {
-        color: $black;
-        background-color: $white;
-        border: 0.5px solid $black !important;
+        color: var(--black);
+        background-color: var(--white);
+        border: 0.5px solid var(--black) !important;
         width: 100%;
         max-width: fit-content !important;
 
@@ -102,14 +100,14 @@
       }
 
       &:nth-child(2) {
-        color: $primaryColor;
-        background-color: $white;
-        border: 0.5px solid $primaryColor !important;
+        color: var(--primaryColor);
+        background-color: var(--white);
+        border: 0.5px solid var(--primaryColor) !important;
       }
 
       &:last-child {
-        color: $white;
-        background-color: $primaryColor;
+        color: var(--white);
+        background-color: var(--primaryColor);
       }
     }
   }

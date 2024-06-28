@@ -1,12 +1,11 @@
 @mixin errorField() {
   font-size: 14px;
   font-weight: 400;
-  color: #ff0000;
+  color: var(--red);
   line-height: 16.94px;
 }
 
 .createTemplateMaindiv {
-  // padding: 0px 45px;
   .createTemplateMainBox {
     position: relative;
     height: 100%;
@@ -19,7 +18,7 @@
 
       .tempTypeRadioHeading {
         p {
-          color: #000;
+          color: var(--black);
           font-family: Inter;
           font-size: 14px;
           font-style: normal;
@@ -39,7 +38,7 @@
         .tempRadio {
           input {
             &:checked {
-              accent-color: #ed5c2f;
+              accent-color: var(--primaryColor);
             }
 
             &:focus {
@@ -51,7 +50,7 @@
 
           label {
             cursor: pointer;
-            color: #000;
+            color: var(--black);
             font-family: Inter;
             font-size: 14px;
             font-style: normal;
@@ -72,7 +71,7 @@
     margin-left: 40px;
 
     p {
-      color: #ed5c2f;
+      color: var(--primaryColor);
       font-family: Inter;
       font-size: 24px;
       font-style: normal;
@@ -82,9 +81,8 @@
     }
 
     .templateInputWrapper {
-      // padding: 20px 40px;
       p {
-        color: #000;
+        color: var(--black);
         font-family: Inter;
         font-size: 14px;
         font-style: normal;
@@ -92,34 +90,6 @@
         line-height: normal;
         margin-bottom: 16px;
       }
-
-      // input {
-      //   width: 100%;
-      //   max-width: 565px;
-      //   padding: 18px 24px;
-      //   border: 0.5px solid #000000;
-      //   border-radius: 5px;
-      //   color: #000;
-      //   font-family: Inter;
-      //   font-size: 14px;
-      //   font-style: normal;
-      //   font-weight: 500;
-      //   line-height: normal;
-      //   margin-bottom: 10px;
-
-      //   &::placeholder {
-      //     opacity: 0.5;
-      //   }
-
-      //   &:focus {
-      //     // border-color: #ED5C2F;
-      //     outline: none;
-      //   }
-
-      //   &.error {
-      //     border: 1.5px solid #ff0000;
-      //   }
-      // }
 
       & .error-field {
         @include errorField;
@@ -135,7 +105,7 @@
     .productHeading {
       p {
         &:first-child {
-          color: #000;
+          color: var(--black);
           font-family: Inter;
           font-size: 14px;
           font-style: normal;
@@ -144,7 +114,7 @@
         }
 
         &:last-child {
-          color: #ed5c2f;
+          color: var(--primaryColor);
           font-family: Inter;
           font-size: 10px;
           font-style: normal;
@@ -168,8 +138,8 @@
         align-items: center;
         flex-direction: column;
         border-radius: 6.299px;
-        border: 0.45px solid rgba(0, 0, 0, 0.5);
-        background: #fff;
+        border: 0.45px solid var(--black300);
+        background: var(--white);
         width: 100%;
         max-width: 185px;
         height: 100%;
@@ -180,12 +150,12 @@
 
         &.active,
         &:hover {
-          background: #fff8ee;
-          border-color: #ed5c2f;
+          background: var(--yellow300);
+          border-color: var(--primaryColor);
         }
 
         p {
-          color: #ed5c2f;
+          color: var(--primaryColor);
           font-family: Inter;
           font-size: 16px;
           font-style: normal;
@@ -201,7 +171,7 @@
         }
 
         &.error {
-          border: 0.45px solid rgba(255, 0, 0, 1);
+          border: 0.45px solid var(--red400);
         }
       }
     }
@@ -218,7 +188,7 @@
 
     .postCardHeading {
       p {
-        color: #000;
+        color: var(--black);
         font-family: Inter;
         font-size: 14px;
         font-style: normal;
@@ -241,8 +211,8 @@
         gap: 20px;
         flex-direction: column;
         border-radius: 6.299px;
-        border: 0.45px solid rgba(0, 0, 0, 0.5);
-        background: #fff;
+        border: 0.45px solid var(--bgTransparent);
+        background: var(--white);
         cursor: pointer;
         padding: 13px 20px;
 
@@ -256,10 +226,16 @@
           }
         }
 
+        svg {
+          path {
+            fill: var(--svgColor);
+          }
+        }
+
         &.active,
         &:hover {
-          background: #fff8ee;
-          border-color: #ed5c2f;
+          background: var(--yellow300);
+          border-color: var(--primaryColor);
 
           svg {
             &:nth-child(2) {
@@ -271,17 +247,17 @@
             }
 
             path {
-              fill: #fecf67;
+              fill: var(--svgColor);
 
               &:hover {
-                fill: #fecf67;
+                fill: var(--svgColor);
               }
             }
           }
         }
 
         p {
-          color: #ed5c2f;
+          color: var(--primaryColor);
           font-family: Inter;
           font-size: 16px;
           font-style: normal;
@@ -320,53 +296,53 @@
   }
 
   .footerBtns {
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-      border-top: 0.5px solid rgba(0, 0, 0, 0.3);
-      background: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    border-top: 0.5px solid var(--black100);
+    background: var(--white);
 
-      .createTemplateBtns {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 20px;
-        padding: 14px 95px 14px 35px;
+    .createTemplateBtns {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 95px 14px 35px;
 
-        button {
-          width: 100%;
-          max-width: 100px;
-          height: 100%;
-          min-height: 40px;
-          text-transform: capitalize;
-          border-radius: 3px;
+      button {
+        width: 100%;
+        max-width: 100px;
+        height: 100%;
+        min-height: 40px;
+        text-transform: capitalize;
+        border-radius: 3px;
 
-          &:first-child {
-            color: #000;
-            text-align: center;
-            font-family: Inter;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-            border: 0.5px solid rgba(0, 0, 0, 0.5);
-            background: #fff;
-          }
+        &:first-child {
+          color: var(--black);
+          text-align: center;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          border: 0.5px solid rgba(0, 0, 0, 0.5);
+          background-color: var(--white);
+        }
 
-          &:last-child {
-            color: #fff;
-            text-align: center;
-            font-family: Inter;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-            border: 0.5px solid #ed5c2f;
-            background: #ed5c2f;
-          }
+        &:last-child {
+          color: var(--white);
+          text-align: center;
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          border: 0.5px solid var(--primaryColor);
+          background-color: var(--primaryColor);
         }
       }
     }
+  }
 }
 
 .mb-5 {
@@ -374,5 +350,5 @@
 }
 
 .error {
-  border: 1.5px solid #ff0000;
+  border: 1.5px solid var(--red);
 }

@@ -40,7 +40,7 @@ const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles }) => {
 
 
   return (
-    <>
+    <div style={props.styles.root}>
       <Routes>
         <Route path="/" element={<CreateTemplate returnRoute={returnRoute} />} />
         <Route path="/template-builder" element={<TemplateBuilder store={store} styles={styles} />} />

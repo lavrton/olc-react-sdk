@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 //hooks
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -29,17 +29,17 @@ import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 
 // Images
 //@ts-ignore
-import Postcard from '../../assets/images/templates/postcard.svg';
+import Postcard from '../../assets/images/templates/postcard.tsx';
 //@ts-ignore
-import PersonalLetter from '../../assets/images/templates/personal-letter.svg';
+import PersonalLetter from '../../assets/images/templates/personal-letter.tsx';
 //@ts-ignore
-import ProfessionalLetter from '../../assets/images/templates/professional-letter.svg';
+import ProfessionalLetter from '../../assets/images/templates/professional-letter.tsx';
 //@ts-ignore
-import RealPennedLetter from '../../assets/images/templates/real-penned-letters.svg';
+import RealPennedLetter from '../../assets/images/templates/real-penned-letters.tsx';
 //@ts-ignore
-import TriFoldSelfMailers from '../../assets/images/templates/tri-fold-self-mailers.svg';
+import TriFoldSelfMailers from '../../assets/images/templates/tri-fold-self-mailers.tsx';
 //@ts-ignore
-import BiFoldSelfMailers from '../../assets/images/templates/bi-fold-self-mailers.svg';
+import BiFoldSelfMailers from '../../assets/images/templates/bi-fold-self-mailers.tsx';
 
 import SizeImage from '../../assets/images/templates/size-image';
 import SizeImageMid from '../../assets/images/templates/size-image-mid';
@@ -51,7 +51,7 @@ import Divider from '../GenericUIBlocks/Divider';
 import './styles.scss';
 
 const templateHeadingStyles: React.CSSProperties = {
-  color: `#ed5c2f`,
+  color: `var(--primaryColor)`,
   fontFamily: `Inter`,
   fontSize: `24px`,
   fontStyle: `normal`,
@@ -61,8 +61,7 @@ const templateHeadingStyles: React.CSSProperties = {
 };
 
 const templateTextStyles: React.CSSProperties = {
-  color: `#000`,
-  fontFamily: `Inter`,
+  color: `var(--black)`,
   fontSize: `14px`,
   fontStyle: `normal`,
   fontWeight: `500`,
@@ -77,17 +76,17 @@ const footerButtonStyles: React.CSSProperties = {
   minHeight: '40px',
   textTransform: 'capitalize',
   borderRadius: '3px',
-  backgroundColor: '#FFFFFF',
-  color: '#000000',
+  backgroundColor: 'var(--white)',
+  color: `var(--black)`,
 };
 
-const Images: Record<string, string> = {
-  Postcards: Postcard,
-  'Professional Letters': ProfessionalLetter,
-  'Personal Letters': PersonalLetter,
-  'Real Penned Letter': RealPennedLetter,
-  'Tri-Fold Self-Mailers': TriFoldSelfMailers,
-  'Bi-Fold Self-Mailers': BiFoldSelfMailers,
+const Images: Record<string, ReactElement> = {
+  'Postcards': <Postcard fill="var(--svgColor)" />,
+  'Professional Letters': <ProfessionalLetter fill="var(--svgColor)" />,
+  'Personal Letters': <PersonalLetter fill="var(--svgColor)" />,
+  'Real Penned Letter': <RealPennedLetter fill="var(--svgColor)" />,
+  'Tri-Fold Self-Mailers': <TriFoldSelfMailers fill="var(--svgColor)" />,
+  'Bi-Fold Self-Mailers': <BiFoldSelfMailers fill="var(--svgColor)" />,
 };
 
 interface CreateTemplateProps {
@@ -234,7 +233,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                           key={index}
                           onClick={() => dispatch(selectProduct(prod))}
                         >
-                          <img src={Images[prod.productType]} alt="Postcard" />
+                          {Images[prod.productType]}
                           <Typography>{prod.productType}</Typography>
                         </div>
                       );
@@ -274,8 +273,8 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
           </GridContainer>
         )}
         {product && product?.productType === 'Postcards' && (
-          <GridContainer container>
-            <GridContainer item lg={12} md={12} sm={12} xs={12}>
+          <GridContainer>
+            <GridItem lg={12} md={12} sm={12} xs={12}>
               <div className="postCardSizeWrapper">
                 <div className="postCardHeading">
                   <Typography>Postcard Size*</Typography>
@@ -345,7 +344,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                     </Typography>
                   )}
               </div>
-            </GridContainer>
+            </GridItem>
           </GridContainer>
         )}
       </div>
@@ -364,7 +363,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
             style={{
               ...footerButtonStyles,
               color: '#ffffff',
-              backgroundColor: '#ed5c2f',
+              backgroundColor: 'var(--primaryColor)',
             }}
             onClick={handleNext}
           >
