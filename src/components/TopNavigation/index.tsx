@@ -38,7 +38,7 @@ import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 
 // Icons
 // @ts-ignore
-import EditIcon from '../../assets/images/templates/edit-pencil-icon.svg';
+import EditIcon from '../../assets/images/templates/edit-pencil-icon.tsx';
 
 // Styles
 import './styles.scss';
@@ -339,7 +339,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           <div className="middle">
             <Typography>{title}</Typography>
             <div onClick={() => handleChangeModel('edit')}>
-              <img src={EditIcon} alt="edit" />
+              <EditIcon fill="var(--white)"/>
             </div>
           </div>
         </GridItem>

@@ -27,7 +27,7 @@ const customFieldSection: SideSection = {
   Tab: observer(
     (props: {store: StoreType; active: boolean; onClick: () => void}) => (
       <SectionTab name="Fields" {...props}>
-        <DynamicField />
+        <DynamicField stroke="var(--sidepanelSVGColor)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
@@ -35,8 +35,12 @@ const customFieldSection: SideSection = {
   Panel: observer(({store}) => {
     const [isShowDialog, setIsShowDialog] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
-    const customFields = useSelector((state: RootState) => state.customFields.customFields) as Record<string, any>;
-    const defaultDynamicFields = useSelector((state: RootState) => state.customFields.defaultDynamicFields);
+    const customFields = useSelector(
+      (state: RootState) => state.customFields.customFields
+    ) as Record<string, any>;
+    const defaultDynamicFields = useSelector(
+      (state: RootState) => state.customFields.defaultDynamicFields
+    );
     const product = useSelector((state: RootState) => state.templates.product);
     const currentTemplateType = product?.productType;
 
@@ -51,9 +55,9 @@ const customFieldSection: SideSection = {
     const handleAddElementOnScreen = (event: any, value: any, type: any) => {
       event.preventDefault();
 
-      if (currentTemplateType === "Real Penned Letter") {
+      if (currentTemplateType === 'Real Penned Letter') {
         copyToClipboard(value);
-        dispatch(success(`${value} Copied`))
+        dispatch(success(`${value} Copied`));
         return;
       }
 
@@ -86,7 +90,7 @@ const customFieldSection: SideSection = {
         <div className="dynamic-content__top">
           <div>
             <span className="title">Contact Fields</span>
-            <InfoIcon className="infoIcon" />
+            <InfoIcon fill="var(--primaryColor)" className="infoIcon" />
             <GeneralTootip
               anchorSelect=".infoIcon"
               place="bottom"
@@ -94,28 +98,32 @@ const customFieldSection: SideSection = {
             />
           </div>
         </div>
-        {defaultDynamicFields.map(({ key, value }: { key: string; value: string }, i: number) => (
-          <div style={{display: 'flex', alignItems: 'center'}} key={i}>
-            <span
-              className="contact-element"
-              onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
-            >
-              {value}
-            </span>
-            <Button
-              style={iconButtonStyles}
-              onClick={() => copyToClipboard(key)}
-            >
-              <ContentCopyIcon className="copy" />
-            </Button>
-          </div>
-        ))}
+        {defaultDynamicFields.map(
+          ({key, value}: {key: string; value: string}, i: number) => (
+            <div style={{display: 'flex', alignItems: 'center'}} key={i}>
+              <span
+                className="contact-element"
+                onClick={(event) =>
+                  handleAddElementOnScreen(event, key, 'click')
+                }
+              >
+                {value}
+              </span>
+              <Button
+                style={iconButtonStyles}
+                onClick={() => copyToClipboard(key)}
+              >
+                <ContentCopyIcon className="copy" />
+              </Button>
+            </div>
+          )
+        )}
         <GeneralTootip anchorSelect=".copy" place="bottom" title="Copy" />
         <hr className="divider" />
         <div className="dynamic-content__top">
           <div>
             <span className="title">Custom Fields</span>
-            <InfoIcon className="custom" />
+            <InfoIcon fill="var(--primaryColor)" className="custom" />
             <GeneralTootip
               anchorSelect=".custom"
               place="bottom"
@@ -124,21 +132,28 @@ const customFieldSection: SideSection = {
           </div>
           <Button onClick={handleShowDialog}></Button>
         </div>
-        {customFields.data?.map(({ key, value }: { key: string; value: string }, i: number) => (
-          <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
-            <span
-              className="contact-element"
-              onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
-            >
-              {value}
-            </span>
-            <Button
-              style={iconButtonStyles}
-              onClick={() => copyToClipboard(key)}>
-              <ContentCopyIcon className="copy" />
-            </Button>
-          </div>
-        ))}
+        {customFields.data?.map(
+          ({key, value}: {key: string; value: string}, i: number) => (
+            <div style={{display: 'flex', alignItems: 'center'}} key={i}>
+              <span
+                className="contact-element"
+                onClick={(event) =>
+                  handleAddElementOnScreen(event, key, 'click')
+                }
+              >
+                {value}
+              </span>
+              <Button
+                style={iconButtonStyles}
+                onClick={() => copyToClipboard(key)}
+              >
+                <ContentCopyIcon
+                  className="copy"
+                />
+              </Button>
+            </div>
+          )
+        )}
       </div>
     );
   }) as SideSection['Panel'],

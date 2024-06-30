@@ -56,6 +56,7 @@
 }
 
 .templateTabsWrapper {
+  background-color: var(--sidepanelBgColor) !important;
   .templateTabs {
     .MuiTabScrollButton-root {
       width: 15px;
@@ -79,7 +80,7 @@
   justify-content: center;
   align-items: center;
   p {
-    color: #303030;
+    color: var(--textColor);
     font-family: Inter;
     font-size: 18px;
     font-style: normal;

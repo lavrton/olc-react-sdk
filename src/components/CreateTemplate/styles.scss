@@ -139,7 +139,7 @@
         flex-direction: column;
         border-radius: 6.299px;
         border: 0.45px solid var(--black300);
-        background: var(--white);
+        background: var(--productCardBgColor);
         width: 100%;
         max-width: 185px;
         height: 100%;
@@ -150,7 +150,7 @@
 
         &.active,
         &:hover {
-          background: var(--yellow300);
+          background: var(--productCardBackgroundColorActive);
           border-color: var(--primaryColor);
         }
 
@@ -212,9 +212,10 @@
         flex-direction: column;
         border-radius: 6.299px;
         border: 0.45px solid var(--bgTransparent);
-        background: var(--white);
+        background: var(--postCardBgColor);
         cursor: pointer;
         padding: 13px 20px;
+        transition: 0.1s ease-in all;
 
         svg {
           &:nth-child(2) {
@@ -234,7 +235,7 @@
 
         &.active,
         &:hover {
-          background: var(--yellow300);
+          background: var(--postCardBackgroundColorActive);
           border-color: var(--primaryColor);
 
           svg {

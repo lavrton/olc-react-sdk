@@ -66,26 +66,38 @@ type TemplateRecord = {
 
 const customTemplateSection: SideSection = {
   name: 'Templates',
-  Tab: observer((props: { store: StoreType; active: boolean; onClick: () => void }) => (
-    <SectionTab name="Templates" {...props}>
-      <CustomTemplate/>
-    </SectionTab>
-  )) as SideSection['Tab'],
-  Panel: observer(({ store }) => {
-    const dispatch: AppDispatch = useDispatch(); 
+  Tab: observer(
+    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
+      <SectionTab name="Templates" {...props}>
+        <CustomTemplate fill="var(--sidepanelSVGColor)" />
+      </SectionTab>
+    )
+  ) as SideSection['Tab'],
+  Panel: observer(({store}) => {
+    const dispatch: AppDispatch = useDispatch();
 
-    const [currentTemplateType, setCurrentTemplateType] = useState<TemplateType>(templateTypes[0]);
-    const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | null>(null);
-    const [selectedRecord, setSelectedRecord] = useState<TemplateRecord | null>(null);
-    const [templateCategories, setTemplateCategories] = useState<TemplateCategory[]>([]);
+    const [currentTemplateType, setCurrentTemplateType] =
+      useState<TemplateType>(templateTypes[0]);
+    const [selectedCategory, setSelectedCategory] =
+      useState<TemplateCategory | null>(null);
+    const [selectedRecord, setSelectedRecord] = useState<TemplateRecord | null>(
+      null
+    );
+    const [templateCategories, setTemplateCategories] = useState<
+      TemplateCategory[]
+    >([]);
     const [myTemplates, setMyTemplates] = useState<TemplateRecord[]>([]);
     const [teamTemplates, setTeamTemplates] = useState<TemplateRecord[]>([]);
     const [olcTemplates, setOlcTemplates] = useState<TemplateRecord[]>([]);
     const [searchApplied, setSearchApplied] = useState(false);
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
 
-    const templates = useSelector((state: RootState) => state.templates.templates) as Record<string, any>;
-    const template = useSelector((state: RootState) => state.templates.template) as Record<string, any> ;
+    const templates = useSelector(
+      (state: RootState) => state.templates.templates
+    ) as Record<string, any>;
+    const template = useSelector(
+      (state: RootState) => state.templates.template
+    ) as Record<string, any>;
     const templatesPagination = useSelector(
       (state: any) => state.templates.templatesPagination
     );
@@ -99,39 +111,40 @@ const customTemplateSection: SideSection = {
 
     const [isShowDialog, setIsShowDialog] = useState({
       open: false,
-      model: "",
+      model: '',
     });
-  
+
     useEffect(() => {
       dispatch(getAllTemplates());
-      
     }, []);
 
     const handleLoadTemplateModel = (record: any) => {
       setSelectedRecord(record);
-      handleDialogChange("load-template");
-    }
+      handleDialogChange('load-template');
+    };
 
     const getTemplatesByTab = async () => {
       const payload: Payload = {
         tab:
-          currentTemplateType?.id === "1"
-            ? "my-templates"
-            : currentTemplateType?.id === "2"
-              ? "team-templates"
-              : "olc-templates",
+          currentTemplateType?.id === '1'
+            ? 'my-templates'
+            : currentTemplateType?.id === '2'
+            ? 'team-templates'
+            : 'olc-templates',
         page: 1,
         pageSize: 500,
         productId: product?.id,
       };
       search.length ? (payload.search = search) : undefined;
-      currentTemplateType?.id === "3" ? payload.categoryIds = selectedCategory?.id.split(',') : undefined;
+      currentTemplateType?.id === '3'
+        ? (payload.categoryIds = selectedCategory?.id.split(','))
+        : undefined;
 
       const templates = await getAllTemplatesByTab(payload);
       if (templates.status === 200) {
-        if (currentTemplateType?.id === "1") {
+        if (currentTemplateType?.id === '1') {
           setMyTemplates(templates?.data?.data?.rows);
-        } else if (currentTemplateType?.id === "2") {
+        } else if (currentTemplateType?.id === '2') {
           setTeamTemplates(templates?.data?.data?.rows);
         } else {
           setOlcTemplates(templates?.data?.data?.rows);
@@ -139,14 +152,15 @@ const customTemplateSection: SideSection = {
       }
     };
 
-
     const getAllCategories = async () => {
-      const categories: Record<string, any> = await dispatch(getAllTemplateCategories);
+      const categories: Record<string, any> = await dispatch(
+        getAllTemplateCategories
+      );
       if (categories?.status === 200) {
         setTemplateCategories(
           categories?.data?.data
             .filter((item: any) => item.totalTemplates > 0)
-            .map((item : any) => ({
+            .map((item: any) => ({
               ...item,
               label: item.title,
             }))
@@ -161,13 +175,13 @@ const customTemplateSection: SideSection = {
       }
     };
 
-    const removeSearchInput = ()=>{
-      setSearchApplied(false)
-      setSearch("")
-    }
+    const removeSearchInput = () => {
+      setSearchApplied(false);
+      setSearch('');
+    };
 
     const searchKeyDown = (event: any) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         handleSearch();
       }
     };
@@ -184,7 +198,7 @@ const customTemplateSection: SideSection = {
           null as unknown as string,
           null as unknown as string,
           null as unknown as string,
-          "json",
+          'json',
           product ? product.id : null,
           initialCall,
           true
@@ -193,39 +207,38 @@ const customTemplateSection: SideSection = {
     };
 
     const handleLoadTemplate = (id: any) => {
-      dispatch(getOneTemplate(id, "copy"));
-      handleDialogChange("");
+      dispatch(getOneTemplate(id, 'copy'));
+      handleDialogChange('');
     };
 
-    const handleDialogChange = (model = "") => {
-      setIsShowDialog((prev) => ({ open: !prev.open, model: model }));
+    const handleDialogChange = (model = '') => {
+      setIsShowDialog((prev) => ({open: !prev.open, model: model}));
     };
 
-    
-    const processPage = async (index : any, page: any) => {
+    const processPage = async (index: any, page: any) => {
       return new Promise<void>((resolve, reject) => {
         let pageNumber = page.children.find(
-          (el: any) => el.custom?.name === "page-number"
+          (el: any) => el.custom?.name === 'page-number'
         );
-        const text = index === 0 ? "Front" : "Back";
+        const text = index === 0 ? 'Front' : 'Back';
 
         if (pageNumber) {
-          pageNumber.set({ text });
+          pageNumber.set({text});
           resolve();
         } else {
           page.addElement({
-            type: "text",
-            custom: { name: "page-number" },
+            type: 'text',
+            custom: {name: 'page-number'},
             text,
             width: store.width,
-            align: "center",
+            align: 'center',
             fontSize: 40,
             x: -150,
             y: -50,
             selectable: false,
             alwaysOnTop: true,
           });
-          resolve(); 
+          resolve();
         }
       });
     };
@@ -240,22 +253,22 @@ const customTemplateSection: SideSection = {
 
     const handleClearStore = () => {
       store.clear();
-      let size: string | string[]  = "";
+      let size: string | string[] = '';
       let isPostCards = false;
       let _product = product;
       if (template?.product) {
         size = template?.product?.paperSize;
-        isPostCards = template.product.productType === "Postcards" || false;
+        isPostCards = template.product.productType === 'Postcards' || false;
         _product = template.product;
       } else if (product) {
         size = product.selectedSize;
-        isPostCards = product.productType === "Postcards" || false;
+        isPostCards = product.productType === 'Postcards' || false;
       }
       store.setUnit({
-        unit: "in",
+        unit: 'in',
         dpi: DPI,
       });
-      size = (size as string)?.split("x");
+      size = (size as string)?.split('x');
       store.setSize(+size[1] * DPI, +size[0] * DPI);
       store.addPage();
 
@@ -264,20 +277,20 @@ const customTemplateSection: SideSection = {
         store.selectPage(store.pages[0].id);
       }
       drawRestrictedAreaOnPage(store, product, envelopeType);
-      handleDialogChange("");
+      handleDialogChange('');
     };
 
     useEffect(() => {
       if (templateLoading !== null && templateLoading === false) {
-        handleDialogChange("");
-        dispatch({ type: TEMPLATE_LOADING, payload: null });
+        handleDialogChange('');
+        dispatch({type: TEMPLATE_LOADING, payload: null});
       }
     }, [templateLoading]);
 
     useEffect(() => {
       if (!search) {
         setSearchApplied(false);
-        setSearch("");
+        setSearch('');
         getTemplatesByTab();
       }
     }, [search]);
@@ -295,7 +308,7 @@ const customTemplateSection: SideSection = {
     }, [currentTemplateType, selectedCategory]);
 
     useEffect(() => {
-      const div = document.querySelector(".polotno-panel-container");
+      const div = document.querySelector('.polotno-panel-container');
       const handleScroll = () => {
         if (div) {
           const isAtBottom =
@@ -309,11 +322,11 @@ const customTemplateSection: SideSection = {
       };
 
       if (div) {
-        div.removeEventListener("scroll", handleScroll);
-        div.addEventListener("scroll", handleScroll);
+        div.removeEventListener('scroll', handleScroll);
+        div.addEventListener('scroll', handleScroll);
       }
       return () => {
-        div?.removeEventListener("scroll", handleScroll);
+        div?.removeEventListener('scroll', handleScroll);
       };
     }, [templates]);
 
@@ -321,7 +334,7 @@ const customTemplateSection: SideSection = {
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
-            icon={<ModalCross/>}
+            icon={<ModalCross />}
             title={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.TITLE}
             subHeading={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.HEADING}
             description={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.PARAGRAPH}
@@ -333,7 +346,6 @@ const customTemplateSection: SideSection = {
             cancelText="Cancel"
             submitText="OK"
           />
-          
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
@@ -356,12 +368,12 @@ const customTemplateSection: SideSection = {
             maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
             backgroundColor: '#fff',
           }}
-        >          
-          <div style={{ marginTop: '8px' }}>
+        >
+          <div style={{marginTop: '8px'}}>
             <GeneralSelect
               placeholder="Template Types"
               options={templateTypes as any}
-              setSelectedValue={setCurrentTemplateType  as any}
+              setSelectedValue={setCurrentTemplateType as any}
               selectedValue={currentTemplateType as any}
               // @ts-ignore
               search={() => {}}
@@ -370,22 +382,25 @@ const customTemplateSection: SideSection = {
               templateBuilder={true}
             />
           </div>
-          {currentTemplateType?.id === "3" && (
-            <div style={{ marginTop: 8 }}>
+          {currentTemplateType?.id === '3' && (
+            <div style={{marginTop: 8}}>
               <GeneralSelect
                 placeholder="Select Category"
-                options={templateCategories  as any}
-                setSelectedValue={setSelectedCategory  as any}
+                options={templateCategories as any}
+                setSelectedValue={setSelectedCategory as any}
                 selectedValue={selectedCategory as any}
                 // @ts-ignore
-                search={(() => {}) as any} 
+                search={(() => {}) as any}
                 updateErrors={() => {}}
                 disableClearable={false}
                 templateBuilder={true}
               />
             </div>
           )}
-          <div className="searchWrapper"  style={{ marginTop: '16px', marginBottom: '16px' }}>
+          <div
+            className="searchWrapper"
+            style={{marginTop: '16px', marginBottom: '16px'}}
+          >
             <Input
               type="text"
               value={search}
@@ -399,42 +414,41 @@ const customTemplateSection: SideSection = {
               searchApplied={searchApplied}
               removeSearchInput={removeSearchInput}
             />
-           
           </div>
-          {currentTemplateType?.id === "1" ? (
-          <>
-            <div
-              className="default-design"
-              onClick={() => handleDialogChange('design-own')}
-            >
-              <img src={DesignIcon} alt="design" />
-              <Typography>Design Your Own</Typography>
-            </div>
-            {templates.rows.length ? (
-              templates.rows.map((template: any, i: number) => (
-                <div
-                  className="design-template"
-                  key={i}
-                  onClick={() => handleLoadTemplateModel(template)}
-                >
-                  <img
-                    src={template.thumbnailUrl}
-                    alt={template.title}
-                    onError={({currentTarget}) => {
-                      currentTarget.onerror = null; // prevents looping
-                      currentTarget.src = dummyTemplateIcon;
-                      currentTarget.classList.add('dummy-image');
-                    }}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="noTemplateText">
-                <Typography>No My Templates to show</Typography>
+          {currentTemplateType?.id === '1' ? (
+            <>
+              <div
+                className="default-design"
+                onClick={() => handleDialogChange('design-own')}
+              >
+                <img src={DesignIcon} alt="design" />
+                <Typography>Design Your Own</Typography>
               </div>
-            )}
-          </>
-           ) : currentTemplateType?.id === "2" ? (
+              {templates.rows.length ? (
+                templates.rows.map((template: any, i: number) => (
+                  <div
+                    className="design-template"
+                    key={i}
+                    onClick={() => handleLoadTemplateModel(template)}
+                  >
+                    <img
+                      src={template.thumbnailUrl}
+                      alt={template.title}
+                      onError={({currentTarget}) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = dummyTemplateIcon;
+                        currentTarget.classList.add('dummy-image');
+                      }}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="noTemplateText">
+                  <Typography>No My Templates to show</Typography>
+                </div>
+              )}
+            </>
+          ) : currentTemplateType?.id === '2' ? (
             <>
               {teamTemplates.length ? (
                 teamTemplates?.map((template, i) => (
@@ -484,13 +498,13 @@ const customTemplateSection: SideSection = {
                 <div className="noTemplateText">
                   <Typography>No OLC Templates to show</Typography>
                 </div>
-              )} 
-              </> 
-          ) : null} 
+              )}
+            </>
+          ) : null}
         </div>
       </div>
     );
-   }) as SideSection['Panel'],
+  }) as SideSection['Panel'],
 };
 
 export default customTemplateSection;

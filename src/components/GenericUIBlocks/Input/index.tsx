@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC} from 'react';
 
-// styles
-import './styles.scss';
+// components
 import Typography from '../Typography';
 
 // icon
@@ -64,7 +63,7 @@ const Input: FC<InputProps> = ({
           <>
             {searchApplied && value.length > 0 ? (
               <div className="cancel-input-button" onClick={removeSearchInput}>
-                <Cancel fill="#797671" />
+                <Cancel fill="var(--inputSearchIcon)" />
               </div>
             ) : null}
             <div

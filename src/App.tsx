@@ -8,6 +8,7 @@ import { createStore, StoreType } from 'polotno/model/store';
 import GenericSnackbar from './components/GenericUIBlocks/GenericSnackbar';
 import CreateTemplate from './components/CreateTemplate';
 import TemplateBuilder from './components/TemplateBuilder';
+import { createGlobalStyle } from 'styled-components';
 
 
 // Initialize Plotno Store
@@ -38,9 +39,20 @@ const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles }) => {
     }
   }, [currentPath]);
 
+  const GlobalStyle = createGlobalStyle`
+  :root {
+    --mainBackgroundColor: ${(props.styles.root)};
+  }
+  body {
+    background-color: var(--mainBackgroundColor);
+    }
+`;
+
 
   return (
+    <>
     <div style={props.styles.root}>
+        <GlobalStyle />
       <Routes>
         <Route path="/" element={<CreateTemplate returnRoute={returnRoute} />} />
         <Route path="/template-builder" element={<TemplateBuilder store={store} styles={styles} />} />
@@ -48,6 +60,7 @@ const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles }) => {
 
       {/* SNACKBAR FOR NOTIFICATIONS */}
       <GenericSnackbar />
+      </div>
     </>
   );
 }

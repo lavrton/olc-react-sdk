@@ -1,8 +1,50 @@
 export const styles = {
   root: {
-    '--primaryColor': 'purple',
-    '--svgColor': 'purple',
+    '--primaryColor': '#fb8500',
+    '--svgColor': '#ffb703',
+    // text colors
+    '--textColor': '#fff',
+    // product Card Background colors
+    '--productCardBgColor': '#2C394B',
+    '--productCardBackgroundColorActive': '#fff8ee',
+    // post Card Background colors
+    '--postCardBgColor': '#2C394B',
+    '--postCardBackgroundColorActive': '#fff8ee',
+    // input colors
+    '--inputBgColor': 'transparent',
+    '--inputTextColor': '#fff',
+    '--inputBorderColor': '#fff',
+    '--inputSearchAppliedBg': 'transparent',
+    '--inputSearchIcon': '#fff8ee',
+    // select input & option colors
+    '--selectBgColor': 'transparent',
+    '--selectTextColor': '#fff',
+    '--selectBorderColor': '#fff',
+    '--selectMenuBgColor': '#ffb703',
+    '--selectOptionTextColor': '#fff',
+    '--selectOptionBorderColor': '#5454544d',
+    '--selectOptionFocusedColor': '#ffb703',
+    '--selectOptionFocusedTextColor': '#023047',
+    '--selectOptionSelectedColor': '#ffb703',
+    '--selectOptionSelectedTextColor': '#023047',
+    // template builder colors
+    '--topbarBgColor': '#023047',
+    '--sidepanelBgColor': '#023047',
+    '--sidepanelTextColor': '#fff',
+    '--sidepanelTextColorHover': '#fff',
+    '--sidepanelSVGColor': '#fff',
+    '--sidepanelSVGColorActive': '#fff',
+    '--sidepanelOptionHoverColor': '#000',
+    // custom fields colors
+    '--customFieldBorderColor': '#fff',
+    '--customFieldTextColor': '#fff',
+    '--customFieldCopySVGColor': '#fff',
+    // builder Layer colors
+    '--cardBgColor': '#fff',
+    '--cardTextColor': '#000',
+
     // background colors
+    '--mainBackgroundColor': '#023047',
     '--bgLight': 'orange',
     '--bgTransparent': 'rgba(0, 0, 0, 0.5)',
     '--bgLight300': '#fff9f0',
@@ -21,6 +63,7 @@ export const styles = {
     '--black700': '#000000bf',
     '--dark800': '#080808',
     '--blue': '#212b36',
+    '--dark': '#202124',
     // yellow shades
     '--yellow': '#fab331',
     '--yellow100': '#fecf67',

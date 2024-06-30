@@ -13,7 +13,7 @@
             font-weight: 600;
             font-size: 16px;
             line-height: 19.36px;
-            color: #ED5C2F;
+            color: var(--primaryColor);
             font-family: Inter;
             margin-right: 5px;
         }
@@ -35,11 +35,14 @@
     & .contact-element{
         width: 100%;
         border-radius: 3px;
-        border: 0.5px solid #303030;
+        border: 0.5px solid var(--customFieldBorderColor);
         text-align: center;
         height: 35px;
         line-height: 35px;
         margin: 5px auto;
+        color: var(--customFieldTextColor);
     }
-    
+    .copy{
+        fill: var(--customFieldCopySVGColor) !important;
+    }
 }

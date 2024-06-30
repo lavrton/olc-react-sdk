@@ -1,6 +1,7 @@
 import React from 'react';
 
-const DynamicField = () => {
+const DynamicField = (props: any) => {
+  const {stroke} = props;
   return (
     <>
       <svg
@@ -20,7 +21,7 @@ const DynamicField = () => {
           <path
             style={{
               fill: 'none',
-              stroke: '#000000',
+              stroke: `${stroke}`,
               strokeWidth: 40,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',
@@ -31,7 +32,7 @@ const DynamicField = () => {
           <line
             style={{
               fill: 'none',
-              stroke: '#000000',
+              stroke: `${stroke}`,
               strokeWidth: 40,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',
@@ -45,7 +46,7 @@ const DynamicField = () => {
           <line
             style={{
               fill: 'none',
-              stroke: '#000000',
+              stroke: `${stroke}`,
               strokeWidth: 40,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',
@@ -59,7 +60,7 @@ const DynamicField = () => {
           <line
             style={{
               fill: 'none',
-              stroke: '#000000',
+              stroke: `${stroke}`,
               strokeWidth: 40,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',
@@ -73,7 +74,7 @@ const DynamicField = () => {
           <line
             style={{
               fill: 'none',
-              stroke: '#000000',
+              stroke: `${stroke}`,
               strokeWidth: 40,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',
@@ -87,7 +88,7 @@ const DynamicField = () => {
           <line
             style={{
               fill: 'none',
-              stroke: '#000000',
+              stroke: `${stroke}`,
               strokeWidth: 40,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',
@@ -101,7 +102,7 @@ const DynamicField = () => {
           <path
             style={{
               fill: 'none',
-              stroke: '#000000',
+              stroke: `${stroke}`,
               strokeWidth: 40,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',

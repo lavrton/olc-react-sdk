@@ -83,7 +83,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
       width: '100vw',
       height: '90vh',
       position: 'relative',
-      backgroundColor: 'var(--black)',
+      backgroundColor: 'var(--mainBackgroundColor) !important',
     },
     styles || {}
   );

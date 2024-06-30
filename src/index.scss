@@ -1,81 +1,175 @@
-:root{
+:root {
+  // scroll bars colors
+  --sb-track-color: #232e33;
+  --sb-thumb-color: #ed5c2f;
   // primary color
---primaryColor: #ed5c2f;
---svgColor: #FDB515;
-// background colors
---bgLight: #fff7ea;
---bgTransparent: rgba(0, 0, 0, 0.5);
---bgLight300: #fff9f0;
---bgGrey: #f7ffaf;
---bgPrimary: #f28230;
---bgPrimary800: #ef7820;
---bgGrey500: #f9f9f9;
---formLayoutBg: linear-gradient(
-  252deg,
-  #eec5b3 11.65%,
-  #ffceb3 26.15%,
-  #ffe4b4 42.72%,
-  #ffe4b3 61.64%,
-  #fbcbb4 80.93%,
-  #e2b9b3 100%
-);
+  --primaryColor: #ed5c2f;
+  --svgColor: #fdb515;
+  // text colors
+  --textColor: #000;
+  // product Card Background color
+  --productCardBgColor: #fff;
+  --productCardBackgroundColorActive: #fff8ee;
+  // post Card Background colors
+  --postCardBgColor: #fff;
+  --postCardBackgroundColorActive: #fff8ee;
+  // input colors
+  --inputBgColor: transparent;
+  --inputTextColor: #000;
+  --inputBorderColor: #303030;
+  --inputSearchAppliedBg: #fff8ee;
+  --inputSearchIcon: #303030;
+  // select input & option colors
+  --selectBgColor: transparent;
+  --selectTextColor: #000;
+  --selectBorderColor: #303030;
+  --selectMenuBgColor: #fff;
+  --selectOptionTextColor: #000;
+  --selectOptionBorderColor: #5454544d;
+  --selectOptionFocusedColor: #fff8ee;
+  --selectOptionFocusedTextColor: #000;
+  --selectOptionSelectedColor: #fff8ee;
+  --selectOptionSelectedTextColor: #000;
+  // template builder colors
+  --topbarBgColor: #fff;
+  --sidepanelBgColor: #fff;
+  --sidepanelTextColor: #303030;
+  --sidepanelSVGColor: #303030;
+  --sidepanelSVGColorActive: #ed5c2f;
+  --sidepanelOptionHoverColor: #fff8ee;
+  // custom fields colors
+  --customFieldBorderColor: #303030;
+  --customFieldTextColor: #303030;
+  --customFieldCopySVGColor: #303030;
+  // builder Layer colors
+  --cardBgColor: transparent;
+  --cardTextColor: #000;
 
-// dark shades
---black: #000;
---black100: rgba(0, 0, 0, 0.3);
---black200: rgba(68, 66, 65, 0.3);
---black300: rgba(0, 0, 0, 0.5);
---black400: #303030;
---black700: #000000bf;
---dark800: #080808;
---blue: #212b36;
+  // background colors
+  --bgLight: #fff7ea;
+  --bgTransparent: rgba(0, 0, 0, 0.5);
+  --bgLight300: #fff9f0;
+  --bgGrey: #f7ffaf;
+  --bgPrimary: #f28230;
+  --bgPrimary800: #ef7820;
+  --bgGrey500: #f9f9f9;
+  --formLayoutBg: linear-gradient(
+    252deg,
+    #eec5b3 11.65%,
+    #ffceb3 26.15%,
+    #ffe4b4 42.72%,
+    #ffe4b3 61.64%,
+    #fbcbb4 80.93%,
+    #e2b9b3 100%
+  );
 
-// yellow shades
---yellow: #fab331;
---yellow100: #fecf67;
---yellow300: #fff8ee;
---yellow400: #fdecd3;
---yellow500: #ffdec0;
+  // dark shades
+  --black: #000;
+  --black100: rgba(0, 0, 0, 0.3);
+  --black200: rgba(68, 66, 65, 0.3);
+  --black300: rgba(0, 0, 0, 0.5);
+  --black400: #303030;
+  --black700: #000000bf;
+  --dark800: #080808;
+  --blue: #212b36;
+  --dark: #202124;
 
-// light shades
---white: #fff;
---grey: #545454;
---grey200: rgba(0, 0, 0, 0.076);
---grey300: #aaa;
---grey400: #2b2b2a;
---grey500: #444241;
---grey800: #222221;
---light: rgba(255, 248, 238, 1);
---light300: #f4f4f4;
---grey: #696969;
---greyCheckBox: #d1d5db;
+  // yellow shades
+  --yellow: #fab331;
+  --yellow100: #fecf67;
+  --yellow300: #fff8ee;
+  --yellow400: #fdecd3;
+  --yellow500: #ffdec0;
 
-// red shades
---red: #ff0000;
---red400: rgba(255, 0, 0, 1);
+  // light shades
+  --white: #fff;
+  --grey: #545454;
+  --grey200: rgba(0, 0, 0, 0.076);
+  --grey300: #aaa;
+  --grey400: #2b2b2a;
+  --grey500: #444241;
+  --grey800: #222221;
+  --light: rgba(255, 248, 238, 1);
+  --light300: #f4f4f4;
+  --grey: #696969;
+  --greyCheckBox: #d1d5db;
 
-// green shades
---green500: #03a155;
---success: #7ed321;
---bgSuccess: #01bb62;
+  // red shades
+  --red: #ff0000;
+  --red400: rgba(255, 0, 0, 1);
 
-// orange shade
---iconColor: rgba(237, 92, 47, 1);
-// brown shades
---brown300: rgba(255, 192, 184, 0.23);
+  // green shades
+  --green500: #03a155;
+  --success: #7ed321;
+  --bgSuccess: #01bb62;
 
-// Stripe Variables
---stripeBlue: #0570de;
---stripeText: #30313d;
---stripeDanger: #df1b41;
+  // orange shade
+  --iconColor: rgba(237, 92, 47, 1);
+  // brown shades
+  --brown300: rgba(255, 192, 184, 0.23);
 
-  body{
-  margin: 70px 0 0;
-  padding: 0;
-  
-  .bp5-navbar{
-  z-index: auto !important;
-}
+  // Stripe Variables
+  --stripeBlue: #0570de;
+  --stripeText: #30313d;
+  --stripeDanger: #df1b41;
+
+  body {
+    padding: 70px 0 0;
+    margin: 0;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--sb-track-color) !important;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--sb-thumb-color) !important;
+      border-radius: 3px;
+    }
+
+    @supports not selector(::-webkit-scrollbar) {
+      body {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+      }
+    }
+
+    .bp5-navbar {
+      z-index: auto !important;
+      color: var(--textColor);
+      background-color: var(--mainBackgroundColor);
+      .bp5-card {
+        color: var(--cardTextColor);
+        background-color: var(--cardBgColor);
+      }
+      .bp5-button-text{
+      color: var(--textColor);
+      }
+    }
+
+    .go4160152499, .polotno-workspace-inner{
+      &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--sb-track-color) !important;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--sb-thumb-color) !important;
+      border-radius: 3px;
+    }
+
+    @supports not selector(::-webkit-scrollbar) {
+      body {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+      }
+    }
+    }
   }
-
 }

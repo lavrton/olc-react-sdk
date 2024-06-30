@@ -16,12 +16,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.5px solid #303030;
+    border: 0.5px solid var(--inputBorderColor);
     border-radius: 7px;
     height: 100%;
     min-height: 55px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--inputBgColor);
 
     .basic-input {
       width: 100%;
@@ -29,7 +29,7 @@
       background: transparent;
       font-size: 14px;
       font-weight: 400;
-      color: #000000;
+      color: var(--inputTextColor);
       font-family: Inter;
       border: none;
       border-radius: 7px;
@@ -38,7 +38,7 @@
       }
       &::placeholder {
         opacity: 50%;
-        color: #303030;
+        color: var(--inputTextColor);
       }
     }
 
@@ -75,6 +75,6 @@
   }
 
   .focused {
-    background-color: #fff8ee;
+    background-color: var(--inputSearchAppliedBg);
   }
 }

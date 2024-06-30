@@ -61,7 +61,7 @@ const templateHeadingStyles: React.CSSProperties = {
 };
 
 const templateTextStyles: React.CSSProperties = {
-  color: `var(--black)`,
+  color: `var(--textColor)`,
   fontSize: `14px`,
   fontStyle: `normal`,
   fontWeight: `500`,
@@ -215,7 +215,10 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                   {MESSAGES.TEMPLATE.CREATE.PRODUCT_LABEL}
                 </Typography>
                 <NavLink to={PRODUCT_LEARN_URL} target="_blank">
-                  <Typography>  {MESSAGES.TEMPLATE.CREATE.LEARN_TEXT}</Typography>
+                  <Typography>
+                    {' '}
+                    {MESSAGES.TEMPLATE.CREATE.LEARN_TEXT}
+                  </Typography>
                 </NavLink>
               </div>
               <div className="productsWrapper">
@@ -225,11 +228,12 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                     .map((prod, index) => {
                       return (
                         <div
-                          className={`productCard ${prod.productType ===
+                          className={`productCard ${
+                            prod.productType ===
                             (product && product.productType)
-                            ? 'active'
-                            : ''
-                            } ${isError && !product ? 'error' : ''} `}
+                              ? 'active'
+                              : ''
+                          } ${isError && !product ? 'error' : ''} `}
                           key={index}
                           onClick={() => dispatch(selectProduct(prod))}
                         >
@@ -277,7 +281,9 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
             <GridItem lg={12} md={12} sm={12} xs={12}>
               <div className="postCardSizeWrapper">
                 <div className="postCardHeading">
-                  <Typography>Postcard Size*</Typography>
+                  <Typography style={templateTextStyles}>
+                    Postcard Size*
+                  </Typography>
                 </div>
                 <div className="postCardWrapper">
                   {product?.size
@@ -300,24 +306,28 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                           }
                           className={
                             index === 0
-                              ? `postCard postCard-small ${product.selectedSize === type.size
-                                ? 'active'
-                                : ''
-                              }`
-                              : index === 1
-                                ? `postCard postCard-mid ${product.selectedSize === type.size
-                                  ? 'active'
-                                  : ''
+                              ? `postCard postCard-small ${
+                                  product.selectedSize === type.size
+                                    ? 'active'
+                                    : ''
                                 }`
-                                : index === 2
-                                  ? `postCard postCard-large ${product.selectedSize === type.size
+                              : index === 1
+                              ? `postCard postCard-mid ${
+                                  product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                  }`
-                                  : `postCard ${product.selectedSize === type.size
+                                }`
+                              : index === 2
+                              ? `postCard postCard-large ${
+                                  product.selectedSize === type.size
                                     ? 'active'
                                     : ''
-                                  }`
+                                }`
+                              : `postCard ${
+                                  product.selectedSize === type.size
+                                    ? 'active'
+                                    : ''
+                                }`
                           }
                           key={index}
                         >

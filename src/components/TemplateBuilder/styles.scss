@@ -1,25 +1,34 @@
 .polotno-container {
-  .builder-wrapper{
-    @media (max-width: 600px){
+  .builder-wrapper {
+    @media (max-width: 600px) {
       display: none;
     }
     .polotno-side-panel {
       & .polotno-side-tabs-container {
+        background-color: var(--sidepanelBgColor);
         & .polotno-side-tabs-inner {
           & .polotno-side-panel-tab {
+            color: var(--sidepanelTextColor);
             &.active,
             &:hover {
-              background-color: var(--bgLight);
+              background-color: var(--sidepanelOptionHoverColor);
               opacity: 0.8;
-              color: var(--primaryColor);
+              color: var(--sidepanelTextColorHover);
               svg {
                 color: var(--primaryColor);
+                path {
+                  stroke: var(--primaryColor) !important;
+                }
+                line {
+                  stroke: var(--primaryColor) !important;
+                }
               }
             }
           }
         }
       }
       & .polotno-panel-container {
+        background-color: var(--mainBackgroundColor);
         & > div > p {
           display: none;
         }
@@ -37,7 +46,7 @@
               }
             }
             .bp5-tab[aria-selected='false'] {
-              color: var(--black);
+              color: var(--textColor);
               &:focus {
                 outline: none;
               }
@@ -45,6 +54,9 @@
           }
         }
       }
+    }
+    .polotno-workspace-container {
+      background-color: transparent !important;
     }
   }
 }
