@@ -1,5 +1,66 @@
-export const styles = {
+interface RootStyles {
+  '--sb-track-color': string;
+  '--sb-thumb-color': string;
+  '--primaryColor': string;
+  '--svgColor': string;
+  '--textColor': string;
+  '--productCardBgColor': string;
+  '--productCardBackgroundColorActive': string;
+  '--postCardBgColor': string;
+  '--postCardBackgroundColorActive': string;
+  '--postCardSVGColor': string;
+  '--inputBgColor': string;
+  '--inputTextColor': string;
+  '--inputBorderColor': string;
+  '--inputSearchAppliedBg': string;
+  '--inputSearchIcon': string;
+  '--selectBgColor': string;
+  '--selectTextColor': string;
+  '--selectBorderColor': string;
+  '--selectMenuBgColor': string;
+  '--selectOptionTextColor': string;
+  '--selectOptionBorderColor': string;
+  '--selectOptionFocusedColor': string;
+  '--selectOptionFocusedTextColor': string;
+  '--selectOptionSelectedColor': string;
+  '--selectOptionSelectedTextColor': string;
+  '--topbarBgColor': string;
+  '--sidepanelBgColor': string;
+  '--sidepanelTextColor': string;
+  '--sidepanelTextColorHover': string;
+  '--sidepanelSVGColor': string;
+  '--sidepanelSVGColorActive': string;
+  '--sidepanelOptionHoverColor': string;
+  '--customFieldBorderColor': string;
+  '--customFieldTextColor': string;
+  '--customFieldCopySVGColor': string;
+  '--cardBgColor': string;
+  '--cardTextColor': string;
+  '--dialogModalBgColor': string;
+  '--dialogModalHeadingColor': string;
+  '--dialogModalTextColor': string;
+  '--dialogModalSVGColor': string;
+  '--borderColor': string;
+  '--secondaryButtonBgColor': string;
+  '--secondaryButtonTextColor': string;
+  '--primaryButtonBgColor': string;
+  '--primaryButtonTextColor': string;
+  '--iconHoverBgColor': string;
+  '--mainBackgroundColor': string;
+  '--footerBgColor': string;
+  '--red': string;
+}
+
+interface Styles {
+  root: RootStyles;
+}
+
+export const styles: Styles = {
   root: {
+    // scroll bars colors
+    '--sb-track-color': '#232e33',
+    '--sb-thumb-color': '#fb8500',
+    // core colors
     '--primaryColor': '#fb8500',
     '--svgColor': '#ffb703',
     // text colors
@@ -10,6 +71,7 @@ export const styles = {
     // post Card Background colors
     '--postCardBgColor': '#2C394B',
     '--postCardBackgroundColorActive': '#fff8ee',
+    '--postCardSVGColor': '#FDECD3',
     // input colors
     '--inputBgColor': 'transparent',
     '--inputTextColor': '#fff',
@@ -42,65 +104,28 @@ export const styles = {
     // builder Layer colors
     '--cardBgColor': '#fff',
     '--cardTextColor': '#000',
+    // Dialog Modal colors
+    '--dialogModalBgColor': '#023047',
+    '--dialogModalHeadingColor': '#fb8500',
+    '--dialogModalTextColor': '#fff',
+    '--dialogModalSVGColor': '#ffb703',
+    // border colors
+    '--borderColor': 'rgba(0, 0, 0, 0.5)',
+    // button colors
+    '--secondaryButtonBgColor': '#fff',
+    '--secondaryButtonTextColor': '#000',
+    '--primaryButtonBgColor': '#fb8500',
+    '--primaryButtonTextColor': '#fff',
+    // topbar colors
+    '--iconHoverBgColor': 'rgba(0, 0, 0, 0.076)',
 
     // background colors
     '--mainBackgroundColor': '#023047',
-    '--bgLight': 'orange',
-    '--bgTransparent': 'rgba(0, 0, 0, 0.5)',
-    '--bgLight300': '#fff9f0',
-    '--bgGrey': '#f7ffaf',
-    '--bgPrimary': '#f28230',
-    '--bgPrimary800': '#ef7820',
-    '--bgGrey500': '#f9f9f9',
-    '--formLayoutBg':
-      'linear-gradient(252deg,#eec5b3 11.65%,#ffceb3 26.15%,#ffe4b4 42.72%,#ffe4b3 61.64%,#fbcbb4 80.93%,#e2b9b3 100%)',
-    // dark shades
-    '--black': '#000',
-    '--black100': 'rgba(0, 0, 0, 0.3)',
-    '--black200': 'rgba(68, 66, 65, 0.3)',
-    '--black300': 'rgba(0, 0, 0, 0.5)',
-    '--black400': '#303030',
-    '--black700': '#000000bf',
-    '--dark800': '#080808',
-    '--blue': '#212b36',
-    '--dark': '#202124',
-    // yellow shades
-    '--yellow': '#fab331',
-    '--yellow100': '#fecf67',
-    '--yellow300': '#fff8ee',
-    '--yellow400': '#fdecd3',
-    '--yellow500': '#ffdec0',
 
-    // light shades
-    '--white': '#fff',
-    '--grey': '#545454',
-    '--grey200': 'rgba(0, 0, 0, 0.076)',
-    '--grey300': '#aaa',
-    '--grey400': '#2b2b2a',
-    '--grey500': '#444241',
-    '--grey800': '#222221',
-    '--light': 'rgba(255, 248, 238, 1)',
-    '--light300': '#f4f4f4',
-    '--grey-100': '#696969',
-    '--greyCheckBox': '#d1d5db',
+    // footer bg color
+    '--footerBgColor': '#023047',
 
     // red shades
     '--red': '#ff0000',
-    '--red400': 'rgba(255, 0, 0, 1)',
-
-    // green shades
-    '--green500': '#03a155',
-    '--success': '#7ed321',
-    '--bgSuccess': '#01bb62',
-
-    // orange shade
-    '--iconColor': 'rgba(237, 92, 47, 1)',
-    // brown shades
-    '--brown300': 'rgba(255, 192, 184, 0.23)',
-
-    // Stripe Variables
-    '--stripeBlue': '#0570de',
-    '--stripeText': '#30313d',
-    '--stripeDanger': '#df1b41',
   },
 };

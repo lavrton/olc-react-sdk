@@ -13,8 +13,9 @@
   // post Card Background colors
   --postCardBgColor: #fff;
   --postCardBackgroundColorActive: #fff8ee;
+  --postCardSVGColor: #fdecd3;
   // input colors
-  --inputBgColor: transparent;
+  --inputBgColor: #fff;
   --inputTextColor: #000;
   --inputBorderColor: #303030;
   --inputSearchAppliedBg: #fff8ee;
@@ -44,74 +45,24 @@
   // builder Layer colors
   --cardBgColor: transparent;
   --cardTextColor: #000;
-
-  // background colors
-  --bgLight: #fff7ea;
-  --bgTransparent: rgba(0, 0, 0, 0.5);
-  --bgLight300: #fff9f0;
-  --bgGrey: #f7ffaf;
-  --bgPrimary: #f28230;
-  --bgPrimary800: #ef7820;
-  --bgGrey500: #f9f9f9;
-  --formLayoutBg: linear-gradient(
-    252deg,
-    #eec5b3 11.65%,
-    #ffceb3 26.15%,
-    #ffe4b4 42.72%,
-    #ffe4b3 61.64%,
-    #fbcbb4 80.93%,
-    #e2b9b3 100%
-  );
-
-  // dark shades
-  --black: #000;
-  --black100: rgba(0, 0, 0, 0.3);
-  --black200: rgba(68, 66, 65, 0.3);
-  --black300: rgba(0, 0, 0, 0.5);
-  --black400: #303030;
-  --black700: #000000bf;
-  --dark800: #080808;
-  --blue: #212b36;
-  --dark: #202124;
-
-  // yellow shades
-  --yellow: #fab331;
-  --yellow100: #fecf67;
-  --yellow300: #fff8ee;
-  --yellow400: #fdecd3;
-  --yellow500: #ffdec0;
-
-  // light shades
-  --white: #fff;
-  --grey: #545454;
-  --grey200: rgba(0, 0, 0, 0.076);
-  --grey300: #aaa;
-  --grey400: #2b2b2a;
-  --grey500: #444241;
-  --grey800: #222221;
-  --light: rgba(255, 248, 238, 1);
-  --light300: #f4f4f4;
-  --grey: #696969;
-  --greyCheckBox: #d1d5db;
-
+  // dialog Modal colors
+  --dialogModalBgColor: #fff8ee;
+  --dialogModalHeadingColor: #ed5c2f;
+  --dialogModalTextColor: #000;
+  --dialogModalSVGColor: #ed5c2f;
+  // border colors
+  --borderColor: rgba(0, 0, 0, 0.5);
+  // button colors
+  --secondaryButtonBgColor: #fff;
+  --secondaryButtonTextColor: #000;
+  --primaryButtonBgColor: #ed5c2f;
+  --primaryButtonTextColor: #fff;
+  // topbar colors
+  --iconHoverBgColor: rgba(0, 0, 0, 0.076);
+  // footer bg color
+  --footerBgColor: #fff;
   // red shades
   --red: #ff0000;
-  --red400: rgba(255, 0, 0, 1);
-
-  // green shades
-  --green500: #03a155;
-  --success: #7ed321;
-  --bgSuccess: #01bb62;
-
-  // orange shade
-  --iconColor: rgba(237, 92, 47, 1);
-  // brown shades
-  --brown300: rgba(255, 192, 184, 0.23);
-
-  // Stripe Variables
-  --stripeBlue: #0570de;
-  --stripeText: #30313d;
-  --stripeDanger: #df1b41;
 
   body {
     padding: 70px 0 0;
@@ -145,31 +96,33 @@
         color: var(--cardTextColor);
         background-color: var(--cardBgColor);
       }
-      .bp5-button-text{
-      color: var(--textColor);
+      .bp5-button-text {
+        color: var(--textColor);
       }
     }
 
-    .go4160152499, .polotno-workspace-inner{
+    .go4160152499,
+    .polotno-workspace-inner,
+    .polotno-panel-container > div > div > div {
       &::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--sb-track-color) !important;
-      border-radius: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--sb-thumb-color) !important;
-      border-radius: 3px;
-    }
-
-    @supports not selector(::-webkit-scrollbar) {
-      body {
-        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+        width: 10px;
       }
-    }
+
+      &::-webkit-scrollbar-track {
+        background: var(--sb-track-color) !important;
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--sb-thumb-color) !important;
+        border-radius: 3px;
+      }
+
+      @supports not selector(::-webkit-scrollbar) {
+        body {
+          scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+        }
+      }
     }
   }
 }

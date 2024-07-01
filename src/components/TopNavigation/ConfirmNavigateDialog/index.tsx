@@ -40,7 +40,7 @@ const ConfirmNavigateDialog: React.FC<ConfirmNavigateDialogProps> = ({ open, han
 
   return (
     <Dialog
-      icon={<ModalCross />}
+      icon={<ModalCross fill="var(--primaryColor)" />}
       customStyles={cancelDialogStyles}
       open={open}
       handleClose={handleClose}

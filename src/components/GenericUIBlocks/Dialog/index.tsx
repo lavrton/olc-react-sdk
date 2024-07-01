@@ -25,23 +25,23 @@ interface DialogProps {
 }
 
 const buttonStyles: CSSProperties = {
-  color: '#ffffff',
-  backgroundColor: '#ed5c2f',
+  color: 'var(--primaryButtonTextColor)',
+  backgroundColor: 'var(--primaryButtonBgColor)',
   maxWidth: '100px',
   minHeight: '40px',
-  border: '0.5px solid rgba(48, 48, 48, 0.5)',
+  border: '0.5px solid var(--borderColor)',
   fontSize: '14px',
 };
 
 const heading: CSSProperties = {
   fontSize: '22px',
-  color: '#ed5c2f',
+  color: 'var(--dialogModalHeadingColor)',
   fontWeight: '700',
 };
 
 const subHeadingStyle: CSSProperties = {
   fontSize: '16px',
-  color: 'black',
+  color: 'var(--dialogModalTextColor',
   fontWeight: '700',
   textAlign: 'center',
 };
@@ -73,7 +73,7 @@ const Dialog: React.FC<DialogProps> = ({
     <div
       id="myModal"
       className="modal"
-      style={{ display: open ? 'flex' : 'none' }}
+      style={{display: open ? 'flex' : 'none'}}
     >
       <div className="modal-content" style={customStyles}>
         <div className="modal-header">
@@ -94,7 +94,7 @@ const Dialog: React.FC<DialogProps> = ({
           {description && (
             <Typography
               variant="p"
-              style={{ ...subHeadingStyle, fontWeight: '400' }}
+              style={{...subHeadingStyle, fontWeight: '400'}}
             >
               {description}
             </Typography>
@@ -104,19 +104,19 @@ const Dialog: React.FC<DialogProps> = ({
         <div className="modal-footer">
           <Button
             onClick={onCancel}
-            style={{ ...buttonStyles, color: 'black', backgroundColor: 'white' }}
+            style={{
+              ...buttonStyles,
+              color: 'var(--secondaryButtonTextColor)',
+              backgroundColor: 'var(--secondaryButtonBgColor)',
+            }}
           >
             {cancelText}
           </Button>
           <Button
-            style={{ ...buttonStyles, border: 'none', maxWidth: contentAdjust }}
+            style={{...buttonStyles, border: 'none', maxWidth: contentAdjust}}
             onClick={onSubmit}
           >
-            {loading ? (
-              <CircularProgress style={progressStyles} />
-            ) : (
-              submitText
-            )}
+            {loading ? <CircularProgress style={progressStyles} /> : submitText}
           </Button>
         </div>
       </div>

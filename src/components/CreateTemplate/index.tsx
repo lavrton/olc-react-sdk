@@ -76,8 +76,8 @@ const footerButtonStyles: React.CSSProperties = {
   minHeight: '40px',
   textTransform: 'capitalize',
   borderRadius: '3px',
-  backgroundColor: 'var(--white)',
-  color: `var(--black)`,
+  backgroundColor: 'var(--secondaryButtonBgColor)',
+  color: `var(--secondaryButtonTextColor)`,
 };
 
 const Images: Record<string, ReactElement> = {
@@ -363,7 +363,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
           <Button
             style={{
               ...footerButtonStyles,
-              border: '0.5px solid rgba(0, 0, 0, 0.5)',
+              border: '0.5px solid var(--borderColor)',
             }}
             onClick={() => navigate(returnRoute ? returnRoute : '/')}
           >
@@ -373,7 +373,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
             style={{
               ...footerButtonStyles,
               color: '#ffffff',
-              backgroundColor: 'var(--primaryColor)',
+              backgroundColor: 'var(--primaryButtonBgColor)',
             }}
             onClick={handleNext}
           >

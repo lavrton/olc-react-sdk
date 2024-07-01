@@ -15,7 +15,7 @@
   /* Modal Content */
   .modal-content {
     position: relative;
-    background-color: #fff8ee;
+    background-color: var(--dialogModalBgColor);
     margin: auto;
     padding: 0;
     border: 1px solid #888;
@@ -30,10 +30,10 @@
       position: relative;
       height: 100%;
       min-height: 20px;
-      color: black;
+      color: var(--dialogModalTextColor);
       /* The Close Button */
       .close {
-        color: black;
+        color: var(--dialogModalTextColor);
         float: right;
         font-size: 28px;
         font-weight: bold;
@@ -44,7 +44,7 @@
 
       .close:hover,
       .close:focus {
-        color: #000;
+        color: var(--dialogModalTextColor);
         text-decoration: none;
         cursor: pointer;
       }
@@ -56,20 +56,21 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      color: var(--dialogModalTextColor);
       .modal-icon{
         svg{
           width: 100%;
           max-width: 60px;
           height: 100%;
           min-height: 70px;
-          fill: #ed5c2f;
+          fill: var(--dialogModalSVGColor);
         }
       }
     }
 
     .modal-footer {
       padding: 2px 16px;
-      color: black;
+      color: var(--dialogModalTextColor);
       position: absolute;
       bottom: 10px;
       width: 100%;

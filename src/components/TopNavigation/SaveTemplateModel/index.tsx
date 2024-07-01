@@ -41,7 +41,7 @@ const SaveTemplateModel: React.FC<SaveTemplateModelProps> = ({
 }) => {
   return (
     <Dialog
-      icon={<Save />}
+      icon={<Save fill="var(--primaryColor)" />}
       open={open}
       loading={loading}
       handleClose={handleClose}

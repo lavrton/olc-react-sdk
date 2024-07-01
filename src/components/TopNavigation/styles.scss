@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 0.5px solid var(--black100);
+  border-bottom: 0.5px solid var(--borderColor);
 
   .middle {
     display: flex;
@@ -26,7 +26,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      color: var(--white);
+      color: var(--textColor);
     }
     div{
       display: flex;
@@ -37,10 +37,10 @@
         padding: 5px;
         transition: 0.1s ease-in-out all;
         &:hover {
-          background-color: var(--grey200);
+          background-color: var(--iconHoverBgColor);
         }
         svg{
-          fill: var(--white);
+          fill: var(--textColor);
         }
     }
   }
@@ -48,28 +48,12 @@
   & button {
     max-width: 120px !important;
     text-transform: capitalize;
-    color: var(--black);
+    color: var(--textColor);
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-  }
-
-  & button.active {
-    border: 0.5px solid var(--primaryColor);
-    background: var(--primaryColor);
-    color: var(--white);
-    text-transform: capitalize;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-
-    & p {
-      color: var(--white);
-    }
   }
 
   & .MuiGrid-item {
@@ -82,38 +66,6 @@
 
   & .right {
     gap: 10px !important;
-
-    & button {
-      border-radius: 3px !important;
-      text-transform: capitalize;
-      font-family: Inter;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      &:first-child {
-        color: var(--black);
-        background-color: var(--white);
-        border: 0.5px solid var(--black) !important;
-        width: 100%;
-        max-width: fit-content !important;
-
-        &.loading {
-          max-width: 123.65px !important;
-        }
-      }
-
-      &:nth-child(2) {
-        color: var(--primaryColor);
-        background-color: var(--white);
-        border: 0.5px solid var(--primaryColor) !important;
-      }
-
-      &:last-child {
-        color: var(--white);
-        background-color: var(--primaryColor);
-      }
-    }
   }
 
   .actionsBtnWrapper {

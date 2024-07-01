@@ -18,7 +18,7 @@
 
       .tempTypeRadioHeading {
         p {
-          color: var(--black);
+          color: var(--textColor);
           font-family: Inter;
           font-size: 14px;
           font-style: normal;
@@ -50,7 +50,7 @@
 
           label {
             cursor: pointer;
-            color: var(--black);
+            color: var(--textColor);
             font-family: Inter;
             font-size: 14px;
             font-style: normal;
@@ -82,7 +82,7 @@
 
     .templateInputWrapper {
       p {
-        color: var(--black);
+        color: var(--textColor);
         font-family: Inter;
         font-size: 14px;
         font-style: normal;
@@ -105,7 +105,7 @@
     .productHeading {
       p {
         &:first-child {
-          color: var(--black);
+          color: var(--textColor);
           font-family: Inter;
           font-size: 14px;
           font-style: normal;
@@ -138,7 +138,7 @@
         align-items: center;
         flex-direction: column;
         border-radius: 6.299px;
-        border: 0.45px solid var(--black300);
+        border: 0.45px solid var(--borderColor);
         background: var(--productCardBgColor);
         width: 100%;
         max-width: 185px;
@@ -171,7 +171,7 @@
         }
 
         &.error {
-          border: 0.45px solid var(--red400);
+          border: 0.45px solid var(--red);
         }
       }
     }
@@ -188,7 +188,7 @@
 
     .postCardHeading {
       p {
-        color: var(--black);
+        color: var(--textColor);
         font-family: Inter;
         font-size: 14px;
         font-style: normal;
@@ -211,7 +211,7 @@
         gap: 20px;
         flex-direction: column;
         border-radius: 6.299px;
-        border: 0.45px solid var(--bgTransparent);
+        border: 0.45px solid var(--borderColor);
         background: var(--postCardBgColor);
         cursor: pointer;
         padding: 13px 20px;
@@ -229,7 +229,7 @@
 
         svg {
           path {
-            fill: var(--svgColor);
+            fill: var(--postCardSVGColor);
           }
         }
 
@@ -300,8 +300,8 @@
     position: fixed;
     width: 100%;
     bottom: 0;
-    border-top: 0.5px solid var(--black100);
-    background: var(--white);
+    border-top: 0.5px solid var(--borderColor);
+    background-color: var(--footerBgColor);
 
     .createTemplateBtns {
       display: flex;
@@ -319,27 +319,26 @@
         border-radius: 3px;
 
         &:first-child {
-          color: var(--black);
+          color: var(--secondaryButtonTextColor);
           text-align: center;
           font-family: Inter;
           font-size: 14px;
           font-style: normal;
           font-weight: 600;
           line-height: normal;
-          border: 0.5px solid rgba(0, 0, 0, 0.5);
-          background-color: var(--white);
+          border: 0.5px solid var(--borderColor);
+          background-color: var(--secondaryButtonBgColor);
         }
 
         &:last-child {
-          color: var(--white);
+          color: var(--primaryButtonTextColor);
           text-align: center;
           font-family: Inter;
           font-size: 14px;
           font-style: normal;
           font-weight: 600;
           line-height: normal;
-          border: 0.5px solid var(--primaryColor);
-          background-color: var(--primaryColor);
+          background-color: var(--primaryButtonBgColor);
         }
       }
     }

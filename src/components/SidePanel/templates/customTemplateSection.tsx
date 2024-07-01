@@ -13,7 +13,7 @@ import {
 } from '../../../../src/redux/actions/templateActions';
 import { AppDispatch, RootState } from '../../../redux/store';
 // @ts-ignore
-import DesignIcon from '../../../assets/images/templates/template-default-design.svg'
+import DesignIcon from '../../../assets/images/templates/template-default-design.tsx'
 // @ts-ignore
 import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.svg";
 // @ts-ignore
@@ -35,6 +35,15 @@ const designDialogStyles = {
   maxWidth: "600px",
   minHeight: "270px"
 }
+
+const templateTextStyles: React.CSSProperties = {
+  color: `var(--textColor)`,
+  fontSize: `12px`,
+  fontStyle: `normal`,
+  fontWeight: `500`,
+  lineHeight: `normal`,
+  marginBottom: `16px`,
+};
 
 
 export type Payload = {
@@ -334,7 +343,7 @@ const customTemplateSection: SideSection = {
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
-            icon={<ModalCross />}
+            icon={<ModalCross fill="var(--primaryColor)"/>}
             title={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.TITLE}
             subHeading={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.HEADING}
             description={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.PARAGRAPH}
@@ -421,8 +430,10 @@ const customTemplateSection: SideSection = {
                 className="default-design"
                 onClick={() => handleDialogChange('design-own')}
               >
-                <img src={DesignIcon} alt="design" />
-                <Typography>Design Your Own</Typography>
+                <DesignIcon fill="var(--svgColor)" />
+                <Typography style={templateTextStyles}>
+                  Design Your Own
+                </Typography>
               </div>
               {templates.rows.length ? (
                 templates.rows.map((template: any, i: number) => (

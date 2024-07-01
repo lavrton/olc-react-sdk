@@ -57,9 +57,9 @@ import './styles.scss';
 const buttonStyles: React.CSSProperties = {
   maxWidth: '100px',
   minHeight: '40px',
-  backgroundColor: 'var(--white)',
-  color: 'var(--black)',
-  border: '0.5px solid var(--black400)',
+  backgroundColor: 'var(--secondaryButtonBgColor)',
+  color: 'var(--secondaryButtonTextColor)',
+  border: '0.5px solid var(--borderColor)',
   fontSize: '15px',
 };
 
@@ -339,7 +339,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           <div className="middle">
             <Typography>{title}</Typography>
             <div onClick={() => handleChangeModel('edit')}>
-              <EditIcon fill="var(--white)"/>
+              <EditIcon fill="var(--textColor)" />
             </div>
           </div>
         </GridItem>
@@ -363,7 +363,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
                 ...buttonStyles,
                 border: 'none',
                 backgroundColor: 'var(--primaryColor)',
-                color: 'var(--white)',
+                color: 'var(--primaryButtonTextColor)',
               }}
               onClick={() => handleChangeModel('save')}
             >
