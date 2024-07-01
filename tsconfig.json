@@ -2,7 +2,7 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "outDir": "build/types",
-    "module": "commonjs",
+    "module": "es2020",
     "target": "es5",
     "jsx": "react",
     "strict": true,

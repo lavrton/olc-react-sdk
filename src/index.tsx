@@ -58,10 +58,9 @@ const rootElement = document.getElementById('root');
 if (rootElement) {
   TemplateBuilder({
     container: rootElement,
-    apiKey:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6InVzbWFuK2FkbWluQG9wZW5sZXR0ZXJjb25uZWN0LmNvbSIsImFwaUtleUlkIjoiNCIsImlhdCI6MTcxNzUxNDc0MCwiZXhwIjo0ODczMjc0NzQwfQ.D_yEcZ4ZJtM0ArzaYqnV8ggCsT52l4ALbzsX1QkATag',
+    apiKey: import.meta.env.VITE_APP_ACCESS_TOKEN,
     mode: 'live',
-    builderKey: 'ysCpKe5xuksqn5IdNqHJ',
+    builderKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
     returnRoute: '/'
   });
 } else {
