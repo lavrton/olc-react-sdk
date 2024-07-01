@@ -1,8 +1,9 @@
-const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYiLCJlbWFpbCI6InVzbWFuK2FkbWluQG9wZW5sZXR0ZXJjb25uZWN0LmNvbSIsImFwaUtleUlkIjoiNCIsImlhdCI6MTcxNzUxNDc0MCwiZXhwIjo0ODczMjc0NzQwfQ.D_yEcZ4ZJtM0ArzaYqnV8ggCsT52l4ALbzsX1QkATag';
-const API_BASE_URL = 'https://stageapi.openletterconnect.com/api/v1';
+import { apiKey, appMode } from './helper'
+
+const API_BASE_URL = appMode === 'test' ? 'https://stageapi.openletterconnect.com/api/v1' : 'https://stageapi.openletterconnect.com/api/v1';
 
 const getHeaders = (additionalHeaders: Record<string, string> = {}) => ({
-  'Authorization': `Bearer ${API_KEY}`,
+  'Authorization': `Bearer ${apiKey}`,
   'Content-Type': 'application/json',
   'Accept': 'application/json',
   ...additionalHeaders,

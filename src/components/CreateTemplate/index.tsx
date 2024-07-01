@@ -90,7 +90,11 @@ const Images: Record<string, string> = {
   'Bi-Fold Self-Mailers': BiFoldSelfMailers,
 };
 
-const CreateTemplate: React.FC = () => {
+interface CreateTemplateProps {
+  returnRoute?: string | null,
+}
+
+const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [envelopeType, setEnvelopeType] = useState<[]>([]);
 
@@ -124,11 +128,11 @@ const CreateTemplate: React.FC = () => {
     ) {
       setIsError(true);
     } else {
-      let envelope: string | string[]  = "";
+      let envelope: string | string[] = "";
       if (product.productType === 'Professional Letters') {
         //@ts-ignore
         envelope = envelopeTypes.find(
-        //@ts-ignore
+          //@ts-ignore
           (envelope) => envelope?.label === envelopeType.label
         )?.type;
       }
@@ -255,9 +259,9 @@ const CreateTemplate: React.FC = () => {
                     className={isError && ![envelopeType].length ? 'error' : ''}
                     //@ts-ignore
                     selectedValue={envelopeType}
-                      //@ts-ignore
+                    //@ts-ignore
                     setSelectedValue={setEnvelopeType}
-                      //@ts-ignore
+                    //@ts-ignore
                     options={envelopeTypes}
                     placeholder="Envelope Type"
                     error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
@@ -279,7 +283,7 @@ const CreateTemplate: React.FC = () => {
                 <div className="postCardWrapper">
                   {product?.size
                     .sort((a: any, b: any) => a.id.localeCompare(b.id))
-                    .map((type :any, index: any) => {
+                    .map((type: any, index: any) => {
                       const size = type.size.split('x');
                       return (
                         <div
@@ -352,7 +356,7 @@ const CreateTemplate: React.FC = () => {
               ...footerButtonStyles,
               border: '0.5px solid rgba(0, 0, 0, 0.5)',
             }}
-            onClick={() => navigate(-1)}
+            onClick={() => navigate(returnRoute ? returnRoute : '/')}
           >
             {MESSAGES.TEMPLATE.CREATE.CANCEL_BUTTON}
           </Button>

@@ -7,41 +7,47 @@ import { createStore, StoreType } from 'polotno/model/store';
 // components
 import GenericSnackbar from './components/GenericUIBlocks/GenericSnackbar';
 import CreateTemplate from './components/CreateTemplate';
-import { TemplateBuilder } from './index';
+import TemplateBuilder from './components/TemplateBuilder';
 
 
 // Initialize Plotno Store
-const initializeStore = () => {
+const initializeStore = (builderKey: string) => {
   return createStore({
-    key:"ysCpKe5xuksqn5IdNqHJ",
+    key: builderKey,
     // you can hide back-link on a paid license
     // but it will be good if you can keep it for Polotno project support
     showCredit: false,
   });
 };
 
-function App() {
-  const [store, setStore] = useState<StoreType>(initializeStore);
+interface AppProps {
+  builderKey: string,
+  returnRoute?: string | null;
+  styles?: React.CSSProperties;
+}
+
+const App: React.FC<AppProps> = ({ builderKey, returnRoute, styles }) => {
+  const [store, setStore] = useState<StoreType>(initializeStore(builderKey));
 
   const currentPath = window?.location?.pathname;
 
   useEffect(() => {
     if (currentPath === '/create-template') {
-      const newStore = initializeStore();
+      const newStore = initializeStore(builderKey);
       setStore(newStore);
     }
   }, [currentPath]);
 
-  
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<CreateTemplate />} />
-        <Route path="/template-builder" element={<TemplateBuilder store={store} />} />
+        <Route path="/" element={<CreateTemplate returnRoute={returnRoute} />} />
+        <Route path="/template-builder" element={<TemplateBuilder store={store} styles={styles} />} />
       </Routes>
 
       {/* SNACKBAR FOR NOTIFICATIONS */}
-      <GenericSnackbar/>
+      <GenericSnackbar />
     </>
   );
 }

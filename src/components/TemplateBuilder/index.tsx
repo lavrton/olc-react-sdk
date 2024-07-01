@@ -70,8 +70,8 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
   const navigate = useNavigate();
 
 
-  const template = useSelector((state: RootState) => state.templates.template)as Record <string, any>;
-  const product = useSelector((state: RootState) => state.templates.product) as Record <string, any>;
+  const template = useSelector((state: RootState) => state.templates.template) as Record<string, any>;
+  const product = useSelector((state: RootState) => state.templates.product) as Record<string, any>;
   const envelopeType = useSelector(
     (state: RootState) => state.templates.envelopeType
   );
@@ -133,7 +133,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
 
     return () => {
       store.history.clear();
-      store.clear(); 
+      store.clear();
       off();
     };
   }, []);
@@ -211,10 +211,10 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
       const reader = new FileReader();
       // Load Lexi Regular Base64 into JSON
       reader.onloadend = () => {
-        store.addFont ({
+        store.addFont({
           fontFamily: "lexi Regular",
           url: reader.result,
-        } as any) ;
+        } as any);
       };
       reader.readAsDataURL(blob);
     } catch (error) {
@@ -263,7 +263,9 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
           <PolotnoContainer
             style={containerStyle}
           >
-            <SidePanel store={store} />
+            {currentTemplateType !== "Real Penned Letter" &&
+              <SidePanel store={store} />
+            }
             <WorkspaceWrap>
               {currentTemplateType !== "Real Penned Letter" && (
                 <Toolbar store={store} downloadButtonEnabled={false} />

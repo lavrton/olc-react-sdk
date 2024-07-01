@@ -1,19 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "jsx": "react",
+    "noImplicitAny": true,
+    "outDir": "build/types",
     "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
     "strict": true,
-    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "lib": ["es2018", "dom"],
     "moduleResolution": "node",
-    "baseUrl": ".",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmitOnError": false,
+    "baseUrl" : ".",
     "paths": {
-      "@/*": ["src/*"]  
+      "~/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/*.tsx"],
+  "exclude": ["src/**/tests", "node_modules", "assets/**"],
 }
