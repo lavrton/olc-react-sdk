@@ -24,6 +24,6 @@
       "~/*": ["./src/*"]
     }
   },
-  "include": ["src/*.tsx"],
+  "include": ["src/*.tsx", "src/importMeta.d.ts"],
   "exclude": ["src/**/tests", "node_modules", "assets/**"],
 }

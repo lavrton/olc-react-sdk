@@ -11,9 +11,9 @@ import TemplateBuilder from './components/TemplateBuilder';
 
 
 // Initialize Plotno Store
-const initializeStore = (builderKey: string) => {
+const initializeStore = (secretKey: string) => {
   return createStore({
-    key: builderKey,
+    key: secretKey,
     // you can hide back-link on a paid license
     // but it will be good if you can keep it for Polotno project support
     showCredit: false,
@@ -21,19 +21,19 @@ const initializeStore = (builderKey: string) => {
 };
 
 interface AppProps {
-  builderKey: string,
+  secretKey: string,
   returnRoute?: string | null;
   styles?: React.CSSProperties;
 }
 
-const App: React.FC<AppProps> = ({ builderKey, returnRoute, styles }) => {
-  const [store, setStore] = useState<StoreType>(initializeStore(builderKey));
+const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles }) => {
+  const [store, setStore] = useState<StoreType>(initializeStore(secretKey));
 
   const currentPath = window?.location?.pathname;
 
   useEffect(() => {
     if (currentPath === '/create-template') {
-      const newStore = initializeStore(builderKey);
+      const newStore = initializeStore(secretKey);
       setStore(newStore);
     }
   }, [currentPath]);

@@ -15,8 +15,8 @@ import '@fontsource/inter/600.css'; // Weight 700
 interface TemplateBuilderProps {
   container: HTMLElement | null;
   apiKey: string;
-  mode: string;
-  builderKey: string;
+  mode: 'test' | 'live';
+  secretKey: string;
   returnRoute?: string | null;
   styles?: React.CSSProperties;
 }
@@ -24,8 +24,8 @@ interface TemplateBuilderProps {
 const TemplateBuilder = ({
   container,
   apiKey,
+  secretKey,
   mode,
-  builderKey,
   returnRoute,
   styles,
 }: TemplateBuilderProps): void => {
@@ -35,8 +35,8 @@ const TemplateBuilder = ({
   if (!apiKey) {
     throw new Error('apiKey not found');
   }
-  if (!builderKey) {
-    throw new Error('builderKey not found');
+  if (!secretKey) {
+    throw new Error('secretKey not found');
   }
   setApiKey(apiKey);
   setMode(mode);
@@ -45,7 +45,7 @@ const TemplateBuilder = ({
     <React.StrictMode>
       <Router>
         <Provider store={store}>
-          <App builderKey={builderKey} styles={styles} returnRoute={returnRoute} />
+          <App secretKey={secretKey} styles={styles} returnRoute={returnRoute} />
         </Provider>
       </Router>
     </React.StrictMode>
@@ -60,7 +60,7 @@ if (rootElement) {
     container: rootElement,
     apiKey: import.meta.env.VITE_APP_ACCESS_TOKEN,
     mode: 'live',
-    builderKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
+    secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
     returnRoute: '/'
   });
 } else {
