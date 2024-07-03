@@ -8,7 +8,6 @@
 
   label {
     color: var(--selectTextColor);
-    font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -19,8 +18,7 @@
   .generic-select-container {
     width: 100%;
     cursor: pointer;
-          font-family: Inter;
-          font-size: 14px;
+    font-size: 14px;
     .generic-select__control {
       height: 100%;
       min-height: 55px;
@@ -28,8 +26,8 @@
       border: 0.5px solid var(--selectBorderColor);
       border-radius: 7px;
       padding-left: 10px;
-      .generic-select__value-container{
-        .generic-select__single-value{
+      .generic-select__value-container {
+        .generic-select__single-value {
           color: var(--selectTextColor);
         }
       }
@@ -56,7 +54,6 @@
       .generic-select__menu-list {
         padding: 0px 5px;
         .generic-select__option {
-          font-family: Inter;
           font-size: 14px;
           font-weight: 400;
           line-height: 16.94px;

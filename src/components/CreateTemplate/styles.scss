@@ -19,7 +19,6 @@
       .tempTypeRadioHeading {
         p {
           color: var(--textColor);
-          font-family: Inter;
           font-size: 14px;
           font-style: normal;
           font-weight: 500;
@@ -51,7 +50,6 @@
           label {
             cursor: pointer;
             color: var(--textColor);
-            font-family: Inter;
             font-size: 14px;
             font-style: normal;
             font-weight: 500;
@@ -72,7 +70,6 @@
 
     p {
       color: var(--primaryColor);
-      font-family: Inter;
       font-size: 24px;
       font-style: normal;
       font-weight: 700;
@@ -83,7 +80,6 @@
     .templateInputWrapper {
       p {
         color: var(--textColor);
-        font-family: Inter;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -106,7 +102,6 @@
       p {
         &:first-child {
           color: var(--textColor);
-          font-family: Inter;
           font-size: 14px;
           font-style: normal;
           font-weight: 500;
@@ -115,7 +110,6 @@
 
         &:last-child {
           color: var(--primaryColor);
-          font-family: Inter;
           font-size: 10px;
           font-style: normal;
           font-weight: 400;
@@ -156,7 +150,6 @@
 
         p {
           color: var(--primaryColor);
-          font-family: Inter;
           font-size: 16px;
           font-style: normal;
           font-weight: 600;
@@ -189,7 +182,6 @@
     .postCardHeading {
       p {
         color: var(--textColor);
-        font-family: Inter;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -259,7 +251,6 @@
 
         p {
           color: var(--primaryColor);
-          font-family: Inter;
           font-size: 16px;
           font-style: normal;
           font-weight: 600;
@@ -321,7 +312,6 @@
         &:first-child {
           color: var(--secondaryButtonTextColor);
           text-align: center;
-          font-family: Inter;
           font-size: 14px;
           font-style: normal;
           font-weight: 600;
@@ -333,7 +323,6 @@
         &:last-child {
           color: var(--primaryButtonTextColor);
           text-align: center;
-          font-family: Inter;
           font-size: 14px;
           font-style: normal;
           font-weight: 600;

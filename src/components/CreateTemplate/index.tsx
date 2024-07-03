@@ -52,7 +52,6 @@ import './styles.scss';
 
 const templateHeadingStyles: React.CSSProperties = {
   color: `var(--primaryColor)`,
-  fontFamily: `Inter`,
   fontSize: `24px`,
   fontStyle: `normal`,
   fontWeight: `700`,

@@ -22,7 +22,6 @@ const options = {
     backgroundColor: '#EF7820',
     width: '400px',
     color: 'white',
-    fontFamily: 'Inter',
     fontSize: '16px',
     textAlign: 'center',
   },
