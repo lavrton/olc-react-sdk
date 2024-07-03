@@ -12,13 +12,18 @@ import '@fontsource/inter/400.css'; // Weight 400
 import '@fontsource/inter/700.css'; // Weight 700
 import '@fontsource/inter/600.css'; // Weight 700
 
+// utils
+import {CustomCSSProperties} from './utils/customStyles';
+
 interface TemplateBuilderProps {
   container: HTMLElement | null;
   apiKey: string;
   mode: 'test' | 'live';
   secretKey: string;
   returnRoute?: string | null;
-  styles?: React.CSSProperties;
+  styles?: {
+    root?: CustomCSSProperties;
+  };
 }
 
 const TemplateBuilder = ({
@@ -45,7 +50,10 @@ const TemplateBuilder = ({
     <React.StrictMode>
       <Router>
         <Provider store={store}>
-          <App secretKey={secretKey} styles={styles} returnRoute={returnRoute} />
+          <App 
+          secretKey={secretKey} 
+          styles={styles}
+          returnRoute={returnRoute} />
         </Provider>
       </Router>
     </React.StrictMode>
@@ -61,7 +69,8 @@ if (rootElement) {
     apiKey: import.meta.env.VITE_APP_ACCESS_TOKEN,
     mode: 'live',
     secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
-    returnRoute: '/'
+    returnRoute: '/',
+    // styles: {}
   });
 } else {
   console.error("Root element '#root' not found in the document.");

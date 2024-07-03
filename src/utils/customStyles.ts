@@ -1,61 +1,63 @@
-interface RootStyles {
-  '--sb-track-color': string;
-  '--sb-thumb-color': string;
-  '--primaryColor': string;
-  '--svgColor': string;
-  '--textColor': string;
-  '--productCardBgColor': string;
-  '--productCardBackgroundColorActive': string;
-  '--postCardBgColor': string;
-  '--postCardBackgroundColorActive': string;
-  '--postCardSVGColor': string;
-  '--inputBgColor': string;
-  '--inputTextColor': string;
-  '--inputBorderColor': string;
-  '--inputSearchAppliedBg': string;
-  '--inputSearchIcon': string;
-  '--selectBgColor': string;
-  '--selectTextColor': string;
-  '--selectBorderColor': string;
-  '--selectMenuBgColor': string;
-  '--selectOptionTextColor': string;
-  '--selectOptionBorderColor': string;
-  '--selectOptionFocusedColor': string;
-  '--selectOptionFocusedTextColor': string;
-  '--selectOptionSelectedColor': string;
-  '--selectOptionSelectedTextColor': string;
-  '--topbarBgColor': string;
-  '--sidepanelBgColor': string;
-  '--sidepanelTextColor': string;
-  '--sidepanelTextColorHover': string;
-  '--sidepanelSVGColor': string;
-  '--sidepanelSVGColorActive': string;
-  '--sidepanelOptionHoverColor': string;
-  '--customFieldBorderColor': string;
-  '--customFieldTextColor': string;
-  '--customFieldCopySVGColor': string;
-  '--cardBgColor': string;
-  '--cardTextColor': string;
-  '--dialogModalBgColor': string;
-  '--dialogModalHeadingColor': string;
-  '--dialogModalTextColor': string;
-  '--dialogModalSVGColor': string;
-  '--borderColor': string;
-  '--secondaryButtonBgColor': string;
-  '--secondaryButtonTextColor': string;
-  '--primaryButtonBgColor': string;
-  '--primaryButtonTextColor': string;
-  '--iconHoverBgColor': string;
-  '--mainBackgroundColor': string;
-  '--footerBgColor': string;
-  '--red': string;
+import React from 'react';
+
+export interface CustomCSSProperties extends React.CSSProperties {
+  '--sb-track-color'?: string;
+  '--sb-thumb-color'?: string;
+  '--primaryColor'?: string;
+  '--svgColor'?: string;
+  '--textColor'?: string;
+  '--productCardBgColor'?: string;
+  '--productCardBackgroundColorActive'?: string;
+  '--postCardBgColor'?: string;
+  '--postCardBackgroundColorActive'?: string;
+  '--postCardSVGColor'?: string;
+  '--inputBgColor'?: string;
+  '--inputTextColor'?: string;
+  '--inputBorderColor'?: string;
+  '--inputSearchAppliedBg'?: string;
+  '--inputSearchIcon'?: string;
+  '--selectBgColor'?: string;
+  '--selectTextColor'?: string;
+  '--selectBorderColor'?: string;
+  '--selectMenuBgColor'?: string;
+  '--selectOptionTextColor'?: string;
+  '--selectOptionBorderColor'?: string;
+  '--selectOptionFocusedColor'?: string;
+  '--selectOptionFocusedTextColor'?: string;
+  '--selectOptionSelectedColor'?: string;
+  '--selectOptionSelectedTextColor'?: string;
+  '--topbarBgColor'?: string;
+  '--sidepanelBgColor'?: string;
+  '--sidepanelTextColor'?: string;
+  '--sidepanelTextColorHover'?: string;
+  '--sidepanelSVGColor'?: string;
+  '--sidepanelSVGColorActive'?: string;
+  '--sidepanelOptionHoverColor'?: string;
+  '--customFieldBorderColor'?: string;
+  '--customFieldTextColor'?: string;
+  '--customFieldCopySVGColor'?: string;
+  '--cardBgColor'?: string;
+  '--cardTextColor'?: string;
+  '--dialogModalBgColor'?: string;
+  '--dialogModalHeadingColor'?: string;
+  '--dialogModalTextColor'?: string;
+  '--dialogModalSVGColor'?: string;
+  '--borderColor'?: string;
+  '--secondaryButtonBgColor'?: string;
+  '--secondaryButtonTextColor'?: string;
+  '--primaryButtonBgColor'?: string;
+  '--primaryButtonTextColor'?: string;
+  '--iconHoverBgColor'?: string;
+  '--mainBackgroundColor'?: string;
+  '--footerBgColor'?: string;
+  '--red'?: string;
 }
 
-interface Styles {
-  root: RootStyles;
+export interface Styles {
+  root: CustomCSSProperties;
 }
 
-export const styles: Styles = {
+export const customStyles: Styles = {
   root: {
     // scroll bars colors
     '--sb-track-color': '#232e33',
