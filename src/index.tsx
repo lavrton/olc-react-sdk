@@ -70,7 +70,7 @@ if (rootElement) {
     mode: 'live',
     secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
     returnRoute: '/',
-    // styles: {}
+    styles: {}
   });
 } else {
   console.error("Root element '#root' not found in the document.");
