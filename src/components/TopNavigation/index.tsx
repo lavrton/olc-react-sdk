@@ -55,7 +55,7 @@ import './styles.scss';
  */
 
 const buttonStyles: React.CSSProperties = {
-  maxWidth: '100px',
+  maxWidth: '120px',
   minHeight: '40px',
   backgroundColor: 'var(--secondaryButtonBgColor)',
   color: 'var(--secondaryButtonTextColor)',
@@ -357,7 +357,14 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
                 MESSAGES.TEMPLATE.DOWNLOAD_PROOF_BUTTON
               )}
             </Button>
-            <Button style={buttonStyles} onClick={() => handleBackPress()}>
+            <Button
+              style={{
+                ...buttonStyles,
+                border: '0.5px solid var(--primaryColor)',
+                color: 'var(--primaryColor)',
+              }}
+              onClick={() => handleBackPress()}
+            >
               {MESSAGES.TEMPLATE.CANCEL_BUTTON}
             </Button>
             <Button

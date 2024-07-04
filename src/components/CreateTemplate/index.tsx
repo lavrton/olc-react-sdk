@@ -190,17 +190,8 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                   }}
                   placeholder="Template Name"
                   inputIcon={false}
+                  error={!title.trim() && isError ? MESSAGES.TEMPLATE.NAME_REQUIRED : title.length > 50 && isError ? MESSAGES.TEMPLATE.NAME_LESS_50: ""}
                 />
-                {!title.trim() && isError && (
-                  <Typography className="error-field">
-                    *{MESSAGES.TEMPLATE.NAME_REQUIRED}
-                  </Typography>
-                )}
-                {title.length > 50 && isError && (
-                  <Typography className="error-field">
-                    *{MESSAGES.TEMPLATE.NAME_LESS_50}
-                  </Typography>
-                )}
               </div>
             </div>
           </GridItem>
@@ -254,24 +245,23 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
         {product && product.productType === 'Professional Letters' && (
           <GridContainer>
             <GridItem lg={6} md={6} sm={6} xs={12}>
-              <div className="createTemplateHeader">
-                <div className="templateInputWrapper">
-                  {/* <Typography>Envelope Type*</Typography> */}
-                  <GeneralSelect
-                    className={isError && ![envelopeType].length ? 'error' : ''}
-                    //@ts-ignore
-                    selectedValue={envelopeType}
-                    //@ts-ignore
-                    setSelectedValue={setEnvelopeType}
-                    //@ts-ignore
-                    options={envelopeTypes}
-                    placeholder="Envelope Type"
-                    error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
-                    isError={isError}
-                    label="Envelope Type*"
-                  />
-                </div>
+              {/* <div className="createTemplateHeader"> */}
+              <div className="templateSelectWrapper">
+                <GeneralSelect
+                  className={isError && ![envelopeType].length ? 'error' : ''}
+                  //@ts-ignore
+                  selectedValue={envelopeType}
+                  //@ts-ignore
+                  setSelectedValue={setEnvelopeType}
+                  //@ts-ignore
+                  options={envelopeTypes}
+                  placeholder="Envelope Type"
+                  error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
+                  isError={isError}
+                  label="Envelope Type*"
+                />
               </div>
+              {/* </div> */}
             </GridItem>
           </GridContainer>
         )}
@@ -311,22 +301,22 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                                     : ''
                                 }`
                               : index === 1
-                              ? `postCard postCard-mid ${
-                                  product.selectedSize === type.size
-                                    ? 'active'
-                                    : ''
-                                }`
-                              : index === 2
-                              ? `postCard postCard-large ${
-                                  product.selectedSize === type.size
-                                    ? 'active'
-                                    : ''
-                                }`
-                              : `postCard ${
-                                  product.selectedSize === type.size
-                                    ? 'active'
-                                    : ''
-                                }`
+                                ? `postCard postCard-mid ${
+                                    product.selectedSize === type.size
+                                      ? 'active'
+                                      : ''
+                                  }`
+                                : index === 2
+                                  ? `postCard postCard-large ${
+                                      product.selectedSize === type.size
+                                        ? 'active'
+                                        : ''
+                                    }`
+                                  : `postCard ${
+                                      product.selectedSize === type.size
+                                        ? 'active'
+                                        : ''
+                                    }`
                           }
                           key={index}
                         >

@@ -1,7 +1,7 @@
 :root {
   // scroll bars colors
-  --sb-track-color: #232e33;
-  --sb-thumb-color: #ed5c2f;
+  --sb-track-color: #fff8ee;
+  --sb-thumb-color: hsl(29, 100%, 88%);
   // primary color
   --primaryColor: #ed5c2f;
   --svgColor: #fdb515;
@@ -31,6 +31,7 @@
   --selectOptionFocusedTextColor: #000;
   --selectOptionSelectedColor: #fff8ee;
   --selectOptionSelectedTextColor: #000;
+  --selectOptionSelectedBg: #FFF8EE;
   // template builder colors
   --topbarBgColor: #fff;
   --sidepanelBgColor: #fff;

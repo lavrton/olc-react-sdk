@@ -86,7 +86,7 @@ const EditTemplateNameModel: React.FC<EditTemplateNameModelProps> = ({
         variant="input"
         type="text"
         label="Template Name"
-        placeholder="Edit Template Name"
+        placeholder="Holidays"
         value={title}
         onChange={e => setTitle(e.target.value)}
       />

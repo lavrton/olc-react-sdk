@@ -44,7 +44,7 @@ export const MESSAGES = {
       HEADING: "Are you sure you want to cancel this Template?",
       PARAGRAPH: "You will lose your changes after canceling.",
       BACK_BUTTON: "Go Back",
-      CANCEL_BUTTON: "Cancel",
+      CANCEL_BUTTON: "Cancel Template",
     },
     DESIGN_YOUR_OWN: {
       TITLE: "Confirm",

@@ -21,13 +21,15 @@
     min-height: 55px;
     width: 100%;
     background-color: var(--inputBgColor);
-
+    
     .basic-input {
       width: 100%;
       padding: 5px 20px;
       background: transparent;
       font-size: 14px;
-      font-weight: 400;
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 500;
+      line-height: 24px;
       color: var(--inputTextColor);
       border: none;
       border-radius: 7px;

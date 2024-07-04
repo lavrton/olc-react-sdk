@@ -26,6 +26,7 @@ export interface CustomCSSProperties extends React.CSSProperties {
   '--selectOptionFocusedTextColor'?: string;
   '--selectOptionSelectedColor'?: string;
   '--selectOptionSelectedTextColor'?: string;
+  '--selectOptionSelectedBg'?: string;
   '--topbarBgColor'?: string;
   '--sidepanelBgColor'?: string;
   '--sidepanelTextColor'?: string;
@@ -91,6 +92,7 @@ export const customStyles: Styles = {
     '--selectOptionFocusedTextColor': '#023047',
     '--selectOptionSelectedColor': '#ffb703',
     '--selectOptionSelectedTextColor': '#023047',
+     '--selectOptionSelectedBg': '#FFF8EE',
     // template builder colors
     '--topbarBgColor': '#023047',
     '--sidepanelBgColor': '#023047',

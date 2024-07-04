@@ -8,9 +8,10 @@ import App from './App';
 import './index.scss';
 
 // fonts
-import '@fontsource/inter/400.css'; // Weight 400
-import '@fontsource/inter/700.css'; // Weight 700
-import '@fontsource/inter/600.css'; // Weight 700
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/500.css';
 
 // utils
 import {CustomCSSProperties} from './utils/customStyles';

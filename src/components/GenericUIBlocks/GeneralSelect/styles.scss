@@ -19,6 +19,7 @@
     width: 100%;
     cursor: pointer;
     font-size: 14px;
+    line-height: 21px;
     .generic-select__control {
       height: 100%;
       min-height: 55px;
@@ -68,13 +69,6 @@
           &.generic-select__option--is-focused {
             background-color: var(--selectOptionFocusedColor);
             color: var(--selectOptionFocusedTextColor);
-          }
-          &.generic-select__option--is-selected {
-            background-color: transparent;
-            color: var(--selectOptionSelectedTextColor);
-            &:hover {
-              background-color: var(--selectOptionFocusedColor);
-            }
           }
         }
       }

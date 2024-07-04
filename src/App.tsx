@@ -9,7 +9,6 @@ import GenericSnackbar from './components/GenericUIBlocks/GenericSnackbar';
 import CreateTemplate from './components/CreateTemplate';
 import TemplateBuilder from './components/TemplateBuilder';
 import {createGlobalStyle} from 'styled-components';
-// import { Styles } from './customStyles';
 
 // Initialize Plotno Store
 const initializeStore = (secretKey: string) => {

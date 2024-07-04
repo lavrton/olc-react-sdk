@@ -12,6 +12,7 @@ import './styles.scss';
 
 const errorStyles = {
   color: '#FF0000',
+  fontWeight: "400"
 };
 
 interface InputProps {
