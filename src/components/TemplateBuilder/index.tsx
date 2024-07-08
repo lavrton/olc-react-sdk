@@ -58,10 +58,11 @@ import './styles.scss'
 
 interface TemplateBuilderProps {
   store: StoreType,
+  returnRoute?: string | null,
   styles?: React.CSSProperties;
 }
 
-const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
+const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, returnRoute }) => {
   const [isStoreUpdated, setIsStoreUpdated] = useState(false);
   const [switchTabCount, setSwitchTabCount] = useState(1);
 
@@ -109,7 +110,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
 
   useEffect(() => {
     if (!product) {
-      navigate('/');
+      navigate('/create-template');
     }
 
     setGoogleFonts(fonts);
@@ -259,6 +260,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles }) => {
           <TopNavigation
             store={store}
             isStoreUpdated={isStoreUpdated}
+            returnRoute={returnRoute}
           />
 
           <PolotnoContainer

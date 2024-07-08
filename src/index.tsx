@@ -69,7 +69,6 @@ if (rootElement) {
     apiKey: import.meta.env.VITE_APP_ACCESS_TOKEN,
     mode: 'live',
     secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
-    returnRoute: '/',
     styles: {}
   });
 } else {

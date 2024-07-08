@@ -5,7 +5,6 @@ import {
   CLEAR_DYNAMIC_FIELDS,
   REMOVE_FROM_DYNAMIC_FIELDS,
   GET_PRODUCTS,
-  GET_ALL_TEMPLATES,
   GET_ONE_TEMPLATE,
   TEMPLATE_LOADING,
   CLEAR_FIELDS,
@@ -257,20 +256,6 @@ const templateReducer = (state = initialState, { type, payload }): TemplateState
       return {
         ...state,
         products: payload.products,
-      };
-    case GET_ALL_TEMPLATES:
-      let _rows = [...payload.data.rows];
-      if (!payload.refresh) {
-        _rows = [...state.templates.rows, ..._rows];
-      }
-      return {
-        ...state,
-        templates: {
-          ...payload.data,
-          rows: _rows,
-          loading: false,
-        },
-        totalRecordsInDB: payload?.data?.totalRecordsInDB,
       };
     case GET_ONE_TEMPLATE:
       return {

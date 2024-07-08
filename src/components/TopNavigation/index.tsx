@@ -71,11 +71,13 @@ const progressStyles: React.CSSProperties = {
 
 interface TopNavigationProps {
   store: any;
+  returnRoute?: string | null;
   isStoreUpdated: boolean;
 }
 
 const TopNavigation: React.FC<TopNavigationProps> = ({
   store,
+  returnRoute,
   isStoreUpdated,
 }) => {
 
@@ -128,20 +130,20 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     setItem('formData', JSON.stringify(data));
   };
 
-  const handleBackPress = () => {
+  const handleBackPress = () => { 
     if (isStoreUpdated) {
       setShowNavigateDialog(!showNavigateDialog);
     } else {
-      handleNavigation();
+      handleNavigation(returnRoute ? returnRoute : '/create-template');
     }
   };
 
-  const handleNavigation = async () => {
+  const handleNavigation = async (route = '/') => {
     handleClearFilters();
     if (templateType === 'json') {
       await store.history.clear();
     }
-    navigate('/');
+    navigate(route);
   };
 
   const handleClearFilters = () => dispatch(clearTemplateFields());
@@ -316,7 +318,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         <ConfirmNavigateDialog
           open={showNavigateDialog}
           handleClose={() => setShowNavigateDialog(false)}
-          handleNavigateAction={handleNavigation}
+          handleNavigateAction={() => handleNavigation(returnRoute ? returnRoute : '/create-template')}
         />
       )}
       {isShowModel?.open && isShowModel?.model === 'edit' && (

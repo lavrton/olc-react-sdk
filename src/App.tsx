@@ -59,12 +59,12 @@ const App: React.FC<AppProps> = ({secretKey, returnRoute, styles}) => {
       <GlobalStyle />
       <Routes>
         <Route
-          path="/"
+          path="/create-template"
           element={<CreateTemplate returnRoute={returnRoute} />}
         />
         <Route
           path="/template-builder"
-          element={<TemplateBuilder store={store} />}
+          element={<TemplateBuilder store={store} returnRoute={returnRoute} />}
         />
       </Routes>
 

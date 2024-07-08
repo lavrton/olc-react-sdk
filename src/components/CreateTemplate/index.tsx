@@ -364,7 +364,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
               ...footerButtonStyles,
               border: '0.5px solid var(--borderColor)',
             }}
-            onClick={() => navigate(returnRoute ? returnRoute : '/')}
+            onClick={() => navigate(returnRoute ? returnRoute : '/create-template')}
           >
             {MESSAGES.TEMPLATE.CREATE.CANCEL_BUTTON}
           </Button>

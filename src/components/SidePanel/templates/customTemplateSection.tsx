@@ -6,7 +6,6 @@ import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
 import {
   clearAllTemplates,
-  getAllTemplates,
   getOneTemplate,
   getAllTemplateCategories,
   getAllTemplatesByTab,
@@ -123,10 +122,6 @@ const customTemplateSection: SideSection = {
       model: '',
     });
 
-    useEffect(() => {
-      dispatch(getAllTemplates());
-    }, []);
-
     const handleLoadTemplateModel = (record: any) => {
       setSelectedRecord(record);
       handleDialogChange('load-template');
@@ -200,19 +195,7 @@ const customTemplateSection: SideSection = {
       if (initialCall) {
         page = 1;
       }
-      dispatch(
-        getAllTemplates(
-          page,
-          10,
-          null as unknown as string,
-          null as unknown as string,
-          null as unknown as string,
-          'json',
-          product ? product.id : null,
-          initialCall,
-          true
-        )
-      );
+      // Call getAllTemplates if required.
     };
 
     const handleLoadTemplate = (id: any) => {
@@ -435,8 +418,8 @@ const customTemplateSection: SideSection = {
                   Design Your Own
                 </Typography>
               </div>
-              {templates.rows.length ? (
-                templates.rows.map((template: any, i: number) => (
+              {myTemplates.length ? (
+                myTemplates.map((template: any, i: number) => (
                   <div
                     className="design-template"
                     key={i}

@@ -12,7 +12,6 @@ import {
   CLEAR_DYNAMIC_FIELDS,
   REMOVE_FROM_DYNAMIC_FIELDS,
   GET_PRODUCTS,
-  GET_ALL_TEMPLATES,
   GET_ONE_TEMPLATE,
   TEMPLATE_LOADING,
   CLEAR_FIELDS,
@@ -27,53 +26,6 @@ import {
   SET_PRODUCT_DETAILS,
 } from './action-types';
 
-/**
- * Retrieves a list of templates from a server using an HTTP GET request.
- *
- * @param {number} [page=1] - The page number of the templates to retrieve.
- * @param {number} [pageSize=10] - The number of templates per page.
- * @returns {Promise<void>} - A promise that resolves when the action is dispatched.
- */
-const getAllTemplates =
-  (
-    page = 1,
-    pageSize = 10,
-    search = '',
-    productTypes = '',
-    creator = '',
-    templateType = '',
-    productId: number | null = null,
-    refresh = true,
-    isShared = false,
-  ) =>
-    async (dispatch: AppDispatch): Promise<void> => {
-      try {
-        dispatch({
-          type: TEMPLATE_PAGINATION_CHANGE,
-          payload: { data: { page, pageSize, loading: true } },
-        });
-        const { data = {} } = await get('templates', {
-          page,
-          pageSize,
-          search,
-          productTypes,
-          creator,
-          templateType,
-          // productId,
-          isShared,
-        }) as any;
-        dispatch({
-          type: GET_ALL_TEMPLATES,
-          payload: { data, refresh },
-        });
-        dispatch({
-          type: TEMPLATE_PAGINATION_CHANGE,
-          payload: { data: { page, pageSize, loading: false } },
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
 /**
  * Makes an HTTP GET request to the 'templates' endpoint and dispatches an action with the retrieved data.
@@ -481,7 +433,6 @@ export {
   removeItemFromDynamicField,
   getAllProducts,
   uploadTemplate,
-  getAllTemplates,
   getOneTemplate,
   createTemplate,
   updateTemplate,
