@@ -58,7 +58,7 @@ export default {
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader'],
+        type: "asset/inline"
       },
       {
         test: /\.(png|jpe?g|gif)$/i,

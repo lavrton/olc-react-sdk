@@ -14,7 +14,7 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/500.css';
 
 // utils
-import {CustomCSSProperties} from './utils/customStyles';
+import { CustomCSSProperties } from './utils/customStyles';
 
 interface TemplateBuilderProps {
   container: HTMLElement | null;
@@ -51,10 +51,10 @@ const TemplateBuilder = ({
     <React.StrictMode>
       <Router>
         <Provider store={store}>
-          <App 
-          secretKey={secretKey} 
-          styles={styles}
-          returnRoute={returnRoute} />
+          <App
+            secretKey={secretKey}
+            styles={styles}
+            returnRoute={returnRoute} />
         </Provider>
       </Router>
     </React.StrictMode>

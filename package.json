@@ -1,7 +1,7 @@
 {
   "name": "@openlettermarketing/olc-react-sdk",
   "private": false,
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "description": "Simplify template builder integration for any product.",
   "main": "build/index.js",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Open-Letter-Marketing/olc-react-sdk.git"
+    "url": "git+ssh://git@github.com/Open-Letter-Marketing/olc-react-sdk.git"
   },
   "keywords": [
     "olc",
