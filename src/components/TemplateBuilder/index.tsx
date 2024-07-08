@@ -119,12 +119,11 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
     if (id) {
       // @ts-ignore
       dispatch(getOneTemplate(id));
-      dispatch(getAllCustomFields());
     } else if (store.pages.length === 0) {
       createInitialPage();
+      
     }
-
-
+    dispatch(getAllCustomFields());
     const handleChange = () => {
       if (!isStoreUpdated) {
         setIsStoreUpdated(true);
