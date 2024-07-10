@@ -5,6 +5,9 @@
   // primary color
   --primaryColor: #ed5c2f;
   --svgColor: #fdb515;
+  --svgColorSecondary: #ed5c2f;
+  // main background color
+  --mainBackgroundColor: #ffffff;
   // text colors
   --textColor: #000;
   // product Card Background color
@@ -31,7 +34,7 @@
   --selectOptionFocusedTextColor: #000;
   --selectOptionSelectedColor: #fff8ee;
   --selectOptionSelectedTextColor: #000;
-  --selectOptionSelectedBg: #FFF8EE;
+  --selectOptionSelectedBg: #fff8ee;
   // template builder colors
   --topbarBgColor: #fff;
   --sidepanelBgColor: #fff;
@@ -39,6 +42,7 @@
   --sidepanelSVGColor: #303030;
   --sidepanelSVGColorActive: #ed5c2f;
   --sidepanelOptionHoverColor: #fff8ee;
+  --sidepanelTextColorHover: #ed5c2f;
   // custom fields colors
   --customFieldBorderColor: #303030;
   --customFieldTextColor: #303030;
@@ -91,20 +95,23 @@
     }
 
     .bp5-navbar {
-      z-index: auto !important;
+      z-index: 10;
       color: var(--textColor);
       background-color: var(--mainBackgroundColor);
       .bp5-card {
         color: var(--cardTextColor);
         background-color: var(--cardBgColor);
       }
-      .bp5-button-text {
+      .polotno-close-panel .bp5-button-text {
         color: var(--textColor);
       }
     }
 
     .go4160152499,
     .polotno-workspace-inner,
+    .polotno-panel-container,
+    .polotno-panel-container > div,
+    .polotno-panel-container > div > div,
     .polotno-panel-container > div > div > div {
       &::-webkit-scrollbar {
         width: 10px;
