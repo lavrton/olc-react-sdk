@@ -5,7 +5,6 @@ import {Routes, Route} from 'react-router-dom';
 import {createStore, StoreType} from 'polotno/model/store';
 
 // components
-import GenericSnackbar from './components/GenericUIBlocks/GenericSnackbar';
 import CreateTemplate from './components/CreateTemplate';
 import TemplateBuilder from './components/TemplateBuilder';
 import {createGlobalStyle} from 'styled-components';
@@ -66,9 +65,6 @@ const App: React.FC<AppProps> = ({secretKey, returnRoute, styles}) => {
           element={<TemplateBuilder store={store} returnRoute={returnRoute} />}
         />
       </Routes>
-
-      {/* SNACKBAR FOR NOTIFICATIONS */}
-      <GenericSnackbar />
     </>
   );
 };

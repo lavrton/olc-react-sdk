@@ -26,6 +26,7 @@ import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 import Typography from '../GenericUIBlocks/Typography';
 import Button from '../GenericUIBlocks/Button';
 import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
+import GenericSnackbar from '../GenericUIBlocks/GenericSnackbar'
 
 // Images
 //@ts-ignore
@@ -370,6 +371,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
           </Button>
         </div>
       </div>
+      <GenericSnackbar />
     </div>
   );
 };

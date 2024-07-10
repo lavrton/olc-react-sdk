@@ -37,6 +37,7 @@ import LexiRegularFont from "../../assets/Fonts/Lexi-Regular.ttf";
 // Components
 import TopNavigation from '../TopNavigation';
 import SidePanel from '../SidePanel';
+import GenericSnackbar from '../GenericUIBlocks/GenericSnackbar';
 
 import './styles.scss';
 
@@ -112,31 +113,37 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
     if (!product) {
       navigate('/create-template');
     }
+  }, []);
 
-    setGoogleFonts(fonts);
-    // remove this component from the history stack
 
-    if (id) {
-      // @ts-ignore
-      dispatch(getOneTemplate(id));
-    } else if (store.pages.length === 0) {
-      createInitialPage();
-      
-    }
-    dispatch(getAllCustomFields());
-    const handleChange = () => {
-      if (!isStoreUpdated) {
-        setIsStoreUpdated(true);
+  useEffect(() => {
+    if (product) {
+      setGoogleFonts(fonts);
+      // remove this component from the history stack
+
+      if (id) {
+        // @ts-ignore
+        dispatch(getOneTemplate(id));
+      } else if (store.pages.length === 0) {
+        createInitialPage();
+
       }
-    };
+      dispatch(getAllCustomFields());
 
-    const off = store.on("change", handleChange);
+      const handleChange = () => {
+        if (!isStoreUpdated) {
+          setIsStoreUpdated(true);
+        }
+      };
 
-    return () => {
-      store.history.clear();
-      store.clear();
-      off();
-    };
+      const off = store.on("change", handleChange);
+
+      return () => {
+        store.history.clear();
+        store.clear();
+        off();
+      };
+    }
   }, []);
 
   useEffect(() => {
@@ -284,6 +291,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
               <ZoomButtons store={store} />
             </WorkspaceWrap>
           </PolotnoContainer>
+          <GenericSnackbar />
         </div>
       )}
     </div>

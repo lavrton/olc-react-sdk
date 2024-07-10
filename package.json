@@ -1,7 +1,7 @@
 {
   "name": "@openlettermarketing/olc-react-sdk",
   "private": false,
-  "version": "0.0.8",
+  "version": "0.0.16",
   "type": "module",
   "description": "Simplify template builder integration for any product.",
   "main": "build/index.js",
@@ -43,15 +43,15 @@
     "deepmerge": "^4.3.1",
     "mobx-react-lite": "^4.0.7",
     "polotno": "^2.4.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
     "@reduxjs/toolkit": "^1.9.7",
-    "react-router-dom": "^6.18.0",
+    "react-router-dom": "^6.23.1",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
-    "react-tooltip": "^5.26.4",
+    "react-tooltip": "^5.27.0",
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
