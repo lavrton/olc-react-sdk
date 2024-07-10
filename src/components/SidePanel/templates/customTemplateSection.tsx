@@ -1,39 +1,39 @@
-import React, { useEffect , useState} from 'react';
-import { observer } from 'mobx-react-lite';
-import { SectionTab, } from 'polotno/side-panel';
-import { useDispatch, useSelector } from 'react-redux';
-import type { StoreType } from 'polotno/model/store';
-import type { TemplatesSection } from 'polotno/side-panel';
+import React, {useEffect, useState} from 'react';
+import {observer} from 'mobx-react-lite';
+import {SectionTab} from 'polotno/side-panel';
+import {useDispatch, useSelector} from 'react-redux';
+import type {StoreType} from 'polotno/model/store';
+import type {TemplatesSection} from 'polotno/side-panel';
 import {
   clearAllTemplates,
   getOneTemplate,
   getAllTemplateCategories,
   getAllTemplatesByTab,
 } from '../../../../src/redux/actions/templateActions';
-import { AppDispatch, RootState } from '../../../redux/store';
+import {AppDispatch, RootState} from '../../../redux/store';
 // @ts-ignore
-import DesignIcon from '../../../assets/images/templates/template-default-design.tsx'
+import DesignIcon from '../../../assets/images/templates/template-default-design.tsx';
 // @ts-ignore
-import dummyTemplateIcon from "../../../assets/images/templates/dummy-template.svg";
+import dummyTemplateIcon from '../../../assets/images/templates/dummy-template.svg';
 // @ts-ignore
 import CustomTemplate from '../../../assets/images/templates/custom-template';
 import Typography from '../../GenericUIBlocks/Typography';
 import './styles.scss';
 import Dialog from '../../GenericUIBlocks/Dialog';
-import { multiPageLetters, templateTypes, DPI } from '../../../utils/constants';
-import { drawRestrictedAreaOnPage } from "../../../utils/template-builder";
-import GeneralSelect from '../../GenericUIBlocks/GeneralSelect'
-import Input from '../../GenericUIBlocks/Input'
+import {multiPageLetters, templateTypes, DPI} from '../../../utils/constants';
+import {drawRestrictedAreaOnPage} from '../../../utils/template-builder';
+import GeneralSelect from '../../GenericUIBlocks/GeneralSelect';
+import Input from '../../GenericUIBlocks/Input';
 import ModalCross from '../../../assets/images/modal-icons/modal-cross';
-import { MESSAGES } from '../../../utils/message';
-import { TEMPLATE_LOADING } from '../../../redux/actions/action-types'
+import {MESSAGES} from '../../../utils/message';
+import {TEMPLATE_LOADING} from '../../../redux/actions/action-types';
 
 type SideSection = typeof TemplatesSection;
 
 const designDialogStyles = {
-  maxWidth: "600px",
-  minHeight: "270px"
-}
+  maxWidth: '600px',
+  minHeight: '270px',
+};
 
 const templateTextStyles: React.CSSProperties = {
   color: `var(--textColor)`,
@@ -43,7 +43,6 @@ const templateTextStyles: React.CSSProperties = {
   lineHeight: `normal`,
   marginBottom: `16px`,
 };
-
 
 export type Payload = {
   tab: string;
@@ -133,8 +132,8 @@ const customTemplateSection: SideSection = {
           currentTemplateType?.id === '1'
             ? 'my-templates'
             : currentTemplateType?.id === '2'
-            ? 'team-templates'
-            : 'olc-templates',
+              ? 'team-templates'
+              : 'olc-templates',
         page: 1,
         pageSize: 500,
         productId: product?.id,
@@ -326,7 +325,7 @@ const customTemplateSection: SideSection = {
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
-            icon={<ModalCross fill="var(--primaryColor)"/>}
+            icon={<ModalCross fill="var(--primaryColor)" />}
             title={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.TITLE}
             subHeading={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.HEADING}
             description={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.PARAGRAPH}
@@ -413,7 +412,7 @@ const customTemplateSection: SideSection = {
                 className="default-design"
                 onClick={() => handleDialogChange('design-own')}
               >
-                <DesignIcon fill="var(--svgColor)" />
+                <DesignIcon fill="var(--svgColorSecondary)" />
                 <Typography style={templateTextStyles}>
                   Design Your Own
                 </Typography>
@@ -502,4 +501,3 @@ const customTemplateSection: SideSection = {
 };
 
 export default customTemplateSection;
-
