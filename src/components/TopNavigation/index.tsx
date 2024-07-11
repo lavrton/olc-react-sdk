@@ -130,7 +130,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     setItem('formData', JSON.stringify(data));
   };
 
-  const handleBackPress = () => { 
+  const handleBackPress = () => {
     if (isStoreUpdated) {
       setShowNavigateDialog(!showNavigateDialog);
     } else {
@@ -140,7 +140,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
 
   const handleNavigation = async (route = '/') => {
     handleClearFilters();
-    if (templateType === 'json') {
+    if (templateType === 'json' && product?.productType !== 'Real Penned Letter') {
       await store.history.clear();
     }
     navigate(route);
@@ -152,7 +152,13 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     try {
       setDownloaingProof(true);
       const fields = [...defaultFields, ...Object.values(dynamicFields)];
-      const json = store.toJSON();
+      let json = store.toJSON();
+      if (product?.productType === "Real Penned Letter") {
+        let clonedJson = JSON.stringify(json)
+          .replace(/\(\(/g, "{{")
+          .replace(/\)\)/g, "}}");
+        json = JSON.parse(clonedJson);
+      }
       let jsonString = JSON.stringify(json);
       fields.forEach(({ key, defaultValue, value }) => {
         const regex = new RegExp(key, 'g');
@@ -200,7 +206,14 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
       let selectedFields: typeof allFields = [];
       if (templateType === 'json') {
         const blob = await store.toBlob();
-        const jsonData = store.toJSON();
+        let jsonData = store.toJSON();
+
+        if (product?.productType === "Real Penned Letter") {
+          let clonedJson = JSON.stringify(jsonData)
+            .replace(/\(\(/g, "{{")
+            .replace(/\)\)/g, "}}");
+          jsonData = JSON.parse(clonedJson);
+        }
 
         // get all fonts family from json
         const fontFamilies = extractFontFamilies(jsonData?.pages);
@@ -270,7 +283,9 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
       });
       if (response.status === 200) {
         dispatch(success(response.data.message));
-        handleNavigation();
+        setTimeout(() => {
+          handleNavigation();
+        }, 2000);
       } else if (response.status == 418) {
         // nothing to do
       } else {
@@ -279,7 +294,9 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     } catch (error) {
       handleChangeModel('', 'false');
     } finally {
-      setIsShowModel((prev) => ({ ...prev, loading: false }));
+      setTimeout(() => {
+        setIsShowModel((prev) => ({ ...prev, loading: false }));
+      }, 2000);
     }
   };
 
@@ -335,7 +352,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           handleSave={handleSave}
         />
       )}
-      <GridContainer style={{alignItems: 'center'}}>
+      <GridContainer style={{ alignItems: 'center' }}>
         <GridItem lg={4} md={4} sm={2} xs={12}></GridItem>
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
@@ -348,7 +365,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         <GridItem lg={4} md={6} sm={8} xs={12}>
           <div className="actionsBtnWrapper right">
             <Button
-              style={{...buttonStyles, maxWidth: 'auto', minWidth: '100px'}}
+              style={{ ...buttonStyles, maxWidth: 'auto', minWidth: '100px' }}
               onClick={handleViewProofWithLamda}
             >
               {downloadingProof ? (

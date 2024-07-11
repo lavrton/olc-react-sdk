@@ -48,16 +48,17 @@ const TemplateBuilder = ({
   setMode(mode);
   const root = ReactDOM.createRoot(container);
   root.render(
-    <React.StrictMode>
-      <Router>
-        <Provider store={store}>
+    <>
+      <Provider store={store}>
+        <Router>
+
           <App
             secretKey={secretKey}
             styles={styles}
             returnRoute={returnRoute} />
-        </Provider>
-      </Router>
-    </React.StrictMode>
+        </Router>
+      </Provider>
+    </>
   );
 };
 

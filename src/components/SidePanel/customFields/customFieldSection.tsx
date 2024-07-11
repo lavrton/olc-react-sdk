@@ -52,12 +52,23 @@ const customFieldSection: SideSection = {
       dispatch(fetchCustomFields());
     }, [dispatch]);
 
+
+    const copyCustomFieldText = (value: string) => {
+      if (currentTemplateType === "Real Penned Letter") {
+        let modifiedString = value.replace(/{{/g, "((").replace(/}}/g, "))");
+        copyToClipboard(modifiedString);
+        dispatch(success(`${modifiedString} Copied`));
+      } else {
+        copyToClipboard(value);
+        dispatch(success(`${value} Copied`));
+      }
+    };
+
     const handleAddElementOnScreen = (event: any, value: any, type: any) => {
       event.preventDefault();
 
-      if (currentTemplateType === 'Real Penned Letter') {
-        copyToClipboard(value);
-        dispatch(success(`${value} Copied`));
+      if (currentTemplateType === "Real Penned Letter") {
+        copyCustomFieldText(value);
         return;
       }
 
@@ -111,7 +122,7 @@ const customFieldSection: SideSection = {
               </span>
               <Button
                 style={iconButtonStyles}
-                onClick={() => copyToClipboard(key)}
+                onClick={() => copyCustomFieldText(key)}
               >
                 <ContentCopyIcon className="copy" />
               </Button>
@@ -132,7 +143,7 @@ const customFieldSection: SideSection = {
           </div>
           <Button onClick={handleShowDialog}></Button>
         </div>
-        {customFields.data?.map(
+        {customFields?.data?.map(
           ({key, value}: {key: string; value: string}, i: number) => (
             <div style={{display: 'flex', alignItems: 'center'}} key={i}>
               <span
@@ -145,7 +156,7 @@ const customFieldSection: SideSection = {
               </span>
               <Button
                 style={iconButtonStyles}
-                onClick={() => copyToClipboard(key)}
+                onClick={() => copyCustomFieldText(key)}
               >
                 <ContentCopyIcon
                   className="copy"

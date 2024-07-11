@@ -272,9 +272,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
           <PolotnoContainer
             style={containerStyle}
           >
-            {currentTemplateType !== "Real Penned Letter" &&
-              <SidePanel store={store} />
-            }
+            <SidePanel store={store} currentTemplateType={currentTemplateType} />
             <WorkspaceWrap>
               {currentTemplateType !== "Real Penned Letter" && (
                 <Toolbar store={store} downloadButtonEnabled={false} />
