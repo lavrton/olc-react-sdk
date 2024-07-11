@@ -51,7 +51,6 @@ const TemplateBuilder = ({
     <>
       <Provider store={store}>
         <Router>
-
           <App
             secretKey={secretKey}
             styles={styles}

@@ -23,7 +23,7 @@ import './styles.scss';
 
 const saveDialogStyles = {
   maxWidth: '433px',
-  minHeight: '290px',
+  minHeight: '280px',
 };
 
 interface SaveTemplateModelProps {

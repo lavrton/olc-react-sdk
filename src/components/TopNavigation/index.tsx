@@ -61,6 +61,7 @@ const buttonStyles: React.CSSProperties = {
   color: 'var(--secondaryButtonTextColor)',
   border: '0.5px solid var(--borderColor)',
   fontSize: '15px',
+  fontWeight: '500'
 };
 
 const progressStyles: React.CSSProperties = {

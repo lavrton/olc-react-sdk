@@ -55,7 +55,7 @@ const templateHeadingStyles: React.CSSProperties = {
   color: `var(--primaryColor)`,
   fontSize: `24px`,
   fontStyle: `normal`,
-  fontWeight: `700`,
+  fontWeight: `600`,
   lineHeight: `normal`,
   marginBottom: `20px`,
 };
@@ -64,7 +64,7 @@ const templateTextStyles: React.CSSProperties = {
   color: `var(--textColor)`,
   fontSize: `14px`,
   fontStyle: `normal`,
-  fontWeight: `500`,
+  fontWeight: `400`,
   lineHeight: `normal`,
   marginBottom: `16px`,
 };
@@ -78,6 +78,8 @@ const footerButtonStyles: React.CSSProperties = {
   borderRadius: '3px',
   backgroundColor: 'var(--secondaryButtonBgColor)',
   color: `var(--secondaryButtonTextColor)`,
+  fontSize: `14px`,
+  fontWeight: `500`,
 };
 
 const Images: Record<string, ReactElement> = {

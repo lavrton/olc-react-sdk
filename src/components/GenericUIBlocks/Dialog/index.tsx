@@ -36,13 +36,13 @@ const buttonStyles: CSSProperties = {
 const heading: CSSProperties = {
   fontSize: '22px',
   color: 'var(--dialogModalHeadingColor)',
-  fontWeight: '700',
+  fontWeight: '600',
 };
 
 const subHeadingStyle: CSSProperties = {
   fontSize: '16px',
-  color: 'var(--dialogModalTextColor',
-  fontWeight: '700',
+  color: 'var(--dialogModalTextColor)',
+  fontWeight: '600',
   textAlign: 'center',
 };
 
@@ -94,7 +94,7 @@ const Dialog: React.FC<DialogProps> = ({
           {description && (
             <Typography
               variant="p"
-              style={{...subHeadingStyle, fontWeight: '400'}}
+              style={{...subHeadingStyle, fontWeight: '400', fontSize: '14px'}}
             >
               {description}
             </Typography>
