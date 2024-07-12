@@ -312,7 +312,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         <GridItem lg={4} md={6} sm={8} xs={12}>
           <div className="actionsBtnWrapper right">
             <Button
-              style={{ ...buttonStyles, maxWidth: 'auto', minWidth: '100px' }}
+              style={{ ...buttonStyles, fontWeight: '400', maxWidth: 'auto', minWidth: '100px' }}
               onClick={handleViewProofWithLamda}
             >
               {downloadingProof ? (

@@ -95,7 +95,7 @@
     }
 
     .bp5-navbar {
-      z-index: 10;
+      z-index: auto !important;
       color: var(--textColor);
       background-color: var(--mainBackgroundColor);
       .bp5-card {

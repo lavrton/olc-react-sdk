@@ -27,9 +27,11 @@
       border: 0.5px solid var(--selectBorderColor);
       border-radius: 7px;
       padding-left: 10px;
+      font-size: 14px;
       .generic-select__value-container {
         .generic-select__single-value {
           color: var(--selectTextColor);
+          font-size: 14px;
         }
       }
       &:hover {
