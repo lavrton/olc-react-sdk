@@ -24,7 +24,7 @@ import { copyToClipboard } from '../../../utils/helper';
 // Icons
 import InfoIcon from '../../../assets/images/templates/info-icon';
 import ContentCopyIcon from '../../..//assets/images/templates/content-copy-icon';
-import DynamicField from '../../../assets/images/templates/dynamic-field';
+import Field from '../../../assets/images/templates/field';
 
 // Styles
 import './styles.scss'
@@ -48,7 +48,7 @@ const customFieldSection: SideSection = {
   Tab: observer(
     (props: { store: StoreType; active: boolean; onClick: () => void }) => (
       <SectionTab name="Fields" {...props}>
-        <DynamicField stroke="var(--sidepanelSVGColor)" />
+        <Field fill="var(--sidepanelSVGColor)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],

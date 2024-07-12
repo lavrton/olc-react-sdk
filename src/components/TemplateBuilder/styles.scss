@@ -17,10 +17,7 @@
               svg {
                 color: var(--primaryColor);
                 path {
-                  stroke: var(--primaryColor) !important;
-                }
-                line {
-                  stroke: var(--primaryColor) !important;
+                  fill: var(--primaryColor) !important;
                 }
               }
             }

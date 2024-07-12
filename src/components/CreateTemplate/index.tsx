@@ -180,9 +180,6 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                 {MESSAGES.TEMPLATE.CREATE.TITLE}
               </Typography>
               <div className="templateInputWrapper">
-                <Typography style={templateTextStyles}>
-                  {MESSAGES.TEMPLATE.CREATE.TEMPLATE_LABEL}
-                </Typography>
                 <Input
                   type="text"
                   value={title}
@@ -191,7 +188,14 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                   }}
                   placeholder="Template Name"
                   inputIcon={false}
-                  error={!title.trim() && isError ? MESSAGES.TEMPLATE.NAME_REQUIRED : title.length > 50 && isError ? MESSAGES.TEMPLATE.NAME_LESS_50: ""}
+                  error={
+                    !title.trim() && isError
+                      ? MESSAGES.TEMPLATE.NAME_REQUIRED
+                      : title.length > 50 && isError
+                        ? MESSAGES.TEMPLATE.NAME_LESS_50
+                        : ''
+                  }
+                  label={MESSAGES.TEMPLATE.CREATE.TEMPLATE_LABEL}
                 />
               </div>
             </div>
@@ -202,7 +206,9 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
           <GridItem lg={12} md={12} sm={12} xs={12}>
             <div className="productTypeWrapper">
               <div className="productHeading">
-                <Typography style={templateTextStyles}>
+                <Typography
+                  style={{...templateTextStyles, marginBottom: '0px'}}
+                >
                   {MESSAGES.TEMPLATE.CREATE.PRODUCT_LABEL}
                 </Typography>
                 <NavLink to={PRODUCT_LEARN_URL} target="_blank">
@@ -355,7 +361,9 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
               ...footerButtonStyles,
               border: '0.5px solid var(--borderColor)',
             }}
-            onClick={() => navigate(returnRoute ? returnRoute : '/create-template')}
+            onClick={() =>
+              navigate(returnRoute ? returnRoute : '/create-template')
+            }
           >
             {MESSAGES.TEMPLATE.CREATE.CANCEL_BUTTON}
           </Button>
