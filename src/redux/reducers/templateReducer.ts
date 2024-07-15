@@ -1,25 +1,20 @@
 /* eslint-disable no-case-declarations */
 import {
-  SET_DYNAMIC_FIELDS,
-  SET_DYNAMIC_FIELD_VALUE,
-  CLEAR_DYNAMIC_FIELDS,
-  REMOVE_FROM_DYNAMIC_FIELDS,
-  GET_PRODUCTS,
   GET_ONE_TEMPLATE,
   TEMPLATE_LOADING,
-  CLEAR_FIELDS,
   TEMPLATE_PAGINATION_CHANGE,
   TEMPLATE_SEARCH,
   CLEAR_ALL_TEMPLATE,
   SELECT_PRODUCT,
   SELECT_POSTCARD,
   CLEAR_TEMPLATE_FIELDS,
-  GET_DYNAMIC_FIELDS_FROM_SERVER,
   LOAD_DATA_FROM_LOCAL_STORAGE,
-  SET_PRODUCT_DETAILS,
   CLEAR_TEMPLATE,
   CLEAR_REDUX
 } from "../actions/action-types";
+
+// Utils
+import { Products } from "../../utils/products";
 
 export interface DynamicField {
   value: string;
@@ -199,7 +194,7 @@ const initialState: TemplateState = {
       defaultValue: "johndoe@gmail.com",
     },
   ],
-  products: [],
+  products: Products,
   productDetailByTemplate: [],
   templates: {
     count: 0,
@@ -227,36 +222,6 @@ const initialState: TemplateState = {
 // @ts-ignore
 const templateReducer = (state = initialState, { type, payload }): TemplateState => {
   switch (type) {
-    case SET_DYNAMIC_FIELD_VALUE:
-      return {
-        ...state,
-        dynamicField: payload.value,
-      };
-    case SET_DYNAMIC_FIELDS:
-      return {
-        ...state,
-        dynamicFields: {
-          ...state.dynamicFields,
-          [state.dynamicField]: {
-            value: state.dynamicField,
-            key: `{{${state.dynamicField.replace(/ /g, "_").toUpperCase()}}}`,
-            defaultValue: `[${state.dynamicField}]`,
-          },
-        },
-        dynamicField: "",
-      };
-    case REMOVE_FROM_DYNAMIC_FIELDS:
-      const dynamicFields = { ...state.dynamicFields };
-      delete dynamicFields[payload.value];
-      return {
-        ...state,
-        dynamicFields: dynamicFields,
-      };
-    case GET_PRODUCTS:
-      return {
-        ...state,
-        products: payload.products,
-      };
     case GET_ONE_TEMPLATE:
       return {
         ...state,
@@ -306,10 +271,6 @@ const templateReducer = (state = initialState, { type, payload }): TemplateState
           productType: payload.productType,
         },
       };
-    case CLEAR_DYNAMIC_FIELDS:
-      return initialState;
-    case CLEAR_FIELDS:
-      return initialState;
     case CLEAR_ALL_TEMPLATE:
       return {
         ...state,
@@ -324,16 +285,6 @@ const templateReducer = (state = initialState, { type, payload }): TemplateState
         dynamicFields: {},
         templateType: "json",
         envelopeType: "",
-      };
-    case GET_DYNAMIC_FIELDS_FROM_SERVER:
-      return {
-        ...state,
-        dynamicFields: payload.data,
-      };
-    case SET_PRODUCT_DETAILS:
-      return {
-        ...state,
-        productDetailByTemplate: payload,
       };
     case LOAD_DATA_FROM_LOCAL_STORAGE:
       return {

@@ -1,15 +1,10 @@
 import {
-  FETCH_CUSTOM_FIELDS_REQUEST,
   SET_CUSTOM_FIELDS,
-} from '../actions/customFieldAction';
+} from '../actions/action-types';
 
-
-// TODO: Review this
 export interface CustomFieldState {
   customFields: any[];
   defaultDynamicFields: any[];
-  loading: boolean;
-  error: string | null;
 }
 
 const initialState: CustomFieldState = {
@@ -71,22 +66,13 @@ const initialState: CustomFieldState = {
       defaultValue: "johndoe@gmail.com",
     },
   ],
-  loading: false,
-  error: null,
 };
 
 const customFieldReducer = (state = initialState, action: any): CustomFieldState => {
   switch (action.type) {
-    case FETCH_CUSTOM_FIELDS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
     case SET_CUSTOM_FIELDS:
       return {
         ...state,
-        loading: false,
         customFields: action.payload,
       };
     default:

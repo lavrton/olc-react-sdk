@@ -1,43 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+// Polotno and thrid party libraries
 import { observer } from 'mobx-react-lite';
 import { SectionTab, } from 'polotno/side-panel';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect , useState} from 'react';
 import type { StoreType } from 'polotno/model/store';
 import type { TemplatesSection } from 'polotno/side-panel';
+
+// Hooks
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store';
-import { fetchCustomFields } from '../../../redux/actions/customFieldAction';
+
+// Actions
+import { failure, success } from '../../../redux/actions/snackbarActions';
+import { SET_CUSTOM_FIELDS } from '../../../redux/actions/action-types';
+
+// Components
 import Button from '../../GenericUIBlocks/Button';
-import { copyToClipboard } from '../../../utils/helper';
-import './styles.scss'
 import GeneralTootip from '../../GenericUIBlocks/GeneralTooltip';
+
+// Utils
+import { copyToClipboard } from '../../../utils/helper';
+
+// Icons
 import InfoIcon from '../../../assets/images/templates/info-icon';
 import ContentCopyIcon from '../../..//assets/images/templates/content-copy-icon';
 import DynamicField from '../../../assets/images/templates/dynamic-field';
-import { success } from '../../../redux/actions/snackbarActions';
+
+// Styles
+import './styles.scss'
+
 
 type SideSection = typeof TemplatesSection;
 
-const iconButtonStyles= {
+const iconButtonStyles = {
   backgroundColor: 'transparent',
 }
+
+type CustomFieldsSectionProps = {
+  store: StoreType;
+  active: boolean;
+  onClick: () => void;
+  onGetCustomFields?: () => Promise<any>;
+};
 
 const customFieldSection: SideSection = {
   name: 'Fields',
   Tab: observer(
-    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
+    (props: { store: StoreType; active: boolean; onClick: () => void }) => (
       <SectionTab name="Fields" {...props}>
         <DynamicField stroke="var(--sidepanelSVGColor)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
 
-  Panel: observer(({store}) => {
+  Panel: observer(({ store, onGetCustomFields }: CustomFieldsSectionProps) => {
     const [isShowDialog, setIsShowDialog] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
     const customFields = useSelector(
       (state: RootState) => state.customFields.customFields
     ) as Record<string, any>;
+
     const defaultDynamicFields = useSelector(
       (state: RootState) => state.customFields.defaultDynamicFields
     );
@@ -48,9 +70,23 @@ const customFieldSection: SideSection = {
       setIsShowDialog((prev) => !prev);
     };
 
+    const fetchCustomFields = async () => {
+      if (onGetCustomFields) {
+        const customFields: any = await onGetCustomFields();
+        if (customFields?.length) {
+          dispatch({
+            type: SET_CUSTOM_FIELDS,
+            payload: customFields
+          })
+        }
+      } else {
+        dispatch(failure("Please add onGetCustomFields handler Via Props to load all custom fields"));
+      }
+    }
+
     useEffect(() => {
-      dispatch(fetchCustomFields());
-    }, [dispatch]);
+      fetchCustomFields()
+    }, []);
 
 
     const copyCustomFieldText = (value: string) => {
@@ -105,18 +141,15 @@ const customFieldSection: SideSection = {
             <GeneralTootip
               anchorSelect=".infoIcon"
               place="bottom"
-              title="Merge fields allow you to personalize your mailer with contact information."
-            />
+              title="Merge fields allow you to personalize your mailer with contact information." />
           </div>
         </div>
         {defaultDynamicFields.map(
-          ({key, value}: {key: string; value: string}, i: number) => (
-            <div style={{display: 'flex', alignItems: 'center'}} key={i}>
+          ({ key, value }: { key: string; value: string; }, i: number) => (
+            <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
               <span
                 className="contact-element"
-                onClick={(event) =>
-                  handleAddElementOnScreen(event, key, 'click')
-                }
+                onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
               >
                 {value}
               </span>
@@ -138,19 +171,16 @@ const customFieldSection: SideSection = {
             <GeneralTootip
               anchorSelect=".custom"
               place="bottom"
-              title="You can add custom fields to your template."
-            />
+              title="You can add custom fields to your template." />
           </div>
           <Button onClick={handleShowDialog}></Button>
         </div>
-        {customFields?.data?.map(
-          ({key, value}: {key: string; value: string}, i: number) => (
-            <div style={{display: 'flex', alignItems: 'center'}} key={i}>
+        {customFields?.map(
+          ({ key, value }: { key: string; value: string; }, i: number) => (
+            <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
               <span
                 className="contact-element"
-                onClick={(event) =>
-                  handleAddElementOnScreen(event, key, 'click')
-                }
+                onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
               >
                 {value}
               </span>
@@ -159,15 +189,14 @@ const customFieldSection: SideSection = {
                 onClick={() => copyCustomFieldText(key)}
               >
                 <ContentCopyIcon
-                  className="copy"
-                />
+                  className="copy" />
               </Button>
             </div>
           )
         )}
       </div>
     );
-  }) as SideSection['Panel'],
+  }) as unknown as SideSection['Panel'],
 };
 
 export default customFieldSection;

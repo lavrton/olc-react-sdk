@@ -7,9 +7,6 @@ import { AppDispatch, RootState } from '../../redux/store';
 
 // Actions
 import {
-  uploadTemplate,
-  createTemplate,
-  updateTemplate,
   clearTemplateFields,
   loadFormDataToStore,
   downloadProof,
@@ -20,7 +17,6 @@ import { failure, success } from '../../redux/actions/snackbarActions';
 import SaveTemplateModel from './SaveTemplateModel';
 import ConfirmNavigateDialog from './ConfirmNavigateDialog';
 import EditTemplateNameModel from './EditTemplateNameModel';
-
 
 // Utils
 import { downloadPDF, extractFontFamilies, multiPageTemplates } from '../../utils/template-builder';
@@ -34,7 +30,6 @@ import Typography from "../GenericUIBlocks/Typography";
 import Button from "../GenericUIBlocks/Button";
 import CircularProgress from "../GenericUIBlocks/CircularProgress";
 import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
-
 
 // Icons
 // @ts-ignore
@@ -74,12 +69,14 @@ interface TopNavigationProps {
   store: any;
   returnRoute?: string | null;
   isStoreUpdated: boolean;
+  onSubmit?: (payload: any) => Promise<any>;
 }
 
 const TopNavigation: React.FC<TopNavigationProps> = ({
   store,
   returnRoute,
   isStoreUpdated,
+  onSubmit,
 }) => {
 
   const [showNavigateDialog, setShowNavigateDialog] = useState<boolean>(false);
@@ -204,7 +201,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     try {
       const formData = new FormData();
       const allFields = [...defaultFields, ...Object.values(dynamicFields)];
-      let selectedFields: typeof allFields = [];
+      let selectedFields: any = [];
       if (templateType === 'json') {
         const blob = await store.toBlob();
         let jsonData = store.toJSON();
@@ -247,79 +244,28 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
       }
       setIsShowModel((prev) => ({ ...prev, loading: true }));
 
-      const response: any = await uploadTemplate(formData);
-      if (response?.status === 200) {
-        if (!id) {
-          setTimeout(async () => await handleCreateTemplate(response?.data?.data, selectedFields), 1000);
-        } else {
-          setTimeout(async () => await handleUpdateTemplate(response?.data?.data, selectedFields), 1000)
+      formData.append('title', title);
+      formData.append('productId', product?.id);
+      formData.append('fields', selectedFields);
+      formData.append('envelopeType', envelopeType);
+
+      if (onSubmit) {
+        const saveTemplate = await onSubmit(formData);
+        if (saveTemplate) {
+          dispatch(success('Template Created Successfully'));
+          setTimeout(() => {
+            handleNavigation();
+          }, 2000)
         }
-      } else if (response?.status === 418 && response?.data?.message == "You have reached your Templates limit, updgrade you Plan to add more") {
-        handleChangeModel('', 'false');
       } else {
-        dispatch(
-          failure(
-            response?.data?.message ||
-            MESSAGES.GENERAL_ERROR
-          )
-        );
-        handleChangeModel('', 'false');
+        dispatch(failure("Please add onSubmit handler via Props to save template"))
       }
     } catch (error) {
       return error;
-    }
-  };
-
-  const handleCreateTemplate = async (data: any, selectedFields: any) => {
-    try {
-      const response: any = await createTemplate({
-        title: title,
-        productId: product?.id,
-        fields: selectedFields,
-        thumbnailPath: data.thumbnailPath,
-        templatePath: data.templatePath,
-        backTemplatePath: data.backTemplatePath || '',
-        backThumbnailPath: data.backThumbnailPath || '',
-        envelopeType,
-      });
-      if (response.status === 200) {
-        dispatch(success(response.data.message));
-        setTimeout(() => {
-          handleNavigation();
-        }, 2000);
-      } else if (response.status == 418) {
-        // nothing to do
-      } else {
-        dispatch(failure(response?.data?.message || response?.message));
-      }
-    } catch (error) {
-      handleChangeModel('', 'false');
     } finally {
-      setTimeout(() => {
-        setIsShowModel((prev) => ({ ...prev, loading: false }));
-      }, 2000);
+      setIsShowModel((prev) => ({ ...prev, loading: false }));
     }
   };
-
-  const handleUpdateTemplate = async (data: any, selectedFields: any) => {
-    // @ts-ignore
-    const response: any = await updateTemplate(id, {
-      title: title,
-      fields: selectedFields,
-      thumbnailPath: data.thumbnailPath,
-      templatePath: data.templatePath,
-      backTemplatePath: data.backTemplatePath || '',
-      backThumbnailPath: data.backThumbnailPath || '',
-    });
-    if (response.status === 200) {
-      dispatch(success(response.data.message));
-      handleNavigation();
-    } else {
-      dispatch(failure(response.data.message));
-    }
-    handleChangeModel('', 'false');
-  };
-
 
   const handleChangeModel = (model: string = '', loading: string | null = null) => {
     setIsShowModel((prev) => ({

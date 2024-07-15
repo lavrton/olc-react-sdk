@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { setApiKey, setMode } from './utils/helper';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -18,10 +17,11 @@ import { CustomCSSProperties } from './utils/customStyles';
 
 interface TemplateBuilderProps {
   container: HTMLElement | null;
-  apiKey: string;
-  mode: 'test' | 'live';
   secretKey: string;
   returnRoute?: string | null;
+  onGetTemplates?: (payload: any) => Promise<any>;
+  onGetCustomFields?: () => Promise<any>;
+  onSubmit?: (payload: any) => Promise<any>;
   styles?: {
     root?: CustomCSSProperties;
   };
@@ -29,23 +29,19 @@ interface TemplateBuilderProps {
 
 const TemplateBuilder = ({
   container,
-  apiKey,
   secretKey,
-  mode,
   returnRoute,
+  onGetTemplates,
+  onGetCustomFields,
+  onSubmit,
   styles,
 }: TemplateBuilderProps): void => {
   if (!container) {
     throw new Error('Root element not found');
   }
-  if (!apiKey) {
-    throw new Error('apiKey not found');
-  }
   if (!secretKey) {
     throw new Error('secretKey not found');
   }
-  setApiKey(apiKey);
-  setMode(mode);
   const root = ReactDOM.createRoot(container);
   root.render(
     <>
@@ -54,7 +50,11 @@ const TemplateBuilder = ({
           <App
             secretKey={secretKey}
             styles={styles}
-            returnRoute={returnRoute} />
+            returnRoute={returnRoute}
+            onSubmit={onSubmit}
+            onGetTemplates={onGetTemplates}
+            onGetCustomFields={onGetCustomFields}
+          />
         </Router>
       </Provider>
     </>
@@ -65,10 +65,9 @@ const TemplateBuilder = ({
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
+  console.log("React SDK Loaded");
   TemplateBuilder({
     container: rootElement,
-    apiKey: import.meta.env.VITE_APP_ACCESS_TOKEN,
-    mode: 'live',
     secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
     styles: {}
   });

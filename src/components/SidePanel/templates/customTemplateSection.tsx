@@ -1,32 +1,47 @@
-import React, {useEffect, useState} from 'react';
-import {observer} from 'mobx-react-lite';
-import {SectionTab} from 'polotno/side-panel';
-import {useDispatch, useSelector} from 'react-redux';
-import type {StoreType} from 'polotno/model/store';
-import type {TemplatesSection} from 'polotno/side-panel';
+import React, { useEffect, useState } from 'react';
+
+// Polotno and third party libraries
+import { observer } from 'mobx-react-lite';
+import { SectionTab } from 'polotno/side-panel';
+import type { StoreType } from 'polotno/model/store';
+import type { TemplatesSection } from 'polotno/side-panel';
+
+// Actions
 import {
   clearAllTemplates,
   getOneTemplate,
   getAllTemplateCategories,
-  getAllTemplatesByTab,
 } from '../../../../src/redux/actions/templateActions';
-import {AppDispatch, RootState} from '../../../redux/store';
+import { TEMPLATE_LOADING } from '../../../redux/actions/action-types';
+import { failure } from '../../../redux/actions/snackbarActions';
+
+// Hooks
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../redux/store';
+
+// Utils
+import { multiPageLetters, templateTypes, DPI } from '../../../utils/constants';
+import { drawRestrictedAreaOnPage } from '../../../utils/template-builder';
+import { MESSAGES } from '../../../utils/message';
+
+// Components
+import Typography from '../../GenericUIBlocks/Typography';
+import Dialog from '../../GenericUIBlocks/Dialog';
+import GeneralSelect from '../../GenericUIBlocks/GeneralSelect';
+import Input from '../../GenericUIBlocks/Input';
+
+// Icons
 // @ts-ignore
 import DesignIcon from '../../../assets/images/templates/template-default-design.tsx';
 // @ts-ignore
 import dummyTemplateIcon from '../../../assets/images/templates/dummy-template.svg';
 // @ts-ignore
 import CustomTemplate from '../../../assets/images/templates/custom-template';
-import Typography from '../../GenericUIBlocks/Typography';
-import './styles.scss';
-import Dialog from '../../GenericUIBlocks/Dialog';
-import {multiPageLetters, templateTypes, DPI} from '../../../utils/constants';
-import {drawRestrictedAreaOnPage} from '../../../utils/template-builder';
-import GeneralSelect from '../../GenericUIBlocks/GeneralSelect';
-import Input from '../../GenericUIBlocks/Input';
 import ModalCross from '../../../assets/images/modal-icons/modal-cross';
-import {MESSAGES} from '../../../utils/message';
-import {TEMPLATE_LOADING} from '../../../redux/actions/action-types';
+
+// styles
+import './styles.scss';
+
 
 type SideSection = typeof TemplatesSection;
 
@@ -71,22 +86,27 @@ type TemplateRecord = {
   title: string;
 };
 
+type CustomTemplateSectionProps = {
+  store: StoreType;
+  active: boolean;
+  onClick: () => void;
+  onGetTemplates?: (payload: Payload) => Promise<any>;
+};
+
 const customTemplateSection: SideSection = {
   name: 'Templates',
   Tab: observer(
-    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
+    (props: { store: StoreType; active: boolean; onClick: () => void }) => (
       <SectionTab name="Templates" {...props}>
         <CustomTemplate fill="var(--sidepanelSVGColor)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
-  Panel: observer(({store}) => {
+  Panel: observer(({ store, onGetTemplates }: CustomTemplateSectionProps) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const [currentTemplateType, setCurrentTemplateType] =
-      useState<TemplateType>(templateTypes[0]);
-    const [selectedCategory, setSelectedCategory] =
-      useState<TemplateCategory | null>(null);
+    const [currentTemplateType, setCurrentTemplateType] = useState<TemplateType>(templateTypes[0]);
+    const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | null>(null);
     const [selectedRecord, setSelectedRecord] = useState<TemplateRecord | null>(
       null
     );
@@ -128,12 +148,11 @@ const customTemplateSection: SideSection = {
 
     const getTemplatesByTab = async () => {
       const payload: Payload = {
-        tab:
-          currentTemplateType?.id === '1'
-            ? 'my-templates'
-            : currentTemplateType?.id === '2'
-              ? 'team-templates'
-              : 'olc-templates',
+        tab: currentTemplateType?.id === '1'
+          ? 'my-templates'
+          : currentTemplateType?.id === '2'
+            ? 'team-templates'
+            : 'olc-templates',
         page: 1,
         pageSize: 500,
         productId: product?.id,
@@ -142,21 +161,25 @@ const customTemplateSection: SideSection = {
       currentTemplateType?.id === '3'
         ? (payload.categoryIds = selectedCategory?.id.split(','))
         : undefined;
-
-      const templates = await getAllTemplatesByTab(payload);
-      if (templates.status === 200) {
-        if (currentTemplateType?.id === '1') {
-          setMyTemplates(templates?.data?.data?.rows);
-        } else if (currentTemplateType?.id === '2') {
-          setTeamTemplates(templates?.data?.data?.rows);
-        } else {
-          setOlcTemplates(templates?.data?.data?.rows);
+      if (onGetTemplates) {
+        const templates: any = await onGetTemplates(payload);
+        if (templates.length) {
+          if (currentTemplateType?.id === '1') {
+            setMyTemplates(templates);
+          } else if (currentTemplateType?.id === '2') {
+            setTeamTemplates(templates);
+          } else {
+            setOlcTemplates(templates);
+          }
         }
+      } else {
+        dispatch(failure("Please provide onGetTemplates handler via Props to load templates"))
       }
     };
 
+    // TODO Call New Route / Recive via Props for Templates Category
     const getAllCategories = async () => {
-      const categories: Record<string, any> = await dispatch(
+      const categories: Record<string, any> = dispatch(
         getAllTemplateCategories
       );
       if (categories?.status === 200) {
@@ -203,23 +226,23 @@ const customTemplateSection: SideSection = {
     };
 
     const handleDialogChange = (model = '') => {
-      setIsShowDialog((prev) => ({open: !prev.open, model: model}));
+      setIsShowDialog((prev) => ({ open: !prev.open, model: model }));
     };
 
     const processPage = async (index: any, page: any) => {
-      return new Promise<void>((resolve, reject) => {
+      return new Promise<void>((resolve) => {
         let pageNumber = page.children.find(
           (el: any) => el.custom?.name === 'page-number'
         );
         const text = index === 0 ? 'Front' : 'Back';
 
         if (pageNumber) {
-          pageNumber.set({text});
+          pageNumber.set({ text });
           resolve();
         } else {
           page.addElement({
             type: 'text',
-            custom: {name: 'page-number'},
+            custom: { name: 'page-number' },
             text,
             width: store.width,
             align: 'center',
@@ -274,7 +297,7 @@ const customTemplateSection: SideSection = {
     useEffect(() => {
       if (templateLoading !== null && templateLoading === false) {
         handleDialogChange('');
-        dispatch({type: TEMPLATE_LOADING, payload: null});
+        dispatch({ type: TEMPLATE_LOADING, payload: null });
       }
     }, [templateLoading]);
 
@@ -302,10 +325,8 @@ const customTemplateSection: SideSection = {
       const div = document.querySelector('.polotno-panel-container');
       const handleScroll = () => {
         if (div) {
-          const isAtBottom =
-            div.scrollTop + div.clientHeight >= div.scrollHeight;
-          const isNeedToLoadMore =
-            templates.currentPage * templates.perPage < templates.count;
+          const isAtBottom = div.scrollTop + div.clientHeight >= div.scrollHeight;
+          const isNeedToLoadMore = templates.currentPage * templates.perPage < templates.count;
           if (isAtBottom && !templatesPagination.loading && isNeedToLoadMore) {
             handleLoadAllTemplate(true);
           }
@@ -335,8 +356,7 @@ const customTemplateSection: SideSection = {
             onSubmit={handleClearStore}
             customStyles={designDialogStyles}
             cancelText="Cancel"
-            submitText="OK"
-          />
+            submitText="OK" />
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
@@ -350,8 +370,7 @@ const customTemplateSection: SideSection = {
             onSubmit={() => handleLoadTemplate(selectedRecord?.id)}
             customStyles={designDialogStyles}
             cancelText="Cancel"
-            submitText="OK"
-          />
+            submitText="OK" />
         )}
         <div
           className="templateTabsWrapper"
@@ -360,37 +379,35 @@ const customTemplateSection: SideSection = {
             backgroundColor: '#fff',
           }}
         >
-          <div style={{marginTop: '8px'}}>
+          <div style={{ marginTop: '8px' }}>
             <GeneralSelect
               placeholder="Template Types"
               options={templateTypes as any}
               setSelectedValue={setCurrentTemplateType as any}
               selectedValue={currentTemplateType as any}
               // @ts-ignore
-              search={() => {}}
-              updateErrors={() => {}}
+              search={() => { }}
+              updateErrors={() => { }}
               disableClearable={true}
-              templateBuilder={true}
-            />
+              templateBuilder={true} />
           </div>
           {currentTemplateType?.id === '3' && (
-            <div style={{marginTop: 8}}>
+            <div style={{ marginTop: 8 }}>
               <GeneralSelect
                 placeholder="Select Category"
                 options={templateCategories as any}
                 setSelectedValue={setSelectedCategory as any}
                 selectedValue={selectedCategory as any}
                 // @ts-ignore
-                search={(() => {}) as any}
-                updateErrors={() => {}}
+                search={(() => { }) as any}
+                updateErrors={() => { }}
                 disableClearable={false}
-                templateBuilder={true}
-              />
+                templateBuilder={true} />
             </div>
           )}
           <div
             className="searchWrapper"
-            style={{marginTop: '16px', marginBottom: '16px'}}
+            style={{ marginTop: '16px', marginBottom: '16px' }}
           >
             <Input
               type="text"
@@ -403,8 +420,7 @@ const customTemplateSection: SideSection = {
               inputIcon={true}
               onClick={handleSearch}
               searchApplied={searchApplied}
-              removeSearchInput={removeSearchInput}
-            />
+              removeSearchInput={removeSearchInput} />
           </div>
           {currentTemplateType?.id === '1' ? (
             <>
@@ -414,7 +430,7 @@ const customTemplateSection: SideSection = {
               >
                 <DesignIcon fill="var(--svgColorSecondary)" />
                 <Typography style={templateTextStyles}>
-                  Design Your Own
+                  {MESSAGES.TEMPLATE.DESIGN_NEW}
                 </Typography>
               </div>
               {myTemplates.length ? (
@@ -427,17 +443,16 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({currentTarget}) => {
+                      onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
-                      }}
-                    />
+                      }} />
                   </div>
                 ))
               ) : (
                 <div className="noTemplateText">
-                  <Typography>No My Templates to show</Typography>
+                  <Typography>{MESSAGES.TEMPLATE.NO_MY_TEMPLATES}</Typography>
                 </div>
               )}
             </>
@@ -453,17 +468,16 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({currentTarget}) => {
+                      onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
-                      }}
-                    />
+                      }} />
                   </div>
                 ))
               ) : (
                 <div className="noTemplateText">
-                  <Typography>No Team Templates to show</Typography>
+                  <Typography>{MESSAGES.TEMPLATE.NO_TEAM_TEMPLATES}</Typography>
                 </div>
               )}
             </>
@@ -479,17 +493,16 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({currentTarget}) => {
+                      onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
-                      }}
-                    />
+                      }} />
                   </div>
                 ))
               ) : (
                 <div className="noTemplateText">
-                  <Typography>No OLC Templates to show</Typography>
+                  <Typography>{MESSAGES.TEMPLATE.NO_OLC_TEMPLATES}</Typography>
                 </div>
               )}
             </>
@@ -497,7 +510,7 @@ const customTemplateSection: SideSection = {
         </div>
       </div>
     );
-  }) as SideSection['Panel'],
+  }) as unknown as SideSection['Panel'],
 };
 
 export default customTemplateSection;

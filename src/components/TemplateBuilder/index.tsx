@@ -7,7 +7,6 @@ import { Toolbar } from 'polotno/toolbar/toolbar';
 import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import { Workspace } from 'polotno/canvas/workspace';
 import { setGoogleFonts } from 'polotno/config';
-import merge from 'deepmerge';
 
 // Hooks
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,17 +17,17 @@ import { StoreType } from 'polotno/model/store';
 
 // Actions
 import {
-  getAllCustomFields,
   getOneTemplate,
   uploadFile,
 } from '../../redux/actions/templateActions';
-import { TEMPLATE_LOADING } from '../../redux/actions/action-types';
+import { SET_CUSTOM_FIELDS, TEMPLATE_LOADING } from '../../redux/actions/action-types';
 
 
 // Utils
 import { drawRestrictedAreaOnPage, getFileAsBlob } from '../../utils/template-builder';
 import { addElementsforRealPennedLetters } from '../../utils/templateRestrictedArea/realPenned';
 import { DPI, multiPageLetters } from '../../utils/constants';
+
 // @ts-ignore
 import fonts from "../../utils/fonts.json";
 // @ts-ignore
@@ -54,16 +53,15 @@ setUploadFunc(uploadFile)
  * @returns {JSX.Element} The rendered template builder interface.
  */
 
-// styles
-import './styles.scss'
-
 interface TemplateBuilderProps {
   store: StoreType,
   returnRoute?: string | null,
-  styles?: React.CSSProperties;
+  onGetCustomFields?: () => Promise<any>;
+  onGetTemplates?: (payload: any) => Promise<any>;
+  onSubmit?: (payload: any) => Promise<any>;
 }
 
-const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, returnRoute }) => {
+const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, onGetCustomFields, onGetTemplates, onSubmit }) => {
   const [isStoreUpdated, setIsStoreUpdated] = useState(false);
   const [switchTabCount, setSwitchTabCount] = useState(1);
 
@@ -80,15 +78,13 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
 
   const currentTemplateType = product?.productType;
 
-  const containerStyle = merge(
-    {
-      width: '100vw',
-      height: '90vh',
-      position: 'relative',
-      backgroundColor: 'var(--mainBackgroundColor) !important',
-    },
-    styles || {}
-  );
+  const containerStyle =
+  {
+    width: '100vw',
+    height: '90vh',
+    position: 'relative',
+    backgroundColor: 'var(--mainBackgroundColor) !important',
+  }
 
   useEffect(() => {
     handleLoadTemplate();
@@ -128,7 +124,8 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
         createInitialPage();
 
       }
-      dispatch(getAllCustomFields());
+
+      fetchCustomFields();
 
       const handleChange = () => {
         if (!isStoreUpdated) {
@@ -176,6 +173,19 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
       removeBeforeUnloadListener();
     };
   }, [isStoreUpdated]);
+
+
+  const fetchCustomFields = async () => {
+    if (onGetCustomFields) {
+      const customFields: any = await onGetCustomFields();
+      if (customFields?.length) {
+        dispatch({
+          type: SET_CUSTOM_FIELDS,
+          payload: customFields
+        })
+      }
+    }
+  }
 
   const createInitialPage = async () => {
     if (product) {
@@ -267,12 +277,13 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, styles, return
             store={store}
             isStoreUpdated={isStoreUpdated}
             returnRoute={returnRoute}
+            onSubmit={onSubmit}
           />
 
           <PolotnoContainer
             style={containerStyle}
           >
-            <SidePanel store={store} currentTemplateType={currentTemplateType} />
+            <SidePanel store={store} currentTemplateType={currentTemplateType} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} />
             <WorkspaceWrap>
               {currentTemplateType !== "Real Penned Letter" && (
                 <Toolbar store={store} downloadButtonEnabled={false} />

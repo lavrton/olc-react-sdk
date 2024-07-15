@@ -1,4 +1,3 @@
-import { Payload } from './../../components/SidePanel/templates/customTemplateSection';
 //Actions
 import { SET_SUCCESS_SNACKBAR, SET_ERROR_SNACKBAR, CLEAR_SNACKBAR } from "../actions/action-types"
 

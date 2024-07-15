@@ -1,7 +1,7 @@
 {
   "name": "@openlettermarketing/olc-react-sdk",
   "private": false,
-  "version": "0.0.17",
+  "version": "0.0.20",
   "type": "module",
   "description": "Simplify template builder integration for any product.",
   "main": "build/index.js",
@@ -40,7 +40,6 @@
   ],
   "dependencies": {
     "@fontsource/inter": "^5.0.18",
-    "deepmerge": "^4.3.1",
     "mobx-react-lite": "^4.0.7",
     "polotno": "^2.4.5",
     "react": "^18.3.1",

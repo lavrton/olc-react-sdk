@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-catch */
-import { get } from '../utils/api';
 
 // Utils
 import { multiPageLetters, Barcode } from './constants';
@@ -134,7 +133,6 @@ export const extractFontFamilies = (jsonData: any[]): string[] => {
   // Iterate through each object in the JSON data
   jsonData.forEach((obj) => {
     if (obj.children) {
-      // Iterate through each child object
       obj.children.forEach((child: any) => {
         if (child.type === 'text' && child.fontFamily) {
           // Extract font family from text objects

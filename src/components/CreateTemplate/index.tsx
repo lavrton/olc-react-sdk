@@ -8,7 +8,6 @@ import { AppDispatch, RootState } from '../../redux/store';
 //actions
 import {
   clearTemplateFields,
-  getAllProducts,
   searchAndAdvanceChange,
   selectPostCard,
   selectProduct,
@@ -146,7 +145,6 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
   };
 
   useEffect(() => {
-    dispatch(getAllProducts());
     dispatch(clearTemplateFields());
     removeItem('formData');
     dispatch({ type: CLEAR_TEMPLATE });

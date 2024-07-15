@@ -1,11 +1,11 @@
 import React from 'react';
 
-// Polotno Imports
+// Polotno and third party imports
 import { SidePanelWrap } from 'polotno';
 import type { StoreType } from 'polotno/model/store';
 import { SidePanel as PolotnoSidePanel, DEFAULT_SECTIONS } from 'polotno/side-panel';
 
-// Custom Sections
+// Custom Sections / Components
 import customTemplateSection from './templates/customTemplateSection';
 import customFieldSection from './customFields/customFieldSection';
 
@@ -13,6 +13,8 @@ import customFieldSection from './customFields/customFieldSection';
 interface Props {
   store: StoreType;
   currentTemplateType: string;
+  onGetTemplates?: (payload: any) => Promise<any>;
+  onGetCustomFields?: () => Promise<any>;
 }
 
 const SidePanel: React.FC<Props> = (props) => {
@@ -28,10 +30,10 @@ const SidePanel: React.FC<Props> = (props) => {
       <PolotnoSidePanel store={props.store}
         sections={[
           ...(props.currentTemplateType !== "Real Penned Letter"
-            ? [customTemplateSection]
+            ? [{ ...customTemplateSection, Panel: (panelProps: any) => <customTemplateSection.Panel {...panelProps} onGetTemplates={props.onGetTemplates} /> }]
             : []),
           ...sections,
-          customFieldSection,
+          { ...customFieldSection, Panel: (panelProps: any) => <customFieldSection.Panel {...panelProps} onGetCustomFields={props.onGetCustomFields} /> },
         ]}
         defaultSection="text" />
     </SidePanelWrap>

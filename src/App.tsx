@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Libraries/Packages
-import {Routes, Route} from 'react-router-dom';
-import {createStore, StoreType} from 'polotno/model/store';
+import { Routes, Route } from 'react-router-dom';
+import { createStore, StoreType } from 'polotno/model/store';
 
 // components
 import CreateTemplate from './components/CreateTemplate';
 import TemplateBuilder from './components/TemplateBuilder';
-import {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 // Initialize Plotno Store
 const initializeStore = (secretKey: string) => {
@@ -23,9 +23,12 @@ interface AppProps {
   secretKey: string;
   returnRoute?: string | null;
   styles?: any;
+  onGetTemplates?: (payload: any) => Promise<any>;
+  onGetCustomFields?: () => Promise<any>;
+  onSubmit?: (payload: any) => Promise<any>;
 }
 
-const App: React.FC<AppProps> = ({secretKey, returnRoute, styles}) => {
+const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles, onGetCustomFields, onGetTemplates, onSubmit }) => {
   const [store, setStore] = useState<StoreType>(initializeStore(secretKey));
 
   const currentPath = window?.location?.pathname;
@@ -41,12 +44,11 @@ const App: React.FC<AppProps> = ({secretKey, returnRoute, styles}) => {
     styles && Object.keys(styles).length
       ? createGlobalStyle`
         :root {
-        ${
-          styles
-            ? Object.entries(styles.root)
-                .map(([key, value]) => `${key}: ${value};`)
-                .join(' ')
-            : ''
+        ${styles
+          ? Object.entries(styles.root)
+            .map(([key, value]) => `${key}: ${value};`)
+            .join(' ')
+          : ''
         }
           }
         body { background-color: var(--mainBackgroundColor);}`
@@ -62,7 +64,7 @@ const App: React.FC<AppProps> = ({secretKey, returnRoute, styles}) => {
         />
         <Route
           path="/template-builder"
-          element={<TemplateBuilder store={store} returnRoute={returnRoute} />}
+          element={<TemplateBuilder store={store} returnRoute={returnRoute} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} onSubmit={onSubmit} />}
         />
       </Routes>
     </>

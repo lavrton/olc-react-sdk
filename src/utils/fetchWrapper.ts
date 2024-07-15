@@ -1,9 +1,6 @@
-import { apiKey, appMode } from './helper'
-
-const API_BASE_URL = appMode === 'test' ? 'https://stageapi.openletterconnect.com/api/v1' : 'https://stageapi.openletterconnect.com/api/v1';
+import { API_BASE_URL } from "./constants";
 
 const getHeaders = (additionalHeaders: Record<string, string> = {}) => ({
-  'Authorization': `Bearer ${apiKey}`,
   'Content-Type': 'application/json',
   'Accept': 'application/json',
   ...additionalHeaders,

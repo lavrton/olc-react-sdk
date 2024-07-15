@@ -1,3 +1,5 @@
+export const API_BASE_URL = 'https://api.openletterconnect.com/api/v1';
+
 export const DPI: number = 96;
 
 export const Barcode: string = 'https://api.openletterconnect.com/api/v1/download/s3/openletterconnect/assets/preview/one-barcode.png';
@@ -14,7 +16,7 @@ interface TemplateTypes {
   label: string;
 }
 
-export const templateTypes = [
+export const templateTypes: TemplateTypes [] = [
   {
     id: "1",
     label: "My Templates",
