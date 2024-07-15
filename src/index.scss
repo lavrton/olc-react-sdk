@@ -55,6 +55,7 @@
   --dialogModalHeadingColor: #ed5c2f;
   --dialogModalTextColor: #000;
   --dialogModalSVGColor: #ed5c2f;
+  --dialogModalCrossIconColor: #000;
   // border colors
   --borderColor: rgba(0, 0, 0, 0.5);
   // button colors
@@ -116,6 +117,28 @@
     .polotno-panel-container > div,
     .polotno-panel-container > div > div,
     .polotno-panel-container > div > div > div {
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--sb-track-color) !important;
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--sb-thumb-color) !important;
+        border-radius: 3px;
+      }
+
+      @supports not selector(::-webkit-scrollbar) {
+        body {
+          scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+        }
+      }
+    }
+
+    .bp5-popover-content>div>div>div{
       &::-webkit-scrollbar {
         width: 10px;
       }

@@ -72,6 +72,10 @@
         cursor: pointer;
       }
     }
+
+    &.errorBorder{
+      border: 1.5px solid var(--red);
+    }
   }
 
   .focused {

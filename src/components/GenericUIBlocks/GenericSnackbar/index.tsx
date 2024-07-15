@@ -38,16 +38,28 @@ const GenericSnackbar:React.FC = () => {
       </div>
     );
 
-  const notify = () => toast(Element);
+  const notify = () => toast(Element,{
+    toastId: 'myToast'
+  });
 
   useEffect(() =>{
     if(open){
         notify()
         dispatch(closeSnackbar())
     }
+    toast.clearWaitingQueue({containerId: 'myToast'});
   }, [open])
 
-  return <ToastContainer limit={1} className="toast-container" toastClassName='basic-toast' bodyClassName="toast-body" hideProgressBar autoClose={3000}/>;
+  return (
+    <ToastContainer
+      limit={1}
+      className="toast-container"
+      toastClassName="basic-toast"
+      bodyClassName="toast-body"
+      hideProgressBar
+      autoClose={3000}
+    />
+  );
 }
 
 export default GenericSnackbar;

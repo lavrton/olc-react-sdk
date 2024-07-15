@@ -5,6 +5,9 @@ import Button from '../Button';
 import Typography from '../Typography';
 import CircularProgress from '../CircularProgress';
 
+// cross-icon
+import Cross from '../../../assets/images/modal-icons/cross'
+
 // styles
 import './styles.scss';
 
@@ -78,7 +81,7 @@ const Dialog: React.FC<DialogProps> = ({
       <div className="modal-content" style={customStyles}>
         <div className="modal-header">
           <span className="close" onClick={handleClose}>
-            &times;
+            <Cross />
           </span>
         </div>
         <div className="modal-body">

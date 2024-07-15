@@ -43,6 +43,7 @@ export interface CustomCSSProperties extends React.CSSProperties {
   '--dialogModalHeadingColor'?: string;
   '--dialogModalTextColor'?: string;
   '--dialogModalSVGColor'?: string;
+  '--dialogModalCrossIconColor'?: string;
   '--borderColor'?: string;
   '--secondaryButtonBgColor'?: string;
   '--secondaryButtonTextColor'?: string;
@@ -113,6 +114,7 @@ export const customStyles: Styles = {
     '--dialogModalHeadingColor': '#fb8500',
     '--dialogModalTextColor': '#fff',
     '--dialogModalSVGColor': '#ffb703',
+    '--dialogModalCrossIconColor': '#000',
     // border colors
     '--borderColor': 'rgba(0, 0, 0, 0.5)',
     // button colors
