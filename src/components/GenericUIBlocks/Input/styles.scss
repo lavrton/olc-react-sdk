@@ -9,28 +9,29 @@
   .basic-label {
     font-size: 14px;
     font-weight: 400;
+    color: var(--textColor);
   }
 
   .input-with-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.5px solid var(--inputBorderColor);
+    border: 0.5px solid var(--borderColor);
     border-radius: 7px;
     height: 100%;
     min-height: 55px;
     width: 100%;
-    background-color: var(--inputBgColor);
+    background-color: var(--mainBackgroundColor);
     
     .basic-input {
       width: 100%;
       padding: 5px 20px;
       background: transparent;
       font-size: 14px;
-      font-family: 'Inter' !important;
+      font-family: var(--font-family) !important;
       font-weight: 400;
       line-height: 24px;
-      color: var(--inputTextColor);
+      color: var(--textColor);
       border: none;
       border-radius: 7px;
       &:focus {
@@ -38,7 +39,7 @@
       }
       &::placeholder {
         opacity: 50%;
-        color: var(--inputTextColor);
+        color: var(--textColor);
       }
     }
 
@@ -74,11 +75,11 @@
     }
 
     &.errorBorder{
-      border: 1.5px solid var(--red);
+      border: 1.5px solid var(--errorColor);
     }
   }
 
   .focused {
-    background-color: var(--inputSearchAppliedBg);
+    background-color: var(--secondaryColor);
   }
 }

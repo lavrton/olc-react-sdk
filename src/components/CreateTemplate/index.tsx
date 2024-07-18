@@ -75,8 +75,8 @@ const footerButtonStyles: React.CSSProperties = {
   minHeight: '40px',
   textTransform: 'capitalize',
   borderRadius: '3px',
-  backgroundColor: 'var(--secondaryButtonBgColor)',
-  color: `var(--secondaryButtonTextColor)`,
+  backgroundColor: 'var(--mainBackgroundColor)',
+  color: `var(--textColor)`,
   fontSize: `14px`,
   fontWeight: `500`,
 };
@@ -371,7 +371,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
             style={{
               ...footerButtonStyles,
               color: '#ffffff',
-              backgroundColor: 'var(--primaryButtonBgColor)',
+              backgroundColor: 'var(--primaryColor)',
             }}
             onClick={handleNext}
           >

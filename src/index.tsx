@@ -6,11 +6,24 @@ import store from './redux/store';
 import App from './App';
 import './index.scss';
 
-// fonts
+// font families
+// inter
 import '@fontsource/inter/400.css';
-import '@fontsource/inter/700.css';
-import '@fontsource/inter/600.css';
 import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+// poppins
+import "@fontsource/poppins";
+import "@fontsource/poppins/400.css"; 
+import "@fontsource/poppins/500.css"; 
+import "@fontsource/poppins/600.css"; 
+import "@fontsource/poppins/700.css"; 
+// raleway
+import "@fontsource/raleway";
+import "@fontsource/raleway/400.css"; 
+import "@fontsource/raleway/500.css";
+import "@fontsource/raleway/600.css";
+import "@fontsource/raleway/700.css";
 
 // utils
 import { CustomCSSProperties } from './utils/customStyles';

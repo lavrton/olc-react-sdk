@@ -97,17 +97,19 @@ type CustomTemplateSectionProps = {
 const customTemplateSection: SideSection = {
   name: 'Templates',
   Tab: observer(
-    (props: { store: StoreType; active: boolean; onClick: () => void }) => (
+    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
       <SectionTab name="Templates" {...props}>
-        <CustomTemplate fill="var(--sidepanelSVGColor)" />
+        <CustomTemplate fill="var(--textColor)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
-  Panel: observer(({ store, onGetTemplates }: CustomTemplateSectionProps) => {
+  Panel: observer(({store, onGetTemplates}: CustomTemplateSectionProps) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const [currentTemplateType, setCurrentTemplateType] = useState<TemplateType>(templateTypes[0]);
-    const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | null>(null);
+    const [currentTemplateType, setCurrentTemplateType] =
+      useState<TemplateType>(templateTypes[0]);
+    const [selectedCategory, setSelectedCategory] =
+      useState<TemplateCategory | null>(null);
     const [selectedRecord, setSelectedRecord] = useState<TemplateRecord | null>(
       null
     );
@@ -254,7 +256,7 @@ const customTemplateSection: SideSection = {
     };
 
     const handleDialogChange = (model = '') => {
-      setIsShowDialog((prev) => ({ open: !prev.open, model: model }));
+      setIsShowDialog((prev) => ({open: !prev.open, model: model}));
     };
 
     const processPage = async (index: any, page: any) => {
@@ -265,12 +267,12 @@ const customTemplateSection: SideSection = {
         const text = index === 0 ? 'Front' : 'Back';
 
         if (pageNumber) {
-          pageNumber.set({ text });
+          pageNumber.set({text});
           resolve();
         } else {
           page.addElement({
             type: 'text',
-            custom: { name: 'page-number' },
+            custom: {name: 'page-number'},
             text,
             width: store.width,
             align: 'center',
@@ -325,7 +327,7 @@ const customTemplateSection: SideSection = {
     useEffect(() => {
       if (templateLoading !== null && templateLoading === false) {
         handleDialogChange('');
-        dispatch({ type: TEMPLATE_LOADING, payload: null });
+        dispatch({type: TEMPLATE_LOADING, payload: null});
       }
     }, [templateLoading]);
 
@@ -476,7 +478,7 @@ const customTemplateSection: SideSection = {
                 className="default-design"
                 onClick={() => handleDialogChange('design-own')}
               >
-                <DesignIcon fill="var(--svgColorSecondary)" />
+                <DesignIcon fill="var(--primaryColor)" />
                 <Typography style={templateTextStyles}>
                   {MESSAGES.TEMPLATE.DESIGN_NEW}
                 </Typography>

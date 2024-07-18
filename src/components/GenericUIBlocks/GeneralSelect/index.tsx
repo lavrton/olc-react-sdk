@@ -38,9 +38,9 @@ const colourStyles: StylesConfig<Option, false> = {
       backgroundColor: isDisabled
         ? undefined
         : isSelected && isFocused
-          ? 'var(--selectOptionSelectedBg)'
+          ? 'var(--secondaryColor)'
           : isFocused && !isSelected
-            ? 'var(--selectOptionFocusedColor)'
+            ? 'var(--secondaryColor)'
             : undefined,
     };
   },

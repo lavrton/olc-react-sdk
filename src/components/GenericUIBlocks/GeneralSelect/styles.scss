@@ -7,7 +7,7 @@
   gap: 8px;
 
   label {
-    color: var(--selectTextColor);
+    color: var(--textColor);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -23,25 +23,25 @@
     .generic-select__control {
       height: 100%;
       min-height: 55px;
-      background-color: var(--selectBgColor);
-      border: 0.5px solid var(--selectBorderColor);
+      background-color: transparent;
+      border: 0.5px solid var(--borderColor);
       border-radius: 7px;
       padding-left: 10px;
       font-size: 14px;
       .generic-select__value-container {
         .generic-select__single-value {
-          color: var(--selectTextColor);
+          color: var(--textColor);
           font-size: 14px;
         }
       }
       &:hover {
-        border: 0.5px solid var(--selectBorderColor);
+        border: 0.5px solid var(--borderColor);
       }
       &::placeholder {
         opacity: 0.5;
       }
       &.generic-select__control--is-focused {
-        border: 0.5px solid var(--selectBorderColor);
+        border: 0.5px solid var(--borderColor);
         box-shadow: none;
       }
       .generic-select__indicators {
@@ -53,7 +53,7 @@
     }
 
     .generic-select__menu {
-      background-color: var(--selectMenuBgColor);
+      background-color: var(--mainBackgroundColor);
       .generic-select__menu-list {
         padding: 0px 5px;
         .generic-select__option {
@@ -61,16 +61,16 @@
           font-weight: 400;
           line-height: 16.94px;
           text-align: left;
-          color: var(--selectOptionTextColor);
+          color: var(--textColor);
           padding: auto 10px;
-          border-bottom: 0.5px solid var(--selectOptionBorderColor);
+          border-bottom: 0.5px solid var(--borderColor);
           cursor: pointer;
           &:last-child {
             border: none;
           }
           &.generic-select__option--is-focused {
-            background-color: var(--selectOptionFocusedColor);
-            color: var(--selectOptionFocusedTextColor);
+            background-color: var(--secondaryColor);
+            color: var(--textColor);
           }
         }
       }

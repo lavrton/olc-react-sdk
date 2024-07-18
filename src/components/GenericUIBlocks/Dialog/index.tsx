@@ -28,8 +28,8 @@ interface DialogProps {
 }
 
 const buttonStyles: CSSProperties = {
-  color: 'var(--primaryButtonTextColor)',
-  backgroundColor: 'var(--primaryButtonBgColor)',
+  color: 'var(--mainBackgroundColor)',
+  backgroundColor: 'var(--primaryColor)',
   maxWidth: '100px',
   minHeight: '40px',
   border: '0.5px solid var(--borderColor)',
@@ -38,13 +38,13 @@ const buttonStyles: CSSProperties = {
 
 const heading: CSSProperties = {
   fontSize: '22px',
-  color: 'var(--dialogModalHeadingColor)',
+  color: 'var(--primaryColor)',
   fontWeight: '600',
 };
 
 const subHeadingStyle: CSSProperties = {
   fontSize: '16px',
-  color: 'var(--dialogModalTextColor)',
+  color: 'var(--textColor)',
   fontWeight: '600',
   textAlign: 'center',
 };
@@ -85,9 +85,7 @@ const Dialog: React.FC<DialogProps> = ({
           </span>
         </div>
         <div className="modal-body">
-          {icon &&
-          <div className="modal-icon">{icon}</div>
-          }
+          {icon && <div className="modal-icon">{icon}</div>}
           <Typography variant="p" style={heading}>
             {title}
           </Typography>
@@ -111,8 +109,8 @@ const Dialog: React.FC<DialogProps> = ({
             onClick={onCancel}
             style={{
               ...buttonStyles,
-              color: 'var(--secondaryButtonTextColor)',
-              backgroundColor: 'var(--secondaryButtonBgColor)',
+              color: 'var(--textColor)',
+              backgroundColor: 'var(--mainBackgroundColor)',
             }}
           >
             {cancelText}

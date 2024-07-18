@@ -1,7 +1,7 @@
 @mixin errorField() {
   font-size: 14px;
   font-weight: 400;
-  color: var(--red);
+  color: var(--errorColor);
   line-height: 16.94px;
 }
 
@@ -152,7 +152,7 @@
         flex-direction: column;
         border-radius: 6.299px;
         border: 0.45px solid var(--borderColor);
-        background: var(--productCardBgColor);
+        background: var(--mainBackgroundColor);
         width: 100%;
         max-width: 185px;
         height: 100%;
@@ -163,7 +163,7 @@
 
         &.active,
         &:hover {
-          background: var(--productCardBackgroundColorActive);
+          background: var(--secondaryColor);
           border-color: var(--primaryColor);
         }
 
@@ -183,7 +183,7 @@
         }
 
         &.error {
-          border: 0.45px solid var(--red);
+          border: 0.45px solid var(--errorColor);
         }
       }
     }
@@ -223,7 +223,7 @@
         flex-direction: column;
         border-radius: 6.299px;
         border: 0.45px solid var(--borderColor);
-        background: var(--postCardBgColor);
+        background: var(--mainBackgroundColor);
         cursor: pointer;
         padding: 13px 20px;
         transition: 0.1s ease-in all;
@@ -240,13 +240,13 @@
 
         svg {
           path {
-            fill: var(--postCardSVGColor);
+            fill: var(--svgColorNotActive);
           }
         }
 
         &.active,
         &:hover {
-          background: var(--postCardBackgroundColorActive);
+          background: var(--secondaryColor);
           border-color: var(--primaryColor);
 
           svg {
@@ -311,7 +311,7 @@
     width: 100%;
     bottom: 0;
     border-top: 0.5px solid var(--borderColor);
-    background-color: var(--footerBgColor);
+    background-color: var(--mainBackgroundColor);
 
     .createTemplateBtns {
       display: flex;
@@ -329,24 +329,24 @@
         border-radius: 3px;
 
         &:first-child {
-          color: var(--secondaryButtonTextColor);
+          color: var(--textColor);
           text-align: center;
           font-size: 14px;
           font-style: normal;
           font-weight: 600;
           line-height: normal;
           border: 0.5px solid var(--borderColor);
-          background-color: var(--secondaryButtonBgColor);
+          background-color: var(--mainBackgroundColor);
         }
 
         &:last-child {
-          color: var(--primaryButtonTextColor);
+          color: var(--mainBackgroundColor);
           text-align: center;
           font-size: 14px;
           font-style: normal;
           font-weight: 600;
           line-height: normal;
-          background-color: var(--primaryButtonBgColor);
+          background-color: var(--primaryColor);
         }
       }
     }
@@ -358,5 +358,5 @@
 }
 
 .error {
-  border: 1.5px solid var(--red);
+  border: 1.5px solid var(--errorColor);
 }

@@ -51,7 +51,9 @@ const Input: FC<InputProps> = ({
   return (
     <div className="input-layout">
       <label className="basic-label">{label ? label : ''}</label>
-      <div className={`input-with-icon ${searchApplied && 'focused'} ${error ? 'errorBorder' : ""}`}>
+      <div
+        className={`input-with-icon ${searchApplied && 'focused'} ${error ? 'errorBorder' : ''}`}
+      >
         <InputVariant
           type={type}
           value={value}
@@ -64,7 +66,7 @@ const Input: FC<InputProps> = ({
           <>
             {searchApplied && value.length > 0 ? (
               <div className="cancel-input-button" onClick={removeSearchInput}>
-                <Cancel fill="var(--inputSearchIcon)" />
+                <Cancel fill="var(--borderColor)" />
               </div>
             ) : null}
             <div

@@ -5,15 +5,15 @@
     }
     .polotno-side-panel {
       & .polotno-side-tabs-container {
-        background-color: var(--sidepanelBgColor);
+        background-color: var(--mainBackgroundColor);
         & .polotno-side-tabs-inner {
           & .polotno-side-panel-tab {
-            color: var(--sidepanelTextColor);
+            color: var(--textColor);
             &.active,
             &:hover {
-              background-color: var(--sidepanelOptionHoverColor);
+              background-color: var(--secondaryColor);
               opacity: 0.8;
-              color: var(--sidepanelTextColorHover);
+              color: var(--primaryColor);
               svg {
                 color: var(--primaryColor);
                 path {

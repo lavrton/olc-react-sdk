@@ -1,77 +1,24 @@
 :root {
+  --font-family: "Inter";
   // scroll bars colors
-  --sb-track-color: #fff8ee;
-  --sb-thumb-color: hsl(29, 100%, 88%);
-  // primary color
+  --srollbar-thumb-color: hsl(29, 100%, 88%);
+  // basic colors
   --primaryColor: #ed5c2f;
+  --secondaryColor: #FFF8EE;
+  // svg colors
   --svgColor: #fdb515;
-  --svgColorSecondary: #ed5c2f;
+  --svgColorNotActive: #fdecd3;
   // main background color
   --mainBackgroundColor: #ffffff;
   // text colors
   --textColor: #000;
-  // product Card Background color
-  --productCardBgColor: #fff;
-  --productCardBackgroundColorActive: #fff8ee;
-  // post Card Background colors
-  --postCardBgColor: #fff;
-  --postCardBackgroundColorActive: #fff8ee;
-  --postCardSVGColor: #fdecd3;
-  // input colors
-  --inputBgColor: #fff;
-  --inputTextColor: #000;
-  --inputBorderColor: #303030;
-  --inputSearchAppliedBg: #fff8ee;
-  --inputSearchIcon: #303030;
-  // select input & option colors
-  --selectBgColor: transparent;
-  --selectTextColor: #000;
-  --selectBorderColor: #303030;
-  --selectMenuBgColor: #fff;
-  --selectOptionTextColor: #000;
-  --selectOptionBorderColor: #5454544d;
-  --selectOptionFocusedColor: #fff8ee;
-  --selectOptionFocusedTextColor: #000;
-  --selectOptionSelectedColor: #fff8ee;
-  --selectOptionSelectedTextColor: #000;
-  --selectOptionSelectedBg: #fff8ee;
-  // template builder colors
-  --topbarBgColor: #fff;
-  --sidepanelBgColor: #fff;
-  --sidepanelTextColor: #303030;
-  --sidepanelSVGColor: #303030;
-  --sidepanelSVGColorActive: #ed5c2f;
-  --sidepanelOptionHoverColor: #fff8ee;
-  --sidepanelTextColorHover: #ed5c2f;
-  // custom fields colors
-  --customFieldBorderColor: #303030;
-  --customFieldTextColor: #303030;
-  --customFieldCopySVGColor: #303030;
-  // builder Layer colors
-  --cardBgColor: transparent;
-  --cardTextColor: #000;
-  // dialog Modal colors
-  --dialogModalBgColor: #fff8ee;
-  --dialogModalHeadingColor: #ed5c2f;
-  --dialogModalTextColor: #000;
-  --dialogModalSVGColor: #ed5c2f;
-  --dialogModalCrossIconColor: #000;
-  // border colors
-  --borderColor: rgba(0, 0, 0, 0.5);
-  // button colors
-  --secondaryButtonBgColor: #fff;
-  --secondaryButtonTextColor: #000;
-  --primaryButtonBgColor: #ed5c2f;
-  --primaryButtonTextColor: #fff;
-  // topbar colors
-  --iconHoverBgColor: rgba(0, 0, 0, 0.076);
-  // footer bg color
-  --footerBgColor: #fff;
-  // red shades
-  --red: #ff0000;
+  // border color
+  --borderColor: #303030;
+  // error 
+  --errorColor: #ff0000;
 
   body {
-    font-family: "Inter" !important;
+    font-family: var(--font-family) !important;
     padding: 70px 0 0;
     margin: 0;
 
@@ -80,18 +27,18 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: var(--sb-track-color) !important;
+      background: var(--secondaryColor) !important;
       border-radius: 3px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--sb-thumb-color) !important;
+      background: var(--srollbar-thumb-color) !important;
       border-radius: 3px;
     }
 
     @supports not selector(::-webkit-scrollbar) {
       body {
-        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+        scrollbar-color: var(--srollbar-thumb-color) var(--secondaryColor);
       }
     }
 
@@ -100,11 +47,14 @@
       color: var(--textColor);
       background-color: var(--mainBackgroundColor);
       .bp5-card {
-        color: var(--cardTextColor);
-        background-color: var(--cardBgColor);
+        color: var(--textColor);
+        background-color: transparent;
       }
       .polotno-close-panel .bp5-button-text {
         color: var(--textColor);
+      }
+       >div{
+        border-bottom: 1px solid #1114181a !important;
       }
     }
 
@@ -119,18 +69,18 @@
       }
 
       &::-webkit-scrollbar-track {
-        background: var(--sb-track-color) !important;
+        background: var(--secondaryColor) !important;
         border-radius: 3px;
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--sb-thumb-color) !important;
+        background: var(--srollbar-thumb-color) !important;
         border-radius: 3px;
       }
 
       @supports not selector(::-webkit-scrollbar) {
         body {
-          scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+          scrollbar-color: var(--srollbar-thumb-color) var(--secondaryColor);
         }
       }
     }
@@ -142,18 +92,18 @@
       }
 
       &::-webkit-scrollbar-track {
-        background: var(--sb-track-color) !important;
+        background: var(--secondaryColor) !important;
         border-radius: 3px;
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--sb-thumb-color) !important;
+        background: var(--srollbar-thumb-color) !important;
         border-radius: 3px;
       }
 
       @supports not selector(::-webkit-scrollbar) {
         body {
-          scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+          scrollbar-color: var(--srollbar-thumb-color) var(--secondaryColor);
         }
       }
     }

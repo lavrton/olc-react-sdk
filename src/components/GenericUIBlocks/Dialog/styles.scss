@@ -14,7 +14,7 @@
   /* Modal Content */
   .modal-content {
     position: relative;
-    background-color: var(--dialogModalBgColor);
+    background-color: var(--secondaryColor);
     margin: auto;
     padding: 0;
     border: 1px solid #888;
@@ -29,7 +29,7 @@
       position: relative;
       height: 100%;
       min-height: 20px;
-      color: var(--dialogModalTextColor);
+      color: var(--textColor);
       /* The Close Button */
       .close {
         float: right;
@@ -53,7 +53,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      color: var(--dialogModalTextColor);
+      color: var(--textColor);
       .modal-icon{
         margin-bottom: 15px;
         svg{
@@ -61,14 +61,14 @@
           max-width: 60px;
           height: 100%;
           min-height: 70px;
-          fill: var(--dialogModalSVGColor);
+          fill: var(--primaryColor);
         }
       }
     }
 
     .modal-footer {
       padding: 2px 16px;
-      color: var(--dialogModalTextColor);
+      color: var(--textColor);
       position: absolute;
       bottom: 10px;
       width: 100%;

@@ -46,14 +46,14 @@ type CustomFieldsSectionProps = {
 const customFieldSection: SideSection = {
   name: 'Fields',
   Tab: observer(
-    (props: { store: StoreType; active: boolean; onClick: () => void }) => (
+    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
       <SectionTab name="Fields" {...props}>
-        <Field fill="var(--sidepanelSVGColor)" />
+        <Field fill="var(--textColor)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
 
-  Panel: observer(({ store, onGetCustomFields }: CustomFieldsSectionProps) => {
+  Panel: observer(({store, onGetCustomFields}: CustomFieldsSectionProps) => {
     const [isShowDialog, setIsShowDialog] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
     const customFields = useSelector(
@@ -76,20 +76,19 @@ const customFieldSection: SideSection = {
         if (customFields?.length) {
           dispatch({
             type: SET_CUSTOM_FIELDS,
-            payload: customFields
-          })
+            payload: customFields,
+          });
         }
       }
-    }
+    };
 
     useEffect(() => {
-      fetchCustomFields()
+      fetchCustomFields();
     }, []);
 
-
     const copyCustomFieldText = (value: string) => {
-      if (currentTemplateType === "Real Penned Letter") {
-        let modifiedString = value.replace(/{{/g, "((").replace(/}}/g, "))");
+      if (currentTemplateType === 'Real Penned Letter') {
+        let modifiedString = value.replace(/{{/g, '((').replace(/}}/g, '))');
         copyToClipboard(modifiedString);
         dispatch(success(`${modifiedString} Copied`));
       } else {
@@ -101,7 +100,7 @@ const customFieldSection: SideSection = {
     const handleAddElementOnScreen = (event: any, value: any, type: any) => {
       event.preventDefault();
 
-      if (currentTemplateType === "Real Penned Letter") {
+      if (currentTemplateType === 'Real Penned Letter') {
         copyCustomFieldText(value);
         return;
       }
@@ -139,15 +138,18 @@ const customFieldSection: SideSection = {
             <GeneralTootip
               anchorSelect=".infoIcon"
               place="bottom"
-              title="Merge fields allow you to personalize your mailer with contact information." />
+              title="Merge fields allow you to personalize your mailer with contact information."
+            />
           </div>
         </div>
         {defaultDynamicFields.map(
-          ({ key, value }: { key: string; value: string; }, i: number) => (
-            <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
+          ({key, value}: {key: string; value: string}, i: number) => (
+            <div style={{display: 'flex', alignItems: 'center'}} key={i}>
               <span
                 className="contact-element"
-                onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
+                onClick={(event) =>
+                  handleAddElementOnScreen(event, key, 'click')
+                }
               >
                 {value}
               </span>

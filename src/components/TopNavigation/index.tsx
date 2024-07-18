@@ -52,11 +52,11 @@ import './styles.scss';
 const buttonStyles: React.CSSProperties = {
   maxWidth: '120px',
   minHeight: '40px',
-  backgroundColor: 'var(--secondaryButtonBgColor)',
-  color: 'var(--secondaryButtonTextColor)',
+  backgroundColor: 'var(--mainBackgroundColor)',
+  color: 'var(--textColor)',
   border: '0.5px solid var(--borderColor)',
   fontSize: '15px',
-  fontWeight: '500'
+  fontWeight: '500',
 };
 
 const progressStyles: React.CSSProperties = {
@@ -282,7 +282,9 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         <ConfirmNavigateDialog
           open={showNavigateDialog}
           handleClose={() => setShowNavigateDialog(false)}
-          handleNavigateAction={() => handleNavigation(returnRoute ? returnRoute : '/create-template')}
+          handleNavigateAction={() =>
+            handleNavigation(returnRoute ? returnRoute : '/create-template')
+          }
         />
       )}
       {isShowModel?.open && isShowModel?.model === 'edit' && (
@@ -299,7 +301,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           handleSave={handleSave}
         />
       )}
-      <GridContainer style={{ alignItems: 'center' }}>
+      <GridContainer style={{alignItems: 'center'}}>
         <GridItem lg={4} md={4} sm={2} xs={12}></GridItem>
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
@@ -312,7 +314,12 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         <GridItem lg={4} md={6} sm={8} xs={12}>
           <div className="actionsBtnWrapper right">
             <Button
-              style={{ ...buttonStyles, fontWeight: '400', maxWidth: 'auto', minWidth: '100px' }}
+              style={{
+                ...buttonStyles,
+                fontWeight: '400',
+                maxWidth: 'auto',
+                minWidth: '100px',
+              }}
               onClick={handleViewProofWithLamda}
             >
               {downloadingProof ? (
@@ -336,7 +343,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
                 ...buttonStyles,
                 border: 'none',
                 backgroundColor: 'var(--primaryColor)',
-                color: 'var(--primaryButtonTextColor)',
+                color: 'var(--mainBackgroundColor)',
               }}
               onClick={() => handleChangeModel('save')}
             >

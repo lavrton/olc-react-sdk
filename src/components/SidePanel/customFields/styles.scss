@@ -34,14 +34,14 @@
     & .contact-element{
         width: 100%;
         border-radius: 3px;
-        border: 0.5px solid var(--customFieldBorderColor);
+        border: 0.5px solid var(--borderColor);
         text-align: center;
         height: 35px;
         line-height: 35px;
         margin: 5px auto;
-        color: var(--customFieldTextColor);
+        color: var(--textColor);
     }
     .copy{
-        fill: var(--customFieldCopySVGColor) !important;
+        fill: var(--textColor) !important;
     }
 }
