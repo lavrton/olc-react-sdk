@@ -7,7 +7,7 @@ import { MESSAGES } from "../../../utils/message";
 import Dialog from '../../GenericUIBlocks/Dialog';
 
 // images
-import ModalCross from '../../../assets/images/modal-icons/modal-cross';
+import ModalCross from '../../../assets/images/modal-icons/cancel-temp.png';
 
 // Styles
 import "./styles.scss";
@@ -24,8 +24,8 @@ import "./styles.scss";
  */
 
 const cancelDialogStyles = {
-  maxWidth: '450px',
-  minHeight: '260px',
+  maxWidth: '407px',
+  minHeight: '258px',
 };
 
 // Define the props type
@@ -40,7 +40,7 @@ const ConfirmNavigateDialog: React.FC<ConfirmNavigateDialogProps> = ({ open, han
 
   return (
     <Dialog
-      icon={<ModalCross fill="var(--primaryColor)" />}
+      icon={<img src={ModalCross} alt="cross"/>}
       customStyles={cancelDialogStyles}
       open={open}
       handleClose={handleClose}

@@ -37,7 +37,8 @@ import DesignIcon from '../../../assets/images/templates/template-default-design
 import dummyTemplateIcon from '../../../assets/images/templates/dummy-template.svg';
 // @ts-ignore
 import CustomTemplate from '../../../assets/images/templates/custom-template';
-import ModalCross from '../../../assets/images/modal-icons/modal-cross';
+import Cross from '../../../assets/images/modal-icons/cancel-temp.png';
+
 
 // styles
 import './styles.scss';
@@ -46,8 +47,8 @@ import './styles.scss';
 type SideSection = typeof TemplatesSection;
 
 const designDialogStyles = {
-  maxWidth: '600px',
-  minHeight: '270px',
+  maxWidth: '430px',
+  minHeight: '258px',
 };
 
 const templateTextStyles: React.CSSProperties = {
@@ -388,7 +389,7 @@ const customTemplateSection: SideSection = {
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
-            icon={<ModalCross fill="var(--primaryColor)" />}
+            icon={<img src={Cross} alt="cross" />}
             title={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.TITLE}
             subHeading={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.HEADING}
             description={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.PARAGRAPH}
@@ -398,11 +399,12 @@ const customTemplateSection: SideSection = {
             onSubmit={handleClearStore}
             customStyles={designDialogStyles}
             cancelText="Cancel"
-            submitText="OK" />
+            submitText="OK"
+          />
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
-            icon={<ModalCross />}
+            icon={<img src={Cross} alt="cross" />}
             title={MESSAGES.TEMPLATE.SELECT_TEMPLATE.TITLE}
             subHeading={MESSAGES.TEMPLATE.SELECT_TEMPLATE.HEADING}
             description={MESSAGES.TEMPLATE.SELECT_TEMPLATE.PARAGRAPH}
@@ -412,7 +414,8 @@ const customTemplateSection: SideSection = {
             onSubmit={() => handleLoadTemplate(selectedRecord?.id)}
             customStyles={designDialogStyles}
             cancelText="Cancel"
-            submitText="OK" />
+            submitText="OK"
+          />
         )}
         <div
           className="templateTabsWrapper"
@@ -421,35 +424,37 @@ const customTemplateSection: SideSection = {
             backgroundColor: '#fff',
           }}
         >
-          <div style={{ marginTop: '8px' }}>
+          <div style={{marginTop: '8px'}}>
             <GeneralSelect
               placeholder="Template Types"
               options={templateTypes as any}
               setSelectedValue={setCurrentTemplateType as any}
               selectedValue={currentTemplateType as any}
               // @ts-ignore
-              search={() => { }}
-              updateErrors={() => { }}
+              search={() => {}}
+              updateErrors={() => {}}
               disableClearable={true}
-              templateBuilder={true} />
+              templateBuilder={true}
+            />
           </div>
           {currentTemplateType?.id === '3' && (
-            <div style={{ marginTop: 8 }}>
+            <div style={{marginTop: 8}}>
               <GeneralSelect
                 placeholder="Select Category"
                 options={templateCategories as any}
                 setSelectedValue={setSelectedCategory as any}
                 selectedValue={selectedCategory as any}
                 // @ts-ignore
-                search={(() => { }) as any}
-                updateErrors={() => { }}
+                search={(() => {}) as any}
+                updateErrors={() => {}}
                 disableClearable={false}
-                templateBuilder={true} />
+                templateBuilder={true}
+              />
             </div>
           )}
           <div
             className="searchWrapper"
-            style={{ marginTop: '16px', marginBottom: '16px' }}
+            style={{marginTop: '16px', marginBottom: '16px'}}
           >
             <Input
               type="text"
@@ -462,7 +467,8 @@ const customTemplateSection: SideSection = {
               inputIcon={true}
               onClick={handleSearch}
               searchApplied={searchApplied}
-              removeSearchInput={removeSearchInput} />
+              removeSearchInput={removeSearchInput}
+            />
           </div>
           {currentTemplateType?.id === '1' ? (
             <>
@@ -485,11 +491,12 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
-                      }} />
+                      }}
+                    />
                   </div>
                 ))
               ) : (
@@ -510,11 +517,12 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
-                      }} />
+                      }}
+                    />
                   </div>
                 ))
               ) : (
@@ -535,11 +543,12 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
-                      }} />
+                      }}
+                    />
                   </div>
                 ))
               ) : (

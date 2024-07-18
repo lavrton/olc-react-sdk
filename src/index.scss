@@ -106,9 +106,6 @@
       .polotno-close-panel .bp5-button-text {
         color: var(--textColor);
       }
-      >div{
-        border-bottom: 1px solid #1114181a !important;
-      }
     }
 
     .go4160152499,
@@ -141,6 +138,7 @@
     .bp5-popover-content>div>div>div{
       &::-webkit-scrollbar {
         width: 10px;
+        height: 10px;
       }
 
       &::-webkit-scrollbar-track {

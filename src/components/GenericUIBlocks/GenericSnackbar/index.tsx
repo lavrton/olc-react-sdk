@@ -14,6 +14,9 @@ import { closeSnackbar } from '../../../redux/actions/snackbarActions';
 // Components
 import Typography from '../Typography';
 
+// icon
+import Cross from '../../../assets/images/modal-icons/cross'
+
 // styles
 import './styles.scss'
 
@@ -33,7 +36,7 @@ const GenericSnackbar:React.FC = () => {
 
     const Element = (
       <div className="toast-content">
-        <Typography>{heading || ''}</Typography>
+        <Typography>{heading || 'Notifications'}</Typography>
         <Typography>{message || ''}</Typography>
       </div>
     );
@@ -58,6 +61,8 @@ const GenericSnackbar:React.FC = () => {
       bodyClassName="toast-body"
       hideProgressBar
       autoClose={3000}
+      closeButton={<Cross toast={true} />}
+      closeOnClick
     />
   );
 }

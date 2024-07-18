@@ -1,17 +1,10 @@
 .toast-container {
   width: 100%;
   max-width: 400px;
+  z-index: 99999;
 
   .basic-toast {
     background-color: #ef7820;
-    button {
-        opacity: 1;
-      svg {
-        height: 20px;
-        width: 20px;
-        fill: #ffffff;
-      }
-    }
     .toast-body {
       .toast-content {
         height: 100%;
@@ -22,6 +15,7 @@
         gap: 5px;
         flex-direction: column;
         p {
+          font-family: 'Inter' !important;
           color: #ffffff;
           margin: 0;
           &:first-child {
@@ -29,6 +23,10 @@
           }
         }
       }
+    }
+    svg {
+      width: 25px;
+      height: 18px;
     }
   }
 }
