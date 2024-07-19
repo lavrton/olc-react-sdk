@@ -29,7 +29,7 @@ const SidePanel: React.FC<Props> = (props) => {
     <SidePanelWrap>
       <PolotnoSidePanel store={props.store}
         sections={[
-          ...(props.currentTemplateType !== "Real Penned Letter"
+          ...(props.currentTemplateType !== "Real Penned Letter" && props.onGetTemplates
             ? [{ ...customTemplateSection, Panel: (panelProps: any) => <customTemplateSection.Panel {...panelProps} onGetTemplates={props.onGetTemplates} /> }]
             : []),
           ...sections,

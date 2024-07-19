@@ -1,8 +1,12 @@
 import { API_BASE_URL } from "./constants";
+import { getAuthUserName, getAuthUserPassword } from "./helper";
+
+const base64Credentials = () => btoa(`${getAuthUserName()}:${getAuthUserPassword()}`);
 
 const getHeaders = (additionalHeaders: Record<string, string> = {}) => ({
   'Content-Type': 'application/json',
   'Accept': 'application/json',
+  'Authorization': `Basic ${base64Credentials()}`,
   ...additionalHeaders,
 });
 
@@ -15,7 +19,7 @@ export interface RequestOptions {
 
 
 const fetchWrapper = async (endpoint: string, options: RequestOptions) => {
-  const url = new URL(`${API_BASE_URL}/${endpoint}`);
+  const url = new URL(`${API_BASE_URL}${endpoint}`);
   if (options.method === 'GET' && options.params) {
     Object.entries(options.params).forEach(([key, value]) => {
       url.searchParams.append(key, value);

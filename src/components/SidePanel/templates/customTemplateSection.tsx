@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Polotno and third party libraries
 import { observer } from 'mobx-react-lite';
@@ -118,6 +118,15 @@ const customTemplateSection: SideSection = {
     const [olcTemplates, setOlcTemplates] = useState<TemplateRecord[]>([]);
     const [searchApplied, setSearchApplied] = useState(false);
     const [search, setSearch] = useState('');
+    const [pagination, setPagination] = useState({
+      count: 0,
+      currentPage: 0,
+      perPage: 0
+    });
+
+    const paginationRef = useRef(pagination);
+    const searchRef = useRef(search);
+    const currentTemplateTypeRef = useRef(currentTemplateType);
 
     const templates = useSelector(
       (state: RootState) => state.templates.templates
@@ -146,40 +155,56 @@ const customTemplateSection: SideSection = {
       handleDialogChange('load-template');
     };
 
-    const getTemplatesByTab = async () => {
+    const getTemplatesByTab = async (page = 1) => {
       const payload: Payload = {
-        tab: currentTemplateType?.id === '1'
+        tab: currentTemplateTypeRef.current?.id === '1'
           ? 'my-templates'
-          : currentTemplateType?.id === '2'
+          : currentTemplateTypeRef.current?.id === '2'
             ? 'team-templates'
             : 'olc-templates',
-        page: 1,
-        pageSize: 500,
+        page: page,
+        pageSize: 10,
         productId: product?.id,
       };
-      search.length ? (payload.search = search) : undefined;
-      currentTemplateType?.id === '3'
+      searchRef.current.length ? (payload.search = searchRef.current) : undefined;
+      currentTemplateTypeRef.current?.id === '3'
         ? (payload.categoryIds = selectedCategory?.id.split(','))
         : undefined;
       if (onGetTemplates) {
         const templates: any = await onGetTemplates(payload);
-        if (templates.length) {
-          if (currentTemplateType?.id === '1') {
-            setMyTemplates(templates);
-          } else if (currentTemplateType?.id === '2') {
-            setTeamTemplates(templates);
-          } else {
-            setOlcTemplates(templates);
+        if (templates?.rows) {
+          const newTemplates = templates.rows;
+
+          if (currentTemplateTypeRef.current?.id === '1') {
+            if (templates.currentPage === 1) {
+              setMyTemplates(newTemplates);
+            } else {
+              setMyTemplates((prevTemplates) => [...prevTemplates, ...newTemplates]);
+            }
+          } else if (currentTemplateTypeRef.current?.id === '2') {
+            if (templates.currentPage === 1) {
+              setTeamTemplates(newTemplates);
+            } else {
+              setTeamTemplates((prevTemplates) => [...prevTemplates, ...newTemplates]);
+            }
+          } else if (currentTemplateTypeRef.current?.id === '3') {
+            if (templates.currentPage === 1) {
+              setOlcTemplates(newTemplates);
+            } else {
+              setOlcTemplates((prevTemplates) => [...prevTemplates, ...newTemplates]);
+            }
           }
+          setPagination({
+            count: templates.count,
+            currentPage: templates.currentPage,
+            perPage: templates.perPage
+          });
         }
-      } else {
-        dispatch(failure("Please provide onGetTemplates handler via Props to load templates"))
       }
     };
 
-    // TODO Call New Route / Recive via Props for Templates Category
     const getAllCategories = async () => {
-      const categories: Record<string, any> = dispatch(
+      const categories: Record<string, any> = await dispatch(
         getAllTemplateCategories
       );
       if (categories?.status === 200) {
@@ -212,12 +237,14 @@ const customTemplateSection: SideSection = {
       }
     };
 
-    const handleLoadAllTemplate = (pagination = false, initialCall = false) => {
-      let page = pagination ? ++templates.currentPage : templates.currentPage;
+    const handleLoadAllTemplate = (dynamicPagination = false, initialCall = false) => {
+      let page = dynamicPagination ? ++paginationRef.current.currentPage : paginationRef.current.currentPage;
+
       if (initialCall) {
         page = 1;
       }
-      // Call getAllTemplates if required.
+     
+      getTemplatesByTab(page);
     };
 
     const handleLoadTemplate = (id: any) => {
@@ -305,12 +332,25 @@ const customTemplateSection: SideSection = {
       if (!search) {
         setSearchApplied(false);
         setSearch('');
-        getTemplatesByTab();
+        setTimeout(() => {
+          getTemplatesByTab();
+        }, 100)
       }
     }, [search]);
 
     useEffect(() => {
-      handleLoadAllTemplate(true, true);
+      searchRef.current = search;
+    }, [search]);
+
+    useEffect(() => {
+      currentTemplateTypeRef.current = currentTemplateType;
+    }, [currentTemplateType]);
+
+    useEffect(() => {
+      paginationRef.current = pagination;
+    }, [pagination]);
+
+    useEffect(() => {
       getAllCategories();
       return () => {
         dispatch(clearAllTemplates());
@@ -321,17 +361,19 @@ const customTemplateSection: SideSection = {
       getTemplatesByTab();
     }, [currentTemplateType, selectedCategory]);
 
+    const handleScroll = () => {
+      const div = document.querySelector('.polotno-panel-container');
+      if (div) {
+        const isAtBottom = div.scrollTop + div.clientHeight >= div.scrollHeight;
+        const isNeedToLoadMore = paginationRef.current.currentPage * paginationRef.current.perPage < paginationRef.current.count;
+        if (isAtBottom && !templatesPagination.loading && isNeedToLoadMore) {
+          handleLoadAllTemplate(true);
+        }
+      }
+    };
+
     useEffect(() => {
       const div = document.querySelector('.polotno-panel-container');
-      const handleScroll = () => {
-        if (div) {
-          const isAtBottom = div.scrollTop + div.clientHeight >= div.scrollHeight;
-          const isNeedToLoadMore = templates.currentPage * templates.perPage < templates.count;
-          if (isAtBottom && !templatesPagination.loading && isNeedToLoadMore) {
-            handleLoadAllTemplate(true);
-          }
-        }
-      };
 
       if (div) {
         div.removeEventListener('scroll', handleScroll);

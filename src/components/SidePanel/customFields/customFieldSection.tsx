@@ -79,8 +79,6 @@ const customFieldSection: SideSection = {
             payload: customFields
           })
         }
-      } else {
-        dispatch(failure("Please add onGetCustomFields handler Via Props to load all custom fields"));
       }
     }
 
@@ -163,37 +161,39 @@ const customFieldSection: SideSection = {
           )
         )}
         <GeneralTootip anchorSelect=".copy" place="bottom" title="Copy" />
-        <hr className="divider" />
-        <div className="dynamic-content__top">
-          <div>
-            <span className="title">Custom Fields</span>
-            <InfoIcon fill="var(--primaryColor)" className="custom" />
-            <GeneralTootip
-              anchorSelect=".custom"
-              place="bottom"
-              title="You can add custom fields to your template." />
-          </div>
-          <Button onClick={handleShowDialog}></Button>
-        </div>
-        {customFields?.map(
-          ({ key, value }: { key: string; value: string; }, i: number) => (
-            <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
-              <span
-                className="contact-element"
-                onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
-              >
-                {value}
-              </span>
-              <Button
-                style={iconButtonStyles}
-                onClick={() => copyCustomFieldText(key)}
-              >
-                <ContentCopyIcon
-                  className="copy" />
-              </Button>
+        {onGetCustomFields && <>
+          <hr className="divider" />
+          <div className="dynamic-content__top">
+            <div>
+              <span className="title">Custom Fields</span>
+              <InfoIcon fill="var(--primaryColor)" className="custom" />
+              <GeneralTootip
+                anchorSelect=".custom"
+                place="bottom"
+                title="You can add custom fields to your template." />
             </div>
-          )
-        )}
+            <Button onClick={handleShowDialog}></Button>
+          </div>
+          {customFields?.map(
+            ({ key, value }: { key: string; value: string; }, i: number) => (
+              <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
+                <span
+                  className="contact-element"
+                  onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
+                >
+                  {value}
+                </span>
+                <Button
+                  style={iconButtonStyles}
+                  onClick={() => copyCustomFieldText(key)}
+                >
+                  <ContentCopyIcon
+                    className="copy" />
+                </Button>
+              </div>
+            )
+          )}
+        </>}
       </div>
     );
   }) as unknown as SideSection['Panel'],

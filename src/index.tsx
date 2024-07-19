@@ -14,10 +14,13 @@ import '@fontsource/inter/500.css';
 
 // utils
 import { CustomCSSProperties } from './utils/customStyles';
+import { setAuthUserName, setAuthUserPassword } from './utils/helper';
 
 interface TemplateBuilderProps {
   container: HTMLElement | null;
   secretKey: string;
+  basicAuthUsername: string;
+  basicAuthPassword: string;
   returnRoute?: string | null;
   onGetTemplates?: (payload: any) => Promise<any>;
   onGetCustomFields?: () => Promise<any>;
@@ -30,6 +33,8 @@ interface TemplateBuilderProps {
 const TemplateBuilder = ({
   container,
   secretKey,
+  basicAuthUsername,
+  basicAuthPassword,
   returnRoute,
   onGetTemplates,
   onGetCustomFields,
@@ -42,6 +47,14 @@ const TemplateBuilder = ({
   if (!secretKey) {
     throw new Error('secretKey not found');
   }
+  if (!basicAuthUsername) {
+    throw new Error('basicAuthUsername not found');
+  }
+  if (!basicAuthPassword) {
+    throw new Error('basicAuthPassword not found');
+  }
+  setAuthUserName(basicAuthUsername);
+  setAuthUserPassword(basicAuthPassword);
   const root = ReactDOM.createRoot(container);
   root.render(
     <>
@@ -69,6 +82,9 @@ if (rootElement) {
   TemplateBuilder({
     container: rootElement,
     secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
+    basicAuthUsername: import.meta.env.VITE_APP_BASIC_AUTH_USERNAME,
+    basicAuthPassword: import.meta.env.VITE_APP_BASIC_AUTH_PASSWORD,
+    // onGetTemplates: getAllTemplatesByTab,
     styles: {}
   });
 } else {

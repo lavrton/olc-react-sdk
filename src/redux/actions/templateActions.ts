@@ -27,7 +27,7 @@ const getOneTemplate =
   (id: number, type = 'edit') =>
     async (dispatch: AppDispatch): Promise<void> => {
       try {
-        const { data } = await get(`templates/${id}`) as any;
+        const { data } = await get(`/templates/${id}`) as any;
         dispatch({ type: GET_ONE_TEMPLATE, payload: { data: data.data, type } });
         dispatch({ type: TEMPLATE_LOADING, payload: true });
       } catch (error: any) {
@@ -45,7 +45,7 @@ const getOneTemplate =
  */
 const uploadTemplate = async (templateFormData: FormData): Promise<unknown> => {
   try {
-    const response = await post('templates/upload', templateFormData);
+    const response = await post('/templates/upload', templateFormData);
     return response;
   } catch (error: any) {
     return error.response;
@@ -60,7 +60,7 @@ const uploadTemplate = async (templateFormData: FormData): Promise<unknown> => {
  */
 const createTemplate = async (data: object): Promise<unknown> => {
   try {
-    const response = await post('templates', data);
+    const response = await post('/templates', data);
     return response;
   } catch (error: any) {
     return error.response;
@@ -76,7 +76,7 @@ const createTemplate = async (data: object): Promise<unknown> => {
  */
 const updateTemplate = async (id: number, data: object): Promise<unknown> => {
   try {
-    const response = await patch(`templates/${id}`, data);
+    const response = await patch(`/templates/${id}`, data);
     return response;
   } catch (error: any) {
     return error.response;
@@ -129,7 +129,7 @@ const uploadFile = async (file: File): Promise<string> => {
   try {
     const formData = new FormData();
     formData.append('image', file);
-    const response = await post('templates/uploadFile', formData) as Record<string, any>;
+    const response = await post('/uploadFile', formData) as Record<string, any>;
 
     return response?.data?.data?.filePath;
   } catch (error: any) {
@@ -201,7 +201,7 @@ const searchAndAdvanceChange = (name: string, value: any) => (dispatch: AppDispa
  */
 const getAllTemplateCategories = async (): Promise<any> => {
   try {
-    const response = await get('templates/categories');
+    const response = await get('/categories');
     return response;
   } catch (error: any) {
     return error.response;
