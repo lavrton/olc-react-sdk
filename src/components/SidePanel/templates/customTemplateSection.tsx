@@ -37,7 +37,7 @@ import DesignIcon from '../../../assets/images/templates/template-default-design
 import dummyTemplateIcon from '../../../assets/images/templates/dummy-template.svg';
 // @ts-ignore
 import CustomTemplate from '../../../assets/images/templates/custom-template';
-import Cross from '../../../assets/images/modal-icons/cancel-temp.png';
+import ModalCross from '../../../assets/images/modal-icons/modal-cross';
 
 
 // styles
@@ -48,12 +48,12 @@ type SideSection = typeof TemplatesSection;
 
 const designDialogStyles = {
   maxWidth: '430px',
-  minHeight: '258px',
+  minHeight: '265px',
 };
 
 const loadDialogStyles = {
   maxWidth: '430px',
-  minHeight: '280px',
+  minHeight: '285px',
 };
 
 const templateTextStyles: React.CSSProperties = {
@@ -396,7 +396,7 @@ const customTemplateSection: SideSection = {
       <div className="custom-template-section">
         {isShowDialog.open && isShowDialog.model === 'design-own' && (
           <Dialog
-            icon={<img src={Cross} alt="cross" />}
+            icon={<ModalCross />}
             title={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.TITLE}
             subHeading={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.HEADING}
             description={MESSAGES.TEMPLATE.DESIGN_YOUR_OWN.PARAGRAPH}
@@ -411,7 +411,7 @@ const customTemplateSection: SideSection = {
         )}
         {isShowDialog.open && isShowDialog.model === 'load-template' && (
           <Dialog
-            icon={<img src={Cross} alt="cross" />}
+            icon={<ModalCross />}
             title={MESSAGES.TEMPLATE.SELECT_TEMPLATE.TITLE}
             subHeading={MESSAGES.TEMPLATE.SELECT_TEMPLATE.HEADING}
             description={MESSAGES.TEMPLATE.SELECT_TEMPLATE.PARAGRAPH}
