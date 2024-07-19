@@ -46,15 +46,13 @@
       z-index: auto !important;
       color: var(--textColor);
       background-color: var(--mainBackgroundColor);
+      border-bottom: 1px solid rgba(17, 20, 24, 0.1019607843) !important;
       .bp5-card {
         color: var(--textColor);
         background-color: transparent;
       }
       .polotno-close-panel .bp5-button-text {
         color: var(--textColor);
-      }
-       >div{
-        border-bottom: 1px solid #1114181a !important;
       }
     }
 

@@ -51,6 +51,11 @@ const designDialogStyles = {
   minHeight: '258px',
 };
 
+const loadDialogStyles = {
+  maxWidth: '430px',
+  minHeight: '280px',
+};
+
 const templateTextStyles: React.CSSProperties = {
   color: `var(--textColor)`,
   fontSize: `12px`,
@@ -414,7 +419,7 @@ const customTemplateSection: SideSection = {
             handleClose={() => handleDialogChange('')}
             onCancel={() => handleDialogChange('')}
             onSubmit={() => handleLoadTemplate(selectedRecord?.id)}
-            customStyles={designDialogStyles}
+            customStyles={loadDialogStyles}
             cancelText="Cancel"
             submitText="OK"
           />
