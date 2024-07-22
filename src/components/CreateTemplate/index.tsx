@@ -75,7 +75,7 @@ const footerButtonStyles: React.CSSProperties = {
   minHeight: '40px',
   textTransform: 'capitalize',
   borderRadius: '3px',
-  backgroundColor: 'var(--mainBackgroundColor)',
+  backgroundColor: 'transparent',
   color: `var(--textColor)`,
   fontSize: `14px`,
   fontWeight: `500`,
@@ -174,7 +174,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
     <div className="createTemplateMaindiv">
       <div>
         <GridContainer>
-          <GridItem lg={5} md={12} sm={12} xs={12}>
+          <GridItem lg={6} md={6} sm={12} xs={12}>
             <div className="createTemplateHeader">
               <Typography style={templateHeadingStyles}>
                 {MESSAGES.TEMPLATE.CREATE.TITLE}

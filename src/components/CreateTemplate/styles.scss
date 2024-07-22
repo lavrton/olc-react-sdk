@@ -143,6 +143,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      flex-wrap: wrap;
       gap: 25px;
 
       .productCard {
@@ -152,7 +153,6 @@
         flex-direction: column;
         border-radius: 6.299px;
         border: 0.45px solid var(--borderColor);
-        background: var(--mainBackgroundColor);
         width: 100%;
         max-width: 185px;
         height: 100%;
@@ -213,6 +213,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
+      flex-wrap: wrap;
       gap: 25px;
 
       .postCard {
@@ -223,7 +224,6 @@
         flex-direction: column;
         border-radius: 6.299px;
         border: 0.45px solid var(--borderColor);
-        background: var(--mainBackgroundColor);
         cursor: pointer;
         padding: 13px 20px;
         transition: 0.1s ease-in all;
@@ -311,7 +311,7 @@
     width: 100%;
     bottom: 0;
     border-top: 0.5px solid var(--borderColor);
-    background-color: var(--mainBackgroundColor);
+    background-color: #fff;
 
     .createTemplateBtns {
       display: flex;
@@ -319,36 +319,6 @@
       align-items: center;
       gap: 20px;
       padding: 14px 95px 14px 35px;
-
-      button {
-        width: 100%;
-        max-width: 100px;
-        height: 100%;
-        min-height: 40px;
-        text-transform: capitalize;
-        border-radius: 3px;
-
-        &:first-child {
-          color: var(--textColor);
-          text-align: center;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 600;
-          line-height: normal;
-          border: 0.5px solid var(--borderColor);
-          background-color: var(--mainBackgroundColor);
-        }
-
-        &:last-child {
-          color: var(--mainBackgroundColor);
-          text-align: center;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 600;
-          line-height: normal;
-          background-color: var(--primaryColor);
-        }
-      }
     }
   }
 }

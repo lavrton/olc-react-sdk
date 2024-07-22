@@ -4,7 +4,7 @@
   z-index: 99999;
 
   .basic-toast {
-    background-color: #ef7820;
+    background-color: var(--primaryColor);
     .toast-body {
       .toast-content {
         height: 100%;
@@ -16,7 +16,7 @@
         flex-direction: column;
         p {
           font-family: var(--font-family) !important;
-          color: #ffffff;
+          color: var(--notificationTextColor);
           margin: 0;
           &:first-child {
             font-weight: 600;

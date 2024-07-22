@@ -47,8 +47,8 @@ const colourStyles: StylesConfig<Option, false> = {
 };
 
 const errorStyles = {
-  color: '#FF0000',
-  fontWeight: '400'
+  color: 'var(--errorColor)',
+  fontWeight: '400',
 };
 
 const GeneralSelect: React.FC<GeneralSelectProps> = ({

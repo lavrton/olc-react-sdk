@@ -11,7 +11,7 @@ import Cancel from '../../../assets/images/input/cancel';
 import './styles.scss';
 
 const errorStyles = {
-  color: '#FF0000',
+  color: 'var(--errorColor)',
   fontWeight: "400"
 };
 
@@ -73,7 +73,7 @@ const Input: FC<InputProps> = ({
               className="search-input-button"
               onClick={value.length > 0 ? onClick : () => {}}
             >
-              <Search fill="#ED5C2F" />
+              <Search fill="var(--primaryColor)" />
             </div>
           </>
         )}

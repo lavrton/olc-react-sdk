@@ -28,7 +28,7 @@ interface DialogProps {
 }
 
 const buttonStyles: CSSProperties = {
-  color: 'var(--mainBackgroundColor)',
+  color: '#fff',
   backgroundColor: 'var(--primaryColor)',
   maxWidth: '100px',
   minHeight: '40px',
@@ -110,7 +110,7 @@ const Dialog: React.FC<DialogProps> = ({
             style={{
               ...buttonStyles,
               color: 'var(--textColor)',
-              backgroundColor: 'var(--mainBackgroundColor)',
+              backgroundColor: '#fff',
             }}
           >
             {cancelText}

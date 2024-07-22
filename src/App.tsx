@@ -51,7 +51,7 @@ const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles, onGetCustomFi
           : ''
         }
           }
-        body { background-color: var(--mainBackgroundColor);}`
+        `
       : createGlobalStyle`<></>`;
 
   return (

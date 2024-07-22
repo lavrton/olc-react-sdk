@@ -52,7 +52,7 @@ import './styles.scss';
 const buttonStyles: React.CSSProperties = {
   maxWidth: '120px',
   minHeight: '40px',
-  backgroundColor: 'var(--mainBackgroundColor)',
+  backgroundColor: '#fff',
   color: 'var(--textColor)',
   border: '0.5px solid var(--borderColor)',
   fontSize: '15px',
@@ -343,7 +343,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
                 ...buttonStyles,
                 border: 'none',
                 backgroundColor: 'var(--primaryColor)',
-                color: 'var(--mainBackgroundColor)',
+                color: '#fff',
               }}
               onClick={() => handleChangeModel('save')}
             >

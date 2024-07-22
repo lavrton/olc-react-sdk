@@ -29,6 +29,13 @@
       padding-left: 10px;
       font-size: 14px;
       .generic-select__value-container {
+        .generic-select__placeholder{
+          color: var(--textColor);
+          opacity: 0.5;
+        }
+        .generic-select__input-container{
+          color: var(--textColor);
+        }
         .generic-select__single-value {
           color: var(--textColor);
           font-size: 14px;
@@ -53,9 +60,12 @@
     }
 
     .generic-select__menu {
-      background-color: var(--mainBackgroundColor);
       .generic-select__menu-list {
         padding: 0px 5px;
+        .generic-select__menu-notice{
+          cursor: not-allowed;
+          color: var(--textColor);
+        }
         .generic-select__option {
           font-size: 14px;
           font-weight: 400;

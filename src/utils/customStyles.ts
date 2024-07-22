@@ -2,13 +2,14 @@ import React from 'react';
 
 export interface CustomCSSProperties extends React.CSSProperties {
   '--font-family'?: string;
-  '--sb-thumb-color'?: string;
+  '--scrollbar-thumb-color'?: string;
   '--primaryColor'?: string;
   '--secondaryColor'?: string;
   '--svgColor'?: string;
   '--svgColorNotActive'?: string;
-  '--mainBackgroundColor'?: string;
   '--textColor'?: string;
+  '--modalBackgroundColor'?: string;
+  '--notificationTextColor'?: string;
   '--borderColor'?: string;
   '--errorColor'?: string;
 }
@@ -19,15 +20,16 @@ export interface Styles {
 
 export const customStyles: Styles = {
   root: {
-    '--font-family': "Inter",
-    '--sb-thumb-color': '#fb8500',
+    '--font-family': 'Inter',
+    '--scrollbar-thumb-color': '#fb8500',
     '--primaryColor': '#fb8500',
     '--secondaryColor': 'red',
     '--svgColor': '#ffb703',
     '--svgColorNotActive': 'purple',
     '--textColor': '#fff',
+    '--modalBackgroundColor': '#fff',
+    '--notificationTextColor': "#fff",
     '--borderColor': 'rgba(0, 0, 0, 0.5)',
-    '--mainBackgroundColor': '#023047',
     '--errorColor': '#ff0000',
   },
 };

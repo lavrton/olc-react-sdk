@@ -5,7 +5,6 @@
     }
     .polotno-side-panel {
       & .polotno-side-tabs-container {
-        background-color: var(--mainBackgroundColor);
         & .polotno-side-tabs-inner {
           & .polotno-side-panel-tab {
             color: var(--textColor);
@@ -25,7 +24,6 @@
         }
       }
       & .polotno-panel-container {
-        background-color: var(--mainBackgroundColor);
         & > div > p {
           display: none;
         }

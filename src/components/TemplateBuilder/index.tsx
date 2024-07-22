@@ -83,7 +83,6 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
     width: '100vw',
     height: '90vh',
     position: 'relative',
-    backgroundColor: 'var(--mainBackgroundColor) !important',
   }
 
   useEffect(() => {

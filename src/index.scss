@@ -1,20 +1,14 @@
 :root {
   --font-family: "Inter";
-  // scroll bars colors
-  --srollbar-thumb-color: hsl(29, 100%, 88%);
-  // basic colors
+  --scrollbar-thumb-color: hsl(29, 100%, 88%);
   --primaryColor: #ed5c2f;
   --secondaryColor: #FFF8EE;
-  // svg colors
   --svgColor: #fdb515;
   --svgColorNotActive: #fdecd3;
-  // main background color
-  --mainBackgroundColor: #ffffff;
-  // text colors
   --textColor: #000;
-  // border color
+  --modalBackgroundColor: #FFF8EE;
+  --notificationTextColor: #fff;
   --borderColor: #303030;
-  // error 
   --errorColor: #ff0000;
 
   body {
@@ -32,27 +26,22 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--srollbar-thumb-color) !important;
+      background: var(--scrollbar-thumb-color) !important;
       border-radius: 3px;
     }
 
     @supports not selector(::-webkit-scrollbar) {
       body {
-        scrollbar-color: var(--srollbar-thumb-color) var(--secondaryColor);
+        scrollbar-color: var(--scrollbar-thumb-color) var(--secondaryColor);
       }
     }
 
     .bp5-navbar {
       z-index: auto !important;
-      color: var(--textColor);
-      background-color: var(--mainBackgroundColor);
       border-bottom: 1px solid rgba(17, 20, 24, 0.1019607843) !important;
       .bp5-card {
         color: var(--textColor);
         background-color: transparent;
-      }
-      .polotno-close-panel .bp5-button-text {
-        color: var(--textColor);
       }
     }
 
@@ -72,37 +61,21 @@
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--srollbar-thumb-color) !important;
+        background: var(--scrollbar-thumb-color) !important;
         border-radius: 3px;
       }
 
       @supports not selector(::-webkit-scrollbar) {
         body {
-          scrollbar-color: var(--srollbar-thumb-color) var(--secondaryColor);
+          scrollbar-color: var(--scrollbar-thumb-color) var(--secondaryColor);
         }
       }
     }
 
-    .bp5-popover-content>div>div>div{
-      &::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: var(--secondaryColor) !important;
-        border-radius: 3px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: var(--srollbar-thumb-color) !important;
-        border-radius: 3px;
-      }
-
-      @supports not selector(::-webkit-scrollbar) {
-        body {
-          scrollbar-color: var(--srollbar-thumb-color) var(--secondaryColor);
-        }
+    .polotno-panel-container > div >div{
+      color: #000;
+      p{
+        color: #000;
       }
     }
   }
