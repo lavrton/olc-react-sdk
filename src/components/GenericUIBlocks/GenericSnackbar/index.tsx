@@ -11,6 +11,9 @@ import { AppDispatch, RootState } from '../../../redux/store';
 // Actions
 import { closeSnackbar } from '../../../redux/actions/snackbarActions';
 
+// utils
+import {MESSAGES} from '../../../utils/message';
+
 // Components
 import Typography from '../Typography';
 
@@ -19,6 +22,7 @@ import Cross from '../../../assets/images/modal-icons/cross'
 
 // styles
 import './styles.scss'
+
 
 const GenericSnackbar:React.FC = () => {
     const open = useSelector(
@@ -37,7 +41,7 @@ const GenericSnackbar:React.FC = () => {
     const Element = (
       <div className="toast-content">
         <Typography>{heading || 'Notifications'}</Typography>
-        <Typography>{message || ''}</Typography>
+        <Typography>{message || MESSAGES.GENERAL_ERROR}</Typography>
       </div>
     );
 
