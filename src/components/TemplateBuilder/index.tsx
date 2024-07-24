@@ -56,12 +56,13 @@ setUploadFunc(uploadFile)
 interface TemplateBuilderProps {
   store: StoreType,
   returnRoute?: string | null,
+  olcTemplate?: Record<string, any>;
   onGetCustomFields?: () => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onSubmit?: (payload: any) => Promise<any>;
 }
 
-const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, onGetCustomFields, onGetTemplates, onSubmit }) => {
+const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, olcTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
   const [isStoreUpdated, setIsStoreUpdated] = useState(false);
   const [switchTabCount, setSwitchTabCount] = useState(1);
 
@@ -69,8 +70,6 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-
-  const template = useSelector((state: RootState) => state.templates.template) as Record<string, any>;
   const product = useSelector((state: RootState) => state.templates.product) as Record<string, any>;
   const envelopeType = useSelector(
     (state: RootState) => state.templates.envelopeType
@@ -87,7 +86,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
 
   useEffect(() => {
     handleLoadTemplate();
-  }, [template]);
+  }, [olcTemplate]);
 
   // Event listener for visibility change
   useEffect(() => {
@@ -105,7 +104,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
   }, []);
 
   useEffect(() => {
-    if (!product) {
+    if (!product && !olcTemplate) {
       navigate('/create-template');
     }
   }, []);
@@ -240,7 +239,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
   };
 
   const handleLoadTemplate = async () => {
-    if (template) {
+    if (olcTemplate) {
       const workspaceElement = document.querySelector(
         ".polotno-workspace-container"
       );
@@ -248,13 +247,13 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
         workspaceElement.classList.add("show-loader");
       }
       // @ts-ignore
-      const paperDimensions = template?.product?.paperSize.split('x');
+      const paperDimensions = olcTemplate?.product?.paperSize.split('x');
       store.setUnit({
         unit: "in",
         dpi: 96,
       });
       store.setSize(+paperDimensions[1] * DPI, +paperDimensions[0] * DPI);
-      const jsonData = await getFileAsBlob(template?.templateUrl);
+      const jsonData = await getFileAsBlob(olcTemplate?.templateUrl);
       store.loadJSON(jsonData);
       await store.waitLoading();
       setIsStoreUpdated(false);

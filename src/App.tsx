@@ -23,12 +23,13 @@ interface AppProps {
   secretKey: string;
   returnRoute?: string | null;
   styles?: any;
+  olcTemplate?: Record<string, any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onGetCustomFields?: () => Promise<any>;
   onSubmit?: (payload: any) => Promise<any>;
 }
 
-const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles, onGetCustomFields, onGetTemplates, onSubmit }) => {
+const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles, olcTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
   const [store, setStore] = useState<StoreType>(initializeStore(secretKey));
 
   const currentPath = window?.location?.pathname;
@@ -64,7 +65,7 @@ const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles, onGetCustomFi
         />
         <Route
           path="/template-builder"
-          element={<TemplateBuilder store={store} returnRoute={returnRoute} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} onSubmit={onSubmit} />}
+          element={<TemplateBuilder store={store} olcTemplate={olcTemplate} returnRoute={returnRoute} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} onSubmit={onSubmit} />}
         />
       </Routes>
     </>
