@@ -1,9 +1,9 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 //hooks
-import {NavLink, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../redux/store';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
 
 //actions
 import {
@@ -12,16 +12,16 @@ import {
   selectPostCard,
   selectProduct,
 } from '../../redux/actions/templateActions';
-import {CLEAR_TEMPLATE} from '../../redux/actions/action-types';
+import { CLEAR_TEMPLATE } from '../../redux/actions/action-types';
 
 //utils
-import {PRODUCT_LEARN_URL, sortOrderForTemplates} from '../../utils/constants';
-import {removeItem} from '../../utils/local-storage';
-import {MESSAGES} from '../../utils/message';
-import {envelopeTypes} from '../../utils/template-builder';
+import { PRODUCT_LEARN_URL, sortOrderForTemplates } from '../../utils/constants';
+import { removeItem } from '../../utils/local-storage';
+import { MESSAGES } from '../../utils/message';
+import { envelopeTypes } from '../../utils/template-builder';
 
 // UI Components
-import {GridContainer, GridItem} from '../GenericUIBlocks/Grid';
+import { GridContainer, GridItem } from '../GenericUIBlocks/Grid';
 import Typography from '../GenericUIBlocks/Typography';
 import Button from '../GenericUIBlocks/Button';
 import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
@@ -92,9 +92,10 @@ const Images: Record<string, ReactElement> = {
 
 interface CreateTemplateProps {
   returnRoute?: string | null;
+  createTemplateRoute?: string | null;
 }
 
-const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
+const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute, createTemplateRoute }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [envelopeType, setEnvelopeType] = useState<[]>([]);
 
@@ -151,7 +152,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
   useEffect(() => {
     dispatch(clearTemplateFields());
     removeItem('formData');
-    dispatch({type: CLEAR_TEMPLATE});
+    dispatch({ type: CLEAR_TEMPLATE });
   }, []);
 
   useEffect(() => {
@@ -215,7 +216,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
               <div className="productTypeWrapper">
                 <div className="productHeading">
                   <Typography
-                    style={{...templateTextStyles, marginBottom: '0px'}}
+                    style={{ ...templateTextStyles, marginBottom: '0px' }}
                   >
                     {MESSAGES.TEMPLATE.CREATE.PRODUCT_LABEL}
                   </Typography>
@@ -231,7 +232,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
                   style={{
                     marginBottom:
                       product &&
-                      (product.productType.includes('Postcards') || product.productType.includes('Professional Letters'))
+                        (product.productType.includes('Postcards') || product.productType.includes('Professional Letters'))
                         ? undefined
                         : '100px',
                   }}
@@ -242,12 +243,11 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
                       .map((prod, index) => {
                         return (
                           <div
-                            className={`productCard ${
-                              prod.productType ===
-                              (product && product.productType)
+                            className={`productCard ${prod.productType ===
+                                (product && product.productType)
                                 ? 'active'
                                 : ''
-                            } ${isError && !product ? 'error' : ''} `}
+                              } ${isError && !product ? 'error' : ''} `}
                             key={index}
                             onClick={() => dispatch(selectProduct(prod))}
                           >
@@ -287,7 +287,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
               </GridItem>
             </GridContainer>
           )}
-          {product && product?.productType === 'Postcards' && (
+          {product && product?.productType === 'Postcards' && product?.size && (
             <GridContainer>
               <GridItem lg={12} md={12} sm={12} xs={12}>
                 <div className="postCardSizeWrapper">
@@ -317,28 +317,24 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
                             }
                             className={
                               index === 0
-                                ? `postCard postCard-small ${
-                                    product.selectedSize === type.size
+                                ? `postCard postCard-small ${product.selectedSize === type.size
+                                  ? 'active'
+                                  : ''
+                                }`
+                                : index === 1
+                                  ? `postCard postCard-mid ${product.selectedSize === type.size
+                                    ? 'active'
+                                    : ''
+                                  }`
+                                  : index === 2
+                                    ? `postCard postCard-large ${product.selectedSize === type.size
                                       ? 'active'
                                       : ''
-                                  }`
-                                : index === 1
-                                  ? `postCard postCard-mid ${
-                                      product.selectedSize === type.size
-                                        ? 'active'
-                                        : ''
                                     }`
-                                  : index === 2
-                                    ? `postCard postCard-large ${
-                                        product.selectedSize === type.size
-                                          ? 'active'
-                                          : ''
-                                      }`
-                                    : `postCard ${
-                                        product.selectedSize === type.size
-                                          ? 'active'
-                                          : ''
-                                      }`
+                                    : `postCard ${product.selectedSize === type.size
+                                      ? 'active'
+                                      : ''
+                                    }`
                             }
                             key={index}
                           >
@@ -377,7 +373,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({returnRoute}) => {
                 border: '0.5px solid var(--borderColor)',
               }}
               onClick={() =>
-                navigate(returnRoute ? returnRoute : '/create-template')
+                navigate(returnRoute ? returnRoute : createTemplateRoute || '/create-template')
               }
             >
               {MESSAGES.TEMPLATE.CREATE.CANCEL_BUTTON}

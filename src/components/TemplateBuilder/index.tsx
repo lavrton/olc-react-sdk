@@ -17,11 +17,10 @@ import { StoreType } from 'polotno/model/store';
 
 // Actions
 import {
-  getOneTemplate,
   uploadFile,
 } from '../../redux/actions/templateActions';
-import { SET_CUSTOM_FIELDS, TEMPLATE_LOADING } from '../../redux/actions/action-types';
-
+import { GET_ONE_TEMPLATE, SET_CUSTOM_FIELDS, TEMPLATE_LOADING } from '../../redux/actions/action-types';
+import { failure } from '../../redux/actions/snackbarActions';
 
 // Utils
 import { drawRestrictedAreaOnPage, getFileAsBlob } from '../../utils/template-builder';
@@ -56,13 +55,15 @@ setUploadFunc(uploadFile)
 interface TemplateBuilderProps {
   store: StoreType,
   returnRoute?: string | null,
+  createTemplateRoute?: string | null,
   olcTemplate?: Record<string, any>;
   onGetCustomFields?: () => Promise<any>;
+  onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onSubmit?: (payload: any) => Promise<any>;
 }
 
-const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, olcTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
+const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, createTemplateRoute, olcTemplate, onGetOneTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
   const [isStoreUpdated, setIsStoreUpdated] = useState(false);
   const [switchTabCount, setSwitchTabCount] = useState(1);
 
@@ -70,6 +71,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
+  const template = useSelector((state: RootState) => state.templates.template) as Record<string, any>;
   const product = useSelector((state: RootState) => state.templates.product) as Record<string, any>;
   const envelopeType = useSelector(
     (state: RootState) => state.templates.envelopeType
@@ -86,7 +88,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
 
   useEffect(() => {
     handleLoadTemplate();
-  }, [olcTemplate]);
+  }, [olcTemplate, template]);
 
   // Event listener for visibility change
   useEffect(() => {
@@ -104,23 +106,35 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
   }, []);
 
   useEffect(() => {
-    if (!product && !olcTemplate) {
-      navigate('/create-template');
+    if (!product && !olcTemplate && !id) {
+      navigate(createTemplateRoute || '/create-template');
     }
   }, []);
 
-
+  // @ts-ignore
   useEffect(() => {
-    if (product) {
+    if (product || (id && onGetOneTemplate)) {
       setGoogleFonts(fonts);
-      // remove this component from the history stack
 
-      if (id) {
+      if (id && onGetOneTemplate) {
+        try {
+          onGetOneTemplate(id).then((template) => {
+            if (template) {
+              dispatch({ type: GET_ONE_TEMPLATE, payload: { data: template } });
+              dispatch({ type: TEMPLATE_LOADING, payload: true });
+            } else {
+              dispatch(failure('Unable to load the Template'));
+              setTimeout(() => {
+                navigate(createTemplateRoute || '/create-template');
+              }, 1000);
+            }
+          });
+        } catch (error) {
+          return error;
+        }
         // @ts-ignore
-        dispatch(getOneTemplate(id));
       } else if (store.pages.length === 0) {
         createInitialPage();
-
       }
 
       fetchCustomFields();
@@ -239,7 +253,8 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
   };
 
   const handleLoadTemplate = async () => {
-    if (olcTemplate) {
+    const existingTemplate = olcTemplate || template;
+    if (existingTemplate) {
       const workspaceElement = document.querySelector(
         ".polotno-workspace-container"
       );
@@ -247,13 +262,13 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
         workspaceElement.classList.add("show-loader");
       }
       // @ts-ignore
-      const paperDimensions = olcTemplate?.product?.paperSize.split('x');
+      const paperDimensions = existingTemplate?.product?.paperSize.split('x');
       store.setUnit({
         unit: "in",
         dpi: 96,
       });
       store.setSize(+paperDimensions[1] * DPI, +paperDimensions[0] * DPI);
-      const jsonData = await getFileAsBlob(olcTemplate?.templateUrl);
+      const jsonData = await getFileAsBlob(existingTemplate?.templateUrl);
       store.loadJSON(jsonData);
       await store.waitLoading();
       setIsStoreUpdated(false);
@@ -275,13 +290,14 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, o
             store={store}
             isStoreUpdated={isStoreUpdated}
             returnRoute={returnRoute}
+            createTemplateRoute={createTemplateRoute}
             onSubmit={onSubmit}
           />
 
           <PolotnoContainer
             style={containerStyle}
           >
-            <SidePanel store={store} currentTemplateType={currentTemplateType} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} />
+            <SidePanel store={store} currentTemplateType={currentTemplateType} onGetOneTemplate={onGetOneTemplate} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} />
             <WorkspaceWrap>
               {currentTemplateType !== "Real Penned Letter" && (
                 <Toolbar store={store} downloadButtonEnabled={false} />

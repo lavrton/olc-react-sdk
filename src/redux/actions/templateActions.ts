@@ -5,9 +5,6 @@ import { get, post, patch } from '../../utils/api';
 
 // Action Types
 import {
-  GET_ONE_TEMPLATE,
-  TEMPLATE_LOADING,
-  TEMPLATE_PAGINATION_CHANGE,
   TEMPLATE_SEARCH,
   CLEAR_ALL_TEMPLATE,
   SELECT_PRODUCT,
@@ -15,26 +12,6 @@ import {
   CLEAR_TEMPLATE_FIELDS,
   LOAD_DATA_FROM_LOCAL_STORAGE,
 } from './action-types';
-
-
-/**
- * Makes an HTTP GET request to the 'templates' endpoint and dispatches an action with the retrieved data.
- * @param {number} id - The ID of the template to retrieve.
- * @param {function} dispatch - A function used to dispatch actions to the Redux store.
- * @returns {void}
- */
-const getOneTemplate =
-  (id: number, type = 'edit') =>
-    async (dispatch: AppDispatch): Promise<void> => {
-      try {
-        const { data } = await get(`/templates/${id}`) as any;
-        dispatch({ type: GET_ONE_TEMPLATE, payload: { data: data.data, type } });
-        dispatch({ type: TEMPLATE_LOADING, payload: true });
-      } catch (error: any) {
-        return error.response;
-      }
-    };
-
 
 /**
  * Uploads a template using the provided template form data.
@@ -210,7 +187,6 @@ const getAllTemplateCategories = async (): Promise<any> => {
 
 export {
   uploadTemplate,
-  getOneTemplate,
   createTemplate,
   updateTemplate,
   searchAndAdvanceChange,

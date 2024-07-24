@@ -13,6 +13,7 @@ import customFieldSection from './customFields/customFieldSection';
 interface Props {
   store: StoreType;
   currentTemplateType: string;
+  onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onGetCustomFields?: () => Promise<any>;
 }
@@ -30,7 +31,7 @@ const SidePanel: React.FC<Props> = (props) => {
       <PolotnoSidePanel store={props.store}
         sections={[
           ...(props.currentTemplateType !== "Real Penned Letter" && props.onGetTemplates
-            ? [{ ...customTemplateSection, Panel: (panelProps: any) => <customTemplateSection.Panel {...panelProps} onGetTemplates={props.onGetTemplates} /> }]
+            ? [{ ...customTemplateSection, Panel: (panelProps: any) => <customTemplateSection.Panel {...panelProps} onGetTemplates={props.onGetTemplates} onGetOneTemplate={props.onGetOneTemplate}/> }]
             : []),
           ...sections,
           { ...customFieldSection, Panel: (panelProps: any) => <customFieldSection.Panel {...panelProps} onGetCustomFields={props.onGetCustomFields} /> },

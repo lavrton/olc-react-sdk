@@ -22,20 +22,23 @@ const initializeStore = (secretKey: string) => {
 interface AppProps {
   secretKey: string;
   returnRoute?: string | null;
+  createTemplateRoute?: string | null;
+  templateBuilderRoute?: string | null;
   styles?: any;
   olcTemplate?: Record<string, any>;
+  onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onGetCustomFields?: () => Promise<any>;
   onSubmit?: (payload: any) => Promise<any>;
 }
 
-const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles, olcTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
+const App: React.FC<AppProps> = ({ secretKey, returnRoute, createTemplateRoute, templateBuilderRoute, styles, olcTemplate, onGetOneTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
   const [store, setStore] = useState<StoreType>(initializeStore(secretKey));
 
   const currentPath = window?.location?.pathname;
 
   useEffect(() => {
-    if (currentPath === '/create-template') {
+    if (currentPath === createTemplateRoute || '/create-template') {
       const newStore = initializeStore(secretKey);
       setStore(newStore);
     }
@@ -60,12 +63,12 @@ const App: React.FC<AppProps> = ({ secretKey, returnRoute, styles, olcTemplate, 
       <GlobalStyle />
       <Routes>
         <Route
-          path="/create-template"
-          element={<CreateTemplate returnRoute={returnRoute} />}
+          path={createTemplateRoute || "/create-template"}
+          element={<CreateTemplate returnRoute={returnRoute} createTemplateRoute={createTemplateRoute} />}
         />
         <Route
-          path="/template-builder"
-          element={<TemplateBuilder store={store} olcTemplate={olcTemplate} returnRoute={returnRoute} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} onSubmit={onSubmit} />}
+          path={templateBuilderRoute || "/template-builder/:id?"}
+          element={<TemplateBuilder store={store} olcTemplate={olcTemplate} returnRoute={returnRoute} createTemplateRoute={createTemplateRoute} onGetOneTemplate={onGetOneTemplate} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} onSubmit={onSubmit} />}
         />
       </Routes>
     </>

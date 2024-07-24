@@ -9,10 +9,9 @@ import type { TemplatesSection } from 'polotno/side-panel';
 // Actions
 import {
   clearAllTemplates,
-  getOneTemplate,
   getAllTemplateCategories,
 } from '../../../../src/redux/actions/templateActions';
-import { TEMPLATE_LOADING } from '../../../redux/actions/action-types';
+import { GET_ONE_TEMPLATE, TEMPLATE_LOADING } from '../../../redux/actions/action-types';
 import { failure } from '../../../redux/actions/snackbarActions';
 
 // Hooks
@@ -96,19 +95,20 @@ type CustomTemplateSectionProps = {
   store: StoreType;
   active: boolean;
   onClick: () => void;
+  onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: Payload) => Promise<any>;
 };
 
 const customTemplateSection: SideSection = {
   name: 'Templates',
   Tab: observer(
-    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
+    (props: { store: StoreType; active: boolean; onClick: () => void }) => (
       <SectionTab name="Templates" {...props}>
         <CustomTemplate fill="var(--textColor)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
-  Panel: observer(({store, onGetTemplates}: CustomTemplateSectionProps) => {
+  Panel: observer(({ store, onGetOneTemplate, onGetTemplates }: CustomTemplateSectionProps) => {
     const dispatch: AppDispatch = useDispatch();
 
     const [currentTemplateType, setCurrentTemplateType] =
@@ -251,17 +251,28 @@ const customTemplateSection: SideSection = {
       if (initialCall) {
         page = 1;
       }
-     
+
       getTemplatesByTab(page);
     };
 
-    const handleLoadTemplate = (id: any) => {
-      dispatch(getOneTemplate(id, 'copy'));
-      handleDialogChange('');
+    const handleLoadTemplate = async (id: any, type = 'edit') => {
+      if (onGetOneTemplate) {
+        try {
+          const template = await onGetOneTemplate(id);
+          dispatch({ type: GET_ONE_TEMPLATE, payload: { data: template, type } });
+          dispatch({ type: TEMPLATE_LOADING, payload: true });
+        } catch (error) {
+          return error;
+        } finally {
+          handleDialogChange('');
+        }
+      } else {
+        dispatch(failure('Please provide onGetOneTemplate handler to load this template'));
+      }
     };
 
     const handleDialogChange = (model = '') => {
-      setIsShowDialog((prev) => ({open: !prev.open, model: model}));
+      setIsShowDialog((prev) => ({ open: !prev.open, model: model }));
     };
 
     const processPage = async (index: any, page: any) => {
@@ -272,12 +283,12 @@ const customTemplateSection: SideSection = {
         const text = index === 0 ? 'Front' : 'Back';
 
         if (pageNumber) {
-          pageNumber.set({text});
+          pageNumber.set({ text });
           resolve();
         } else {
           page.addElement({
             type: 'text',
-            custom: {name: 'page-number'},
+            custom: { name: 'page-number' },
             text,
             width: store.width,
             align: 'center',
@@ -332,7 +343,7 @@ const customTemplateSection: SideSection = {
     useEffect(() => {
       if (templateLoading !== null && templateLoading === false) {
         handleDialogChange('');
-        dispatch({type: TEMPLATE_LOADING, payload: null});
+        dispatch({ type: TEMPLATE_LOADING, payload: null });
       }
     }, [templateLoading]);
 
@@ -431,7 +442,7 @@ const customTemplateSection: SideSection = {
             backgroundColor: '#fff',
           }}
         >
-          <div style={{marginTop: '8px'}}>
+          <div style={{ marginTop: '8px' }}>
             <GeneralSelect
               placeholder="Template Types"
               options={templateTypes as any}
@@ -439,14 +450,14 @@ const customTemplateSection: SideSection = {
               selectedValue={currentTemplateType as any}
               builderSelect={true}
               // @ts-ignore
-              search={() => {}}
-              updateErrors={() => {}}
+              search={() => { }}
+              updateErrors={() => { }}
               disableClearable={true}
               templateBuilder={true}
             />
           </div>
           {currentTemplateType?.id === '3' && (
-            <div style={{marginTop: 8}}>
+            <div style={{ marginTop: 8 }}>
               <GeneralSelect
                 placeholder="Select Category"
                 options={templateCategories as any}
@@ -454,8 +465,8 @@ const customTemplateSection: SideSection = {
                 selectedValue={selectedCategory as any}
                 builderSelect={true}
                 // @ts-ignore
-                search={(() => {}) as any}
-                updateErrors={() => {}}
+                search={(() => { }) as any}
+                updateErrors={() => { }}
                 disableClearable={false}
                 templateBuilder={true}
               />
@@ -463,7 +474,7 @@ const customTemplateSection: SideSection = {
           )}
           <div
             className="searchWrapper"
-            style={{marginTop: '16px', marginBottom: '16px'}}
+            style={{ marginTop: '16px', marginBottom: '16px' }}
           >
             <Input
               type="text"
@@ -501,7 +512,7 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({currentTarget}) => {
+                      onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
@@ -527,7 +538,7 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({currentTarget}) => {
+                      onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
@@ -553,7 +564,7 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({currentTarget}) => {
+                      onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');

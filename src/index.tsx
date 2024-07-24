@@ -22,7 +22,10 @@ interface TemplateBuilderProps {
   basicAuthUsername: string;
   basicAuthPassword: string;
   returnRoute?: string | null;
+  createTemplateRoute?: string | null;
+  templateBuilderRoute?: string | null;
   olcTemplate?: Record<string, any>;
+  onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onGetCustomFields?: () => Promise<any>;
   onSubmit?: (payload: any) => Promise<any>;
@@ -37,7 +40,10 @@ const TemplateBuilder = ({
   basicAuthUsername,
   basicAuthPassword,
   returnRoute,
+  createTemplateRoute,
+  templateBuilderRoute,
   olcTemplate,
+  onGetOneTemplate,
   onGetTemplates,
   onGetCustomFields,
   onSubmit,
@@ -67,9 +73,12 @@ const TemplateBuilder = ({
             styles={styles}
             olcTemplate={olcTemplate}
             returnRoute={returnRoute}
-            onSubmit={onSubmit}
+            createTemplateRoute={createTemplateRoute}
+            templateBuilderRoute={templateBuilderRoute}
+            onGetOneTemplate={onGetOneTemplate}
             onGetTemplates={onGetTemplates}
             onGetCustomFields={onGetCustomFields}
+            onSubmit={onSubmit}
           />
         </Router>
       </Provider>
@@ -87,6 +96,7 @@ if (rootElement) {
     secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
     basicAuthUsername: import.meta.env.VITE_APP_BASIC_AUTH_USERNAME,
     basicAuthPassword: import.meta.env.VITE_APP_BASIC_AUTH_PASSWORD,
+    // onGetOneTemplate: getOneTemplate,
     // olcTemplate: olcTemplateData,
     // onGetTemplates: getAllTemplatesByTab,
     styles: {}

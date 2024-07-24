@@ -68,6 +68,7 @@ const progressStyles: React.CSSProperties = {
 interface TopNavigationProps {
   store: any;
   returnRoute?: string | null;
+  createTemplateRoute?: string | null;
   isStoreUpdated: boolean;
   onSubmit?: (payload: any) => Promise<any>;
 }
@@ -75,6 +76,7 @@ interface TopNavigationProps {
 const TopNavigation: React.FC<TopNavigationProps> = ({
   store,
   returnRoute,
+  createTemplateRoute,
   isStoreUpdated,
   onSubmit,
 }) => {
@@ -132,7 +134,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     if (isStoreUpdated) {
       setShowNavigateDialog(!showNavigateDialog);
     } else {
-      handleNavigation(returnRoute ? returnRoute : '/create-template');
+      handleNavigation(returnRoute ? returnRoute : createTemplateRoute || '/create-template');
     }
   };
 
@@ -283,7 +285,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           open={showNavigateDialog}
           handleClose={() => setShowNavigateDialog(false)}
           handleNavigateAction={() =>
-            handleNavigation(returnRoute ? returnRoute : '/create-template')
+            handleNavigation(returnRoute ? returnRoute : createTemplateRoute || '/create-template')
           }
         />
       )}

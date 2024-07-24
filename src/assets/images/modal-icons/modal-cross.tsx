@@ -29,7 +29,7 @@ const ModalCross = (props: any) => {
           fill={disabled ? 'grey' : fill}
         />
       </g>
-      <circle cx="13" cy="13" r="12" stroke-width="2" />
+      <circle cx="13" cy="13" r="12" strokeWidth="2" />
     </svg>
   );
 };
