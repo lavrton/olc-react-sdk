@@ -57,7 +57,7 @@ const loadDialogStyles = {
 };
 
 const templateTextStyles: React.CSSProperties = {
-  color: `var(--textColor)`,
+  color: `#000`,
   fontSize: `12px`,
   fontStyle: `normal`,
   fontWeight: `500`,
@@ -437,6 +437,7 @@ const customTemplateSection: SideSection = {
               options={templateTypes as any}
               setSelectedValue={setCurrentTemplateType as any}
               selectedValue={currentTemplateType as any}
+              builderSelect={true}
               // @ts-ignore
               search={() => {}}
               updateErrors={() => {}}
@@ -451,6 +452,7 @@ const customTemplateSection: SideSection = {
                 options={templateCategories as any}
                 setSelectedValue={setSelectedCategory as any}
                 selectedValue={selectedCategory as any}
+                builderSelect={true}
                 // @ts-ignore
                 search={(() => {}) as any}
                 updateErrors={() => {}}
@@ -467,6 +469,7 @@ const customTemplateSection: SideSection = {
               type="text"
               value={search}
               name="search"
+              builderInput={true}
               // @ts-ignore
               onKeyDown={searchKeyDown}
               onChange={(e: any) => setSearch(e.target.value.trimStart())}

@@ -42,6 +42,12 @@
         color: var(--textColor);
       }
     }
+    .builder-input {
+      color: #000;
+      &::placeholder {
+        color: #000;
+      }
+    }
 
     .search-input-button {
       position: relative;

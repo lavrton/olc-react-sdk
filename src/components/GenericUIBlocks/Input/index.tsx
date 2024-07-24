@@ -30,6 +30,7 @@ interface InputProps {
   onClick?: () => void;
   removeSearchInput?: () => void;
   onKeyDown?: () => void;
+  builderInput?: boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -45,6 +46,7 @@ const Input: FC<InputProps> = ({
   searchApplied,
   removeSearchInput,
   onKeyDown,
+  builderInput,
 }) => {
   const InputVariant = variant || 'input';
 
@@ -59,7 +61,7 @@ const Input: FC<InputProps> = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="basic-input"
+          className={`basic-input ${builderInput && 'builder-input'}`}
           onKeyDown={onKeyDown}
         />
         {inputIcon && (

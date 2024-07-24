@@ -251,8 +251,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
         <Divider />
         {product && product.productType === 'Professional Letters' && (
           <GridContainer>
-            <GridItem lg={6} md={6} sm={6} xs={12}>
-              {/* <div className="createTemplateHeader"> */}
+            <GridItem lg={6} md={6} sm={12} xs={12}>
               <div className="templateSelectWrapper">
                 <GeneralSelect
                   className={isError && ![envelopeType].length ? 'error' : ''}
@@ -268,7 +267,6 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute }) => {
                   label="Envelope Type*"
                 />
               </div>
-              {/* </div> */}
             </GridItem>
           </GridContainer>
         )}

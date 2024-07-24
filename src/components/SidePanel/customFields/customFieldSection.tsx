@@ -134,7 +134,7 @@ const customFieldSection: SideSection = {
         <div className="dynamic-content__top">
           <div>
             <span className="title">Contact Fields</span>
-            <InfoIcon fill="var(--primaryColor)" className="infoIcon" />
+            <InfoIcon fill="#000" className="infoIcon" />
             <GeneralTootip
               anchorSelect=".infoIcon"
               place="bottom"
