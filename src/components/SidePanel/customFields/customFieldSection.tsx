@@ -48,7 +48,7 @@ const customFieldSection: SideSection = {
   Tab: observer(
     (props: {store: StoreType; active: boolean; onClick: () => void}) => (
       <SectionTab name="Fields" {...props}>
-        <Field fill="var(--textColor)" />
+        <Field fill="var(--text-color)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
@@ -168,7 +168,7 @@ const customFieldSection: SideSection = {
           <div className="dynamic-content__top">
             <div>
               <span className="title">Custom Fields</span>
-              <InfoIcon fill="var(--primaryColor)" className="custom" />
+              <InfoIcon fill="var(--primary-color)" className="custom" />
               <GeneralTootip
                 anchorSelect=".custom"
                 place="bottom"

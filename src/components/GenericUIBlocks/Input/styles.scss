@@ -9,14 +9,14 @@
   .basic-label {
     font-size: 14px;
     font-weight: 400;
-    color: var(--textColor);
+    color: var(--text-color);
   }
 
   .input-with-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.5px solid var(--borderColor);
+    border: 0.5px solid var(--border-color);
     border-radius: 7px;
     height: 100%;
     min-height: 55px;
@@ -31,7 +31,7 @@
       font-family: var(--font-family) !important;
       font-weight: 400;
       line-height: 24px;
-      color: var(--textColor);
+      color: var(--text-color);
       border: none;
       border-radius: 7px;
       &:focus {
@@ -39,7 +39,7 @@
       }
       &::placeholder {
         opacity: 50%;
-        color: var(--textColor);
+        color: var(--text-color);
       }
     }
     .builder-input {
@@ -81,11 +81,11 @@
     }
 
     &.errorBorder{
-      border: 1.5px solid var(--errorColor);
+      border: 1.5px solid var(--error-color);
     }
   }
 
   .focused {
-    background-color: var(--secondaryColor);
+    background-color: var(--secondary-color);
   }
 }

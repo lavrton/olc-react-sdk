@@ -102,7 +102,7 @@ const customTemplateSection: SideSection = {
   Tab: observer(
     (props: { store: StoreType; active: boolean; onClick: () => void }) => (
       <SectionTab name="Templates" {...props}>
-        <CustomTemplate fill="var(--textColor)" />
+        <CustomTemplate fill="var(--text-color)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
@@ -461,14 +461,14 @@ const customTemplateSection: SideSection = {
               selectedValue={currentTemplateType as any}
               builderSelect={true}
               // @ts-ignore
-              search={() => { }}
-              updateErrors={() => { }}
+              search={() => {}}
+              updateErrors={() => {}}
               disableClearable={true}
               templateBuilder={true}
             />
           </div>
           {currentTemplateType?.id === '3' && (
-            <div style={{ marginTop: 8 }}>
+            <div style={{marginTop: 8}}>
               <GeneralSelect
                 placeholder="Select Category"
                 options={templateCategories as any}
@@ -477,8 +477,8 @@ const customTemplateSection: SideSection = {
                 builderSelect={true}
                 clearField={true}
                 // @ts-ignore
-                search={(() => { }) as any}
-                updateErrors={() => { }}
+                search={(() => {}) as any}
+                updateErrors={() => {}}
                 disableClearable={false}
                 templateBuilder={true}
               />
@@ -486,7 +486,7 @@ const customTemplateSection: SideSection = {
           )}
           <div
             className="searchWrapper"
-            style={{ marginTop: '16px', marginBottom: '16px' }}
+            style={{marginTop: '16px', marginBottom: '16px'}}
           >
             <Input
               type="text"
@@ -509,7 +509,7 @@ const customTemplateSection: SideSection = {
                 className="default-design"
                 onClick={() => handleDialogChange('design-own')}
               >
-                <DesignIcon fill="var(--primaryColor)" />
+                <DesignIcon fill="var(--primary-color)" />
                 <Typography style={templateTextStyles}>
                   {MESSAGES.TEMPLATE.DESIGN_NEW}
                 </Typography>
@@ -524,7 +524,7 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
@@ -550,7 +550,7 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');
@@ -576,7 +576,7 @@ const customTemplateSection: SideSection = {
                     <img
                       src={template.thumbnailUrl}
                       alt={template.title}
-                      onError={({ currentTarget }) => {
+                      onError={({currentTarget}) => {
                         currentTarget.onerror = null; // prevents looping
                         currentTarget.src = dummyTemplateIcon;
                         currentTarget.classList.add('dummy-image');

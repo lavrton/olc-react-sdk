@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 0.5px solid var(--borderColor);
+  border-bottom: 0.5px solid var(--border-color);
 
   .middle {
     display: flex;
@@ -25,7 +25,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      color: var(--textColor);
+      color: var(--text-color);
     }
     div{
       display: flex;
@@ -39,7 +39,7 @@
           background-color: rgba(0, 0, 0, 0.076);
         }
         svg{
-          fill: var(--textColor);
+          fill: var(--text-color);
         }
     }
   }
@@ -47,7 +47,7 @@
   & button {
     max-width: 120px !important;
     text-transform: capitalize;
-    color: var(--textColor);
+    color: var(--text-color);
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

@@ -1,15 +1,15 @@
 :root {
   --font-family: 'Inter';
   --scrollbar-thumb-color: hsl(29, 100%, 88%);
-  --primaryColor: #ed5c2f;
-  --secondaryColor: #fff8ee;
-  --svgColor: #fdb515;
-  --svgColorNotActive: #fdecd3;
-  --textColor: #000;
-  --modalBackgroundColor: #fff8ee;
-  --notificationTextColor: #fff;
-  --borderColor: #303030;
-  --errorColor: #ff0000;
+  --primary-color: #ed5c2f;
+  --secondary-color: #FFF8EE;
+  --svg-color: #fdb515;
+  --svg-color-not-active: #fdecd3;
+  --text-color: #000;
+  --modal-background-color: #FFF8EE;
+  --notification-text-color: #fff;
+  --border-color: #303030;
+  --error-color: #ff0000;
 
   body {
     font-family: var(--font-family) !important;
@@ -21,7 +21,7 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: var(--secondaryColor) !important;
+      background: var(--secondary-color) !important;
       border-radius: 3px;
     }
 
@@ -32,7 +32,7 @@
 
     @supports not selector(::-webkit-scrollbar) {
       body {
-        scrollbar-color: var(--scrollbar-thumb-color) var(--secondaryColor);
+        scrollbar-color: var(--scrollbar-thumb-color) var(--secondary-color);
       }
     }
 
@@ -43,7 +43,7 @@
         z-index: 100 !important;
       }
       .bp5-card {
-        color: var(--textColor);
+        color: var(--text-color);
         background-color: transparent;
       }
       .polotno-side-tabs-container {
@@ -66,7 +66,7 @@
       }
 
       &::-webkit-scrollbar-track {
-        background: var(--secondaryColor) !important;
+        background: var(--secondary-color) !important;
         border-radius: 3px;
       }
 
@@ -77,7 +77,7 @@
 
       @supports not selector(::-webkit-scrollbar) {
         body {
-          scrollbar-color: var(--scrollbar-thumb-color) var(--secondaryColor);
+          scrollbar-color: var(--scrollbar-thumb-color) var(--secondary-color);
         }
       }
     }
