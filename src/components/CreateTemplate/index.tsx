@@ -51,7 +51,7 @@ import Divider from '../GenericUIBlocks/Divider';
 import './styles.scss';
 
 const templateHeadingStyles: React.CSSProperties = {
-  color: `var(--primaryColor)`,
+  color: `var(--primary-color)`,
   fontSize: `24px`,
   fontStyle: `normal`,
   fontWeight: `600`,
@@ -60,7 +60,7 @@ const templateHeadingStyles: React.CSSProperties = {
 };
 
 const templateTextStyles: React.CSSProperties = {
-  color: `var(--textColor)`,
+  color: `var(--text-color)`,
   fontSize: `14px`,
   fontStyle: `normal`,
   fontWeight: `400`,
@@ -76,18 +76,18 @@ const footerButtonStyles: React.CSSProperties = {
   textTransform: 'capitalize',
   borderRadius: '3px',
   backgroundColor: 'transparent',
-  color: `var(--textColor)`,
+  color: `var(--text-color)`,
   fontSize: `14px`,
   fontWeight: `500`,
 };
 
 const Images: Record<string, ReactElement> = {
-  Postcards: <Postcard fill="var(--svgColor)" />,
-  'Professional Letters': <ProfessionalLetter fill="var(--svgColor)" />,
-  'Personal Letters': <PersonalLetter fill="var(--svgColor)" />,
-  'Real Penned Letter': <RealPennedLetter fill="var(--svgColor)" />,
-  'Tri-Fold Self-Mailers': <TriFoldSelfMailers fill="var(--svgColor)" />,
-  'Bi-Fold Self-Mailers': <BiFoldSelfMailers fill="var(--svgColor)" />,
+  Postcards: <Postcard fill="var(--svg-color)" />,
+  'Professional Letters': <ProfessionalLetter fill="var(--svg-color)" />,
+  'Personal Letters': <PersonalLetter fill="var(--svg-color)" />,
+  'Real Penned Letter': <RealPennedLetter fill="var(--svg-color)" />,
+  'Tri-Fold Self-Mailers': <TriFoldSelfMailers fill="var(--svg-color)" />,
+  'Bi-Fold Self-Mailers': <BiFoldSelfMailers fill="var(--svg-color)" />,
 };
 
 interface CreateTemplateProps {
@@ -373,7 +373,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute, createTemp
             <Button
               style={{
                 ...footerButtonStyles,
-                border: '0.5px solid var(--borderColor)',
+                border: '0.5px solid var(--border-color)',
               }}
               onClick={() =>
                 navigate(returnRoute ? returnRoute : createTemplateRoute || '/create-template')
@@ -385,7 +385,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute, createTemp
               style={{
                 ...footerButtonStyles,
                 color: '#ffffff',
-                backgroundColor: 'var(--primaryColor)',
+                backgroundColor: 'var(--primary-color)',
               }}
               onClick={handleNext}
             >

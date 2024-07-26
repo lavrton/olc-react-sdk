@@ -33,7 +33,7 @@ interface GeneralSelectProps {
 const colourStyles: StylesConfig<Option, false> = {
   dropdownIndicator: (styles, {isFocused, selectProps}) => ({
     ...styles,
-    color: isFocused && selectProps.menuIsOpen ? 'var(--primaryColor)' : 'grey',
+    color: isFocused && selectProps.menuIsOpen ? 'var(--primary-color)' : 'grey',
     transform:
       !isFocused && !selectProps.menuIsOpen ? 'rotate(0deg)' : 'rotate(180deg)',
   }),
@@ -43,16 +43,16 @@ const colourStyles: StylesConfig<Option, false> = {
       backgroundColor: isDisabled
         ? undefined
         : isSelected && isFocused
-          ? 'var(--secondaryColor)'
+          ? 'var(--secondary-color)'
           : isFocused && !isSelected
-            ? 'var(--secondaryColor)'
+            ? 'var(--secondary-color)'
             : undefined,
     };
   },
 };
 
 const errorStyles = {
-  color: 'var(--errorColor)',
+  color: 'var(--error-color)',
   fontWeight: '400',
 };
 
