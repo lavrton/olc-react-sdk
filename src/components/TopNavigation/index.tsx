@@ -248,7 +248,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
 
       formData.append('title', title);
       formData.append('productId', product?.id);
-      formData.append('fields', selectedFields);
+      formData.append('fields', JSON.stringify(selectedFields));
       formData.append('envelopeType', envelopeType);
 
       if (onSubmit) {

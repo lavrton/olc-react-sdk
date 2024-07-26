@@ -99,6 +99,7 @@ if (rootElement) {
     // onGetOneTemplate: getOneTemplate,
     // olcTemplate: olcTemplateData,
     // onGetTemplates: getAllTemplatesByTab,
+    // onSubmit: createTemplate,
     styles: {}
   });
 } else {

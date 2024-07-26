@@ -283,7 +283,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute, createTemp
                     options={envelopeTypes}
                     placeholder="Envelope Type"
                     error={MESSAGES.TEMPLATE.ENVELOPE_TYPE_REQUIRED}
-                    isError={isError}
+                    isError={isError && !Object.keys(envelopeType).length}
                     label="Envelope Type*"
                   />
                 </div>
