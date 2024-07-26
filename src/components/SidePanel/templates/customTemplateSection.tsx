@@ -102,7 +102,7 @@ const customTemplateSection: SideSection = {
   Tab: observer(
     (props: { store: StoreType; active: boolean; onClick: () => void }) => (
       <SectionTab name="Templates" {...props}>
-        <CustomTemplate fill="var(--textColor)" />
+        <CustomTemplate fill="var(--text-color)" />
       </SectionTab>
     )
   ) as SideSection['Tab'],
@@ -509,7 +509,7 @@ const customTemplateSection: SideSection = {
                 className="default-design"
                 onClick={() => handleDialogChange('design-own')}
               >
-                <DesignIcon fill="var(--primaryColor)" />
+                <DesignIcon fill="var(--primary-color)" />
                 <Typography style={templateTextStyles}>
                   {MESSAGES.TEMPLATE.DESIGN_NEW}
                 </Typography>

@@ -53,8 +53,8 @@ const buttonStyles: React.CSSProperties = {
   maxWidth: '120px',
   minHeight: '40px',
   backgroundColor: '#fff',
-  color: 'var(--textColor)',
-  border: '0.5px solid var(--borderColor)',
+  color: 'var(--text-color)',
+  border: '0.5px solid var(--border-color)',
   fontSize: '15px',
   fontWeight: '500',
 };
@@ -62,7 +62,7 @@ const buttonStyles: React.CSSProperties = {
 const progressStyles: React.CSSProperties = {
   width: '20px',
   height: '20px',
-  border: '2px solid var(--primaryColor)',
+  border: '2px solid var(--primary-color)',
 };
 
 interface TopNavigationProps {
@@ -309,7 +309,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           <div className="middle">
             <Typography>{title}</Typography>
             <div onClick={() => handleChangeModel('edit')}>
-              <EditIcon fill="var(--textColor)" />
+              <EditIcon fill="var(--text-color)" />
             </div>
           </div>
         </GridItem>
@@ -333,8 +333,8 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
             <Button
               style={{
                 ...buttonStyles,
-                border: '0.5px solid var(--primaryColor)',
-                color: 'var(--primaryColor)',
+                border: '0.5px solid var(--primary-color)',
+                color: 'var(--primary-color)',
               }}
               onClick={() => handleBackPress()}
             >
@@ -344,7 +344,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
               style={{
                 ...buttonStyles,
                 border: 'none',
-                backgroundColor: 'var(--primaryColor)',
+                backgroundColor: 'var(--primary-color)',
                 color: '#fff',
               }}
               onClick={() => handleChangeModel('save')}

@@ -29,22 +29,22 @@ interface DialogProps {
 
 const buttonStyles: CSSProperties = {
   color: '#fff',
-  backgroundColor: 'var(--primaryColor)',
+  backgroundColor: 'var(--primary-color)',
   maxWidth: '100px',
   minHeight: '40px',
-  border: '0.5px solid var(--borderColor)',
+  border: '0.5px solid var(--border-color)',
   fontSize: '14px',
 };
 
 const heading: CSSProperties = {
   fontSize: '22px',
-  color: 'var(--primaryColor)',
+  color: 'var(--primary-color)',
   fontWeight: '600',
 };
 
 const subHeadingStyle: CSSProperties = {
   fontSize: '16px',
-  color: 'var(--textColor)',
+  color: 'var(--text-color)',
   fontWeight: '600',
   textAlign: 'center',
 };
@@ -109,7 +109,7 @@ const Dialog: React.FC<DialogProps> = ({
             onClick={onCancel}
             style={{
               ...buttonStyles,
-              color: 'var(--textColor)',
+              color: 'var(--text-color)',
               backgroundColor: '#fff',
             }}
           >

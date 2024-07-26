@@ -3,15 +3,15 @@ import React from 'react';
 export interface CustomCSSProperties extends React.CSSProperties {
   '--font-family'?: string;
   '--scrollbar-thumb-color'?: string;
-  '--primaryColor'?: string;
-  '--secondaryColor'?: string;
-  '--svgColor'?: string;
-  '--svgColorNotActive'?: string;
-  '--textColor'?: string;
-  '--modalBackgroundColor'?: string;
-  '--notificationTextColor'?: string;
-  '--borderColor'?: string;
-  '--errorColor'?: string;
+  '--primary-color'?: string;
+  '--secondary-color'?: string;
+  '--svg-color'?: string;
+  '--svg-color-not-active'?: string;
+  '--text-color'?: string;
+  '--modal-background-color'?: string;
+  '--notification-text-color'?: string;
+  '--border-color'?: string;
+  '--error-color'?: string;
 }
 
 export interface Styles {
@@ -22,14 +22,14 @@ export const customStyles: Styles = {
   root: {
     '--font-family': 'Inter',
     '--scrollbar-thumb-color': '#fb8500',
-    '--primaryColor': '#fb8500',
-    '--secondaryColor': 'red',
-    '--svgColor': '#ffb703',
-    '--svgColorNotActive': 'purple',
-    '--textColor': '#fff',
-    '--modalBackgroundColor': '#fff',
-    '--notificationTextColor': "#fff",
-    '--borderColor': 'rgba(0, 0, 0, 0.5)',
-    '--errorColor': '#ff0000',
+    '--primary-color': '#fb8500',
+    '--secondary-color': 'red',
+    '--svg-color': '#ffb703',
+    '--svg-color-not-active': 'purple',
+    '--text-color': '#fff',
+    '--modal-background-color': '#fff',
+    '--notification-text-color': "#fff",
+    '--border-color': 'rgba(0, 0, 0, 0.5)',
+    '--error-color': '#ff0000',
   },
 };
