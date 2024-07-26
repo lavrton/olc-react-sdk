@@ -304,7 +304,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
         />
       )}
       <GridContainer style={{alignItems: 'center'}}>
-        <GridItem lg={4} md={4} sm={2} xs={12}></GridItem>
+        <GridItem lg={4} md={4} sm={0} xs={0}></GridItem>
         <GridItem lg={4} md={2} sm={2} xs={12}>
           <div className="middle">
             <Typography>{title}</Typography>
@@ -313,7 +313,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
             </div>
           </div>
         </GridItem>
-        <GridItem lg={4} md={6} sm={8} xs={12}>
+        <GridItem lg={4} md={6} sm={9} xs={12}>
           <div className="actionsBtnWrapper right">
             <Button
               style={{

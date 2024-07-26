@@ -1,12 +1,12 @@
 :root {
-  --font-family: "Inter";
+  --font-family: 'Inter';
   --scrollbar-thumb-color: hsl(29, 100%, 88%);
   --primaryColor: #ed5c2f;
-  --secondaryColor: #FFF8EE;
+  --secondaryColor: #fff8ee;
   --svgColor: #fdb515;
   --svgColorNotActive: #fdecd3;
   --textColor: #000;
-  --modalBackgroundColor: #FFF8EE;
+  --modalBackgroundColor: #fff8ee;
   --notificationTextColor: #fff;
   --borderColor: #303030;
   --errorColor: #ff0000;
@@ -39,9 +39,19 @@
     .bp5-navbar {
       z-index: auto !important;
       border-bottom: 1px solid rgba(17, 20, 24, 0.1019607843) !important;
+      @media (width <= 800px) {
+        z-index: 100 !important;
+      }
       .bp5-card {
         color: var(--textColor);
         background-color: transparent;
+      }
+      .polotno-side-tabs-container {
+        .polotno-side-tabs-inner {
+          @media (width <= 800px) {
+            justify-content: center !important;
+          }
+        }
       }
     }
 
@@ -72,9 +82,9 @@
       }
     }
 
-    .polotno-panel-container > div >div{
+    .polotno-panel-container > div > div {
       color: #000;
-      p{
+      p {
         color: #000;
       }
     }

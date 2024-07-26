@@ -1,7 +1,10 @@
 import React from 'react';
 
 // react select
-import Select, {StylesConfig} from 'react-select';
+import Select, {StylesConfig, ClearIndicatorProps, components} from 'react-select';
+
+// icons
+import Cancel from '../../../assets/images/input/cancel';
 
 // components
 import Typography from '../Typography';
@@ -24,6 +27,7 @@ interface GeneralSelectProps {
   isError: boolean;
   setSelectedValue: (option: Option | null) => void;
   builderSelect: boolean;
+  clearField: boolean;
 }
 
 const colourStyles: StylesConfig<Option, false> = {
@@ -31,7 +35,7 @@ const colourStyles: StylesConfig<Option, false> = {
     ...styles,
     color: isFocused && selectProps.menuIsOpen ? 'var(--primaryColor)' : 'grey',
     transform:
-      !isFocused && !selectProps.menuIsOpen ? 'rotate(180deg)' : undefined,
+      !isFocused && !selectProps.menuIsOpen ? 'rotate(0deg)' : 'rotate(180deg)',
   }),
   option: (styles, {isDisabled, isFocused, isSelected}) => {
     return {
@@ -52,6 +56,14 @@ const errorStyles = {
   fontWeight: '400',
 };
 
+const ClearIndicator: React.FC<ClearIndicatorProps<any>> = (props) => {
+  return (
+    <components.ClearIndicator {...props}>
+      <Cancel />
+    </components.ClearIndicator>
+  );
+};
+
 const GeneralSelect: React.FC<GeneralSelectProps> = ({
   options,
   placeholder,
@@ -61,6 +73,7 @@ const GeneralSelect: React.FC<GeneralSelectProps> = ({
   selectedValue,
   setSelectedValue,
   builderSelect,
+  clearField,
 }) => {
   return (
     <div className="select-layout">
@@ -74,6 +87,8 @@ const GeneralSelect: React.FC<GeneralSelectProps> = ({
         classNamePrefix="generic-select"
         placeholder={placeholder}
         blurInputOnSelect
+        isClearable={clearField}
+        components={{ClearIndicator}}
       />
       {isError && (
         <Typography variant="p" style={errorStyles}>

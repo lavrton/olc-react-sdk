@@ -1,6 +1,6 @@
 .toast-container {
-  width: 100%;
-  max-width: 400px;
+  width: 400px;
+  max-width: fit-content;
   z-index: 99999;
 
   .basic-toast {

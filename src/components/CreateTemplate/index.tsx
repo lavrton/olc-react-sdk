@@ -265,7 +265,10 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute, createTemp
               </div>
             </GridItem>
           </GridContainer>
-          <Divider />
+          {product?.productType?.includes('Postcards') ||
+          product?.productType?.includes('Professional Letters') ? (
+            <Divider />
+          ) : null}
           {product && product.productType === 'Professional Letters' && (
             <GridContainer>
               <GridItem lg={6} md={6} sm={12} xs={12}>

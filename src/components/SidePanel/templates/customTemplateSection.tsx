@@ -1,27 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 // Polotno and third party libraries
-import { observer } from 'mobx-react-lite';
-import { SectionTab } from 'polotno/side-panel';
-import type { StoreType } from 'polotno/model/store';
-import type { TemplatesSection } from 'polotno/side-panel';
+import {observer} from 'mobx-react-lite';
+import {SectionTab} from 'polotno/side-panel';
+import type {StoreType} from 'polotno/model/store';
+import type {TemplatesSection} from 'polotno/side-panel';
 
 // Actions
 import {
   clearAllTemplates,
   getAllTemplateCategories,
 } from '../../../../src/redux/actions/templateActions';
-import { GET_ONE_TEMPLATE, TEMPLATE_LOADING } from '../../../redux/actions/action-types';
-import { failure } from '../../../redux/actions/snackbarActions';
+import {TEMPLATE_LOADING} from '../../../redux/actions/action-types';
+import {failure} from '../../../redux/actions/snackbarActions';
 
 // Hooks
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../redux/store';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppDispatch, RootState} from '../../../redux/store';
 
 // Utils
-import { multiPageLetters, templateTypes, DPI } from '../../../utils/constants';
-import { drawRestrictedAreaOnPage } from '../../../utils/template-builder';
-import { MESSAGES } from '../../../utils/message';
+import {multiPageLetters, templateTypes, DPI} from '../../../utils/constants';
+import {drawRestrictedAreaOnPage} from '../../../utils/template-builder';
+import {MESSAGES} from '../../../utils/message';
 
 // Components
 import Typography from '../../GenericUIBlocks/Typography';
@@ -38,10 +38,8 @@ import dummyTemplateIcon from '../../../assets/images/templates/dummy-template.s
 import CustomTemplate from '../../../assets/images/templates/custom-template';
 import ModalCross from '../../../assets/images/modal-icons/modal-cross';
 
-
 // styles
 import './styles.scss';
-
 
 type SideSection = typeof TemplatesSection;
 
@@ -129,7 +127,7 @@ const customTemplateSection: SideSection = {
     const [pagination, setPagination] = useState({
       count: 0,
       currentPage: 0,
-      perPage: 0
+      perPage: 0,
     });
 
     const paginationRef = useRef(pagination);
@@ -165,16 +163,19 @@ const customTemplateSection: SideSection = {
 
     const getTemplatesByTab = async (page = 1) => {
       const payload: Payload = {
-        tab: currentTemplateTypeRef.current?.id === '1'
-          ? 'my-templates'
-          : currentTemplateTypeRef.current?.id === '2'
-            ? 'team-templates'
-            : 'olc-templates',
+        tab:
+          currentTemplateTypeRef.current?.id === '1'
+            ? 'my-templates'
+            : currentTemplateTypeRef.current?.id === '2'
+              ? 'team-templates'
+              : 'olc-templates',
         page: page,
         pageSize: 10,
         productId: product?.id,
       };
-      searchRef.current.length ? (payload.search = searchRef.current) : undefined;
+      searchRef.current.length
+        ? (payload.search = searchRef.current)
+        : undefined;
       currentTemplateTypeRef.current?.id === '3'
         ? (payload.categoryIds = selectedCategory?.id.split(','))
         : undefined;
@@ -187,25 +188,34 @@ const customTemplateSection: SideSection = {
             if (templates.currentPage === 1) {
               setMyTemplates(newTemplates);
             } else {
-              setMyTemplates((prevTemplates) => [...prevTemplates, ...newTemplates]);
+              setMyTemplates((prevTemplates) => [
+                ...prevTemplates,
+                ...newTemplates,
+              ]);
             }
           } else if (currentTemplateTypeRef.current?.id === '2') {
             if (templates.currentPage === 1) {
               setTeamTemplates(newTemplates);
             } else {
-              setTeamTemplates((prevTemplates) => [...prevTemplates, ...newTemplates]);
+              setTeamTemplates((prevTemplates) => [
+                ...prevTemplates,
+                ...newTemplates,
+              ]);
             }
           } else if (currentTemplateTypeRef.current?.id === '3') {
             if (templates.currentPage === 1) {
               setOlcTemplates(newTemplates);
             } else {
-              setOlcTemplates((prevTemplates) => [...prevTemplates, ...newTemplates]);
+              setOlcTemplates((prevTemplates) => [
+                ...prevTemplates,
+                ...newTemplates,
+              ]);
             }
           }
           setPagination({
             count: templates.count,
             currentPage: templates.currentPage,
-            perPage: templates.perPage
+            perPage: templates.perPage,
           });
         }
       }
@@ -245,8 +255,13 @@ const customTemplateSection: SideSection = {
       }
     };
 
-    const handleLoadAllTemplate = (dynamicPagination = false, initialCall = false) => {
-      let page = dynamicPagination ? ++paginationRef.current.currentPage : paginationRef.current.currentPage;
+    const handleLoadAllTemplate = (
+      dynamicPagination = false,
+      initialCall = false
+    ) => {
+      let page = dynamicPagination
+        ? ++paginationRef.current.currentPage
+        : paginationRef.current.currentPage;
 
       if (initialCall) {
         page = 1;
@@ -353,7 +368,7 @@ const customTemplateSection: SideSection = {
         setSearch('');
         setTimeout(() => {
           getTemplatesByTab();
-        }, 100)
+        }, 100);
       }
     }, [search]);
 
@@ -384,7 +399,9 @@ const customTemplateSection: SideSection = {
       const div = document.querySelector('.polotno-panel-container');
       if (div) {
         const isAtBottom = div.scrollTop + div.clientHeight >= div.scrollHeight;
-        const isNeedToLoadMore = paginationRef.current.currentPage * paginationRef.current.perPage < paginationRef.current.count;
+        const isNeedToLoadMore =
+          paginationRef.current.currentPage * paginationRef.current.perPage <
+          paginationRef.current.count;
         if (isAtBottom && !templatesPagination.loading && isNeedToLoadMore) {
           handleLoadAllTemplate(true);
         }
@@ -435,14 +452,8 @@ const customTemplateSection: SideSection = {
             submitText="OK"
           />
         )}
-        <div
-          className="templateTabsWrapper"
-          style={{
-            maxWidth: window.innerWidth <= 600 ? '320px' : '480px',
-            backgroundColor: '#fff',
-          }}
-        >
-          <div style={{ marginTop: '8px' }}>
+        <div className="templateTabsWrapper">
+          <div style={{marginTop: '8px'}}>
             <GeneralSelect
               placeholder="Template Types"
               options={templateTypes as any}
@@ -464,6 +475,7 @@ const customTemplateSection: SideSection = {
                 setSelectedValue={setSelectedCategory as any}
                 selectedValue={selectedCategory as any}
                 builderSelect={true}
+                clearField={true}
                 // @ts-ignore
                 search={(() => { }) as any}
                 updateErrors={() => { }}

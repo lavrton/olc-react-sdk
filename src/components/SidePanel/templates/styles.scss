@@ -2,9 +2,9 @@
   overflow-y: auto;
 
   & .custom-template-section {
-    display: "flex";
-    flex-wrap: "wrap";
-    overflow-y: "scroll";
+    display: 'flex';
+    flex-wrap: 'wrap';
+    overflow-y: 'scroll';
 
     & .title {
       & span {
@@ -56,6 +56,13 @@
 }
 
 .templateTabsWrapper {
+  width: 100%;
+  max-width: 480px;
+
+  @media (width <= 800px) {
+    max-width: none !important;
+  }
+
   .templateTabs {
     .MuiTabScrollButton-root {
       width: 15px;
@@ -121,7 +128,7 @@
 
       &::before {
         position: absolute;
-        content: "";
+        content: '';
         width: 1px;
         height: 90%;
         background-color: #000;
@@ -129,9 +136,8 @@
         opacity: 0.5;
       }
     }
-
   }
-  
+
   .searchApplied {
     background: #fff8ee;
     input {
@@ -140,11 +146,11 @@
   }
 
   .clearSerach {
-      position: absolute;
-      top: 10px;
-      right: 55px;
-      font-size: 18px;
-      opacity: 0.6;
-      cursor: pointer;
-    }
+    position: absolute;
+    top: 10px;
+    right: 55px;
+    font-size: 18px;
+    opacity: 0.6;
+    cursor: pointer;
+  }
 }

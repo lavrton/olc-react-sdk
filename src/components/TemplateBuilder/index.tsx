@@ -35,9 +35,13 @@ import LexiRegularFont from "../../assets/Fonts/Lexi-Regular.ttf";
 // Components
 import TopNavigation from '../TopNavigation';
 import SidePanel from '../SidePanel';
+import Typography from '../GenericUIBlocks/Typography';
 import GenericSnackbar from '../GenericUIBlocks/GenericSnackbar';
 
 import './styles.scss';
+
+// utils
+import {MESSAGES} from '../../utils/message';
 
 setUploadFunc(uploadFile)
 /**
@@ -283,41 +287,48 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, c
   const Tooltip = () => null;
 
   return (
-    <div className="polotno-container">
-      {switchTabCount > 0 && (
-        <div className='builder-wrapper'>
-          <TopNavigation
-            store={store}
-            isStoreUpdated={isStoreUpdated}
-            returnRoute={returnRoute}
-            createTemplateRoute={createTemplateRoute}
-            onSubmit={onSubmit}
-          />
+    <>
+      <Typography className="alert">
+        {MESSAGES.TEMPLATE_MESSAGE_ON_SMALL_SCREEN}
+      </Typography>
+      <div className="polotno-container">
+        {switchTabCount > 0 && (
+          <div className="builder-wrapper">
+            <TopNavigation
+              store={store}
+              isStoreUpdated={isStoreUpdated}
+              returnRoute={returnRoute}
+              onSubmit={onSubmit}
+            />
 
-          <PolotnoContainer
-            style={containerStyle}
-          >
-            <SidePanel store={store} currentTemplateType={currentTemplateType} onGetOneTemplate={onGetOneTemplate} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} />
-            <WorkspaceWrap>
-              {currentTemplateType !== "Real Penned Letter" && (
-                <Toolbar store={store} downloadButtonEnabled={false} />
-              )}
-              {currentTemplateType !== "Real Penned Letter" ? (
-                <Workspace store={store} pageControlsEnabled={false} />
-              ) : (
-                <Workspace
-                  store={store}
-                  pageControlsEnabled={false}
-                  components={{ Tooltip }}
-                />
-              )}
-              <ZoomButtons store={store} />
-            </WorkspaceWrap>
-          </PolotnoContainer>
-          <GenericSnackbar />
-        </div>
-      )}
-    </div>
+            <PolotnoContainer style={containerStyle}>
+              <SidePanel
+                store={store}
+                currentTemplateType={currentTemplateType}
+                onGetTemplates={onGetTemplates}
+                onGetCustomFields={onGetCustomFields}
+              />
+              <WorkspaceWrap>
+                {currentTemplateType !== 'Real Penned Letter' && (
+                  <Toolbar store={store} downloadButtonEnabled={false} />
+                )}
+                {currentTemplateType !== 'Real Penned Letter' ? (
+                  <Workspace store={store} pageControlsEnabled={false} />
+                ) : (
+                  <Workspace
+                    store={store}
+                    pageControlsEnabled={false}
+                    components={{Tooltip}}
+                  />
+                )}
+                <ZoomButtons store={store} />
+              </WorkspaceWrap>
+            </PolotnoContainer>
+            <GenericSnackbar />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

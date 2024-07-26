@@ -76,7 +76,7 @@
   }
   .createTemplateHeader {
     padding-bottom: 15px;
-    margin-left: 40px;
+    margin: 0px 40px;
 
     p {
       color: var(--primaryColor);
@@ -106,7 +106,7 @@
 
   .templateSelectWrapper {
     padding-bottom: 15px;
-    margin: 20px 0px 80px 40px;
+    margin: 20px 40px 80px 40px;
     p {
       color: var(--textColor);
       font-size: 14px;
@@ -125,7 +125,7 @@
 
   .productTypeWrapper {
     padding: 20px 0px;
-    margin-left: 40px;
+    margin: 0px 40px;
 
     .productHeading {
       p {
@@ -206,7 +206,7 @@
 
   .postCardSizeWrapper {
     padding: 20px 0px;
-    margin: 0px 0px 80px 40px;
+    margin: 0px 40px 80px 40px;
 
     .postCardHeading {
       p {

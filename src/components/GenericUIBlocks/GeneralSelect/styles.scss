@@ -56,6 +56,12 @@
         .generic-select__indicator-separator {
           display: none !important;
         }
+        .generic-select__clear-indicator{
+          svg{
+            width: 15px;
+            cursor: pointer;
+          }
+        }
       }
     }
 
