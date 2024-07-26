@@ -88,22 +88,22 @@ const TemplateBuilder = ({
 
 // Example to run the project locally for development. Comment out these lines when building the application
 
-const rootElement = document.getElementById('root');
-if (rootElement) {
-  console.log("React SDK Loaded");
-  TemplateBuilder({
-    container: rootElement,
-    secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
-    basicAuthUsername: import.meta.env.VITE_APP_BASIC_AUTH_USERNAME,
-    basicAuthPassword: import.meta.env.VITE_APP_BASIC_AUTH_PASSWORD,
-    // onGetOneTemplate: getOneTemplate,
-    // olcTemplate: olcTemplateData,
-    // onGetTemplates: getAllTemplatesByTab,
-    // onSubmit: createTemplate,
-    styles: {}
-  });
-} else {
-  console.error("Root element '#root' not found in the document.");
-}
+// const rootElement = document.getElementById('root');
+// if (rootElement) {
+//   console.log("React SDK Loaded");
+//   TemplateBuilder({
+//     container: rootElement,
+//     secretKey: import.meta.env.VITE_APP_PLOTNO_API_KEY,
+//     basicAuthUsername: import.meta.env.VITE_APP_BASIC_AUTH_USERNAME,
+//     basicAuthPassword: import.meta.env.VITE_APP_BASIC_AUTH_PASSWORD,
+//     // onGetOneTemplate: getOneTemplate,
+//     // olcTemplate: olcTemplateData,
+//     // onGetTemplates: getAllTemplatesByTab,
+//     // onSubmit: createTemplate,
+//     styles: {}
+//   });
+// } else {
+//   console.error("Root element '#root' not found in the document.");
+// }
 
 export default TemplateBuilder;
