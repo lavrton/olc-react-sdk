@@ -10,6 +10,7 @@ import type { TemplatesSection } from 'polotno/side-panel';
 import {
   clearAllTemplates,
   getAllTemplateCategories,
+  getAllTemplatesByTab,
 } from '../../../../src/redux/actions/templateActions';
 import { GET_ONE_TEMPLATE, TEMPLATE_LOADING } from '../../../redux/actions/action-types';
 import { failure } from '../../../redux/actions/snackbarActions';
@@ -19,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store';
 
 // Utils
-import { multiPageLetters, templateTypes, DPI } from '../../../utils/constants';
+import { multiPageLetters, defaultTemplateTypes, DPI } from '../../../utils/constants';
 import { drawRestrictedAreaOnPage } from '../../../utils/template-builder';
 import { MESSAGES } from '../../../utils/message';
 
@@ -92,6 +93,7 @@ type TemplateRecord = {
 type CustomTemplateSectionProps = {
   store: StoreType;
   active: boolean;
+  platformName?: string | null;
   onClick: () => void;
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: Payload) => Promise<any>;
@@ -106,11 +108,11 @@ const customTemplateSection: SideSection = {
       </SectionTab>
     )
   ) as SideSection['Tab'],
-  Panel: observer(({ store, onGetOneTemplate, onGetTemplates }: CustomTemplateSectionProps) => {
+  Panel: observer(({ store, platformName, onGetOneTemplate, onGetTemplates }: CustomTemplateSectionProps) => {
     const dispatch: AppDispatch = useDispatch();
 
-    const [currentTemplateType, setCurrentTemplateType] =
-      useState<TemplateType>(templateTypes[0]);
+    const [templateTypes, setTemplateTypes] = useState<[TemplateType] | null>();
+    const [currentTemplateType, setCurrentTemplateType] = useState<TemplateType>();
     const [selectedCategory, setSelectedCategory] =
       useState<TemplateCategory | null>(null);
     const [selectedRecord, setSelectedRecord] = useState<TemplateRecord | null>(
@@ -168,7 +170,7 @@ const customTemplateSection: SideSection = {
             ? 'my-templates'
             : currentTemplateTypeRef.current?.id === '2'
               ? 'team-templates'
-              : 'olc-templates',
+              : platformName ? `${platformName} Templates` : 'OLC Templates',
         page: page,
         pageSize: 10,
         productId: product?.id,
@@ -179,45 +181,44 @@ const customTemplateSection: SideSection = {
       currentTemplateTypeRef.current?.id === '3'
         ? (payload.categoryIds = selectedCategory?.id.split(','))
         : undefined;
-      if (onGetTemplates) {
-        const templates: any = await onGetTemplates(payload);
-        if (templates?.rows) {
-          const newTemplates = templates.rows;
+      const isCustomTemplateType = currentTemplateTypeRef.current?.id === '1' || currentTemplateTypeRef.current?.id === '2';
+      const templates: any = isCustomTemplateType && onGetTemplates ? await onGetTemplates(payload) : await getAllTemplatesByTab(payload);
+      if (templates?.rows) {
+        const newTemplates = templates.rows;
 
-          if (currentTemplateTypeRef.current?.id === '1') {
-            if (templates.currentPage === 1) {
-              setMyTemplates(newTemplates);
-            } else {
-              setMyTemplates((prevTemplates) => [
-                ...prevTemplates,
-                ...newTemplates,
-              ]);
-            }
-          } else if (currentTemplateTypeRef.current?.id === '2') {
-            if (templates.currentPage === 1) {
-              setTeamTemplates(newTemplates);
-            } else {
-              setTeamTemplates((prevTemplates) => [
-                ...prevTemplates,
-                ...newTemplates,
-              ]);
-            }
-          } else if (currentTemplateTypeRef.current?.id === '3') {
-            if (templates.currentPage === 1) {
-              setOlcTemplates(newTemplates);
-            } else {
-              setOlcTemplates((prevTemplates) => [
-                ...prevTemplates,
-                ...newTemplates,
-              ]);
-            }
+        if (currentTemplateTypeRef.current?.id === '1') {
+          if (templates.currentPage === 1) {
+            setMyTemplates(newTemplates);
+          } else {
+            setMyTemplates((prevTemplates) => [
+              ...prevTemplates,
+              ...newTemplates,
+            ]);
           }
-          setPagination({
-            count: templates.count,
-            currentPage: templates.currentPage,
-            perPage: templates.perPage,
-          });
+        } else if (currentTemplateTypeRef.current?.id === '2') {
+          if (templates.currentPage === 1) {
+            setTeamTemplates(newTemplates);
+          } else {
+            setTeamTemplates((prevTemplates) => [
+              ...prevTemplates,
+              ...newTemplates,
+            ]);
+          }
+        } else if (currentTemplateTypeRef.current?.id === '3') {
+          if (templates.currentPage === 1) {
+            setOlcTemplates(newTemplates);
+          } else {
+            setOlcTemplates((prevTemplates) => [
+              ...prevTemplates,
+              ...newTemplates,
+            ]);
+          }
         }
+        setPagination({
+          count: templates.count,
+          currentPage: templates.currentPage,
+          perPage: templates.perPage,
+        });
       }
     };
 
@@ -355,6 +356,19 @@ const customTemplateSection: SideSection = {
       handleDialogChange('');
     };
 
+    const handleScroll = () => {
+      const div = document.querySelector('.polotno-panel-container');
+      if (div) {
+        const isAtBottom = div.scrollTop + div.clientHeight >= div.scrollHeight;
+        const isNeedToLoadMore =
+          paginationRef.current.currentPage * paginationRef.current.perPage <
+          paginationRef.current.count;
+        if (isAtBottom && !templatesPagination.loading && isNeedToLoadMore) {
+          handleLoadAllTemplate(true);
+        }
+      }
+    };
+
     useEffect(() => {
       if (templateLoading !== null && templateLoading === false) {
         handleDialogChange('');
@@ -385,6 +399,16 @@ const customTemplateSection: SideSection = {
     }, [pagination]);
 
     useEffect(() => {
+      const newTemplateType = {
+        id: "3",
+        label: platformName ? `${platformName} Templates` : 'OLC Templates'
+      };
+      if (onGetTemplates) {
+        //@ts-ignore
+        setTemplateTypes([...defaultTemplateTypes, newTemplateType]);
+      } else {
+        setTemplateTypes([newTemplateType]);
+      }
       getAllCategories();
       return () => {
         dispatch(clearAllTemplates());
@@ -392,21 +416,15 @@ const customTemplateSection: SideSection = {
     }, []);
 
     useEffect(() => {
+      if (templateTypes) {
+        setCurrentTemplateType(templateTypes[0])
+      }
+    }, [templateTypes])
+
+    useEffect(() => {
       getTemplatesByTab();
     }, [currentTemplateType, selectedCategory]);
 
-    const handleScroll = () => {
-      const div = document.querySelector('.polotno-panel-container');
-      if (div) {
-        const isAtBottom = div.scrollTop + div.clientHeight >= div.scrollHeight;
-        const isNeedToLoadMore =
-          paginationRef.current.currentPage * paginationRef.current.perPage <
-          paginationRef.current.count;
-        if (isAtBottom && !templatesPagination.loading && isNeedToLoadMore) {
-          handleLoadAllTemplate(true);
-        }
-      }
-    };
 
     useEffect(() => {
       const div = document.querySelector('.polotno-panel-container');

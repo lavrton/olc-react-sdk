@@ -29,36 +29,15 @@ const uploadTemplate = async (templateFormData: FormData): Promise<unknown> => {
   }
 };
 
-/**
- * Creates a template using the provided data.
- *
- * @param {object} data - The data needed to create the template.
- * @returns {Promise<object>} - A promise that resolves to the response from the successful request or the error response if an error occurs.
- */
-const createTemplate = async (data: object): Promise<unknown> => {
-  try {
-    const response = await post('/templates', data);
-    return response;
-  } catch (error: any) {
-    return error.response;
-  }
-};
 
-/**
- * Update a template using the provided data.
- *
- * @param {number} id - The ID of the template to update.
- * @param {object} data - The data needed to create the template.
- * @returns {Promise<object>} - A promise that resolves to the response from the successful request or the error response if an error occurs.
- */
-const updateTemplate = async (id: number, data: object): Promise<unknown> => {
+const getAllTemplatesByTab = async (payload: any) => {
   try {
-    const response = await patch(`/templates/${id}`, data);
+    const response = await post('/templates/by-tab', payload);
     return response;
   } catch (error: any) {
     return error.response;
   }
-};
+}
 
 /**
  * Loads form data to the store.
@@ -187,8 +166,7 @@ const getAllTemplateCategories = async (): Promise<any> => {
 
 export {
   uploadTemplate,
-  createTemplate,
-  updateTemplate,
+  getAllTemplatesByTab,
   searchAndAdvanceChange,
   clearAllTemplates,
   selectProduct,

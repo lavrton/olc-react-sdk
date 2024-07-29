@@ -91,11 +91,11 @@ const Images: Record<string, ReactElement> = {
 };
 
 interface CreateTemplateProps {
-  returnRoute?: string | null;
+  onReturnAndNavigate?: () => void;
   createTemplateRoute?: string | null;
 }
 
-const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute, createTemplateRoute }) => {
+const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, createTemplateRoute }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [envelopeType, setEnvelopeType] = useState<[]>([]);
 
@@ -376,7 +376,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ returnRoute, createTemp
                 border: '0.5px solid var(--border-color)',
               }}
               onClick={() =>
-                navigate(returnRoute ? returnRoute : createTemplateRoute || '/create-template')
+                onReturnAndNavigate ? onReturnAndNavigate() :  navigate(createTemplateRoute || '/create-template')
               }
             >
               {MESSAGES.TEMPLATE.CREATE.CANCEL_BUTTON}

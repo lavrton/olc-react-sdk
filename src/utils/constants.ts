@@ -16,7 +16,7 @@ interface TemplateTypes {
   label: string;
 }
 
-export const templateTypes: TemplateTypes [] = [
+export const defaultTemplateTypes: TemplateTypes [] = [
   {
     id: "1",
     label: "My Templates",
@@ -24,11 +24,7 @@ export const templateTypes: TemplateTypes [] = [
   {
     id: "2",
     label: "Team Templates",
-  },
-  {
-    id: "3",
-    label: "OLC Templates",
-  },
+  }
 ];
 
 export const sortOrderForTemplates: string[] = [

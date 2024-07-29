@@ -67,15 +67,15 @@ const progressStyles: React.CSSProperties = {
 
 interface TopNavigationProps {
   store: any;
-  returnRoute?: string | null;
   createTemplateRoute?: string | null;
   isStoreUpdated: boolean;
+  onReturnAndNavigate?: () => void;
   onSubmit?: (payload: any) => Promise<any>;
 }
 
 const TopNavigation: React.FC<TopNavigationProps> = ({
   store,
-  returnRoute,
+  onReturnAndNavigate,
   createTemplateRoute,
   isStoreUpdated,
   onSubmit,
@@ -134,7 +134,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     if (isStoreUpdated) {
       setShowNavigateDialog(!showNavigateDialog);
     } else {
-      handleNavigation(returnRoute ? returnRoute : createTemplateRoute || '/create-template');
+      handleNavigation(createTemplateRoute || '/create-template');
     }
   };
 
@@ -143,7 +143,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
     if (templateType === 'json' && product?.productType !== 'Real Penned Letter') {
       await store.history.clear();
     }
-    navigate(route);
+    onReturnAndNavigate ? onReturnAndNavigate() : navigate(route); 
   };
 
   const handleClearFilters = () => dispatch(clearTemplateFields());
@@ -248,8 +248,8 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
 
       formData.append('title', title);
       formData.append('productId', product?.id);
-      formData.append('fields', JSON.stringify(selectedFields));
-      formData.append('envelopeType', envelopeType);
+      selectedFields.length ? formData.append('fields', JSON.stringify(selectedFields)) : undefined;
+      envelopeType.length ?  formData.append('envelopeType', envelopeType) : undefined;
 
       if (onSubmit) {
         const saveTemplate = await onSubmit(formData);
@@ -285,7 +285,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
           open={showNavigateDialog}
           handleClose={() => setShowNavigateDialog(false)}
           handleNavigateAction={() =>
-            handleNavigation(returnRoute ? returnRoute : createTemplateRoute || '/create-template')
+            handleNavigation(createTemplateRoute || '/create-template')
           }
         />
       )}

@@ -197,7 +197,7 @@ export const addElementsforRealPennedLetters = (store: Store): void => {
       alwaysOnTop: true,
       showInExport: true,
       x: 165.49999999499846,
-      y: 651.7346179851188,
+      y: 575.7346179851188,
       width: 335,
       height: 75,
       rotation: 0,

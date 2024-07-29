@@ -58,16 +58,17 @@ setUploadFunc(uploadFile)
 
 interface TemplateBuilderProps {
   store: StoreType,
-  returnRoute?: string | null,
+  platformName?: string | null;
   createTemplateRoute?: string | null,
   olcTemplate?: Record<string, any>;
+  onReturnAndNavigate?: () => void;
   onGetCustomFields?: () => Promise<any>;
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onSubmit?: (payload: any) => Promise<any>;
 }
 
-const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, createTemplateRoute, olcTemplate, onGetOneTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
+const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNavigate, platformName, createTemplateRoute, olcTemplate, onGetOneTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
   const [isStoreUpdated, setIsStoreUpdated] = useState(false);
   const [switchTabCount, setSwitchTabCount] = useState(1);
 
@@ -297,7 +298,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, c
             <TopNavigation
               store={store}
               isStoreUpdated={isStoreUpdated}
-              returnRoute={returnRoute}
+              onReturnAndNavigate={onReturnAndNavigate}
               onSubmit={onSubmit}
             />
 
@@ -305,6 +306,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, returnRoute, c
               <SidePanel
                 store={store}
                 currentTemplateType={currentTemplateType}
+                platformName={platformName}
                 onGetTemplates={onGetTemplates}
                 onGetCustomFields={onGetCustomFields}
               />

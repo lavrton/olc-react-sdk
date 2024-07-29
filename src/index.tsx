@@ -21,10 +21,11 @@ interface TemplateBuilderProps {
   secretKey: string;
   basicAuthUsername: string;
   basicAuthPassword: string;
-  returnRoute?: string | null;
+  platformName?: string | null;
   createTemplateRoute?: string | null;
   templateBuilderRoute?: string | null;
   olcTemplate?: Record<string, any>;
+  onReturnAndNavigate?: () => void;
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onGetCustomFields?: () => Promise<any>;
@@ -39,7 +40,8 @@ const TemplateBuilder = ({
   secretKey,
   basicAuthUsername,
   basicAuthPassword,
-  returnRoute,
+  platformName,
+  onReturnAndNavigate,
   createTemplateRoute,
   templateBuilderRoute,
   olcTemplate,
@@ -72,7 +74,8 @@ const TemplateBuilder = ({
             secretKey={secretKey}
             styles={styles}
             olcTemplate={olcTemplate}
-            returnRoute={returnRoute}
+            onReturnAndNavigate={onReturnAndNavigate}
+            platformName={platformName}
             createTemplateRoute={createTemplateRoute}
             templateBuilderRoute={templateBuilderRoute}
             onGetOneTemplate={onGetOneTemplate}
