@@ -93,9 +93,10 @@ const Images: Record<string, ReactElement> = {
 interface CreateTemplateProps {
   onReturnAndNavigate?: () => void;
   createTemplateRoute?: string | null;
+  templateBuilderRoute?: string | null;
 }
 
-const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, createTemplateRoute }) => {
+const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, createTemplateRoute, templateBuilderRoute }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [envelopeType, setEnvelopeType] = useState<[]>([]);
 
@@ -144,36 +145,36 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, cr
       dispatch(searchAndAdvanceChange('title', trimedTitle));
       dispatch(searchAndAdvanceChange('envelopeType', envelope));
       navigate(
-        templateType === 'json' ? '/template-builder' : '/template-html'
+        templateBuilderRoute ? templateBuilderRoute : '/template-builder'
       );
     }
   };
 
-  useEffect(() => {
-    dispatch(clearTemplateFields());
-    removeItem('formData');
-    dispatch({ type: CLEAR_TEMPLATE });
-  }, []);
+    useEffect(() => {
+      dispatch(clearTemplateFields());
+      removeItem('formData');
+      dispatch({ type: CLEAR_TEMPLATE });
+    }, []);
 
-  useEffect(() => {
-    if (products?.length) {
-      dispatch(selectProduct(products[0]));
-    }
-  }, [products]);
+    useEffect(() => {
+      if (products?.length) {
+        dispatch(selectProduct(products[0]));
+      }
+    }, [products]);
 
-  useEffect(() => {
-    if (product && product?.productType === 'Professional Letters') {
-      if (Object.keys(envelopeType).length) {
-        setIsError(false);
+    useEffect(() => {
+      if (product && product?.productType === 'Professional Letters') {
+        if (Object.keys(envelopeType).length) {
+          setIsError(false);
+        }
+        //@ts-ignore
+        if (envelopeType?.label === 'Non-Windowed Envelope') {
+          dispatch(
+            selectProduct(sortedProducts.find((item) => item.windowed === false))
+          );
+        }
       }
-      //@ts-ignore
-      if (envelopeType?.label === 'Non-Windowed Envelope') {
-        dispatch(
-          selectProduct(sortedProducts.find((item) => item.windowed === false))
-        );
-      }
-    }
-  }, [envelopeType]);
+    }, [envelopeType]);
 
   return (
     <>

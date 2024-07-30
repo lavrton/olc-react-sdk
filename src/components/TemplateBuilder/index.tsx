@@ -92,8 +92,16 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
   }
 
   useEffect(() => {
-    handleLoadTemplate();
-  }, [olcTemplate, template]);
+    if (olcTemplate) {
+      dispatch({ type: GET_ONE_TEMPLATE, payload: { data: olcTemplate } });
+    }
+  }, [olcTemplate]);
+
+  useEffect(() => {
+    if (template) {
+      handleLoadTemplate();
+    }
+  }, [template]);
 
   // Event listener for visibility change
   useEffect(() => {
@@ -138,7 +146,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
           return error;
         }
         // @ts-ignore
-      } else if (store.pages.length === 0) {
+      } else if (store.pages.length === 0 && !olcTemplate) {
         createInitialPage();
       }
 
@@ -161,7 +169,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
   }, []);
 
   useEffect(() => {
-    if (!id && product && store.pages.length === 0) {
+    if (!id && !olcTemplate && product && store.pages.length === 0) {
       createInitialPage();
     }
   }, [product]);
@@ -308,6 +316,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
                 currentTemplateType={currentTemplateType}
                 platformName={platformName}
                 onGetTemplates={onGetTemplates}
+                onGetOneTemplate={onGetOneTemplate}
                 onGetCustomFields={onGetCustomFields}
               />
               <WorkspaceWrap>

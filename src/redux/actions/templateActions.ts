@@ -32,8 +32,8 @@ const uploadTemplate = async (templateFormData: FormData): Promise<unknown> => {
 
 const getAllTemplatesByTab = async (payload: any) => {
   try {
-    const response = await post('/templates/by-tab', payload);
-    return response;
+    const response:any = await post('/templates/by-tab', payload);
+    return response?.data?.data;
   } catch (error: any) {
     return error.response;
   }

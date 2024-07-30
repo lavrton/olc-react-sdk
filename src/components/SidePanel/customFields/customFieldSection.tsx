@@ -116,8 +116,10 @@ const customFieldSection: SideSection = {
         x = store.width / 2 - 200;
         y = 300;
       }
-      x /= store.activePage.scale;
-      y /= store.activePage.scale;
+      //@ts-ignore
+      x /= store?.activePage?.scale;
+      //@ts-ignore
+      y /= store?.activePage?.scale;
 
       store.activePage.addElement({
         type: 'text',

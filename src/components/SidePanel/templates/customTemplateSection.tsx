@@ -170,7 +170,7 @@ const customTemplateSection: SideSection = {
             ? 'my-templates'
             : currentTemplateTypeRef.current?.id === '2'
               ? 'team-templates'
-              : platformName ? `${platformName} Templates` : 'OLC Templates',
+              : 'olc-templates',
         page: page,
         pageSize: 10,
         productId: product?.id,

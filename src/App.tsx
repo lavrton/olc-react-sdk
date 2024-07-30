@@ -39,7 +39,7 @@ const App: React.FC<AppProps> = ({ secretKey, onReturnAndNavigate, platformName,
   const currentPath = window?.location?.pathname;
 
   useEffect(() => {
-    if (currentPath === createTemplateRoute || '/create-template') {
+    if (currentPath === createTemplateRoute || currentPath ===  '/create-template') {
       const newStore = initializeStore(secretKey);
       setStore(newStore);
     }
@@ -65,7 +65,7 @@ const App: React.FC<AppProps> = ({ secretKey, onReturnAndNavigate, platformName,
       <Routes>
         <Route
           path={createTemplateRoute || "/create-template"}
-          element={<CreateTemplate onReturnAndNavigate={onReturnAndNavigate} createTemplateRoute={createTemplateRoute} />}
+          element={<CreateTemplate onReturnAndNavigate={onReturnAndNavigate} createTemplateRoute={createTemplateRoute} templateBuilderRoute={templateBuilderRoute} />}
         />
         <Route
           path={templateBuilderRoute || "/template-builder/:id?"}
