@@ -9,6 +9,7 @@ export interface CustomCSSProperties extends React.CSSProperties {
   '--svg-color-not-active'?: string;
   '--text-color'?: string;
   '--modal-background-color'?: string;
+  '--notification-background-color'?: string;
   '--notification-text-color'?: string;
   '--border-color'?: string;
   '--error-color'?: string;
@@ -28,6 +29,7 @@ export const customStyles: Styles = {
     '--svg-color-not-active': 'purple',
     '--text-color': '#fff',
     '--modal-background-color': '#fff',
+    '--notification-background-color': "#EF7820",
     '--notification-text-color': "#fff",
     '--border-color': 'rgba(0, 0, 0, 0.5)',
     '--error-color': '#ff0000',

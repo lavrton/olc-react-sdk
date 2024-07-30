@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties } from 'react';
+import React, { ReactNode, CSSProperties, useRef, useEffect } from 'react';
 
 // components
 import Button from '../Button';
@@ -72,13 +72,42 @@ const Dialog: React.FC<DialogProps> = ({
 }) => {
   const contentAdjust = submitText.length > 6 ? "fit-content" : "100px";
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      handleClose();
+    }
+  };
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      handleClose();
+    }
+  }
+
+  useEffect(() => {
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open]);
+
   return (
     <div
       id="myModal"
       className="modal"
       style={{display: open ? 'flex' : 'none'}}
     >
-      <div className="modal-content" style={customStyles}>
+      <div className="modal-content" style={customStyles} ref={modalRef}>
         <div className="modal-header">
           <span className="close" onClick={handleClose}>
             <Cross />
