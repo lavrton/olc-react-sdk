@@ -4,7 +4,7 @@ import React from 'react';
 import Select, {StylesConfig, ClearIndicatorProps, components} from 'react-select';
 
 // icons
-import Cancel from '../../../assets/images/input/cancel';
+import Cancel from '../../../assets/images/input/select-cancel';
 
 // components
 import Typography from '../Typography';
