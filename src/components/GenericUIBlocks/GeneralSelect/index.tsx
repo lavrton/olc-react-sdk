@@ -89,7 +89,7 @@ const GeneralSelect: React.FC<GeneralSelectProps> = ({
         blurInputOnSelect
         isClearable={clearField}
         components={{ClearIndicator}}
-        isSearchable={clearField && false}
+        isSearchable={false}
       />
       {isError && (
         <Typography variant="p" style={errorStyles}>

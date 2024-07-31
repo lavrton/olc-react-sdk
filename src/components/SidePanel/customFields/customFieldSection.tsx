@@ -134,7 +134,7 @@ const customFieldSection: SideSection = {
         <div className="dynamic-content__top">
           <div>
             <span className="title">Contact Fields</span>
-            <InfoIcon fill="#000" className="infoIcon" />
+            <InfoIcon fill="var(--primary-color)" className="infoIcon" />
             <GeneralTootip
               anchorSelect=".infoIcon"
               place="bottom"
@@ -163,39 +163,43 @@ const customFieldSection: SideSection = {
           )
         )}
         <GeneralTootip anchorSelect=".copy" place="bottom" title="Copy" />
-        {onGetCustomFields && <>
-          <hr className="divider" />
-          <div className="dynamic-content__top">
-            <div>
-              <span className="title">Custom Fields</span>
-              <InfoIcon fill="var(--primary-color)" className="custom" />
-              <GeneralTootip
-                anchorSelect=".custom"
-                place="bottom"
-                title="You can add custom fields to your template." />
-            </div>
-            <Button onClick={handleShowDialog}></Button>
-          </div>
-          {customFields?.map(
-            ({ key, value }: { key: string; value: string; }, i: number) => (
-              <div style={{ display: 'flex', alignItems: 'center' }} key={i}>
-                <span
-                  className="contact-element"
-                  onClick={(event) => handleAddElementOnScreen(event, key, 'click')}
-                >
-                  {value}
-                </span>
-                <Button
-                  style={iconButtonStyles}
-                  onClick={() => copyCustomFieldText(key)}
-                >
-                  <ContentCopyIcon
-                    className="copy" />
-                </Button>
+        {onGetCustomFields && (
+          <>
+            <hr className="divider" />
+            <div className="dynamic-content__top">
+              <div>
+                <span className="title">Custom Fields</span>
+                <InfoIcon fill="var(--primary-color)" className="custom" />
+                <GeneralTootip
+                  anchorSelect=".custom"
+                  place="bottom"
+                  title="You can add custom fields to your template."
+                />
               </div>
-            )
-          )}
-        </>}
+              <Button onClick={handleShowDialog}></Button>
+            </div>
+            {customFields?.map(
+              ({key, value}: {key: string; value: string}, i: number) => (
+                <div style={{display: 'flex', alignItems: 'center'}} key={i}>
+                  <span
+                    className="contact-element"
+                    onClick={(event) =>
+                      handleAddElementOnScreen(event, key, 'click')
+                    }
+                  >
+                    {value}
+                  </span>
+                  <Button
+                    style={iconButtonStyles}
+                    onClick={() => copyCustomFieldText(key)}
+                  >
+                    <ContentCopyIcon className="copy" />
+                  </Button>
+                </div>
+              )
+            )}
+          </>
+        )}
       </div>
     );
   }) as unknown as SideSection['Panel'],
