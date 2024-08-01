@@ -271,7 +271,7 @@ const customTemplateSection: SideSection = {
       getTemplatesByTab(page);
     };
 
-    const handleLoadTemplate = async (id: any, type = 'edit') => {
+    const handleLoadTemplate = async (id: any, type = 'copy') => {
       if (onGetOneTemplate) {
         try {
           const template = await onGetOneTemplate(id);
@@ -417,7 +417,8 @@ const customTemplateSection: SideSection = {
 
     useEffect(() => {
       if (templateTypes) {
-        setCurrentTemplateType(templateTypes[0])
+        const type = templateTypes.find(type => type.id === '3');
+        setCurrentTemplateType(type);
       }
     }, [templateTypes])
 

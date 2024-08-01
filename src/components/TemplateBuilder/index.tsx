@@ -281,7 +281,11 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
         dpi: 96,
       });
       store.setSize(+paperDimensions[1] * DPI, +paperDimensions[0] * DPI);
-      const jsonData = await getFileAsBlob(existingTemplate?.templateUrl);
+      let jsonData = await getFileAsBlob(existingTemplate?.templateUrl);
+      if (template?.product?.productType === 'Real Penned Letter') {
+        let clonedJson = JSON.stringify(jsonData).replace(/{{/g, "((").replace(/}}/g, "))");
+        jsonData = JSON.parse(clonedJson);
+      }
       store.loadJSON(jsonData);
       await store.waitLoading();
       setIsStoreUpdated(false);
@@ -306,6 +310,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
             <TopNavigation
               store={store}
               isStoreUpdated={isStoreUpdated}
+              olcTemplate={olcTemplate}
               onReturnAndNavigate={onReturnAndNavigate}
               onSubmit={onSubmit}
             />

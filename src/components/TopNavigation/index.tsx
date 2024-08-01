@@ -69,15 +69,17 @@ interface TopNavigationProps {
   store: any;
   createTemplateRoute?: string | null;
   isStoreUpdated: boolean;
+  olcTemplate?: Record<string, any>;
   onReturnAndNavigate?: () => void;
   onSubmit?: (payload: any) => Promise<any>;
 }
 
 const TopNavigation: React.FC<TopNavigationProps> = ({
   store,
-  onReturnAndNavigate,
   createTemplateRoute,
   isStoreUpdated,
+  olcTemplate,
+  onReturnAndNavigate,
   onSubmit,
 }) => {
 
@@ -254,7 +256,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
       if (onSubmit) {
         const saveTemplate = await onSubmit(formData);
         if (saveTemplate) {
-          dispatch(success('Template Created Successfully'));
+          dispatch(success(olcTemplate ? 'Template Updated Successfully' : 'Template Created Successfully'));
           setTimeout(() => {
             handleNavigation();
           }, 2000)
