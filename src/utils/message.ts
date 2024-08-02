@@ -9,6 +9,7 @@ export const MESSAGES = {
     TYPE_REQUIRED: "Template Type is required",
     DESIGN_NEW: "Design Your Own",
     NO_MY_TEMPLATES: "No My Templates to show",
+    LOADING_TEMPLATE: "Loading Templates...",
     NO_TEAM_TEMPLATES: "No Team Templates to show",
     NO_OLC_TEMPLATES: "No OLC Templates to show",
     PRODUCT_TYPE_REQUIRED: "Product Type is required",

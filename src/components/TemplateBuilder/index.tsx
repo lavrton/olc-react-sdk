@@ -90,18 +90,12 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
     height: '90vh',
     position: 'relative',
   }
-
+  
   useEffect(() => {
     if (olcTemplate) {
-      dispatch({ type: GET_ONE_TEMPLATE, payload: { data: olcTemplate } });
-    }
-  }, [olcTemplate]);
-
-  useEffect(() => {
-    if (template) {
       handleLoadTemplate();
     }
-  }, [template]);
+  }, [olcTemplate]);
 
   // Event listener for visibility change
   useEffect(() => {

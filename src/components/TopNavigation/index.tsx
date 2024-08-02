@@ -256,10 +256,8 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
       if (onSubmit) {
         const saveTemplate = await onSubmit(formData);
         if (saveTemplate) {
-          dispatch(success(olcTemplate ? 'Template Updated Successfully' : 'Template Created Successfully'));
-          setTimeout(() => {
-            handleNavigation();
-          }, 2000)
+          // dispatch(success(olcTemplate ? 'Template Updated Successfully' : 'Template Created Successfully'));
+          handleNavigation();
         }
       } else {
         dispatch(failure("Please add onSubmit handler via Props to save template"))

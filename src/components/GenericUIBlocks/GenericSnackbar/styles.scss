@@ -2,7 +2,7 @@
   width: 100%;
   min-width: 400px;
   max-width: fit-content;
-  z-index: 999999999;
+  z-index: 999999999 !important;
 
   .basic-toast {
     background-color: var(--notification-background-color);
