@@ -184,7 +184,7 @@ const customTemplateSection: SideSection = {
 
       const getTemplatesByTab = async (page = 1) => {
         try {
-          setLoader(true);
+          page === 1 && setLoader(true);
           const payload: Payload = {
             tab:
               currentTemplateTypeRef.current?.id === '1'

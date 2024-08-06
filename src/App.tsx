@@ -60,7 +60,7 @@ const App: React.FC<AppProps> = ({ secretKey, onReturnAndNavigate, platformName,
       : createGlobalStyle`<></>`;
 
   return (
-    <>
+    <div className='builder-wrapper'>
       <GlobalStyle />
       <Routes>
         <Route
@@ -72,7 +72,7 @@ const App: React.FC<AppProps> = ({ secretKey, onReturnAndNavigate, platformName,
           element={<TemplateBuilder store={store} olcTemplate={olcTemplate} platformName={platformName} onReturnAndNavigate={onReturnAndNavigate} createTemplateRoute={createTemplateRoute} onGetOneTemplate={onGetOneTemplate} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} onSubmit={onSubmit} />}
         />
       </Routes>
-    </>
+    </div>
   );
 };
 

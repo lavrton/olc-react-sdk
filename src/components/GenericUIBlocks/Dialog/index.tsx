@@ -81,7 +81,7 @@ const Dialog: React.FC<DialogProps> = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && !loading) {
       handleClose();
     }
   }

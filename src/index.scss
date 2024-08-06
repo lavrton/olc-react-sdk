@@ -12,9 +12,8 @@
   --border-color: #303030;
   --error-color: #ff0000;
 
-  body {
+  .builder-wrapper {
     font-family: var(--font-family) !important;
-    padding: 70px 0 0px;
     margin: 0;
 
     &::-webkit-scrollbar {

@@ -99,8 +99,9 @@ interface CreateTemplateProps {
 const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, createTemplateRoute, templateBuilderRoute }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [envelopeType, setEnvelopeType] = useState<[]>([]);
+  const [inputValue, setInputValue] = useState('');
 
-  const title = useSelector((state: RootState) => state.templates.title);
+  const title = useSelector((state: RootState) => state.templates.title) || '';
   const product = useSelector(
     (state: RootState) => state.templates.product
   ) as Record<string, any>;
@@ -192,8 +193,9 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, cr
                 <div className="templateInputWrapper">
                   <Input
                     type="text"
-                    value={title}
+                    value={inputValue}
                     onChange={(e: any) => {
+                      setInputValue(e.target.value);
                       dispatch(searchAndAdvanceChange('title', e.target.value));
                     }}
                     placeholder="Template Name"
