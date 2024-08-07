@@ -9,13 +9,28 @@ interface ButtonProps {
   onClick?: MouseEventHandler<HTMLDivElement>;
   className?: string;
   disabled?: boolean;
+  backdrop?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ children = '', style = {}, onClick, className = '', disabled= false }) => {
+const Button: React.FC<ButtonProps> = ({
+  children = '',
+  style = {},
+  onClick,
+  className = '',
+  disabled = false,
+  backdrop = true,
+}) => {
   return (
-    <div className={`basic-button ${className} ${disabled ? 'disabled' : ""}`} onClick={disabled ? undefined : onClick} style={style}>
-      {children}
-    </div>
+    <>
+      <div
+        className={`basic-button ${className} ${disabled ? 'disabled' : ''}`}
+        onClick={disabled ? undefined : onClick}
+        style={style}
+      >
+        {children}
+        {backdrop && <span className="backdrop" />}
+      </div>
+    </>
   );
 };
 

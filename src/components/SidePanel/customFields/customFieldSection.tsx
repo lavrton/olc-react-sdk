@@ -158,6 +158,7 @@ const customFieldSection: SideSection = {
               <Button
                 style={iconButtonStyles}
                 onClick={() => copyCustomFieldText(key)}
+                backdrop={false}
               >
                 <ContentCopyIcon className="copy" />
               </Button>

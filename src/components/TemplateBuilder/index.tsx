@@ -104,7 +104,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
         setSwitchTabCount((prev) => prev + 1);
       }
     };
-
+    
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
@@ -295,7 +295,7 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
 
   return (
     <>
-      <Typography className="alert">
+      <Typography className="hideTemplateBuilder">
         {MESSAGES.TEMPLATE_MESSAGE_ON_SMALL_SCREEN}
       </Typography>
       <div className="polotno-container">

@@ -5,7 +5,7 @@
   line-height: 16.94px;
 }
 
-.alert {
+.hideTemplateBuilder {
   display: none;
   @media (width <= 600px) {
     display: block;
@@ -331,12 +331,7 @@
       padding: 14px 95px 14px 35px;
     }
   }
-}
-
-.mb-5 {
-  margin-bottom: 6rem !important;
-}
-
-.error {
-  border: 1.5px solid var(--error-color);
+  .error {
+    border: 1.5px solid var(--error-color);
+  }
 }

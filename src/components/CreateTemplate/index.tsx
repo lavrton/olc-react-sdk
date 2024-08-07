@@ -179,7 +179,7 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, cr
 
   return (
     <>
-      <Typography className="alert">
+      <Typography className="hideTemplateBuilder">
         {MESSAGES.TEMPLATE_MESSAGE_ON_SMALL_SCREEN}
       </Typography>
       <div className="createTemplateMaindiv">

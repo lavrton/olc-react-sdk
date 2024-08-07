@@ -577,9 +577,7 @@ const customTemplateSection: SideSection = {
               </div>
             )}
             <div
-              className="searchWrapper"
-              style={{marginTop: '16px', marginBottom: '16px'}}
-            >
+              className="searchWrapper">
               <Input
                 type="text"
                 value={search}
