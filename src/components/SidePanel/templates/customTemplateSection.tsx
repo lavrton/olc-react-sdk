@@ -61,7 +61,7 @@ const designDialogStyles = {
 
 const loadDialogStyles = {
   maxWidth: '430px',
-  minHeight: '285px',
+  minHeight: '300px',
 };
 
 const templateTextStyles: React.CSSProperties = {

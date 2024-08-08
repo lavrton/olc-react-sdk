@@ -260,8 +260,9 @@ const TemplateBuilder: React.FC<TemplateBuilderProps> = ({ store, onReturnAndNav
   };
 
   const handleLoadTemplate = async () => {
-    const existingTemplate = olcTemplate || template;
+    const existingTemplate = olcTemplate;
     if (existingTemplate) {
+      dispatch({ type: GET_ONE_TEMPLATE, payload: { data: existingTemplate } });
       const workspaceElement = document.querySelector(
         ".polotno-workspace-container"
       );
