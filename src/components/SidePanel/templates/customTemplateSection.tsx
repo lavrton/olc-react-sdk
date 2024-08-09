@@ -11,7 +11,7 @@ import {
   clearAllTemplates,
   getAllTemplateCategories,
   getAllTemplatesByTab,
-} from '../../../../src/redux/actions/templateActions';
+} from '../../../redux/actions/templateActions';
 import {
   GET_ONE_TEMPLATE,
   TEMPLATE_LOADING,
@@ -42,9 +42,9 @@ import Input from '../../GenericUIBlocks/Input';
 
 // Icons
 // @ts-ignore
-import DesignIcon from '../../../assets/images/templates/template-default-design.tsx';
+import DesignIcon from '../../../assets/images/templates/template-default-design';
 // @ts-ignore
-import dummyTemplateIcon from '../../../assets/images/templates/dummy-template.svg';
+import DummyTemplateImage from '../../../assets/images/templates/dummy-template.tsx';
 // @ts-ignore
 import CustomTemplate from '../../../assets/images/templates/custom-template';
 import ModalCross from '../../../assets/images/modal-icons/modal-cross';
@@ -657,7 +657,8 @@ const customTemplateSection: SideSection = {
                         alt={template.title}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
-                          currentTarget.src = dummyTemplateIcon;
+                          //@ts-ignore
+                          currentTarget.src = DummyTemplateImage;
                           currentTarget.classList.add('dummy-image');
                         }}
                       />
@@ -683,7 +684,8 @@ const customTemplateSection: SideSection = {
                         alt={template.title}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
-                          currentTarget.src = dummyTemplateIcon;
+                          //@ts-ignore
+                          currentTarget.src = DummyTemplateImage;
                           currentTarget.classList.add('dummy-image');
                         }}
                       />
@@ -711,7 +713,8 @@ const customTemplateSection: SideSection = {
                         alt={template.title}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
-                          currentTarget.src = dummyTemplateIcon;
+                          //@ts-ignore
+                          currentTarget.src = DummyTemplateImage;
                           currentTarget.classList.add('dummy-image');
                         }}
                       />

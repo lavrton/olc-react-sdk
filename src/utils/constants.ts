@@ -5,6 +5,7 @@ export const DPI: number = 96;
 
 export const Barcode: string = 'https://api.openletterconnect.com/api/v1/download/s3/openletterconnect/assets/preview/one-barcode.png';
 export const PRODUCT_LEARN_URL: string = "https://help.openletterconnect.com/getting-support/designing-your-mailers/wip-designing-mail-creatives/wip-mail-piece-design-specs";
+export const GOOGLE_STREET_VIEW_IMAGE_URL = "https://api.openletterconnect.com/api/v1/download/s3/openletterconnect/default_images/dummyGSV.png";
 
 export const multiPageLetters: string[] = [
   "Postcards",
