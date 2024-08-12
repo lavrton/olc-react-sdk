@@ -6,8 +6,8 @@ import type { StoreType } from 'polotno/model/store';
 import { SidePanel as PolotnoSidePanel, DEFAULT_SECTIONS } from 'polotno/side-panel';
 
 // Custom Sections / Components
-import customTemplateSection from './templates/customTemplateSection';
-import customFieldSection from './customFields/customFieldSection';
+import customTemplateSection from './Templates/customTemplateSection';
+import customFieldSection from './CustomFields/customFieldSection';
 
 
 interface Props {
