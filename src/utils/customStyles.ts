@@ -3,6 +3,7 @@ import React from 'react';
 export interface CustomCSSProperties extends React.CSSProperties {
   '--font-family'?: string;
   '--scrollbar-thumb-color'?: string;
+  '--scrollbar-track-color'?: string;
   '--primary-color'?: string;
   '--secondary-color'?: string;
   '--svg-color'?: string;
@@ -23,6 +24,7 @@ export const customStyles: Styles = {
   root: {
     '--font-family': 'Inter',
     '--scrollbar-thumb-color': '#fb8500',
+    '--scrollbar-track-color': 'grey',
     '--primary-color': '#fb8500',
     '--secondary-color': 'red',
     '--svg-color': '#ffb703',

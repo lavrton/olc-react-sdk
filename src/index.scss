@@ -1,6 +1,7 @@
 :root {
   --font-family: 'Inter';
   --scrollbar-thumb-color: hsl(29, 100%, 88%);
+  --scrollbar-track-color: grey;
   --primary-color: #ed5c2f;
   --secondary-color: #FFF8EE;
   --svg-color: #fdb515;
@@ -21,7 +22,7 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: var(--secondary-color) !important;
+      background: var(--scrollbar-track-color) !important;
       border-radius: 3px;
     }
 
@@ -32,7 +33,7 @@
 
     @supports not selector(::-webkit-scrollbar) {
       body {
-        scrollbar-color: var(--scrollbar-thumb-color) var(--secondary-color);
+        scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
       }
     }
 
