@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Polotno and third party libraries
-import {observer} from 'mobx-react-lite';
-import {SectionTab} from 'polotno/side-panel';
-import type {StoreType} from 'polotno/model/store';
-import type {TemplatesSection} from 'polotno/side-panel';
+import { observer } from 'mobx-react-lite';
+import { SectionTab } from 'polotno/side-panel';
+import type { StoreType } from 'polotno/model/store';
+import type { TemplatesSection } from 'polotno/side-panel';
 
 // Actions
 import {
@@ -16,11 +16,11 @@ import {
   GET_ONE_TEMPLATE,
   TEMPLATE_LOADING,
 } from '../../../redux/actions/action-types';
-import {failure} from '../../../redux/actions/snackbarActions';
+import { failure } from '../../../redux/actions/snackbarActions';
 
 // Hooks
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../redux/store';
 
 // Utils
 import {
@@ -32,7 +32,7 @@ import {
   drawRestrictedAreaOnPage,
   getFileAsBlob,
 } from '../../../utils/template-builder';
-import {MESSAGES} from '../../../utils/message';
+import { MESSAGES } from '../../../utils/message';
 
 // Components
 import Typography from '../../GenericUIBlocks/Typography';
@@ -104,6 +104,7 @@ type CustomTemplateSectionProps = {
   store: StoreType;
   active: boolean;
   platformName?: string | null;
+  defaultCategory?: string[];
   onClick: () => void;
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: Payload) => Promise<any>;
@@ -112,7 +113,7 @@ type CustomTemplateSectionProps = {
 const customTemplateSection: SideSection = {
   name: 'Templates',
   Tab: observer(
-    (props: {store: StoreType; active: boolean; onClick: () => void}) => (
+    (props: { store: StoreType; active: boolean; onClick: () => void }) => (
       <SectionTab name="Templates" {...props}>
         <CustomTemplate fill="var(--text-color)" />
       </SectionTab>
@@ -122,6 +123,7 @@ const customTemplateSection: SideSection = {
     ({
       store,
       platformName,
+      defaultCategory,
       onGetOneTemplate,
       onGetTemplates,
     }: CustomTemplateSectionProps) => {
@@ -240,7 +242,6 @@ const customTemplateSection: SideSection = {
                 ]);
               }
             }
-            setLoader(false);
             setPagination({
               count: templates.count,
               currentPage: templates.currentPage,
@@ -249,6 +250,8 @@ const customTemplateSection: SideSection = {
           }
         } catch (error) {
           return error;
+        } finally {
+          setLoader(false);
         }
       };
 
@@ -257,6 +260,38 @@ const customTemplateSection: SideSection = {
           getAllTemplateCategories
         );
         if (categories?.status === 200) {
+          if (defaultCategory && categories?.data?.data) {
+            const fetchedCategories = categories.data.data
+              .filter((item: any) => item.totalTemplates > 0)
+              .map((item: any) => ({
+                ...item,
+                label: item.title.trim().toLowerCase(),
+              }));
+
+            if (fetchedCategories.length > 0) {
+              const normalizedDefaultCategories = defaultCategory.map(category => category.trim().toLowerCase());
+
+              if (normalizedDefaultCategories.length === 1) {
+                const findCategory = fetchedCategories.find((item: any) => item.label === normalizedDefaultCategories[0]);
+
+                if (findCategory) {
+                  setSelectedCategory(findCategory);
+                  return;
+                }
+              } else if (normalizedDefaultCategories.length > 1) {
+                const filterCategory = fetchedCategories.filter((item: any) =>
+                  normalizedDefaultCategories.includes(item.label)
+                );
+
+                if (filterCategory.length > 0) {
+                  setSelectedCategory(filterCategory[0]);
+                  setTemplateCategories(filterCategory);
+                  return;
+                }
+              }
+            }
+          }
+
           setTemplateCategories(
             categories?.data?.data
               .filter((item: any) => item.totalTemplates > 0)
@@ -305,7 +340,7 @@ const customTemplateSection: SideSection = {
         if (onGetOneTemplate) {
           try {
             const template = await onGetOneTemplate(id);
-            dispatch({type: TEMPLATE_LOADING, payload: true});
+            dispatch({ type: TEMPLATE_LOADING, payload: true });
             if (template) {
               const workspaceElement = document.querySelector(
                 '.polotno-workspace-container'
@@ -332,7 +367,7 @@ const customTemplateSection: SideSection = {
               }
               store.loadJSON(jsonData);
               await store.waitLoading();
-              dispatch({type: TEMPLATE_LOADING, payload: false});
+              dispatch({ type: TEMPLATE_LOADING, payload: false });
               if (workspaceElement) {
                 workspaceElement.classList.add('hide-loader');
               }
@@ -352,7 +387,7 @@ const customTemplateSection: SideSection = {
       };
 
       const handleDialogChange = (model = '') => {
-        setIsShowDialog((prev) => ({open: !prev.open, model: model}));
+        setIsShowDialog((prev) => ({ open: !prev.open, model: model }));
       };
 
       const processPage = async (index: any, page: any) => {
@@ -363,12 +398,12 @@ const customTemplateSection: SideSection = {
           const text = index === 0 ? 'Front' : 'Back';
 
           if (pageNumber) {
-            pageNumber.set({text});
+            pageNumber.set({ text });
             resolve();
           } else {
             page.addElement({
               type: 'text',
-              custom: {name: 'page-number'},
+              custom: { name: 'page-number' },
               text,
               width: store.width,
               align: 'center',
@@ -437,7 +472,7 @@ const customTemplateSection: SideSection = {
       useEffect(() => {
         if (templateLoading !== null && templateLoading === false) {
           handleDialogChange('');
-          dispatch({type: TEMPLATE_LOADING, payload: null});
+          dispatch({ type: TEMPLATE_LOADING, payload: null });
         }
       }, [templateLoading]);
 
@@ -488,7 +523,9 @@ const customTemplateSection: SideSection = {
       }, [templateTypes]);
 
       useEffect(() => {
-        if (currentTemplateType) {
+        if (currentTemplateType?.id === '3' && defaultCategory && defaultCategory?.length >= 1) {
+          return
+        } else if (currentTemplateType) {
           getTemplatesByTab();
         }
       }, [currentTemplateType]);
@@ -545,7 +582,7 @@ const customTemplateSection: SideSection = {
             />
           )}
           <div className="templateTabsWrapper">
-            <div style={{marginTop: '8px'}}>
+            <div style={{ marginTop: '8px' }}>
               <GeneralSelect
                 placeholder="Template Types"
                 options={templateTypes as any}
@@ -553,14 +590,14 @@ const customTemplateSection: SideSection = {
                 selectedValue={currentTemplateType as any}
                 builderSelect={true}
                 // @ts-ignore
-                search={() => {}}
-                updateErrors={() => {}}
+                search={() => { }}
+                updateErrors={() => { }}
                 disableClearable={true}
                 templateBuilder={true}
               />
             </div>
-            {currentTemplateType?.id === '3' && (
-              <div style={{marginTop: 8}}>
+            {defaultCategory && defaultCategory?.length === 1 ?  <></> : currentTemplateType?.id === '3' && templateCategories?.length >= 1 && (
+              <div style={{ marginTop: 8 }}>
                 <GeneralSelect
                   placeholder="Select Category"
                   options={templateCategories as any}
@@ -569,8 +606,8 @@ const customTemplateSection: SideSection = {
                   builderSelect={true}
                   clearField={true}
                   // @ts-ignore
-                  search={(() => {}) as any}
-                  updateErrors={() => {}}
+                  search={(() => { }) as any}
+                  updateErrors={() => { }}
                   disableClearable={false}
                   templateBuilder={true}
                 />
@@ -618,7 +655,7 @@ const customTemplateSection: SideSection = {
                       <img
                         src={template.thumbnailUrl}
                         alt={template.title}
-                        onError={({currentTarget}) => {
+                        onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           currentTarget.src = dummyTemplateIcon;
                           currentTarget.classList.add('dummy-image');
@@ -644,7 +681,7 @@ const customTemplateSection: SideSection = {
                       <img
                         src={template.thumbnailUrl}
                         alt={template.title}
-                        onError={({currentTarget}) => {
+                        onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           currentTarget.src = dummyTemplateIcon;
                           currentTarget.classList.add('dummy-image');
@@ -672,7 +709,7 @@ const customTemplateSection: SideSection = {
                       <img
                         src={template.thumbnailUrl}
                         alt={template.title}
-                        onError={({currentTarget}) => {
+                        onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
                           currentTarget.src = dummyTemplateIcon;
                           currentTarget.classList.add('dummy-image');

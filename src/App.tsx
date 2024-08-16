@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 // Libraries/Packages
-import { Routes, Route } from 'react-router-dom';
-import { createStore, StoreType } from 'polotno/model/store';
+import {Routes, Route} from 'react-router-dom';
+import {createStore, StoreType} from 'polotno/model/store';
 
 // components
 import CreateTemplate from './components/CreateTemplate';
 import TemplateBuilder from './components/TemplateBuilder';
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 
 // Initialize Plotno Store
 const initializeStore = (secretKey: string) => {
@@ -26,6 +26,7 @@ interface AppProps {
   templateBuilderRoute?: string | null;
   styles?: any;
   olcTemplate?: Record<string, any>;
+  defaultCategory?: string[];
   onReturnAndNavigate?: () => void;
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
@@ -33,13 +34,29 @@ interface AppProps {
   onSubmit?: (payload: any) => Promise<any>;
 }
 
-const App: React.FC<AppProps> = ({ secretKey, onReturnAndNavigate, platformName, createTemplateRoute, templateBuilderRoute, styles, olcTemplate, onGetOneTemplate, onGetCustomFields, onGetTemplates, onSubmit }) => {
+const App: React.FC<AppProps> = ({
+  secretKey,
+  onReturnAndNavigate,
+  platformName,
+  defaultCategory,
+  createTemplateRoute,
+  templateBuilderRoute,
+  styles,
+  olcTemplate,
+  onGetOneTemplate,
+  onGetCustomFields,
+  onGetTemplates,
+  onSubmit,
+}) => {
   const [store, setStore] = useState<StoreType>(initializeStore(secretKey));
 
   const currentPath = window?.location?.pathname;
 
   useEffect(() => {
-    if (currentPath === createTemplateRoute || currentPath ===  '/create-template') {
+    if (
+      currentPath === createTemplateRoute ||
+      currentPath === '/create-template'
+    ) {
       const newStore = initializeStore(secretKey);
       setStore(newStore);
     }
@@ -49,27 +66,47 @@ const App: React.FC<AppProps> = ({ secretKey, onReturnAndNavigate, platformName,
     styles && Object.keys(styles).length
       ? createGlobalStyle`
         :root {
-        ${styles
-          ? Object.entries(styles.root)
-            .map(([key, value]) => `${key}: ${value};`)
-            .join(' ')
-          : ''
+        ${
+          styles
+            ? Object.entries(styles.root)
+                .map(([key, value]) => `${key}: ${value};`)
+                .join(' ')
+            : ''
         }
           }
         `
       : createGlobalStyle`<></>`;
 
   return (
-    <div className='builder-wrapper'>
+    <div className="builder-wrapper">
       <GlobalStyle />
       <Routes>
         <Route
-          path={createTemplateRoute || "/create-template"}
-          element={<CreateTemplate onReturnAndNavigate={onReturnAndNavigate} createTemplateRoute={createTemplateRoute} templateBuilderRoute={templateBuilderRoute} />}
+          path={createTemplateRoute || '/create-template'}
+          element={
+            <CreateTemplate
+              onReturnAndNavigate={onReturnAndNavigate}
+              createTemplateRoute={createTemplateRoute}
+              templateBuilderRoute={templateBuilderRoute}
+            />
+          }
         />
         <Route
-          path={templateBuilderRoute || "/template-builder/:id?"}
-          element={<TemplateBuilder store={store} olcTemplate={olcTemplate} platformName={platformName} onReturnAndNavigate={onReturnAndNavigate} createTemplateRoute={createTemplateRoute} onGetOneTemplate={onGetOneTemplate} onGetTemplates={onGetTemplates} onGetCustomFields={onGetCustomFields} onSubmit={onSubmit} />}
+          path={templateBuilderRoute || '/template-builder/:id?'}
+          element={
+            <TemplateBuilder
+              store={store}
+              olcTemplate={olcTemplate}
+              platformName={platformName}
+              defaultCategory={defaultCategory}
+              onReturnAndNavigate={onReturnAndNavigate}
+              createTemplateRoute={createTemplateRoute}
+              onGetOneTemplate={onGetOneTemplate}
+              onGetTemplates={onGetTemplates}
+              onGetCustomFields={onGetCustomFields}
+              onSubmit={onSubmit}
+            />
+          }
         />
       </Routes>
     </div>

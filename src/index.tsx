@@ -25,6 +25,7 @@ interface TemplateBuilderProps {
   createTemplateRoute?: string | null;
   templateBuilderRoute?: string | null;
   olcTemplate?: Record<string, any>;
+  defaultCategory?: string[];
   onReturnAndNavigate?: () => void;
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
@@ -44,6 +45,7 @@ const TemplateBuilder = ({
   createTemplateRoute,
   templateBuilderRoute,
   olcTemplate,
+  defaultCategory,
   onReturnAndNavigate,
   onGetOneTemplate,
   onGetTemplates,
@@ -75,6 +77,7 @@ const TemplateBuilder = ({
             styles={styles}
             olcTemplate={olcTemplate}
             platformName={platformName}
+            defaultCategory={defaultCategory}
             createTemplateRoute={createTemplateRoute}
             templateBuilderRoute={templateBuilderRoute}
             onReturnAndNavigate={onReturnAndNavigate}

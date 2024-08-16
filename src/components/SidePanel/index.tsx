@@ -14,6 +14,7 @@ interface Props {
   store: StoreType;
   currentTemplateType: string;
   platformName?: string | null;
+  defaultCategory?: string[];
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
   onGetCustomFields?: () => Promise<any>;
@@ -32,7 +33,7 @@ const SidePanel: React.FC<Props> = (props) => {
       <PolotnoSidePanel store={props.store}
         sections={[
           ...(props.currentTemplateType !== "Real Penned Letter"
-            ? [{ ...customTemplateSection, Panel: (panelProps: any) => <customTemplateSection.Panel {...panelProps} platformName={props.platformName} onGetTemplates={props.onGetTemplates} onGetOneTemplate={props.onGetOneTemplate}/> }]
+            ? [{ ...customTemplateSection, Panel: (panelProps: any) => <customTemplateSection.Panel {...panelProps} platformName={props.platformName} defaultCategory={props.defaultCategory} onGetTemplates={props.onGetTemplates} onGetOneTemplate={props.onGetOneTemplate}/> }]
             : []),
           ...sections,
           { ...customFieldSection, Panel: (panelProps: any) => <customFieldSection.Panel {...panelProps} onGetCustomFields={props.onGetCustomFields} /> },
