@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./constants";
-import { getAuthUserName, getAuthUserPassword } from "./helper";
+import { PROD_API_BASE_URL, STAGE_API_BASE_URL } from "./constants";
+import { getAuthUserName, getAuthUserPassword, getIsSandbox } from "./helper";
 
 const base64Credentials = () => btoa(`${getAuthUserName()}:${getAuthUserPassword()}`);
 
@@ -19,7 +19,8 @@ export interface RequestOptions {
 
 
 const fetchWrapper = async (endpoint: string, options: RequestOptions) => {
-  const url = new URL(`${API_BASE_URL}${endpoint}`);
+  const baseUrl = getIsSandbox() ? STAGE_API_BASE_URL : PROD_API_BASE_URL;
+  const url = new URL(`${baseUrl}${endpoint}`);
   if (options.method === 'GET' && options.params) {
     Object.entries(options.params).forEach(([key, value]) => {
       url.searchParams.append(key, value);

@@ -14,7 +14,7 @@ import '@fontsource/inter/700.css';
 
 // utils
 import { CustomCSSProperties } from './utils/customStyles';
-import { setAuthUserName, setAuthUserPassword } from './utils/helper';
+import { setAuthUserName, setAuthUserPassword, setIsSandbox } from './utils/helper';
 
 interface TemplateBuilderProps {
   container: HTMLElement | null;
@@ -26,6 +26,7 @@ interface TemplateBuilderProps {
   templateBuilderRoute?: string | null;
   olcTemplate?: Record<string, any>;
   defaultCategory?: string[];
+  sandbox?: boolean;
   onReturnAndNavigate?: () => void;
   onGetOneTemplate?: (payload: any) => Promise<any>;
   onGetTemplates?: (payload: any) => Promise<any>;
@@ -46,6 +47,7 @@ const TemplateBuilder = ({
   templateBuilderRoute,
   olcTemplate,
   defaultCategory,
+  sandbox,
   onReturnAndNavigate,
   onGetOneTemplate,
   onGetTemplates,
@@ -64,6 +66,9 @@ const TemplateBuilder = ({
   }
   if (!basicAuthPassword) {
     throw new Error('basicAuthPassword not found');
+  }
+  if (sandbox) {
+    setIsSandbox(sandbox);
   }
   setAuthUserName(basicAuthUsername);
   setAuthUserPassword(basicAuthPassword);
