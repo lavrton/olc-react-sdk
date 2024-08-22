@@ -2,8 +2,8 @@ import React from 'react';
 
 const EPO = () => {
   return (
-    <svg width="247" height="244" viewBox="0 0 247 244" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <path d="M96.5 82.3859V64.1552C96.5 62.5745 94.7528 61.6186 93.4216 62.4708L2.92164 120.41C2.34739 120.778 2 121.412 2 122.094V138.41C2 139.977 3.72032 140.935 5.0527 140.11L95.5527 84.0864C96.1416 83.7218 96.5 83.0785 96.5 82.3859Z" fill="black" stroke="black" stroke-width="3"/>
+    <svg width="247" height="244" viewBox="0 0 247 244" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <path d="M96.5 82.3859V64.1552C96.5 62.5745 94.7528 61.6186 93.4216 62.4708L2.92164 120.41C2.34739 120.778 2 121.412 2 122.094V138.41C2 139.977 3.72032 140.935 5.0527 140.11L95.5527 84.0864C96.1416 83.7218 96.5 83.0785 96.5 82.3859Z" fill="black" stroke="black" strokeWidth="3"/>
     <rect x="18" y="86" width="19" height="155" rx="2" fill="black"/>
     <rect x="168" y="153" width="19" height="88" rx="2" fill="black"/>
     <rect x="74" y="153" width="57" height="91" fill="black"/>

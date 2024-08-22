@@ -16,6 +16,7 @@ export const MESSAGES = {
     ENVELOPE_TYPE_REQUIRED: "Envelope Type is required",
     POSTCARD_SIZE_REQUIRED: "Postcard Size is required",
     NAME_LESS_50: "Template Name should be less than or equal to 50 characters",
+    GSV_RESTRICT_ONE_PER_PAGE: 'Only one GSV image is allowed per page.',
     CREATE: {
       TITLE: 'Create New Template',
       TEMPLATE_LABEL: 'Template Name*',

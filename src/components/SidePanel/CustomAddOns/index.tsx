@@ -6,6 +6,16 @@ import {SectionTab} from 'polotno/side-panel';
 import type {StoreType} from 'polotno/model/store';
 import type {TemplatesSection} from 'polotno/side-panel';
 
+// Hooks
+import { useDispatch } from "react-redux";
+import { AppDispatch } from '../../../redux/store';
+
+// Actions
+import { failure } from "../../../redux/actions/snackbarActions";
+
+// Utils
+import { MESSAGES } from "../../../utils/message";
+
 // MUI Components
 import GeneralTootip from '../../GenericUIBlocks/GeneralTooltip';
 import Typography from '../../GenericUIBlocks/Typography';
@@ -16,6 +26,7 @@ import {GOOGLE_STREET_VIEW_IMAGE_URL} from '../../../utils/constants';
 // Icons
 //@ts-ignore
 import AiOutlineAppstore from '@meronex/icons/ai/AiOutlineAppstoreAdd';
+import CustomAddOnIcon from '../../../assets/images/templates/custom-add-on-icon';
 import InfoIcon from '../../../assets/images/templates/info-icon';
 import GsvIcon from "../../../assets/images/templates/gsv-icon";
 import EpoIcon from "../../../assets/images/templates/epo-icon";
@@ -36,22 +47,33 @@ const CustomAddOns: SideSection = {
   Tab: observer(
     (props: {store: StoreType; active: boolean; onClick: () => void}) => (
       <SectionTab name="Add On's" {...props} iconSize={20}>
-        <AiOutlineAppstore />
+        <CustomAddOnIcon />
       </SectionTab>
     )
   ) as SideSection['Tab'],
 
   // we need observer to update component automatically on any store changes
   Panel: observer(({store}: CustomAddOnsSectionProps) => {
+
+    const dispatch: AppDispatch = useDispatch();
+
     const handleAddElementOnScreen = (
       event: Event,
       value: string,
       type: string
     ) => {
       event.preventDefault();
+      const currentPage = store.activePage.toJSON();
+      if (
+        currentPage?.children?.length &&
+        currentPage.children.find((item:any) => item.id === `gsv-image_${store.activePage.id}`)
+      ) {
+        dispatch(failure(MESSAGES.TEMPLATE.GSV_RESTRICT_ONE_PER_PAGE));
+        return;
+      }
       if (type === 'gsv') {
         store.activePage?.addElement({
-          id: 'gsv-image',
+          id: `gsv-image_${store.activePage.id}`,
           type: 'image',
           src: GOOGLE_STREET_VIEW_IMAGE_URL,
           width: 350,
