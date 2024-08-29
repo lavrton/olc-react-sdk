@@ -26,6 +26,7 @@ import Typography from '../GenericUIBlocks/Typography';
 import Button from '../GenericUIBlocks/Button';
 import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 import GenericSnackbar from '../GenericUIBlocks/GenericSnackbar';
+import TemplatesGallery from '../TemplatesGallery'
 
 // Images
 //@ts-ignore
@@ -177,8 +178,13 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, cr
       }
     }, [envelopeType]);
 
+    const [openGallery, setOpenGallery] = useState(false)
+const handleGalleryClose = () => {
+  setOpenGallery(false);
+}
   return (
     <>
+    <TemplatesGallery open={openGallery} onClose={handleGalleryClose}/>
       <Typography className="hideTemplateBuilder">
         {MESSAGES.TEMPLATE_MESSAGE_ON_SMALL_SCREEN}
       </Typography>
@@ -190,6 +196,16 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, cr
                 <Typography style={templateHeadingStyles}>
                   {MESSAGES.TEMPLATE.CREATE.TITLE}
                 </Typography>
+                <Button
+              style={{
+                ...footerButtonStyles,
+                border: '0.5px solid var(--border-color)',
+                maxWidth: "fit-content"
+              }}
+              onClick={() =>  setOpenGallery(true)}
+            >
+              Open Gallery
+            </Button>
                 <div className="templateInputWrapper">
                   <Input
                     type="text"

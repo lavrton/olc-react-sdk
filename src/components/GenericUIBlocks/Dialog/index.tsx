@@ -25,6 +25,7 @@ interface DialogProps {
   cancelText?: string;
   submitText?: string;
   children?: ReactNode;
+  isGallery?: boolean;
 }
 
 const buttonStyles: CSSProperties = {
@@ -69,6 +70,7 @@ const Dialog: React.FC<DialogProps> = ({
   cancelText = "",
   submitText = "",
   children = [],
+  isGallery=false
 }) => {
   const contentAdjust = submitText.length > 6 ? "fit-content" : "100px";
 
@@ -104,7 +106,7 @@ const Dialog: React.FC<DialogProps> = ({
   return (
     <div
       id="myModal"
-      className="modal"
+      className={`modal ${isGallery && 'galleryModal'}`}
       style={{display: open ? 'flex' : 'none'}}
     >
       <div className="modal-content" style={customStyles} ref={modalRef}>
@@ -113,9 +115,11 @@ const Dialog: React.FC<DialogProps> = ({
             <Cross />
           </span>
         </div>
-        <div className="modal-body">
+        <div className="modal-body" style={{
+          padding: isGallery ? '0px' : "2px 16px"
+        }}>
           {icon && <div className="modal-icon">{icon}</div>}
-          <Typography variant="p" style={heading}>
+          <Typography variant="p" style={{...heading, fontSize: isGallery && "28px"}}>
             {title}
           </Typography>
           {subHeading && (
@@ -134,6 +138,8 @@ const Dialog: React.FC<DialogProps> = ({
           {children}
         </div>
         <div className="modal-footer">
+          {!isGallery &&  
+          <>
           <Button
             onClick={onCancel}
             style={{
@@ -151,6 +157,8 @@ const Dialog: React.FC<DialogProps> = ({
           >
             {loading ? <CircularProgress style={progressStyles} /> : submitText}
           </Button>
+          </>
+          }
         </div>
       </div>
     </div>

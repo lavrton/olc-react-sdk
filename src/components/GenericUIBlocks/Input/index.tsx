@@ -31,6 +31,7 @@ interface InputProps {
   removeSearchInput?: () => void;
   onKeyDown?: () => void;
   builderInput?: boolean;
+  gellerySearch?:  boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -47,14 +48,15 @@ const Input: FC<InputProps> = ({
   removeSearchInput,
   onKeyDown,
   builderInput,
+  gellerySearch = false
 }) => {
   const InputVariant = variant || 'input';
 
   return (
-    <div className="input-layout">
+    <div className={`input-layout ${gellerySearch && "gallery-input-layout"}`}>
       <label className="basic-label">{label ? label : ''}</label>
       <div
-        className={`input-with-icon ${searchApplied && 'focused'} ${error ? 'errorBorder' : ''}`}
+        className={`input-with-icon ${searchApplied && 'focused'} ${error ? 'errorBorder' : ''} ${gellerySearch && "galleryInput"}`}
       >
         <InputVariant
           type={type}
@@ -66,14 +68,14 @@ const Input: FC<InputProps> = ({
         />
         {inputIcon && (
           <>
-            {searchApplied && value.length > 0 ? (
+            {searchApplied && value?.length > 0 ? (
               <div className="cancel-input-button" onClick={removeSearchInput}>
                 <Cancel fill="var(--border-color)" />
               </div>
             ) : null}
             <div
               className="search-input-button"
-              onClick={value.length > 0 ? onClick : () => {}}
+              onClick={value?.length > 0 ? onClick : () => {}}
             >
               <Search fill="var(--primary-color)" />
             </div>

@@ -1,0 +1,72 @@
+.templateCard {
+  width: 316px;
+  border-radius: 3px;
+  flex-basis: 316px;
+  flex-grow: 400px;
+
+  .templateImage {
+    position: relative;
+    cursor: pointer;
+
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 7px;
+      padding: 1.5px;
+      box-shadow: inset 0 0 0 2px #ed5b2f6f;
+    }
+
+    &:hover {
+      .tempButton {
+        display: flex !important;
+      }
+
+      .flipWrapper {
+        display: flex;
+      }
+    }
+
+    .tempButton {
+      display: none !important;
+      transition: 0.3s ease-in all !important;
+      position: absolute !important;
+      top: 10px !important;
+      right: 10px !important;
+      max-height: 35px !important;
+      background-color: var(--primary-color);
+      color: #fff;
+      text-transform: capitalize;
+      border-radius: 6px;
+      transition: 0.3s ease-in all !important;
+    }
+
+    .flipWrapper {
+      display: none;
+      position: absolute;
+      bottom: 30px;
+      left: 40%;
+      width: 60px;
+      height: 20px;
+      background-color: #00000049;
+      border-radius: 99999px;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .templateName {
+    font-size: 18px;
+  }
+
+  .templateID {
+    font-size: 16px;
+    color: #6a6565;
+    font-weight: 400;
+    margin-top: 7px;
+  }
+}

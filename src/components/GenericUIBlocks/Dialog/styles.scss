@@ -10,7 +10,7 @@
   height: 100%;
   overflow: auto;
   background-color: rgb(0 0 0 / 60%);
-  
+
   .modal-content {
     position: relative;
     background-color: var(--modal-background-color);
@@ -18,7 +18,11 @@
     padding: 0;
     border: 1px solid #888;
     width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow:
+      0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
@@ -29,7 +33,7 @@
       height: 100%;
       min-height: 20px;
       color: var(--text-color);
-      
+
       .close {
         float: right;
         font-size: 28px;
@@ -53,19 +57,20 @@
       align-items: center;
       flex-direction: column;
       color: var(--text-color);
-      .modal-icon{
-        svg{
+      height: 100%;
+      .modal-icon {
+        svg {
           width: 100%;
           max-width: 60px;
           height: 100%;
           min-height: 70px;
-          g{
+          g {
             mask: none;
-            path{
+            path {
               fill: var(--primary-color);
             }
           }
-          circle{
+          circle {
             stroke: var(--primary-color);
           }
         }
@@ -105,5 +110,19 @@
       top: 0;
       opacity: 1;
     }
+  }
+}
+
+.galleryModal {
+  @media (max-width: 1200px) {
+    min-width: 1000px;
+  }
+
+  @media (max-width: 992px) {
+    min-width: 750px;
+  }
+
+  @media (max-width: 768px) {
+    min-width: auto;
   }
 }

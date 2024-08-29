@@ -125,4 +125,42 @@
       }
     }
   }
+  
+  .gallery-select{
+    .generic-select__control{
+      background-color: #fff !important;
+      min-height: 40px !important;
+      border-radius: 3px !important;
+      min-width: 320px !important;
+      .generic-select__value-container{
+        .generic-select__placeholder{
+          color: #000;
+        }
+        .generic-select__input-container{
+          color: #000;
+        }
+        .generic-select__single-value {
+          color: #000;
+        }
+      }
+    }
+
+    .generic-select__menu {
+      .generic-select__menu-list {
+        .generic-select__menu-notice{
+          color: #000;
+        }
+        .generic-select__option {
+          color: #000;
+          border-bottom: 0.5px solid #3030303f;
+          &:last-child {
+            border: none;
+          }
+          &.generic-select__option--is-focused {
+            color: #000;
+          }
+        }
+      }
+    }
+  }
 }

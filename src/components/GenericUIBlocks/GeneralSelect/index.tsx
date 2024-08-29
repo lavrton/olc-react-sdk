@@ -27,6 +27,7 @@ interface GeneralSelectProps {
   isError: boolean;
   setSelectedValue: (option: Option | null) => void;
   builderSelect: boolean;
+  gallerySelect: boolean;
   clearField: boolean;
 }
 
@@ -73,17 +74,20 @@ const GeneralSelect: React.FC<GeneralSelectProps> = ({
   selectedValue,
   setSelectedValue,
   builderSelect,
+  gallerySelect=false,
   clearField,
 }) => {
   return (
-    <div className="select-layout">
+    <div className="select-layout" style={{
+      display: gallerySelect && "block"
+    }}>
       <label>{label && label}</label>
       <Select
         value={selectedValue}
         options={options}
         onChange={setSelectedValue}
         styles={colourStyles}
-        className={`generic-select-container ${builderSelect && 'template-select'}`}
+        className={`generic-select-container ${builderSelect && 'template-select'} ${gallerySelect && 'gallery-select'}`}
         classNamePrefix="generic-select"
         placeholder={placeholder}
         blurInputOnSelect

@@ -88,4 +88,13 @@
   .focused {
     background-color: var(--secondary-color);
   }
+
+  .galleryInput{
+    min-height: 40px !important;
+    border-radius: 3px !important;
+  }
+}
+
+.gallery-input-layout{
+  min-width: 320px !important;
 }
