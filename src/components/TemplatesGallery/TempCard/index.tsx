@@ -58,6 +58,8 @@ const TempCard = (props:any) => {
 
  const tempHeight = "407";
 
+//  postcard class width = fill ,  height = 316.37
+
   return (
     <>
       {Array.from({ length: 20 }, (_, index) => index).map((val) => {
@@ -69,6 +71,12 @@ const TempCard = (props:any) => {
           >
             <div className="templateImage">
               <img
+              // className="basic-img postcard-one"
+              // className="basic-img real-penned"
+              // className="basic-img personal-letters"
+              // className="basic-img professional-letters"
+              // className="basic-img bi-fold"
+              className="basic-img tri-fold"
                 src={
                   side.side === "front"
                     ? `https://dummyimage.com/200x300`
@@ -80,7 +88,7 @@ const TempCard = (props:any) => {
                 //     : val.backThumbnailUrl
                 // }
                 // src={val.thumbnailUrl}
-                height={tempHeight+"px"}
+                // height={tempHeight+"px"}
                 alt="template"
                 style={transformSetter("front")}
                 loading="lazy"

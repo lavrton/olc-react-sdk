@@ -1,18 +1,20 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+// styles
 import './styles.scss'; // Create a CSS file for your custom styles
 
 const Tabs = ({ value, onChange, tabs, className, tabClassName, indicatorClassName }: any) => {
-  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const [indicatorStyle, setIndicatorStyle] = useState({width: "50px", left: "37px"});
   const tabRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (tabRefs.current[value]) {
       const tabWidth = tabRefs.current[value]?.offsetWidth;
       const tabLeft = tabRefs.current[value]?.offsetLeft;
 
       setIndicatorStyle({
-        width: `50px`, // Fixed width
-        left: `${tabLeft + tabWidth / 2 - 25}px`, // Centering the 50px indicator under the tab
+        width: '50px', 
+        left: `${tabLeft + tabWidth / 2 - 25}px`, 
       });
     }
   }, [value, tabs.length]);
@@ -33,7 +35,7 @@ const Tabs = ({ value, onChange, tabs, className, tabClassName, indicatorClassNa
       </div>
       <div
         className={`tabsIndicator ${indicatorClassName}`}
-        style={indicatorStyle}
+        style={value === 0 ? {left: "37px", width: "50px"} : indicatorStyle}
       />
     </div>
   );

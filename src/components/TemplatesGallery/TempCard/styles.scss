@@ -1,21 +1,43 @@
 .templateCard {
-  width: 316px;
+  // width: 316px;
   border-radius: 3px;
   flex-basis: 316px;
-  flex-grow: 400px;
 
   .templateImage {
     position: relative;
     cursor: pointer;
 
-    img {
-      height: 100%;
-      width: 100%;
+    .basic-img{
       border-radius: 7px;
       padding: 1.5px;
       box-shadow: inset 0 0 0 2px #ed5b2f6f;
+      width: 100%;
     }
-
+    // postcard-one
+    .postcard-one {
+      height: 316.37px;
+    }
+    // real-penned
+    .real-penned {
+      height: 489.59px;
+    }
+    // personal-letters
+    .personal-letters {
+      height: 489.93px;
+    }
+    // professional-letters
+    .professional-letters {
+      height: 407.57px;
+    }
+    // bi-fold
+    .bi-fold {
+      height: 162.8px;
+      width: 487.8px;
+    }
+    // tri-fold
+    .tri-fold {
+      height: 411.55px;
+    }
     &:hover {
       .tempButton {
         display: flex !important;

@@ -10,13 +10,14 @@ import Input from '../GenericUIBlocks/Input';
 
 // images
 import DesignIcon from '../../assets/images/modal-icons/design-icon'
+import Hire from '../../assets/images/modal-icons/hire'
 
 // styles
 import './styles.scss';
 
 const cancelDialogStyles = {
   maxWidth: '1090px',
-  minHeight: 'calc(100% - 100px)',
+  minHeight: 'calc(100% - 40px)',
 };
 
 const TemplatesGallery = (props:any) => {
@@ -117,7 +118,7 @@ const TemplatesGallery = (props:any) => {
             <Typography>50,000 templates</Typography>
           </div>
           <div className="templatesContent">
-            {/* <div>
+            <div>
               <div
                 className="defaultDesign"
                 // onClick={() => handleDialogChange("design-own")}
@@ -126,7 +127,17 @@ const TemplatesGallery = (props:any) => {
                 <Typography>Design Your Own</Typography>
               </div>
               <Typography>Design Your Own</Typography>
-            </div> */}
+            </div>
+            <div>
+              <div
+                className="defaultDesign"
+                // onClick={() => handleDialogChange("design-own")}
+              >
+               <Hire />
+                <Typography>Hire A Designer</Typography>
+              </div>
+              <Typography>Hire a Designer +$75</Typography>
+            </div>
             <TempCard />
           </div>
       </Dialog>
