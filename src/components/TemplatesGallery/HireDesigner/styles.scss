@@ -1,0 +1,36 @@
+.designerFormWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  p {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+  }
+  .designerForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 660px;
+    overflow-y: scroll;
+    padding: 20px 40px 24px;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb-color) !important;
+      border-radius: 3px;
+    }
+
+    @supports not selector(::-webkit-scrollbar) {
+      body {
+        scrollbar-color: var(--scrollbar-thumb-color)
+          var(--scrollbar-track-color);
+      }
+    }
+  }
+}

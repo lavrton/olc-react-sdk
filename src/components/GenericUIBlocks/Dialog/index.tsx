@@ -26,6 +26,7 @@ interface DialogProps {
   submitText?: string;
   children?: ReactNode;
   isGallery?: boolean;
+  designerForm?: boolean;
 }
 
 const buttonStyles: CSSProperties = {
@@ -70,7 +71,8 @@ const Dialog: React.FC<DialogProps> = ({
   cancelText = "",
   submitText = "",
   children = [],
-  isGallery=false
+  isGallery=false,
+  designerForm=false,
 }) => {
   const contentAdjust = submitText.length > 6 ? "fit-content" : "100px";
 
@@ -137,8 +139,12 @@ const Dialog: React.FC<DialogProps> = ({
           )}
           {children}
         </div>
-        <div className="modal-footer">
-          {!isGallery &&  
+        <div className="modal-footer" style={{
+          bottom: designerForm &&  "40px",
+          padding: designerForm && "2px 40px",
+          width: designerForm && "99%",
+        }}>
+          {!isGallery && 
           <>
           <Button
             onClick={onCancel}
@@ -158,6 +164,19 @@ const Dialog: React.FC<DialogProps> = ({
             {loading ? <CircularProgress style={progressStyles} /> : submitText}
           </Button>
           </>
+          }
+          {
+            designerForm && 
+            <Button
+            style={{...buttonStyles, border: 'none', maxWidth: "100%", minHeight: "55px", borderRadius: designerForm && "7px"}}
+            // onClick={onSubmit}
+            // disabled={loading}
+          >
+            {/* {loading ?  */}
+            {/* // <CircularProgress style={progressStyles} /> :  */}
+            {submitText}
+          {/* } */}
+          </Button>
           }
         </div>
       </div>

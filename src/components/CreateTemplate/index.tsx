@@ -27,6 +27,8 @@ import Button from '../GenericUIBlocks/Button';
 import GeneralSelect from '../GenericUIBlocks/GeneralSelect';
 import GenericSnackbar from '../GenericUIBlocks/GenericSnackbar';
 import TemplatesGallery from '../TemplatesGallery'
+import HireDesigner from '../TemplatesGallery/HireDesigner'
+import ChargeDialog from '../TemplatesGallery/HireDesigner/ChargeDialog'
 
 // Images
 //@ts-ignore
@@ -179,12 +181,15 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, cr
     }, [envelopeType]);
 
     const [openGallery, setOpenGallery] = useState(false)
-const handleGalleryClose = () => {
-  setOpenGallery(false);
-}
+    const handleGalleryClose = () => {
+      setOpenGallery(false);
+    }
+    
   return (
     <>
-    <TemplatesGallery open={openGallery} onClose={handleGalleryClose}/>
+    {/* <TemplatesGallery open={openGallery} onClose={handleGalleryClose}/> */}
+    {/* <HireDesigner open={openGallery} onClose={handleGalleryClose}/> */}
+    <ChargeDialog open={openGallery} onClose={handleGalleryClose}/>
       <Typography className="hideTemplateBuilder">
         {MESSAGES.TEMPLATE_MESSAGE_ON_SMALL_SCREEN}
       </Typography>
