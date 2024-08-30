@@ -58,8 +58,6 @@ const TempCard = (props:any) => {
 
  const tempHeight = "407";
 
-//  postcard class width = fill ,  height = 316.37
-
   return (
     <>
       {Array.from({ length: 20 }, (_, index) => index).map((val) => {

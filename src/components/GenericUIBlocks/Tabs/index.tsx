@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './styles.scss'; // Create a CSS file for your custom styles
 
 const Tabs = ({ value, onChange, tabs, className, tabClassName, indicatorClassName }: any) => {
-  const [indicatorStyle, setIndicatorStyle] = useState({width: "50px", left: "37px"});
+  const [indicatorStyle, setIndicatorStyle] = useState({});
   const tabRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
