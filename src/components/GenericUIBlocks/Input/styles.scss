@@ -5,11 +5,18 @@
   justify-content: flex-start;
   width: 100%;
   gap: 10px;
+  position: relative;
 
   .basic-label {
     font-size: 14px;
     font-weight: 400;
     color: var(--text-color);
+  }
+  .urlTooltip {
+    position: absolute;
+    left: 75px;
+    top: 1px;
+    cursor: pointer;
   }
 
   .input-with-icon {
@@ -190,6 +197,21 @@
       align-items: center;
       cursor: pointer;
     }
+  }
+}
+
+.videoUrlTooltip {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-direction: column;
+  width: 100%;
+  max-width: 330px;
+  p {
+    text-align: left;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: #000 !important;
   }
 }
 

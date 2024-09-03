@@ -9,13 +9,14 @@ import './styles.scss';
 
 interface GeneralTooltipProps {
   anchorSelect: string;
-  place: 'top' | 'right' | 'bottom' | 'left';
-  title: string;
+  place: 'top' | 'right' | 'bottom' | 'left' | 'top-start';
+  title: any;
+  openEvent: any;
 }
 
-const GeneralTooltip: React.FC<GeneralTooltipProps> = ({ anchorSelect, place, title }) => {
+const GeneralTooltip: React.FC<GeneralTooltipProps> = ({ anchorSelect, place, title, openEvent }) => {
   return (
-    <Tooltip className="basic-tooltip" anchorSelect={anchorSelect} place={place}>
+    <Tooltip className="basic-tooltip" anchorSelect={anchorSelect} place={place} openOnClick={openEvent}>
       {title}
     </Tooltip>
   );

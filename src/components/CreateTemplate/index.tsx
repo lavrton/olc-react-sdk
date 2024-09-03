@@ -188,8 +188,8 @@ const CreateTemplate: React.FC<CreateTemplateProps> = ({ onReturnAndNavigate, cr
   return (
     <>
     {/* <TemplatesGallery open={openGallery} onClose={handleGalleryClose}/> */}
-    {/* <HireDesigner open={openGallery} onClose={handleGalleryClose}/> */}
-    <ChargeDialog open={openGallery} onClose={handleGalleryClose}/>
+    <HireDesigner open={openGallery} onClose={handleGalleryClose}/>
+    {/* <ChargeDialog open={openGallery} onClose={handleGalleryClose}/> */}
       <Typography className="hideTemplateBuilder">
         {MESSAGES.TEMPLATE_MESSAGE_ON_SMALL_SCREEN}
       </Typography>

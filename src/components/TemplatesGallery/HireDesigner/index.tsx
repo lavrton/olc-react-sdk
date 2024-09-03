@@ -37,6 +37,7 @@ const HireDesigner = (props: any) => {
         type="text"
         placeholder='https://www.example.com'
         label='Video URL'
+        videoTooltip={true}
         />
         <Input 
         type="email"
@@ -44,12 +45,6 @@ const HireDesigner = (props: any) => {
         label='Email*'
         // error='errorMessage'
         />
-        {/* <Input 
-        type="textarea"
-        placeholder='Email'
-        label='Comments*'
-        // error='errorMessage'
-        /> */}
         <TextArea label='Comments*' placeholder="Add your comments here"/>
        </form>
       </div>
